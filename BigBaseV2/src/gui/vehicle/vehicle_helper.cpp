@@ -247,10 +247,10 @@ namespace big
                 _flags = *script_global(_index).at(103).as<int*>();
                 if (_flags != 0)
                 {
-                    *script_global(_index).at(103).as<int*>() &= (_flags << 1); // Vehicle destroyed : "Your Personal Vehicle has been destroyed. You can call Mors Mutual Insurance to make a claim"
-                    *script_global(_index).at(103).as<int*>() &= (_flags << 7); // Insurance Claim open or in process
-                    *script_global(_index).at(103).as<int*>() &= (_flags << 16); // Vehicle outside the Garage and no Insurance or a Insurance Claim(is open or in process)
-                    //*script_global(_index).at(103).as<int*>() = _flags;
+                    _flags = Memory::Clear_Bit(_flags, 1); // Vehicle destroyed : "Your Personal Vehicle has been destroyed. You can call Mors Mutual Insurance to make a claim"
+                    _flags = Memory::Clear_Bit(_flags, 7); // Insurance Claim open or in process
+                    _flags = Memory::Clear_Bit(_flags, 16); // Vehicle outside the Garage and no Insurance or a Insurance Claim(is open or in process)
+                    *script_global(_index).at(103).as<int*>() = _flags;
                 }
             }
         }
