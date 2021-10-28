@@ -2963,18 +2963,18 @@ namespace big
                         });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Force Cloud Save")) {
+                if (ImGui::Button(xorstr("Force Cloud Save"))) {
                     g_fiber_pool->queue_job([]
                         {
                             STATS::STAT_SAVE(0, 0, 3, 0);
-                            controller::ShowMessage("~b~~g~Character Saved!", true);
+                            controller::ShowMessage(xorstr("~b~~g~Character Saved!"), true);
                         });
                 }
 
                 static int LevelArray;
                 static int level_type = 0;
-                ImGui::Text("Player Level");
-                ImGui::RadioButton("R* Gift Admin", &level_type, 0);
+                ImGui::Text(xorstr("Player Level"));
+                ImGui::RadioButton(xorstr("R* Gift Admin"), &level_type, 0);
                 if (ImGui::IsItemHovered())
                     ImGui::SetTooltip("This method requires changing session.");
                 ImGui::SameLine();
