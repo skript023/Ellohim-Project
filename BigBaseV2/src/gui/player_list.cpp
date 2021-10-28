@@ -84,7 +84,7 @@ namespace big
         {
             ImGui::TextColored(ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f }, "Total Player : %d", g_local.connected_player);
             char PlayerListMenu[200];
-            if (ImGui::ListBoxHeader("##empty", ImVec2(230, 400)))
+            if (ImGui::ListBoxHeader(xorstr("##empty"), ImVec2(230, 400)))
             {
                 for (int i = 0; i < 32; ++i)
                 {

@@ -23,7 +23,7 @@ namespace big
 
     void online_menu::render_online_tab()
     {
-        if (ImGui::BeginTabItem("Online"))
+        if (ImGui::BeginTabItem(xorstr("Online")))
         {
             static const char* const SessionList[]{
                 "Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session",
@@ -31,7 +31,7 @@ namespace big
                 "Join Crew Session", "Join SCTV", "Leave GTA Online"
             };
             static int SelectedSession = 0;
-            ImGui::Combo("Session Changer", &SelectedSession, SessionList, IM_ARRAYSIZE(SessionList));
+            ImGui::Combo(xorstr("Session Changer"), &SelectedSession, SessionList, IM_ARRAYSIZE(SessionList));
             if (ImGui::Button(xorstr("Select Session")))
             {
                 switch (SelectedSession)
@@ -222,7 +222,7 @@ namespace big
             ImGui::Combo(xorstr("Revenger"), &g_item.weapon_hash, var::revenge_list, IM_ARRAYSIZE(var::revenge_list));
             ImGui::PopItemWidth();
             //ImGui::MenuItem("Menu item", "CTRL+M");
-            if (ImGui::CollapsingHeader("Misc"))
+            if (ImGui::CollapsingHeader(xorstr("Misc")))
             {
                 ImGui::Text(xorstr("Weather Changer"));
                 const char* const WeatherList[]{ "EXTRASUNNY", "CLEAR", "CLOUDS", "SMOG", "FOGGY", "OVERCAST", "RAIN", "THUNDER", "CLEARING", "NEUTRAL", "SNOW", "BLIZZARD", "SNOWLIGHT", "XMAS", "HALLOWEEN" };
@@ -302,17 +302,17 @@ namespace big
                 static int selected_mission = 0;
                 static const char* const tuner_mission[]{ "Union Depository", "Superdollar Deal", "Bank Contract", "ECU Job", "Prison Contract", "Agency Deal", "LOST Contract", "Data Contract" };
 
-                ImGui::Checkbox("All Crew Cut 0%", &features::CrewHeistBool);
+                ImGui::Checkbox(xorstr("All Crew Cut 0%"), &features::CrewHeistBool);
                 ImGui::SameLine(200);
-                ImGui::Checkbox("Auto Cut 85%", &features::AutomaticHeistCut);
+                ImGui::Checkbox(xorstr("Auto Cut 85%"), &features::AutomaticHeistCut);
                 ImGui::SameLine(400);
-                ImGui::Checkbox("Auto Remove Crew", &features::RemoveCrew);
+                ImGui::Checkbox(xorstr("Auto Remove Crew"), &features::RemoveCrew);
 
-                ImGui::Checkbox("Lester Cut", &g_fitur.remove_lester_cut);
+                ImGui::Checkbox(xorstr("Lester Cut"), &g_fitur.remove_lester_cut);
                 ImGui::SameLine(200);
-                ImGui::Checkbox("Glass Cutter", &features::zero_heat);
+                ImGui::Checkbox(xorstr("Glass Cutter"), &features::zero_heat);
 
-                if (ImGui::Button("Open Vault Door"))
+                if (ImGui::Button(xorstr("Open Vault Door")))
                 {
                     g_fiber_pool->queue_job([] {
                         rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
@@ -330,7 +330,7 @@ namespace big
                     });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Doomsday ACT III Hack"))
+                if (ImGui::Button(xorstr("Doomsday ACT III Hack")))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
                         if (auto doomsday = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
@@ -340,7 +340,7 @@ namespace big
                     });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Instant Hack FP"))
+                if (ImGui::Button(xorstr("Instant Hack FP")))
                 {
                     if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")))
                     {
@@ -363,7 +363,7 @@ namespace big
                     }
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Voltage Hack"))
+                if (ImGui::Button(xorstr("Voltage Hack")))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
                         if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
@@ -373,7 +373,7 @@ namespace big
                     });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Safe Crack"))
+                if (ImGui::Button(xorstr("Safe Crack")))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
                         if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
@@ -386,18 +386,18 @@ namespace big
                     });
                 }
                 
-                ImGui::Text("Instant Heist Setup");
+                ImGui::Text(xorstr("Instant Heist Setup"));
                 static int selected_heist_type = 0;
-                ImGui::RadioButton("Instant Heist Setup", &selected_heist_type, 0);
+                ImGui::RadioButton(xorstr("Instant Heist Setup"), &selected_heist_type, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Instant Mission Contract Setup", &selected_heist_type, 1);
+                ImGui::RadioButton(xorstr("Instant Mission Contract Setup"), &selected_heist_type, 1);
                 ImGui::SameLine();
-                ImGui::RadioButton("Casino Heist Preparation", &selected_heist_type, 2);
+                ImGui::RadioButton(xorstr("Casino Heist Preparation"), &selected_heist_type, 2);
 
                 switch (selected_heist_type)
                 {
                 case 0:
-                    if (ImGui::BeginCombo("##Heist List", HeistList[SelectedHeist])) // The second parameter is the label previewed before opening the combo.
+                    if (ImGui::BeginCombo(xorstr("##Heist List"), HeistList[SelectedHeist])) // The second parameter is the label previewed before opening the combo.
                     {
                         for (int i = 0; i < IM_ARRAYSIZE(HeistList); i++)
                         {
@@ -406,7 +406,7 @@ namespace big
                         }
                         ImGui::EndCombo();
                     }
-                    if (ImGui::Button("Set Setup##Set Heist Prep"))
+                    if (ImGui::Button(xorstr("Set Setup##Set Heist Prep")))
                     {
                         switch (SelectedHeist)
                         {
@@ -426,8 +426,8 @@ namespace big
                     }
                     break;
                 case 1:
-                    ImGui::Combo("Skip Setup Tuner Mission", &selected_mission, tuner_mission, IM_ARRAYSIZE(tuner_mission));
-                    if (ImGui::Button("Set Setup##Tuner"))
+                    ImGui::Combo(xorstr("Skip Setup Tuner Mission"), &selected_mission, tuner_mission, IM_ARRAYSIZE(tuner_mission));
+                    if (ImGui::Button(xorstr("Set Setup##Tuner")))
                     {
                         g_fiber_pool->queue_job([]
                         {
@@ -440,33 +440,33 @@ namespace big
                 case 2:
                     bool is_main_character = g_local.character == 0;
                     const char* const approach_list[] = { "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive" };
-                    if (ImGui::Combo("Select Approach", &diamond_heist_info.approach, approach_list, IM_ARRAYSIZE(approach_list)))
+                    if (ImGui::Combo(xorstr("Select Approach"), &diamond_heist_info.approach, approach_list, IM_ARRAYSIZE(approach_list)))
                         set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_APPROACH") : RAGE_JOAAT("MP1_H3OPT_APPROACH"), diamond_heist_info.approach);
                     const char* const target_list[] = { "Money", "Gold", "Art", "Diamonds" };
-                    if (ImGui::Combo("Select Target", &diamond_heist_info.target, target_list, IM_ARRAYSIZE(target_list)))
+                    if (ImGui::Combo(xorstr("Select Target"), &diamond_heist_info.target, target_list, IM_ARRAYSIZE(target_list)))
                         set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_TARGET") : RAGE_JOAAT("MP1_H3OPT_TARGET"), diamond_heist_info.target);
                     bool vault_contents = (diamond_heist_info.bitsetone & CasinoHeistBitsetOne::VaultContents);
-                    if (ImGui::Checkbox("Vault Contents", &vault_contents))
+                    if (ImGui::Checkbox(xorstr("Vault Contents"), &vault_contents))
                         set_bitset_one(CasinoHeistBitsetOne::VaultContents);
 
-                    if (ImGui::Combo("Last Heist", &diamond_heist_info.last_approach, approach_list, IM_ARRAYSIZE(approach_list)))
+                    if (ImGui::Combo(xorstr("Last Heist"), &diamond_heist_info.last_approach, approach_list, IM_ARRAYSIZE(approach_list)))
                         set_stat(is_main_character ? RAGE_JOAAT("MP0_H3_LAST_APPROACH") : RAGE_JOAAT("MP1_H3_LAST_APPROACH"), diamond_heist_info.last_approach);
 
-                    if (ImGui::Combo("Hard Approach", &diamond_heist_info.hard_approach, approach_list, IM_ARRAYSIZE(approach_list)))
+                    if (ImGui::Combo(xorstr("Hard Approach"), &diamond_heist_info.hard_approach, approach_list, IM_ARRAYSIZE(approach_list)))
                         set_stat(is_main_character ? RAGE_JOAAT("MP0_H3_HARD_APPROACH") : RAGE_JOAAT("MP1_H3_HARD_APPROACH"), diamond_heist_info.hard_approach);
 
                     ImGui::Separator();
 
                     const char* const gunman_list[] = { "Unselected", "Karl Abolaji", "Gustavo Mota", "Charlie Reed", "Chester McCoy", "Patrick McReary" };
-                    if (ImGui::Combo("Gunman", &diamond_heist_info.crewweap, gunman_list, IM_ARRAYSIZE(gunman_list)))
+                    if (ImGui::Combo(xorstr("Gunman"), &diamond_heist_info.crewweap, gunman_list, IM_ARRAYSIZE(gunman_list)))
                         set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_CREWWEAP") : RAGE_JOAAT("MP1_H3OPT_CREWWEAP"), diamond_heist_info.crewweap);
 
                     const char* const driver_list[] = { "Unselected", "Karim Deniz", "Taliana Martinez", "Eddie Toh", "Zach Nelson", "Chester McCoy" };
-                    if (ImGui::Combo("Driver", &diamond_heist_info.crewdriver, driver_list, IM_ARRAYSIZE(driver_list)))
+                    if (ImGui::Combo(xorstr("Driver"), &diamond_heist_info.crewdriver, driver_list, IM_ARRAYSIZE(driver_list)))
                         set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_CREWDRIVER") : RAGE_JOAAT("MP1_H3OPT_CREWDRIVER"), diamond_heist_info.crewdriver);
 
                     const char* const hacker_list[] = { "Unselected", "Rickie Lukens", "Christian Feltz", "Yohan Blair", "Avi Schwartzman", "Page Harris" };
-                    if (ImGui::Combo("Hacker", &diamond_heist_info.crewhacker, hacker_list, IM_ARRAYSIZE(hacker_list)))
+                    if (ImGui::Combo(xorstr("Hacker"), &diamond_heist_info.crewhacker, hacker_list, IM_ARRAYSIZE(hacker_list)))
                         set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_CREWHACKER") : RAGE_JOAAT("MP1_H3OPT_CREWHACKER"), diamond_heist_info.crewhacker);
 
                     switch (diamond_heist_info.crewweap)
@@ -474,7 +474,7 @@ namespace big
                         case 1: //Karl Abolaji
                         {
                             const char* const karl_gun_list[4][2] = { {"##1", "##2"}, { "Micro SMG Loadout", "Machine Pistol Loadout" }, { "Micro SMG Loadout", "Shotgun Loadout" }, { "Shotgun Loadout", "Revolver Loadout" } };
-                            if (ImGui::Combo("Unmarked Weapons##2", &diamond_heist_info.weaps, karl_gun_list[diamond_heist_info.approach], 2))
+                            if (ImGui::Combo(xorstr("Unmarked Weapons##2"), &diamond_heist_info.weaps, karl_gun_list[diamond_heist_info.approach], 2))
                                 set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_WEAPS") : RAGE_JOAAT("MP1_H3OPT_WEAPS"), diamond_heist_info.weaps);
 
                             break;
@@ -482,7 +482,7 @@ namespace big
                         case 2: //Gustavo Mota
                         {
                             const char* const gus_gun_list[] = { "Rifle Loadout", "Shotgun Loadout" };
-                            if (ImGui::Combo("Unmarked Weapons##2", &diamond_heist_info.weaps, gus_gun_list, IM_ARRAYSIZE(gus_gun_list)))
+                            if (ImGui::Combo(xorstr("Unmarked Weapons##2"), &diamond_heist_info.weaps, gus_gun_list, IM_ARRAYSIZE(gus_gun_list)))
                                 set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_WEAPS") : RAGE_JOAAT("MP1_H3OPT_WEAPS"), diamond_heist_info.weaps);
 
                             break;
@@ -490,7 +490,7 @@ namespace big
                         case 3: //Charlie Reed
                         {
                             const char* const charlie_gun_list[4][2] = { {"##1", "##2"}, { "SMG Loadout", "Shotgun Loadout" }, { "Machine Pistol Loadout", "Shotgun Loadout" }, { "SMG Loadout", "Shotgun Loadout" } };
-                            if (ImGui::Combo("Unmarked Weapons##2", &diamond_heist_info.weaps, charlie_gun_list[diamond_heist_info.approach], 2))
+                            if (ImGui::Combo(xorstr("Unmarked Weapons##2"), &diamond_heist_info.weaps, charlie_gun_list[diamond_heist_info.approach], 2))
                                 set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_WEAPS") : RAGE_JOAAT("MP1_H3OPT_WEAPS"), diamond_heist_info.weaps);
 
                             break;
@@ -498,7 +498,7 @@ namespace big
                         case 4: //Chester McCoy
                         {
                             const char* const chester_gun_list[4][2] = { {"##1", "##2"}, { "MK II Shotgun Loadout", "MK II Rifle Loadout" }, { "MK II SMG Loadout", "MK II Rifle Loadout" }, { "MK II Shotgun Loadout", "MK II Rifle Loadout" } };
-                            if (ImGui::Combo("Unmarked Weapons##2", &diamond_heist_info.weaps, chester_gun_list[diamond_heist_info.approach], 2))
+                            if (ImGui::Combo(xorstr("Unmarked Weapons##2"), &diamond_heist_info.weaps, chester_gun_list[diamond_heist_info.approach], 2))
                                 set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_WEAPS") : RAGE_JOAAT("MP1_H3OPT_WEAPS"), diamond_heist_info.weaps);
 
                             break;
@@ -506,7 +506,7 @@ namespace big
                         case 5: //Patrick McReary
                         {
                             const char* const packie_gun_list[4][2] = { {"##1", "##2"}, { "Combat PDW Loadout", "Rifle Loadout" }, { "Shotgun Loadout", "Rifle Loadout" }, { "Shotgun Loadout", "Combat MG Loadout" } };
-                            if (ImGui::Combo("Unmarked Weapons##2", &diamond_heist_info.weaps, packie_gun_list[diamond_heist_info.approach], 2))
+                            if (ImGui::Combo(xorstr("Unmarked Weapons##2"), &diamond_heist_info.weaps, packie_gun_list[diamond_heist_info.approach], 2))
                                 set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_WEAPS") : RAGE_JOAAT("MP1_H3OPT_WEAPS"), diamond_heist_info.weaps);
 
                         }
@@ -517,7 +517,7 @@ namespace big
                         case 1: //Karim Deniz
                         {
                             const char* const karim_vehicle_list[] = { "Issi Classic", "Asbo", "Kanjo", "Sentinel Classic" };
-                            if (ImGui::Combo("Getaway Vehicles##2", &diamond_heist_info.vehs, karim_vehicle_list, IM_ARRAYSIZE(karim_vehicle_list)))
+                            if (ImGui::Combo(xorstr("Getaway Vehicles##2"), &diamond_heist_info.vehs, karim_vehicle_list, IM_ARRAYSIZE(karim_vehicle_list)))
                                 set_stat(is_main_character ? RAGE_JOAAT("MP0_H3OPT_VEHS") : RAGE_JOAAT("MP1_H3OPT_VEHS"), diamond_heist_info.vehs);
                             break;
                         }

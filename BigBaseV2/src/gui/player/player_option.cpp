@@ -485,12 +485,10 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            if (*(bool*)((DWORD64)g_pointers->m_player_crew + 0xD0LL + (0xB8LL * i)))//Memory::get_value<bool>((uintptr_t)g_pointers->m_player_crew, { 0xD0 + crew_index })
+            if (g_pointers->m_player_crew->get_active_crew(i))
             {
-                for (int x = ((int)(sizeof(*Tag) / sizeof((Tag)[0]))); x >= 0; x--)
-                {
-                    *(char*)((DWORD64)g_pointers->m_player_crew + 0x57LL + (0xB8LL * i) + x) = Tag[x];//;Memory::set_value((uintptr_t)g_pointers->m_player_crew, { 0x57 + crew_index + x}, Tag)
-                }
+                strcpy(g_pointers->m_player_crew->get_crew_tag(i), Tag);
+                LOG(HACKER) << g_pointers->m_player_crew->get_crew_tag(i);
             }
         }
     }

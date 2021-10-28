@@ -25,7 +25,7 @@ namespace big
 
     void player_menu::render_player_tab()
     {
-        if (ImGui::BeginTabItem("Player"))
+        if (ImGui::BeginTabItem(xorstr("Player")))
         {
             auto end = std::chrono::system_clock::now();
             std::time_t date = std::chrono::system_clock::to_time_t(end);
@@ -36,10 +36,10 @@ namespace big
             ImGui::Text("Transition : %s", g_local.transition ? "True" : "False");
             ImGui::SameLine();
             ImGui::Text("Bypass : 0x0%X", *(unsigned short*)g_pointers->m_model_spawn_bypass);
-            if (ImGui::Checkbox("Godmode", g_settings.options["Player Godmode"].get<bool*>()))
+            if (ImGui::Checkbox(xorstr("Godmode"), g_settings.options["Player Godmode"].get<bool*>()))
                 g_settings.save();
             ImGui::SameLine(200);
-            if (ImGui::Checkbox("No Idle Kick", g_settings.options["No Idle Kick"].get<bool*>()))
+            if (ImGui::Checkbox(xorstr("No Idle Kick"), g_settings.options["No Idle Kick"].get<bool*>()))
                 g_settings.save();
             ImGui::SameLine(400);
             if (ImGui::Checkbox("Auto Heal", g_settings.options["Auto Heal"].get<bool*>()))
