@@ -2957,7 +2957,7 @@ namespace big
                                 }
                                 case 8:
                                 {
-                                    player::global_exp_correction()
+                                    player::global_exp_correction();
                                 }
                             }
                         });
