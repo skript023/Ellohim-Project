@@ -115,9 +115,9 @@ namespace big
             ImGui::BeginGroup();
             
             ImGui::PushItemWidth(250);
-            ImGui::PushID("##PlayerInfo");
+            ImGui::PushID(xorstr("##PlayerInfo"));
             //ImGui::MenuItem("Menu item", "CTRL+M");
-            if (ImGui::BeginMenu("Player Info"))
+            if (ImGui::BeginMenu(xorstr("Player Info")))
             {
                 const char* Host = *script_global(1630816).at(g_selected.player, 597).at(10).as<bool*>() ? "True" : "False";
 
