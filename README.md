@@ -18,7 +18,7 @@ To build BigBaseV2 you need:
 
 To set up the build environment, run the following commands in a terminal:
 ```dos
-git clone https://github.com/skript023/Ellohim-Internal.git --recurse-submodules
+git clone https://gir489@bitbucket.org/gir489/bigbasev2-fix.git --recurse-submodules
 cd BigBaseV2-fix
 GenerateProjects.bat
 ```

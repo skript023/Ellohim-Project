@@ -1312,20 +1312,21 @@ namespace big
                                 auto money_bunker = *g_pointers->m_money_in_bunker;
                                 LOG(INFO) << "Money : " << money_bunker->money_in_bunker;
                                 int kargo = *script_local(bunker_selling, m_local.bunker_sell).at(551).at(1).at(19).as<int*>();
-                                int data = BusinessMoney * kargo / money_bunker->money_in_bunker;
-                                *script_local(bunker_selling, m_local.bunker_sell).at(816).as<int*>() = data;
-                                *script_global(g_global.bunker_selling_mult).as<float*>() = 1;
-                                if (*script_local(bunker_selling, m_local.bunker_sell).at(816).as<int*>() > 0 && !systems::is_float_equal(*script_global(g_global.bunker_selling_mult).as<float*>(), 1.5f))
-                                {
-                                    int mission_time_remaining = *script_local(bunker_selling, m_local.bunker_sell_time_remaining).as<int*>();
-                                    int mission_time_delivering = *script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>(); //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22));
-                                    int mission_time = mission_time_delivering - (mission_time_remaining - 1000);
-                                    *script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>() = mission_time;
+                                int data = BusinessMoney / money_bunker->money_in_bunker;
+                                *script_local(bunker_selling, m_local.bunker_sell).at(816).as<int*>() = kargo;
+                                *script_global(g_global.bunker_selling_mult_far).as<float*>() = systems::int_to_float(data);
+                                *script_global(g_global.bunker_selling_mult_near).as<float*>() = systems::int_to_float(data);
 
-                                    while (systems::is_script_active(RAGE_JOAAT("gb_gunrunning"))) script::get_current()->yield();
+                                
+                                int mission_time_remaining = *script_local(bunker_selling, m_local.bunker_sell_time_remaining).as<int*>();
+                                int mission_time_delivering = *script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>(); //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22));
+                                int mission_time = mission_time_delivering - (mission_time_remaining - 1000);
+                                *script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>() = mission_time;
 
-                                    *script_global(g_global.bunker_selling_mult).as<float*>() = 1.5;
-                                }
+                                while (systems::is_script_active(RAGE_JOAAT("gb_gunrunning"))) script::get_current()->yield();
+
+                                *script_global(g_global.bunker_selling_mult_far).as<float*>() = 1.5f;
+                                *script_global(g_global.bunker_selling_mult_near).as<float*>() = 1.0f;
                             }
                         });
                         break;

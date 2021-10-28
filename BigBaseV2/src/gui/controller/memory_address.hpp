@@ -194,7 +194,8 @@ namespace big
 		static constexpr inline uint32_t bunker_selling_time_4 = 262145 + 21401; //2645121
 		static constexpr inline uint32_t bunker_selling_time_5 = 262145 + 21406; //-1312217355
 		static constexpr inline uint32_t bunker_selling_time_6 = 262145 + 21395; //245293410
-		static constexpr inline uint32_t bunker_selling_mult = 262145 + 21216; //1021567941
+		static constexpr inline uint32_t bunker_selling_mult_far = 262145 + 21216; //1021567941
+		static constexpr inline uint32_t bunker_selling_mult_near = 262145 + 21215; //1021567941
 
 		static constexpr inline uint32_t mc_selling_time_1 = 262145 + 18232; //-986183860
 		static constexpr inline uint32_t mc_selling_time_2 = 262145 + 18229; //-605226498
