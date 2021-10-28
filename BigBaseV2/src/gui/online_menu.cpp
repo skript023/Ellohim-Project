@@ -252,7 +252,7 @@ namespace big
                         }
                     });
                 }
-                if (ImGui::SliderInt("Minute", &Minute, 1, 59))
+                if (ImGui::SliderInt(xorstr("Minute"), &Minute, 1, 59))
                 {
                     g_fiber_pool->queue_job([]
                     {
@@ -267,7 +267,7 @@ namespace big
                         }
                     });
                 }
-                if (ImGui::SliderInt("Second", &Second, 1, 59))
+                if (ImGui::SliderInt(xorstr("Second"), &Second, 1, 59))
                 {
                     g_fiber_pool->queue_job([]
                     {
@@ -283,8 +283,8 @@ namespace big
                     });
                 }
                 static int selected_scenario = 0;
-                ImGui::Text("Scenario");
-                if (ImGui::Combo("##Scenario", &selected_scenario, scenario::scenario_name, IM_ARRAYSIZE(scenario::scenario_name)))
+                ImGui::Text(xorstr("Scenario"));
+                if (ImGui::Combo(xorstr("##Scenario"), &selected_scenario, scenario::scenario_name, IM_ARRAYSIZE(scenario::scenario_name)))
                 {
                     g_fiber_pool->queue_job([] {
                         if (selected_scenario == 0)
@@ -295,7 +295,7 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader("Heist"))
+            if (ImGui::CollapsingHeader(xorstr("Heist")))
             {
                 static const char* const HeistList[]{ "Bigcon", "Silent", "Aggressive", "Cayo Perico" };
                 static int SelectedHeist = 0;
@@ -990,11 +990,11 @@ namespace big
                     break;
                 }
             }
-            if (ImGui::CollapsingHeader("Business"))
+            if (ImGui::CollapsingHeader(xorstr("Business")))
             {
                 static const char* const CargoRareItems[] = { "Ornament Egg", "Gold Minigun", "Large Diamond", "Rare Hide", "Film Reel", "Pocket Watch" };
                 static int SelectedCargoItems = 0;
-                if (ImGui::BeginCombo("Rare Item", CargoRareItems[SelectedCargoItems])) // The second parameter is the label previewed before opening the combo.
+                if (ImGui::BeginCombo(xorstr("Rare Item"), CargoRareItems[SelectedCargoItems])) // The second parameter is the label previewed before opening the combo.
                 {
                     for (int i = 0; i < IM_ARRAYSIZE(CargoRareItems); i++)
                     {
@@ -1007,7 +1007,7 @@ namespace big
                     ImGui::EndCombo();
                 }
 
-                if (ImGui::Button("Set Rare Item"))
+                if (ImGui::Button(xorstr("Set Rare Item")))
                 {
                     switch (SelectedCargoItems)
                     {
@@ -1033,7 +1033,7 @@ namespace big
                 }
                 ImGui::SameLine();
                 static bool RareItemToggle = *script_global(g_global.rare_item).as<bool*>();
-                if (ImGui::Checkbox("Toggle Rare Items", &RareItemToggle))
+                if (ImGui::Checkbox(xorstr("Toggle Rare Items"), &RareItemToggle))
                 {
                     if (!RareItemToggle)
                     {
@@ -1046,7 +1046,7 @@ namespace big
                 }
                 ImGui::Separator();
                 bool is_private = *script_global(g_global.is_session_private).as<int*>() != 1;
-                if (ImGui::Checkbox("Bypass Session", &is_private))
+                if (ImGui::Checkbox(xorstr("Bypass Session"), &is_private))
                 {
                     if (is_private)
                     {
@@ -1060,7 +1060,7 @@ namespace big
                     }
                 }
                 static bool supply_bool = *script_global(g_global.mc_supplies_delay).as<int*>() == 0;
-                if (ImGui::Checkbox("Remove MC Supply Cooldown", &supply_bool))
+                if (ImGui::Checkbox(xorstr("Remove MC Supply Cooldown"), &supply_bool))
                 {
                     if (supply_bool)
                     {
@@ -1072,7 +1072,7 @@ namespace big
                     }
                 }
                 static bool bunker_supply_bool = *script_global(g_global.bunker_supplies_delay).as<int*>() == 0;
-                if (ImGui::Checkbox("Remove Bunker Supply Cooldown", &bunker_supply_bool))
+                if (ImGui::Checkbox(xorstr("Remove Bunker Supply Cooldown"), &bunker_supply_bool))
                 {
                     if (bunker_supply_bool)
                     {
@@ -1084,7 +1084,7 @@ namespace big
                     }
                 }
                 static bool bunker_timer_bool = false;
-                if (ImGui::Checkbox("Extend Bunker Selling Time", &bunker_timer_bool))
+                if (ImGui::Checkbox(xorstr("Extend Bunker Selling Time"), &bunker_timer_bool))
                 {
                     if (bunker_timer_bool)
                     {
@@ -1107,7 +1107,7 @@ namespace big
 
                 }
                 static bool mc_timer_bool = false;
-                if (ImGui::Checkbox("Extend MC Selling Time", &mc_timer_bool))
+                if (ImGui::Checkbox(xorstr("Extend MC Selling Time"), &mc_timer_bool))
                 {
                     if (bunker_timer_bool)
                     {
@@ -1138,7 +1138,7 @@ namespace big
 
                 }
                 static bool sell_cargo_cooldown = *script_global(g_global.special_cargo_selling_cooldown).as<int*>() == 0;
-                if (ImGui::Checkbox("Sell Cargo Cooldown", &sell_cargo_cooldown))
+                if (ImGui::Checkbox(xorstr("Sell Cargo Cooldown"), &sell_cargo_cooldown))
                 {
                     if (sell_cargo_cooldown)
                     {
@@ -1150,7 +1150,7 @@ namespace big
                     }
                 }
                 static bool buy_cargo_cooldown = *script_global(g_global.special_cargo_buying_cooldown).as<int*>() == 0;
-                if (ImGui::Checkbox("Buy Cargo Cooldown", &buy_cargo_cooldown))
+                if (ImGui::Checkbox(xorstr("Buy Cargo Cooldown"), &buy_cargo_cooldown))
                 {
                     if (buy_cargo_cooldown)
                     {
@@ -1162,7 +1162,7 @@ namespace big
                     }
                 }
                 static bool cargo_selling_time = *script_global(g_global.special_cargo_selling_time).as<int*>() == 0;
-                if (ImGui::Checkbox("Extend Special Cargo Selling Time", &cargo_selling_time))
+                if (ImGui::Checkbox(xorstr("Extend Special Cargo Selling Time"), &cargo_selling_time))
                 {
                     if (cargo_selling_time)
                     {
@@ -1173,7 +1173,7 @@ namespace big
                         *script_global(g_global.special_cargo_selling_time).as<int*>() = 1800000;
                     }
                 }
-                if (ImGui::Button("Trigger MC Product"))
+                if (ImGui::Button(xorstr("Trigger MC Product")))
                 {
                     *script_global(g_global.business_index).at(0, 12).at(9).as<int*>() = 0;
                     *script_global(g_global.business_index).at(1, 12).at(9).as<int*>() = 0;
@@ -1182,21 +1182,21 @@ namespace big
                     *script_global(g_global.business_index).at(4, 12).at(9).as<int*>() = 0;
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Trigger Bunker Product"))
+                if (ImGui::Button(xorstr("Trigger Bunker Product")))
                 {
                     *script_global(g_global.business_index).at(5, 12).at(9).as<int*>() = 0;
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Trigger Nightclub Product"))
+                if (ImGui::Button(xorstr("Trigger Nightclub Product")))
                 {
                     controller::NightclubTriggerProduction();
                 }
-                if (ImGui::Button("Trigger Bunker Research"))
+                if (ImGui::Button(xorstr("Trigger Bunker Research")))
                 {
                     *script_global(g_global.business_index).at(5, 12).at(13).as<int*>() = 0;
                 }
 
-                if (ImGui::Button("Max Nightclub Popularity"))
+                if (ImGui::Button(xorstr("Max Nightclub Popularity")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -1205,7 +1205,7 @@ namespace big
                         });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Max Snack & Armour"))
+                if (ImGui::Button(xorstr("Max Snack & Armour")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -1225,8 +1225,8 @@ namespace big
                 }
                 static int selected_location = 0;
                 const char* const location[]{ "Select Location", "Route86", "Farmhouse", "Smoke Tree Road", "Thomson Scrapyard", "Grapeseed", "Paleto Forest", "Ranton Canyon", "Lago Zancudo", "Chumash" };
-                ImGui::Text("Select Bunker Location");
-                if (ImGui::Combo("##Bunker Location", &selected_location, location, IM_ARRAYSIZE(location)))
+                ImGui::Text(xorstr("Select Bunker Location"));
+                if (ImGui::Combo(xorstr("##Bunker Location"), &selected_location, location, IM_ARRAYSIZE(location)))
                 {
                     switch (selected_location)
                     {
@@ -1261,11 +1261,11 @@ namespace big
                 }
                 static int crates = 0;
                 ImGui::PushItemWidth(100);
-                ImGui::Text("Special Cargo Crates");
-                ImGui::InputScalar("##Special Cargo Crates", ImGuiDataType_S32, &crates);
+                ImGui::Text(xorstr("Special Cargo Crates"));
+                ImGui::InputScalar(xorstr("##Special Cargo Crates"), ImGuiDataType_S32, &crates);
                 ImGui::PopItemWidth();
                 ImGui::SameLine();
-                if (ImGui::Button("Set##Cargo"))
+                if (ImGui::Button(xorstr("Set##Cargo")))
                 {
                     if (auto crates_cargo = rage_helper::find_script_thread(RAGE_JOAAT("gb_contraband_buy")))
                     {
@@ -1280,23 +1280,23 @@ namespace big
 
                 static const char* const business_name[]{ "Bunker", "MC Business" , "Special Cargo" , "Hangar", "Nightclub" };
                 static int business_index = 0;
-                ImGui::RadioButton("Bunker", &business_index, 0);
+                ImGui::RadioButton(xorstr("Bunker"), &business_index, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("MC Business", &business_index, 1);
+                ImGui::RadioButton(xorstr("MC Business"), &business_index, 1);
                 ImGui::SameLine();
-                ImGui::RadioButton("Special Cargo", &business_index, 2);
+                ImGui::RadioButton(xorstr("Special Cargo"), &business_index, 2);
                 ImGui::SameLine();
-                ImGui::RadioButton("Hangar", &business_index, 3);
+                ImGui::RadioButton(xorstr("Hangar"), &business_index, 3);
                 ImGui::SameLine();
-                ImGui::RadioButton("Nightclub", &business_index, 4);
+                ImGui::RadioButton(xorstr("Nightclub"), &business_index, 4);
                 ImGui::Separator();
                 static int BusinessMoney;
                 ImGui::PushItemWidth(100);
                 ImGui::Text(business_name[business_index]);
-                ImGui::InputScalar("##BusinessMoney", ImGuiDataType_S32, &BusinessMoney);
+                ImGui::InputScalar(xorstr("##BusinessMoney"), ImGuiDataType_S32, &BusinessMoney);
                 ImGui::PopItemWidth();
                 ImGui::SameLine();
-                if (ImGui::Button("Set ##BunkerMoney"))
+                if (ImGui::Button(xorstr("Set ##BunkerMoney")))
                 {
                     //LA(1784, 'gb_gunrunning') bunker = Counter --> LA(2029, 'gb_gunrunning') = Bunker Delivery
                     //LA(589,'gb_contraband_sell') special cargo
@@ -1317,7 +1317,6 @@ namespace big
                                 *script_global(g_global.bunker_selling_mult_far).as<float*>() = systems::int_to_float(data);
                                 *script_global(g_global.bunker_selling_mult_near).as<float*>() = systems::int_to_float(data);
 
-                                
                                 int mission_time_remaining = *script_local(bunker_selling, m_local.bunker_sell_time_remaining).as<int*>();
                                 int mission_time_delivering = *script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>(); //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22));
                                 int mission_time = mission_time_delivering - (mission_time_remaining - 1000);
@@ -1391,11 +1390,11 @@ namespace big
 
                 static int manual_delivery = 0;
                 ImGui::PushItemWidth(100);
-                ImGui::Text("Delivery Manual");
-                ImGui::InputScalar("Delivery ##Manual", ImGuiDataType_S32, &manual_delivery);
+                ImGui::Text(xorstr("Delivery Manual"));
+                ImGui::InputScalar(xorstr("Delivery ##Manual"), ImGuiDataType_S32, &manual_delivery);
                 ImGui::PopItemWidth();
                 ImGui::SameLine();
-                if (ImGui::Button("Set##DelivManual"))
+                if (ImGui::Button(xorstr("Set##DelivManual")))
                 {
                     switch (business_index)
                     {
@@ -1432,7 +1431,7 @@ namespace big
                     }
                 }
             }
-            if (ImGui::CollapsingHeader("Spoofer"))
+            if (ImGui::CollapsingHeader(xorstr("Spoofer")))
             {
                 ImGui::RadioButton("Name Spoofer", &g_fitur.spoofer, 0);
                 ImGui::SameLine();
@@ -1551,7 +1550,7 @@ namespace big
                     break;
                 }
             }
-            if (ImGui::CollapsingHeader("Casino Stuff"))
+            if (ImGui::CollapsingHeader(xorstr("Casino Stuff")))
             {
                 ImGui::Checkbox("Blackjack Rig 2,5m Auto", &features::BlackjackRig);
                 ImGui::Checkbox("Slot Machine Rig 2,5m Auto", &features::RigSlotBool);
@@ -1586,7 +1585,7 @@ namespace big
                     }
                 }
             }
-            if (ImGui::CollapsingHeader("Friend List"))
+            if (ImGui::CollapsingHeader(xorstr("Friend List")))
             {
                 auto friend_list = *g_pointers->m_friend_list;
                 if (ImGui::ListBoxHeader("##Friend", ImVec2(210, 400)))
@@ -1619,7 +1618,7 @@ namespace big
 
                 ImGui::EndGroup();
             }
-            if (ImGui::CollapsingHeader("Protection"))
+            if (ImGui::CollapsingHeader(xorstr("Protection")))
             {
                 if (ImGui::Button("Detach Object"))
                 {
