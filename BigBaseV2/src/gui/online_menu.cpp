@@ -736,27 +736,27 @@ namespace big
 
                 ImGui::Separator();
                 ImGui::PushItemWidth(60);
-                ImGui::Text("Player 1");
+                ImGui::Text(xorstr("Player 1"));
                 ImGui::SameLine();
-                ImGui::Text("Player 2");
+                ImGui::Text(xorstr("Player 2"));
                 ImGui::SameLine();
-                ImGui::Text("Player 3");
+                ImGui::Text(xorstr("Player 3"));
                 ImGui::SameLine();
-                ImGui::Text("Player 4");
+                ImGui::Text(xorstr("Player 4"));
                 static int player_cut_1 = 0;
                 static int player_cut_2 = 0;
                 static int player_cut_3 = 0;
                 static int player_cut_4 = 0;
-                ImGui::InputScalar("##Cut1", ImGuiDataType_S8, &player_cut_1);
+                ImGui::InputScalar(xorstr("##Cut1"), ImGuiDataType_S8, &player_cut_1);
                 ImGui::SameLine();
-                ImGui::InputScalar("##Cut2", ImGuiDataType_S8, &player_cut_2);
+                ImGui::InputScalar(xorstr("##Cut2"), ImGuiDataType_S8, &player_cut_2);
                 ImGui::SameLine();
-                ImGui::InputScalar("##Cut3", ImGuiDataType_S8, &player_cut_3);
+                ImGui::InputScalar(xorstr("##Cut3"), ImGuiDataType_S8, &player_cut_3);
                 ImGui::SameLine();
-                ImGui::InputScalar("##Cut4", ImGuiDataType_S8, &player_cut_4);
+                ImGui::InputScalar(xorstr("##Cut4"), ImGuiDataType_S8, &player_cut_4);
                 ImGui::PopItemWidth();
                 ImGui::SameLine();
-                if (ImGui::Button("Set Cut"))
+                if (ImGui::Button(xorstr("Set Cut")))
                 {
                     g_fiber_pool->queue_job([]
                     {
@@ -809,17 +809,17 @@ namespace big
                 static const char* const Bag[] = { "Bag Level 1", "Bag Level 2", "Bag Level 3", "Bag Level 4", "Over 1", "Over 2", "Infinite" };
                 static int SelectedBags = 0;
                 static int take_type = 0;
-                ImGui::RadioButton("Potential Take", &take_type, 0);
+                ImGui::RadioButton(xorstr("Potential Take"), &take_type, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Heist Take", &take_type, 1);
+                ImGui::RadioButton(xorstr("Heist Take"), &take_type, 1);
                 ImGui::SameLine();
-                ImGui::RadioButton("Bag Size", &take_type, 2);
+                ImGui::RadioButton(xorstr("Bag Size"), &take_type, 2);
 
                 switch (take_type)
                 {
                 case 0:
-                    ImGui::Text("Potential Take");
-                    if (ImGui::BeginCombo("##Potential Take", PotentialTake[SelectedPotentialTake]))
+                    ImGui::Text(xorstr("Potential Take"));
+                    if (ImGui::BeginCombo(xorstr("##Potential Take"), PotentialTake[SelectedPotentialTake]))
                     {
                         for (int i = 0; i < IM_ARRAYSIZE(PotentialTake); i++)
                         {
@@ -828,8 +828,8 @@ namespace big
                         }
                         ImGui::EndCombo();
                     }
-                    ImGui::InputInt("##Value", &PotentialValue, 1000000, 1000000);
-                    if (ImGui::Button("Set Value"))
+                    ImGui::InputInt(xorstr("##Value"), &PotentialValue, 1000000, 1000000);
+                    if (ImGui::Button(xorstr("Set Value")))
                     {
                         if (SelectedPotentialTake == 1)//"Diamond"
                         {
@@ -905,7 +905,7 @@ namespace big
                         }
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Default"))
+                    if (ImGui::Button(xorstr("Default")))
                     {
                         *script_global(g_global.diamond).as<int*>() = 3290000;
                         *script_global(g_global.gold).as<int*>() = 2585000;
@@ -928,8 +928,8 @@ namespace big
                     }
                     break;
                 case 1:
-                    ImGui::Text("Current Take Heist");
-                    ImGui::InputInt("##InputTake", &player_list::CasinoTake, 1000000, 1000000);
+                    ImGui::Text(xorstr("Current Take Heist"));
+                    ImGui::InputInt(xorstr("##InputTake"), &player_list::CasinoTake, 1000000, 1000000);
                     if (ImGui::Button("Set Take"))
                     {
                         features::AllTakeHeist = true;
@@ -938,15 +938,15 @@ namespace big
                     if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
                     {
                         ImGui::SameLine();
-                        if (ImGui::Button("TSE Version Take"))
+                        if (ImGui::Button(xorstr("TSE Version Take")))
                         {
                             remote_event::take_all_casino(player_list::CasinoTake);
                         }
                     }
                     break;
                 case 2:
-                    ImGui::Text("Cayo Perico Bag");
-                    if (ImGui::BeginCombo("##CayoBags", Bag[SelectedBags])) // The second parameter is the label previewed before opening the combo.
+                    ImGui::Text(xorstr("Cayo Perico Bag"));
+                    if (ImGui::BeginCombo(xorstr("##CayoBags"), Bag[SelectedBags])) // The second parameter is the label previewed before opening the combo.
                     {
                         for (int i = 0; i < IM_ARRAYSIZE(Bag); i++)
                         {
@@ -956,7 +956,7 @@ namespace big
                         }
                         ImGui::EndCombo();
                     }
-                    if (ImGui::Button("Set Bag"))
+                    if (ImGui::Button(xorstr("Set Bag")))
                     {
                         if (SelectedBags == 0)
                         {
