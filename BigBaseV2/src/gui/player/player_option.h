@@ -8,6 +8,7 @@ namespace big
 	class player
 	{
 	public:
+		static void global_exp_correction();
 		static bool get_player_infinite_ammo(Player player);
 		static bool get_player_infinite_clip(Player player);
 		static bool is_player_in_any_vehicle(Player player);

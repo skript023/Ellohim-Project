@@ -25,6 +25,27 @@
 
 namespace big
 {
+    void player::global_exp_correction()
+    {
+        g_fiber_pool->queue_job([] 
+        {
+            int first_account = *script_global(g_global.player_exp).at(0).as<int*>();
+            int second_account = *script_global(g_global.player_exp).at(1).as<int*>();
+            int total = first_account + second_account;
+            int global_exp = 0;
+            STATS::STAT_GET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), &global_exp, -1);
+            if (global_exp == total)
+            {
+                LOG(HACKER) << "Your RP no longer need correction";
+            }
+            else if (global_exp != total)
+            {
+                STATS::STAT_SET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), total, true);
+                LOG(HACKER) << ("Your RP Has Been Corrected");
+            }
+        });
+    }
+
     bool player::is_player_driver(Entity Ped)
     {
         if (CPed* ped = rage_helper::entity_to_pointer<CPed*>(Ped))
