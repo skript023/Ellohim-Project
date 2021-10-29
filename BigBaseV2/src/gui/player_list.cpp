@@ -361,16 +361,16 @@ namespace big
                 ImGui::Text("Player HP : %d/%d", g_info.player_health, g_info.player_max_health);
                 ImGui::Text("Player Armour : %d/%d", g_info.player_armour, g_info.player_max_armour);
                 ImGui::Separator();
-                ImGui::Text(fmt::format("Bunker Location : {}", BunkerLocation).c_str());
-                ImGui::Text(fmt::format("Meth Location : {}", MethLocation).c_str());
-                ImGui::Text(fmt::format("Weed Location : {}", WeedLocation).c_str());
-                ImGui::Text(fmt::format("Coke Location :{}", CokeLocation).c_str());
-                ImGui::Text(fmt::format("Cash Location : {}", CashLocation).c_str());
-                ImGui::Text(fmt::format("Document Location : {}", DocLocation).c_str());
+                ImGui::Text(xorstr(fmt::format("Bunker Location : {}", BunkerLocation).c_str()));
+                ImGui::Text(xorstr(fmt::format("Meth Location : {}", MethLocation).c_str()));
+                ImGui::Text(xorstr(fmt::format("Weed Location : {}", WeedLocation).c_str()));
+                ImGui::Text(xorstr(fmt::format("Coke Location :{}", CokeLocation).c_str()));
+                ImGui::Text(xorstr(fmt::format("Cash Location : {}", CashLocation).c_str()));
+                ImGui::Text(xorstr(fmt::format("Document Location : {}", DocLocation).c_str()));
                 ImGui::Separator();
-                ImGui::Text(fmt::format("Current Vehicle : {}", player::get_player_vehicle_name(g_selected.player)).c_str());
+                ImGui::Text(xorstr(fmt::format("Current Vehicle : {}", player::get_player_vehicle_name(g_selected.player)).c_str()));
                 ImGui::SameLine(350);
-                ImGui::Text("Driver : %s", player::is_player_driver(g_selected.ped) ? "true" : "false");
+                ImGui::Text(xorstr(fmt::format("Driver : {}", player::is_player_driver(g_selected.ped) ? "true" : "false").c_str()));
 
                 ImGui::Text(fmt::format("Current Weapon : {}", player::get_player_weapon(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Infinite Ammo : {} / Infinite Clip : {}", player::get_player_infinite_ammo(g_selected.player), player::get_player_infinite_clip(g_selected.player)).c_str());

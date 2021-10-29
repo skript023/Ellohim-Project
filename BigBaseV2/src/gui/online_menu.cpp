@@ -1433,27 +1433,27 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Spoofer")))
             {
-                ImGui::RadioButton("Name Spoofer", &g_fitur.spoofer, 0);
+                ImGui::RadioButton(xorstr("Name Spoofer"), &g_fitur.spoofer, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Crew Spoofer", &g_fitur.spoofer, 1);
+                ImGui::RadioButton(xorstr("Crew Spoofer"), &g_fitur.spoofer, 1);
                 ImGui::SameLine();
-                ImGui::RadioButton("IP Spoofer", &g_fitur.spoofer, 2);
+                ImGui::RadioButton(xorstr("IP Spoofer"), &g_fitur.spoofer, 2);
                 ImGui::SameLine();
-                ImGui::RadioButton("SCID Spoofer", &g_fitur.spoofer, 3);
+                ImGui::RadioButton(xorstr("SCID Spoofer"), &g_fitur.spoofer, 3);
 
                 switch (g_fitur.spoofer)
                 {
                 case 0:
-                    ImGui::InputText("##NameSpoof", player_list::NameSpoofer, IM_ARRAYSIZE(player_list::NameSpoofer));
-                    if (ImGui::Button("Set Spoof##Set Name"))
+                    ImGui::InputText(xorstr("##NameSpoof"), player_list::NameSpoofer, IM_ARRAYSIZE(player_list::NameSpoofer));
+                    if (ImGui::Button(xorstr("Set Spoof##Set Name")))
                     {
                         player::local_name(player_list::NameSpoofer);
                     }
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Dont Set This For Send Net To Session");
+                        ImGui::SetTooltip(xorstr("Dont Set This For Send Net To Session"));
                 break;
                 case 1:
-                    ImGui::Text("Crew Tag Spoofer");
+                    ImGui::Text(xorstr("Crew Tag Spoofer"));
                     static char CrewTagSpoofer[5];
                     ImGui::InputText("##CrewTag", CrewTagSpoofer, IM_ARRAYSIZE(CrewTagSpoofer), ImGuiInputTextFlags_CharsUppercase);
                     if (ImGui::Button("Set Spoof##Set Crew Tag"))
