@@ -3,7 +3,9 @@
 #include "invoker.hpp"
 #include "logger.hpp"
 #include "pointers.hpp"
+
 extern "C" void	_call_asm(void* context, void* function, void* ret);
+
 namespace big
 {
 	native_call_context::native_call_context()
