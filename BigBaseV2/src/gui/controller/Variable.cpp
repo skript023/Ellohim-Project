@@ -3,6 +3,38 @@
 
 namespace big
 {
+    int var::tbl_business[5][4][1] = {
+        {
+            {1},
+            {6},
+            {11},
+            {16}
+        },
+        {
+            {2},
+            {7},
+            {12},
+            {17}
+        },
+        {
+            {3},
+            {8},
+            {13},
+            {18}
+        },
+        {
+            {4},
+            {9},
+            {14},
+            {19}
+        },
+        {
+            {5},
+            {10},
+            {15},
+            {20}
+        }
+    };
     const char* const player_clothing::female_hair [] { "Close Shave", "Short Hair","Layered Bob","Pigtails","Ponytail","Braided Mohawk","Braids","Bob","Faux Hawk","French Twist Chestnut",
         "Long Bob Chestnut","Loose Tied Chestnut", "Pixie Chestnut","Shaved Bangs Chestnut","Top Knot Chestnut","Wavy Bob Chestnut","Pin Up Girl Chestnut",
         "Messy Bun Chestnut", "Flapper Bob Chestnut", "Tight Bun Black", "Twisted Bob Chestnut", "Big Bangs Chestnut", "Braided Top Knot Chestnut", "Mullet Chestnut", 

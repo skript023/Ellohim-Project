@@ -16,6 +16,121 @@
 
 namespace big
 {
+	void network::trigger_meth_production()
+	{
+        for (int a = 0; a <= 4; a++)
+        {
+            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            switch (location)
+            {
+                case 1:
+                case 6:
+                case 11:
+                case 16:
+                    int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                    int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                    if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                    if (supply > 0)
+                        *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                    else
+                        LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+                break;
+            }
+        }
+	}
+
+    void network::trigger_weed_production()
+    {
+        for (int a = 0; a <= 4; a++)
+        {
+            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            switch (location)
+            {
+            case 2:
+            case 7:
+            case 12:
+            case 17:
+                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (supply > 0)
+                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                else
+                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+            break;
+            }
+        }
+    }
+
+    void network::trigger_cocain_production()
+    {
+        for (int a = 0; a <= 4; a++)
+        {
+            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            switch (location)
+            {
+            case 3:
+            case 8:
+            case 13:
+            case 18:
+                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (supply > 0)
+                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                else
+                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+            break;
+            }
+        }
+    }
+
+    void network::trigger_cash_production()
+    {
+        for (int a = 0; a <= 4; a++)
+        {
+            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            switch (location)
+            {
+            case 4:
+            case 9:
+            case 14:
+            case 19:
+                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (supply > 0)
+                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                else
+                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+            break;
+            }
+        }
+    }
+
+    void network::trigger_document_production()
+    {
+        for (int a = 0; a <= 4; a++)
+        {
+            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            switch (location)
+            {
+            case 5:
+            case 10:
+            case 15:
+            case 20:
+                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (supply > 0)
+                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                else
+                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+            break;
+            }
+        }
+    }
+
 	void network::spectate_player(Ped playerped)
 	{
 		g_fiber_pool->queue_job([playerped] {

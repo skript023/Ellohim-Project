@@ -385,7 +385,15 @@ namespace big
                         }
                     });
                 }
-                
+                if (ImGui::Button(xorstr("Motherboard Hacking")))
+                {
+                    if (auto fleeca_bank = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    {
+                        *script_local(fleeca_bank, m_local.board_hacking_x).as<float*>() = 0.7f;
+                        *script_local(fleeca_bank, m_local.board_hacking_y).as<float*>() = 0.3f;
+                        *script_local(fleeca_bank, m_local.board_hacking_requirement).as<int*>() = 1;
+                    }
+                }
                 ImGui::Text(xorstr("Instant Heist Setup"));
                 static int selected_heist_type = 0;
                 ImGui::RadioButton(xorstr("Instant Heist Setup"), &selected_heist_type, 0);
@@ -1173,30 +1181,53 @@ namespace big
                         *script_global(g_global.special_cargo_selling_time).as<int*>() = 1800000;
                     }
                 }
-                if (ImGui::Button(xorstr("Trigger MC Product")))
+                if (ImGui::Button(xorstr("Trigger Meth Product"), ImVec2(200, 0)))
                 {
-                    *script_global(g_global.business_index).at(0, 12).at(9).as<int*>() = 0;
-                    *script_global(g_global.business_index).at(1, 12).at(9).as<int*>() = 0;
-                    *script_global(g_global.business_index).at(2, 12).at(9).as<int*>() = 0;
-                    *script_global(g_global.business_index).at(3, 12).at(9).as<int*>() = 0;
-                    *script_global(g_global.business_index).at(4, 12).at(9).as<int*>() = 0;
+                    network::trigger_meth_production();
                 }
-                ImGui::SameLine();
-                if (ImGui::Button(xorstr("Trigger Bunker Product")))
+                ImGui::SameLine(220);
+                if (ImGui::Button(xorstr("Trigger Weed Production"), ImVec2(200, 0)))
                 {
-                    *script_global(g_global.business_index).at(5, 12).at(9).as<int*>() = 0;
+                    network::trigger_weed_production();
                 }
-                ImGui::SameLine();
-                if (ImGui::Button(xorstr("Trigger Nightclub Product")))
+                ImGui::SameLine(430);
+                if (ImGui::Button(xorstr("Trigger Coke Production"), ImVec2(200, 0)))
                 {
-                    controller::NightclubTriggerProduction();
+                    network::trigger_cocain_production();
                 }
-                if (ImGui::Button(xorstr("Trigger Bunker Research")))
+
+                if (ImGui::Button(xorstr("Trigger Cash Production"), ImVec2(200, 0)))
+                {
+                    network::trigger_cash_production();
+                }
+                ImGui::SameLine(220);
+                if (ImGui::Button(xorstr("Trigger Document Production"), ImVec2(200, 0)))
+                {
+                    network::trigger_document_production();
+                }
+                ImGui::SameLine(430);
+                if (ImGui::Button(xorstr("Trigger Bunker Product"), ImVec2(200, 0)))
+                {
+                    int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
+                    int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
+                    if (product == 100) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 100 Products!";
+                    if (supply > 0)
+                        *script_global(g_global.business_index).at(5, 12).at(9).as<int*>() = 0;
+                    else
+                        LOG(HACKER) << "Trigger Bunker Production Function: Supplies are empty! Buy Supplies!";
+                }
+                
+                if (ImGui::Button(xorstr("Trigger Bunker Research"), ImVec2(200, 0)))
                 {
                     *script_global(g_global.business_index).at(5, 12).at(13).as<int*>() = 0;
                 }
-
-                if (ImGui::Button(xorstr("Max Nightclub Popularity")))
+                ImGui::SameLine(220);
+                if (ImGui::Button(xorstr("Trigger Nightclub Product"), ImVec2(200, 0)))
+                {
+                    controller::NightclubTriggerProduction();
+                }
+                ImGui::SameLine(430);
+                if (ImGui::Button(xorstr("Max Nightclub Popularity"), ImVec2(200, 0)))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -1204,8 +1235,8 @@ namespace big
                             STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_CLUB_POPULARITY"), 1000, TRUE);
                         });
                 }
-                ImGui::SameLine();
-                if (ImGui::Button(xorstr("Max Snack & Armour")))
+                
+                if (ImGui::Button(xorstr("Max Snack & Armour"), ImVec2(200, 0)))
                 {
                     g_fiber_pool->queue_job([]
                         {

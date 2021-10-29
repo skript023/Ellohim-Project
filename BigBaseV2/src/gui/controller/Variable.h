@@ -17,6 +17,7 @@ namespace big
 	class var
 	{
 	public:
+		static int tbl_business[5][4][1];
 		static std::string character_packed_hash[3290];
 		static std::string all_packed_hash[15];
 		static const char* const tuner_update[19];

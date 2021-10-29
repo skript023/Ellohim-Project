@@ -34,38 +34,6 @@ namespace big
     Player isHostScript;
     bool isSpectating;
     char player_list::NameSpoofer[20];
-    int tbl_business[5][4][1] = {
-        {
-            {1},
-            {6},
-            {11},
-            {16}
-        },
-        {
-            {2},
-            {7},
-            {12},
-            {17}
-        },
-        {
-            {3},
-            {8},
-            {13},
-            {18}
-        },
-        {
-            {4},
-            {9},
-            {14},
-            {19}
-        },
-        {
-            {5},
-            {10},
-            {15},
-            {20}
-        }
-    };
 
     const char * IsTransition()
     {
@@ -158,83 +126,83 @@ namespace big
                         {
                             for (int d = 0; d <= 1; d++)
                             {
-                                if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a,12).as<int*>() == 1 && tbl_business[b][c][d] == 1)
+                                if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a,12).as<int*>() == 1 && var::tbl_business[b][c][d] == 1)
                                 {
                                     MethLocation = "Paleto Bay";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 6 && tbl_business[b][c][d] == 6)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 6 && var::tbl_business[b][c][d] == 6)
                                 {
                                     MethLocation = "El Burro Heights";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 11 && tbl_business[b][c][d] == 11)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 11 && var::tbl_business[b][c][d] == 11)
                                 {
                                     MethLocation = "Grand Senora Desert";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 16 && tbl_business[b][c][d] == 16)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 16 && var::tbl_business[b][c][d] == 16)
                                 {   
                                     MethLocation = "Terminal";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 2 && tbl_business[b][c][d] == 2)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 2 && var::tbl_business[b][c][d] == 2)
                                 {
                                     WeedLocation = "Mount Chiliad";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 7 && tbl_business[b][c][d] == 7)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 7 && var::tbl_business[b][c][d] == 7)
                                 {
                                     WeedLocation = "Downtown Vinewood";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 12 && tbl_business[b][c][d] == 12)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 12 && var::tbl_business[b][c][d] == 12)
                                 {
                                     WeedLocation = "San Chianski";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 17 && tbl_business[b][c][d] == 17)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 17 && var::tbl_business[b][c][d] == 17)
                                 {
                                     WeedLocation = "Elysian Island";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 3 && tbl_business[b][c][d] == 3)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 3 && var::tbl_business[b][c][d] == 3)
                                 {
                                     CokeLocation = "Paleto Bay";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 8 && tbl_business[b][c][d] == 8)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 8 && var::tbl_business[b][c][d] == 8)
                                 {
                                     CokeLocation = "Morningwood";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 13 && tbl_business[b][c][d] == 13)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 13 && var::tbl_business[b][c][d] == 13)
                                 {
                                     CokeLocation = "Alamo Sea";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 18 && tbl_business[b][c][d] == 18)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 18 && var::tbl_business[b][c][d] == 18)
                                 {
                                     CokeLocation = "Elysian Island";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 4 && tbl_business[b][c][d] == 4)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 4 && var::tbl_business[b][c][d] == 4)
                                 {
                                     CashLocation = "Paleto Bay";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 9 && tbl_business[b][c][d] == 9)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 9 && var::tbl_business[b][c][d] == 9)
                                 {
                                     CashLocation = "Vespucci Canals";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 14 && tbl_business[b][c][d] == 14)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 14 && var::tbl_business[b][c][d] == 14)
                                 {
                                     CashLocation = "Grand Senora Desert";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 19 && tbl_business[b][c][d] == 19)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 19 && var::tbl_business[b][c][d] == 19)
                                 {
                                     CashLocation = "Cypress Flats";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 5 && tbl_business[b][c][d] == 5)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 5 && var::tbl_business[b][c][d] == 5)
                                 {
                                     DocLocation = "Paleto Bay";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 10 && tbl_business[b][c][d] == 10)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 10 && var::tbl_business[b][c][d] == 10)
                                 {
                                     DocLocation = "Textile City";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 15 && tbl_business[b][c][d] == 15)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 15 && var::tbl_business[b][c][d] == 15)
                                 {
                                     DocLocation = "Grapeseed";
                                 }
-                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 20 && tbl_business[b][c][d] == 20)
+                                else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 20 && var::tbl_business[b][c][d] == 20)
                                 {
                                     DocLocation = "Elysian Island";
                                 }
@@ -361,16 +329,16 @@ namespace big
                 ImGui::Text("Player HP : %d/%d", g_info.player_health, g_info.player_max_health);
                 ImGui::Text("Player Armour : %d/%d", g_info.player_armour, g_info.player_max_armour);
                 ImGui::Separator();
-                ImGui::Text(xorstr(fmt::format("Bunker Location : {}", BunkerLocation).c_str()));
-                ImGui::Text(xorstr(fmt::format("Meth Location : {}", MethLocation).c_str()));
-                ImGui::Text(xorstr(fmt::format("Weed Location : {}", WeedLocation).c_str()));
-                ImGui::Text(xorstr(fmt::format("Coke Location :{}", CokeLocation).c_str()));
-                ImGui::Text(xorstr(fmt::format("Cash Location : {}", CashLocation).c_str()));
-                ImGui::Text(xorstr(fmt::format("Document Location : {}", DocLocation).c_str()));
+                ImGui::Text(fmt::format("Bunker Location : {}", BunkerLocation).c_str());
+                ImGui::Text(fmt::format("Meth Location : {}", MethLocation).c_str());
+                ImGui::Text(fmt::format("Weed Location : {}", WeedLocation).c_str());
+                ImGui::Text(fmt::format("Coke Location :{}", CokeLocation).c_str());
+                ImGui::Text(fmt::format("Cash Location : {}", CashLocation).c_str());
+                ImGui::Text(fmt::format("Document Location : {}", DocLocation).c_str());
                 ImGui::Separator();
-                ImGui::Text(xorstr(fmt::format("Current Vehicle : {}", player::get_player_vehicle_name(g_selected.player)).c_str()));
+                ImGui::Text(fmt::format("Current Vehicle : {}", player::get_player_vehicle_name(g_selected.player)).c_str());
                 ImGui::SameLine(350);
-                ImGui::Text(xorstr(fmt::format("Driver : {}", player::is_player_driver(g_selected.ped) ? "true" : "false").c_str()));
+                ImGui::Text(fmt::format("Driver : {}", player::is_player_driver(g_selected.ped) ? "true" : "false").c_str());
 
                 ImGui::Text(fmt::format("Current Weapon : {}", player::get_player_weapon(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Infinite Ammo : {} / Infinite Clip : {}", player::get_player_infinite_ammo(g_selected.player), player::get_player_infinite_clip(g_selected.player)).c_str());

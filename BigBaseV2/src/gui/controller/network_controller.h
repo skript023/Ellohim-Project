@@ -12,5 +12,10 @@ namespace big
 		static void spectate_player(Ped playerped);
 		static void set_session(int SessionId);
 		static void request_control(Entity entity);
+		static void trigger_meth_production();
+		static void trigger_weed_production();
+		static void trigger_cocain_production();
+		static void trigger_cash_production();
+		static void trigger_document_production();
 	};
 }
