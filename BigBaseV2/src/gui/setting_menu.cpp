@@ -153,14 +153,16 @@ namespace big
                     {
                         QUEUE_JOB_BEGIN_CLAUSE()
                         {
-                            auto hash = rage::joaat(scriptnames);
-                            SCRIPT::REQUEST_SCRIPT_WITH_NAME_HASH(hash);
-                            while (!SCRIPT::HAS_SCRIPT_WITH_NAME_HASH_LOADED(hash))
-                            {
-                                script::get_current()->yield();
-                            }
-                            //SYSTEM::START_NEW_SCRIPT_WITH_NAME_HASH(hash, 31000);
-                            SCRIPT::SET_SCRIPT_WITH_NAME_HASH_AS_NO_LONGER_NEEDED(hash);
+                            rage_helper::execute_as_script(RAGE_JOAAT("freemode"), [] {
+                                auto hash = rage::joaat(scriptnames);
+                                SCRIPT::REQUEST_SCRIPT_WITH_NAME_HASH(hash);
+                                while (!SCRIPT::HAS_SCRIPT_WITH_NAME_HASH_LOADED(hash))
+                                {
+                                    script::get_current()->yield();
+                                }
+                                SYSTEM::START_NEW_SCRIPT_WITH_NAME_HASH(hash, 31000);
+                                SCRIPT::SET_SCRIPT_WITH_NAME_HASH_AS_NO_LONGER_NEEDED(hash);
+                            });
                         }QUEUE_JOB_END_CLAUSE
                     }
                 }
