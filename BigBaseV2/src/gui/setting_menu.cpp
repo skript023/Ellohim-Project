@@ -21,9 +21,9 @@ namespace big
 {
     void setting_tab::render_setting_tab()
     {
-        if (ImGui::BeginTabItem("Setting"))
+        if (ImGui::BeginTabItem(xorstr("Setting")))
         {
-            if (ImGui::Button("End Session"))
+            if (ImGui::Button(xorstr("End Session")))
             {
                 g_fiber_pool->queue_job([]
                 {
@@ -31,12 +31,12 @@ namespace big
                 });
             }
             ImGui::SameLine();
-            if (ImGui::Button("End Cutscene"))
+            if (ImGui::Button(xorstr("End Cutscene")))
             {
                 auto cutscene = *g_pointers->m_cutscene_mgr; cutscene->m_end_cutscene = 1;
             }
             ImGui::SameLine();
-            if (ImGui::Button("Bail from Session")) 
+            if (ImGui::Button(xorstr("Bail from Session")))
             {
                 g_fiber_pool->queue_job([]
                 {
@@ -46,11 +46,11 @@ namespace big
                 });
             }
             ImGui::SameLine();
-            if (ImGui::Button("Entrypoint"))
+            if (ImGui::Button(xorstr("Entrypoint")))
             {
                 controller::DumpEntryBoi();
             }
-            if (ImGui::Button("Benchmark"))
+            if (ImGui::Button(xorstr("Benchmark")))
             {
                 auto start = std::chrono::high_resolution_clock::now();
                 vehicle_helper::vehicle("Krieger", g_local.ped);
