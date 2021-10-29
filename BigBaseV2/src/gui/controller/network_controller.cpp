@@ -52,11 +52,11 @@ namespace big
             case 17:
                 int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (product == 80) LOG(HACKER) << "Trigger Weed Production Function: Storage full with 80 Products!";
                 if (supply > 0)
                     *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+                    LOG(HACKER) << "Trigger Weed Production Function: Supplies are empty! Buy Supplies!";
             break;
             }
         }
@@ -75,11 +75,11 @@ namespace big
             case 18:
                 int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (product == 10) LOG(HACKER) << "Trigger Cocaine Production Function: Storage full with 10 Products!";
                 if (supply > 0)
                     *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+                    LOG(HACKER) << "Trigger Cocaine Production Function: Supplies are empty! Buy Supplies!";
             break;
             }
         }
@@ -98,11 +98,11 @@ namespace big
             case 19:
                 int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (product == 40) LOG(HACKER) << "Trigger Cash Production Function: Storage full with 40 Products!";
                 if (supply > 0)
                     *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+                    LOG(HACKER) << "Trigger Cash Production Function: Supplies are empty! Buy Supplies!";
             break;
             }
         }
@@ -121,11 +121,11 @@ namespace big
             case 20:
                 int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
+                if (product == 60) LOG(HACKER) << "Trigger Documents Production Function: Storage full with 60 Products!";
                 if (supply > 0)
                     *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
+                    LOG(HACKER) << "Trigger Documents Production Function: Supplies are empty! Buy Supplies!";
             break;
             }
         }
