@@ -1257,6 +1257,7 @@ namespace big
                 static int selected_location = 0;
                 const char* const location[]{ "Select Location", "Route86", "Farmhouse", "Smoke Tree Road", "Thomson Scrapyard", "Grapeseed", "Paleto Forest", "Ranton Canyon", "Lago Zancudo", "Chumash" };
                 ImGui::Text(xorstr("Select Bunker Location"));
+                ImGui::PushItemWidth(200);
                 if (ImGui::Combo(xorstr("##Bunker Location"), &selected_location, location, IM_ARRAYSIZE(location)))
                 {
                     switch (selected_location)
@@ -1290,6 +1291,7 @@ namespace big
                         break;
                     }
                 }
+                ImGui::PopItemWidth();
                 static int crates = 0;
                 ImGui::PushItemWidth(100);
                 ImGui::Text(xorstr("Special Cargo Crates"));
