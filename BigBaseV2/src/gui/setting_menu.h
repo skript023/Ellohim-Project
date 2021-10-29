@@ -9,6 +9,5 @@ namespace big
 	{
 	public:
 		static void render_setting_tab();
-		static constexpr Hash title = RAGE_JOAAT("Wuhan Mod Menu - Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol");
 	};
 }
