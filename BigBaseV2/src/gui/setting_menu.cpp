@@ -59,7 +59,7 @@ namespace big
                 message::notification("~bold~~y~Benchmark", fmt::format("~g~finished with a resulting time of: {} nanoseconds",std::to_string(result.count())).c_str(), "~bold~~g~Ellohim Private Menu");
             }
             bool expand = g_pointers->m_game_setting->m_radar_expansion;
-            if (ImGui::Checkbox("Expand Radar", &expand))
+            if (ImGui::Checkbox(xorstr("Expand Radar"), &expand))
             {
                 auto game_setting = g_pointers->m_game_setting;
                 game_setting->m_radar_expansion = expand;
