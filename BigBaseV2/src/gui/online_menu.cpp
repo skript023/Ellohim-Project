@@ -1372,7 +1372,9 @@ namespace big
                                 *script_global(g_global.mc_sell_mult_near).as<float*>() = mc_multiplier;
                                 int requirement = *script_local(mc_selling, m_local.mc_sell).at(143).as<int*>();
                                 *script_local(mc_selling, m_local.mc_sell).at(122).as<int*>() = requirement;
-                                script::get_current()->yield(1s);
+
+                                while (systems::is_script_active(RAGE_JOAAT("gb_biker_contraband_sell"))) script::get_current()->yield();
+
                                 *script_global(g_global.mc_sell_mult_far).as<float*>() = 1.5;
                                 *script_global(g_global.mc_sell_mult_near).as<float*>() = 1.0;
                             }
@@ -1390,7 +1392,9 @@ namespace big
                                 int result = BusinessMoney / cargo;
                                 *script_global(tuneable).as<int*>() = result;
                                 *script_local(special_cargo, m_local.special_cargo_sell).at(56).as<int*>() = requirement;
-                                script::get_current()->yield(1s);
+
+                                while (systems::is_script_active(RAGE_JOAAT("gb_contraband_sell"))) script::get_current()->yield();
+
                                 *script_global(tuneable).as<int*>() = temp;
                             }
                         });
