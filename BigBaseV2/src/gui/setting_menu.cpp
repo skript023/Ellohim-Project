@@ -89,7 +89,7 @@ namespace big
             }
             */
             ImGui::Separator();
-            if (ImGui::CollapsingHeader("Script Monitor"))
+            if (ImGui::CollapsingHeader(xorstr("Script Monitor")))
             {
                 static GtaThread* selected_thread{};
                 if (ImGui::ListBoxHeader("##scripts", ImVec2(250, 500)))
@@ -166,7 +166,7 @@ namespace big
                 }
                 ImGui::EndGroup();
             }
-            if (ImGui::CollapsingHeader("Script Event Tester"))
+            if (ImGui::CollapsingHeader(xorstr("Script Event Tester")))
             {
                 static event_json::event_json event_obj{};
                 ImGui::SliderInt("Size Of Event Array", &event_obj.size_of_args_array, 2, 53);
@@ -383,7 +383,7 @@ namespace big
                     ImGui::EndGroup();
                 }
             }
-            if (ImGui::CollapsingHeader("Local Script Editor"))
+            if (ImGui::CollapsingHeader(xorstr("Local Script Editor")))
             {
                 static GtaThread* selected_thread{};
                 if (ImGui::ListBoxHeader("##scriptslocal", ImVec2(250, 500)))
@@ -529,7 +529,7 @@ namespace big
                     ImGui::EndGroup();
                 }
             }
-            if (ImGui::CollapsingHeader("Stat Loader"))
+            if (ImGui::CollapsingHeader(xorstr("Stat Loader")))
             {
                 static stats_json::stats_json stat_obj{};
                 static std::string* StatString[250];
@@ -665,12 +665,12 @@ namespace big
                 ImGui::EndGroup();
             }
             ImGui::Separator();
-            if (ImGui::Button("Exit Program"))
+            if (ImGui::Button(xorstr("Exit Program")))
             {
                 g_running = false;
             }
             ImGui::SameLine();
-            if (ImGui::Button("Close Game"))
+            if (ImGui::Button(xorstr("Close Game")))
             {
                 exit(0);
             }

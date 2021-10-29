@@ -33,7 +33,8 @@
 #include <utility>
 #include <cstdarg>
 
-namespace xorstr_impl {
+namespace xorstr_impl
+{
 
 #ifdef _MSC_VER
 #define XORSTR_INLINE __forceinline
@@ -55,7 +56,8 @@ namespace xorstr_impl {
     // with 32-bit math and without division
 
     template <int N>
-    struct random_generator {
+    struct random_generator
+    {
     private:
         static constexpr unsigned a = 16807;  // 7^5
         static constexpr unsigned m = 2147483647;  // 2^31 - 1
@@ -72,31 +74,37 @@ namespace xorstr_impl {
     };
 
     template <>
-    struct random_generator<0> {
+    struct random_generator<0>
+    {
         static constexpr unsigned value = seed;
     };
 
     template <int N, int M>
-    struct random_int {
+    struct random_int
+    {
         static constexpr auto value = random_generator<N + 1>::value % M;
     };
 
     template <int N>
-    struct random_char {
+    struct random_char
+    {
         static const char value = static_cast<char>(1 + random_int<N, 0x7F - 1>::value);
     };
 
     template <size_t N, int K>
-    struct string {
+    struct string
+    {
     private:
         const char key_;
         std::array<char, N + 1> encrypted_;
 
-        constexpr char enc(char c) const {
+        constexpr char enc(char c) const
+        {
             return c ^ key_;
         }
 
-        char dec(char c) const {
+        char dec(char c) const
+        {
             return c ^ key_;
         }
 
@@ -105,8 +113,10 @@ namespace xorstr_impl {
         constexpr XORSTR_INLINE string(const char* str, std::index_sequence<Is...>) :
             key_(random_char<K>::value), encrypted_{ { enc(str[Is])... } } {}
 
-        XORSTR_INLINE decltype(auto) decrypt() {
-            for (size_t i = 0; i < N; ++i) {
+        XORSTR_INLINE decltype(auto) decrypt()
+        {
+            for (size_t i = 0; i < N; ++i)
+            {
                 encrypted_[i] = dec(encrypted_[i]);
             }
             encrypted_[N] = '\0';

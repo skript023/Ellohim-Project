@@ -1492,24 +1492,24 @@ namespace big
                 case 1:
                     ImGui::Text(xorstr("Crew Tag Spoofer"));
                     static char CrewTagSpoofer[5];
-                    ImGui::InputText("##CrewTag", CrewTagSpoofer, IM_ARRAYSIZE(CrewTagSpoofer), ImGuiInputTextFlags_CharsUppercase);
-                    if (ImGui::Button("Set Spoof##Set Crew Tag"))
+                    ImGui::InputText(xorstr("##CrewTag"), CrewTagSpoofer, IM_ARRAYSIZE(CrewTagSpoofer), ImGuiInputTextFlags_CharsUppercase);
+                    if (ImGui::Button(xorstr("Set Spoof##Set Crew Tag")))
                     {
                         spoofer::player_crew(CrewTagSpoofer);
                     }
                 break;
                 case 2:
-                    ImGui::Text("Crew Tag Spoofer");
+                    ImGui::Text(xorstr("Crew Tag Spoofer"));
                     ImGui::PushItemWidth(100);
-                    ImGui::InputScalar("##IP 1", ImGuiDataType_U8, &g_item.ip_1);
+                    ImGui::InputScalar(xorstr("##IP 1"), ImGuiDataType_U8, &g_item.ip_1);
                     ImGui::SameLine();
-                    ImGui::InputScalar("##IP 2", ImGuiDataType_U8, &g_item.ip_2);
+                    ImGui::InputScalar(xorstr("##IP 2"), ImGuiDataType_U8, &g_item.ip_2);
                     ImGui::SameLine();
-                    ImGui::InputScalar("##IP 3", ImGuiDataType_U8, &g_item.ip_3);
+                    ImGui::InputScalar(xorstr("##IP 3"), ImGuiDataType_U8, &g_item.ip_3);
                     ImGui::SameLine();
-                    ImGui::InputScalar("##IP 4", ImGuiDataType_U8, &g_item.ip_4);
+                    ImGui::InputScalar(xorstr("##IP 4"), ImGuiDataType_U8, &g_item.ip_4);
                     ImGui::PopItemWidth();
-                    if (ImGui::Button("Reset IP##Set Ip"))
+                    if (ImGui::Button(xorstr("Reset IP##Set Ip")))
                     {
                         auto ip_address = rage_helper::get_local_playerinfo()->m_online_ip;
                         uint8_t out[4];
@@ -1520,7 +1520,7 @@ namespace big
                         g_item.ip_4 = out[0];
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Set Random IP##Set Ip"))
+                    if (ImGui::Button(xorstr("Set Random IP##Set Ip")))
                     {
                         g_item.ip_1 = 180;
                         g_item.ip_2 = 165;
@@ -1530,75 +1530,75 @@ namespace big
                 break;
                 case 3:
                     static uint64_t RIDSpoof;
-                    ImGui::Text("Manual RID Spoof");
-                    ImGui::InputScalar("##RID Spoof", ImGuiDataType_S64, &RIDSpoof);
-                    if (ImGui::Button("Set Spoof##Set RID"))  /*auto WorldPTR = *g_pointers->m_ped_factory;auto PlayerInfo = WorldPTR->m_local_ped->m_playerinfo;PlayerInfo->m_rockstar_id = RIDSpoof;*/
+                    ImGui::Text(xorstr("Manual RID Spoof"));
+                    ImGui::InputScalar(xorstr("##RID Spoof"), ImGuiDataType_S64, &RIDSpoof);
+                    if (ImGui::Button(xorstr("Set Spoof##Set RID")))  /*auto WorldPTR = *g_pointers->m_ped_factory;auto PlayerInfo = WorldPTR->m_local_ped->m_playerinfo;PlayerInfo->m_rockstar_id = RIDSpoof;*/
                     {
                         spoofer::player_scid(RIDSpoof);
                     }
                 break;
                 }
-                ImGui::RadioButton("Level Spoofer", &g_fitur.stat_spoofer, 0);
+                ImGui::RadioButton(xorstr("Level Spoofer"), &g_fitur.stat_spoofer, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Money Spoofer", &g_fitur.stat_spoofer, 1);
+                ImGui::RadioButton(xorstr("Money Spoofer"), &g_fitur.stat_spoofer, 1);
                 switch (g_fitur.stat_spoofer)
                 {
                 case 0:
-                    ImGui::InputScalar("##Name", ImGuiDataType_S32, &big::features::LevelForSpoof);
-                    if (ImGui::Button("Set Spoof##LoopLevel"))
+                    ImGui::InputScalar(xorstr("##Name"), ImGuiDataType_S32, &big::features::LevelForSpoof);
+                    if (ImGui::Button(xorstr("Set Spoof##LoopLevel")))
                     {
                         big::features::LevelSpoofer = true;
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Disable Spoof##LoopLevel"))
+                    if (ImGui::Button(xorstr("Disable Spoof##LoopLevel")))
                     {
                         big::features::LevelSpoofer = false;
                     }
                     break;
                 case 1:
-                    ImGui::InputScalar("##Money", ImGuiDataType_S32, &features::fake_money);
-                    if (ImGui::Button("Set Spoof##Set Spoof Money"))
+                    ImGui::InputScalar(xorstr("##Money"), ImGuiDataType_S32, &features::fake_money);
+                    if (ImGui::Button(xorstr("Set Spoof##Set Spoof Money")))
                     {
                         features::money_spoofer = true;
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Set Spoof##Disable Money Spoofer##S"))
+                    if (ImGui::Button(xorstr("Set Spoof##Disable Money Spoofer##S")))
                     {
                         features::money_spoofer = false;
                     }
                     break;
                 }
-                ImGui::RadioButton("Instant SCID Spoof", &g_fitur.rid_type, 0);
+                ImGui::RadioButton(xorstr("Instant SCID Spoof"), &g_fitur.rid_type, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Network SCID Spoof", &g_fitur.rid_type, 1);
+                ImGui::RadioButton(xorstr("Network SCID Spoof"), &g_fitur.rid_type, 1);
                 switch (g_fitur.rid_type)
                 {
                 case 0:
-                    ImGui::Text("Instant RID Spoof");
-                    if (ImGui::Combo("##InstantRIDSpoof", &g_item.rid, var::DataPlayer, IM_ARRAYSIZE(var::DataPlayer)))
+                    ImGui::Text(xorstr("Instant RID Spoof"));
+                    if (ImGui::Combo(xorstr("##InstantRIDSpoof"), &g_item.rid, var::DataPlayer, IM_ARRAYSIZE(var::DataPlayer)))
                     {
                         if (g_item.rid == 0)
                             rage_helper::get_local_playerinfo()->m_rockstar_id = *g_pointers->m_player_rid;
                     }
                     break;
                 case 1:
-                    ImGui::Text("Network RID Spoof");
-                    ImGui::Combo("##InstantRIDSpoof", &g_fitur.rid_spoof, var::DataPlayer, IM_ARRAYSIZE(var::DataPlayer));
+                    ImGui::Text(xorstr("Network RID Spoof"));
+                    ImGui::Combo(xorstr("##InstantRIDSpoof"), &g_fitur.rid_spoof, var::DataPlayer, IM_ARRAYSIZE(var::DataPlayer));
                     break;
                 }
             }
             if (ImGui::CollapsingHeader(xorstr("Casino Stuff")))
             {
-                ImGui::Checkbox("Blackjack Rig 2,5m Auto", &features::BlackjackRig);
-                ImGui::Checkbox("Slot Machine Rig 2,5m Auto", &features::RigSlotBool);
+                ImGui::Checkbox(xorstr("Blackjack Rig 2,5m Auto"), &features::BlackjackRig);
+                ImGui::Checkbox(xorstr("Slot Machine Rig 2,5m Auto"), &features::RigSlotBool);
                 static int Reward;
-                ImGui::InputInt("Rig Slot Multiplier", &Reward);
-                if (ImGui::Button("Set Multiplier"))
+                ImGui::InputInt(xorstr("Rig Slot Multiplier"), &Reward);
+                if (ImGui::Button(xorstr("Set Multiplier")))
                 {
                     casino_slot::SetJackpotMultiplier(Reward);
                 }
                 static bool DeveloperMode = false;
-                if (ImGui::Checkbox("Developer Mode", &DeveloperMode))
+                if (ImGui::Checkbox(xorstr("Developer Mode"), &DeveloperMode))
                 {
                     if (DeveloperMode)
                     {
@@ -1609,7 +1609,7 @@ namespace big
                         *(unsigned int*)g_pointers->m_is_dlc_present = 0x245C8948;
                     }
                 }
-                ImGui::Text("Lucky Wheel Prize");
+                ImGui::Text(xorstr("Lucky Wheel Prize"));
                 const char* const prize_list[] = { "Select Prize", "1:  2500 RP","2 : $20000","3 : 10000 Chips","4 : Discount","5 : 5000 RP",
                     "6 : $30000","7 : 15000 Chips","8 : Clothing Item","9 : 7500 RP","10 : 20000 Chips","11 : Mystery Prize",
                     "12 : Clothing Item","13 : 10000 RP","14 : $40000","15 : 25000 Chips","16 : Clothing Item","17 : 15000 RP","18 : Podium Vehicle" };
@@ -1657,7 +1657,7 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Protection")))
             {
-                if (ImGui::Button("Detach Object"))
+                if (ImGui::Button(xorstr("Detach Object")))
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
@@ -1690,7 +1690,7 @@ namespace big
                     } QUEUE_JOB_END_CLAUSE
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Detach Ped"))
+                if (ImGui::Button(xorstr("Detach Ped")))
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
@@ -1722,7 +1722,7 @@ namespace big
                     } QUEUE_JOB_END_CLAUSE
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Detach Vehicle"))
+                if (ImGui::Button(xorstr("Detach Vehicle")))
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
@@ -1754,73 +1754,73 @@ namespace big
                     } QUEUE_JOB_END_CLAUSE
                 }
 
-                if (ImGui::Checkbox("Log Player", g_settings.options["Log Player"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Log Player"), g_settings.options["Log Player"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Disable Chat Censor", g_settings.options["Disable Censor"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Disable Chat Censor"), g_settings.options["Disable Censor"].get<bool*>()))
                     g_settings.save();
 
-                if (ImGui::Checkbox("Request Control", g_settings.options["Request Control Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Request Control"), g_settings.options["Request Control Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Remove Weapon", g_settings.options["Remove Weapon Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Remove Weapon"), g_settings.options["Remove Weapon Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                if (ImGui::Checkbox("PTFX Event", g_settings.options["PTFX Event Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("PTFX Event"), g_settings.options["PTFX Event Block"].get<bool*>()))
                     g_settings.save();
 
-                if (ImGui::Checkbox("Block Report", g_settings.options["Block Report"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Block Report"), g_settings.options["Block Report"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Kick Vote", g_settings.options["Kick Vote Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Kick Vote"), g_settings.options["Kick Vote Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                if (ImGui::Checkbox("Explosion Event", g_settings.options["Explosion Event Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Explosion Event"), g_settings.options["Explosion Event Block"].get<bool*>()))
                     g_settings.save();
 
                 g_settings.save();
-                if (ImGui::Checkbox("Kick", g_settings.options["Block Kick"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Kick"), g_settings.options["Block Kick"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Force Invite", g_settings.options["Block Invite Apartment"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Force Invite"), g_settings.options["Block Invite Apartment"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                if (ImGui::Checkbox("Teleport to Cayo", g_settings.options["Teleport Cayo Perico Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Teleport to Cayo"), g_settings.options["Teleport Cayo Perico Block"].get<bool*>()))
                     g_settings.save();
 
-                if (ImGui::Checkbox("CEO Kick", g_settings.options["CEO Kick Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("CEO Kick"), g_settings.options["CEO Kick Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("CEO Ban", g_settings.options["CEO Ban Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("CEO Ban"), g_settings.options["CEO Ban Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                if (ImGui::Checkbox("Rotate Cam", g_settings.options["Rotate Cam Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Rotate Cam"), g_settings.options["Rotate Cam Block"].get<bool*>()))
                     g_settings.save();
 
-                if (ImGui::Checkbox("Vehicle Kick", g_settings.options["Vehicle Kick Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Vehicle Kick"), g_settings.options["Vehicle Kick Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Force Mission", g_settings.options["Force To Mission Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Force Mission"), g_settings.options["Force To Mission Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                if (ImGui::Checkbox("Transaction Failed", g_settings.options["Transaction Failed Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Transaction Failed"), g_settings.options["Transaction Failed Block"].get<bool*>()))
                     g_settings.save();
-                if (ImGui::Checkbox("Block Freeze", g_settings.options["Clear Ped Task Block"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Block Freeze"), g_settings.options["Clear Ped Task Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Block Sound Spam", g_settings.options["Sound Spam"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Block Sound Spam"), g_settings.options["Sound Spam"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                if (ImGui::Checkbox("Crash Protection", g_settings.options["Crash Protection"].get<bool*>())) //g_settings.options["Invalid Model Protection"].get<bool*>()
+                if (ImGui::Checkbox(xorstr("Crash Protection"), g_settings.options["Crash Protection"].get<bool*>())) //g_settings.options["Invalid Model Protection"].get<bool*>()
                     g_settings.save();
 
-                if (ImGui::Checkbox("Redirect Report", g_settings.options["Redirect Report"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Redirect Report"), g_settings.options["Redirect Report"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Redirect Event", g_settings.options["Redirect Event"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Redirect Event"), g_settings.options["Redirect Event"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                if (ImGui::Checkbox("Redirect Network Event", g_settings.options["Redirect Network Event"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Redirect Network Event"), g_settings.options["Redirect Network Event"].get<bool*>()))
                     g_settings.save();
             }
             ImGui::EndTabItem();
