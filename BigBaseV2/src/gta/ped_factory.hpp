@@ -14,7 +14,7 @@ public:
 	char m_crew_tag[4]; //0x0057
 	char pad_005B[117]; //0x005B
 	bool m_active_crew; //0x00D0
-	char* get_crew_tag(int& index) { return (m_crew_tag + (0xB8 * index)); }
+	char* get_crew_tag(int& index) { return (m_crew_tag + (0xB8LL * index)); }
 	bool get_active_crew(int& index) { return *(bool*)((DWORD64)this + 0xD0LL + (0xB8LL * index)); }
 };
 static_assert(sizeof(CPlayerCrew) == 0xD1);
@@ -25,6 +25,7 @@ public:
 	char pad_0000[0x128];
 	int32_t money_in_bunker;//0x0128
 };
+static_assert(sizeof(BusinessMoney) == 0x12C);
 
 class FriendList
 {
@@ -56,8 +57,9 @@ static_assert(sizeof(FriendList) == 0x1F9);
 class GameSetting
 {
 public:
-	char pad_0000[0x30]; //0x000
+	char pad_0000[48]; //0x000
 	bool m_keyboard_light_effect; //0x030
+	char pad_0031[3]; //0x031
 	uint32_t m_sfx_volume; //0x034
 	char pad_0038[8]; //0x038
 	uint32_t m_output_setting; //0x040
@@ -82,6 +84,7 @@ public:
 	char pad_026D[3]; //0x026D
 	bool m_over_head_display; //0x0270
 };
+static_assert(sizeof(GameSetting) == 0x271, "GameSetting is not properly sized");
 
 class CPed : public fwEntity
 {
