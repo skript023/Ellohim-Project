@@ -214,6 +214,7 @@
     <ClInclude Include="src\gui\entity\entity_control.h" />
     <ClInclude Include="src\gui\game_event\game_event.h" />
     <ClInclude Include="src\gui\game_event\game_helper.hpp" />
+    <ClInclude Include="src\gui\player_information\player_information.h" />
     <ClInclude Include="src\gui\player_list.h" />
     <ClInclude Include="src\gui\casino\casino.h" />
     <ClInclude Include="src\gui\controller\encrypt.hpp" />
@@ -274,6 +275,7 @@
     <ClCompile Include="src\gui\artificial_intelligence\artificial_intelligence.cpp" />
     <ClCompile Include="src\gui\entity\entity_control.cpp" />
     <ClCompile Include="src\gui\game_event\game_event.cpp" />
+    <ClCompile Include="src\gui\player_information\player_information.cpp" />
     <ClCompile Include="src\gui\player_list.cpp" />
     <ClCompile Include="src\gui\casino\casino.cpp" />
     <ClCompile Include="src\gui\controller\network_controller.cpp" />

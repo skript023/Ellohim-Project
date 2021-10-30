@@ -49,6 +49,9 @@
     <Filter Include="gui\game_event">
       <UniqueIdentifier>{b0a50641-bd35-4a81-bc72-6e484427659d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui\player_information">
+      <UniqueIdentifier>{694fe5a7-4750-4123-8eb2-802521d6cd06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\benchmark.h" />
@@ -279,6 +282,9 @@
     <ClInclude Include="src\gui\controller\xostr.h">
       <Filter>gui\controller</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\player_information\player_information.h">
+      <Filter>gui\player_information</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -378,6 +384,9 @@
     </ClCompile>
     <ClCompile Include="src\gui\game_event\game_event.cpp">
       <Filter>gui\game_event</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\player_information\player_information.cpp">
+      <Filter>gui\player_information</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
