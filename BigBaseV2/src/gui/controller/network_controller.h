@@ -17,5 +17,10 @@ namespace big
 		static void trigger_cocain_production();
 		static void trigger_cash_production();
 		static void trigger_document_production();
+		const char* get_meth_location(Player player);
+		const char* get_weed_location(Player player);
+		const char* get_cocain_location(Player player);
+		const char* get_cash_location(Player player);
+		const char* get_document_location(Player player);
 	};
 }

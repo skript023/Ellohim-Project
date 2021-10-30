@@ -378,11 +378,11 @@ namespace big
             {
                 return static_cast<int>(num); //safe to cast
             }
-            /*else 
+            else 
             {
                 //NaN is not defined for int return the largest int value
-                return numeric_limits<int>::max();
-            }*/
+                return std::numeric_limits<int>::max();
+            }
         }
         else 
         {

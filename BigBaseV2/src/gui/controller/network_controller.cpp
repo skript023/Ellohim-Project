@@ -16,6 +16,101 @@
 
 namespace big
 {
+    const char* network::get_meth_location(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 1:
+                return "Paleto Bay";
+            case 6:
+                return "El Burro Heights";
+            case 11:
+                return "Grand Senora Desert";
+            case 16:
+                return "Terminal";
+            }
+        }
+    }
+
+    const char* network::get_weed_location(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 2:
+                return "Mount Chiliad";
+            case 7:
+                return "Downtown Vinewood";
+            case 12:
+                return "San Chianski";
+            case 17:
+                return "Elysian Island";
+            }
+        }
+    }
+
+    const char* network::get_cocain_location(Player player)
+    {
+        for (int a = 0; a <= 4; a++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).as<int*>();
+            switch (location)
+            {
+            case 3:
+                return "Paleto Bay";
+            case 8:
+                return "Morningwood";
+            case 13:
+                return "Alamo Sea";
+            case 18:
+                return "Elysian Island";
+            }
+        }
+    }
+
+    const char* network::get_cash_location(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 4:
+                return "Paleto Bay";
+            case 9:
+                return "Vespucci Canals";
+            case 14:
+                return "Grand Senora Desert";
+            case 19:
+                return "Cypress Flats";
+            }
+        }
+    }
+
+    const char* network::get_document_location(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 5:
+                return "Paleto Bay";
+            case 10:
+                return "Textile City";
+            case 15:
+                return "Grapeseed";
+            case 20:
+                return "Elysian Island";
+            }
+        }
+    }
+
 	void network::trigger_meth_production()
 	{
         for (int a = 0; a <= 4; a++)
