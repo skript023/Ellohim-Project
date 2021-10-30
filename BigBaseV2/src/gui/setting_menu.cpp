@@ -447,20 +447,20 @@ namespace big
                         }
                     }
 
-                    if (ImGui::Button("Add Offset##Local"))
+                    if (ImGui::Button(xorstr("Add Offset##Local")))
                         local_test.local_appendages.push_back({ LocalAppendageType_At, 0LL, 0ULL });
                     ImGui::SameLine();
-                    if (ImGui::Button("Add Read Player Id##Local"))
+                    if (ImGui::Button(xorstr("Add Read Player Id##Local")))
                         local_test.local_appendages.push_back({ LocalAppendageType_PlayerId, 0LL, 0ULL });
 
-                    if (local_test.local_appendages.size() > 0 && ImGui::Button("Remove Offset"))
+                    if (local_test.local_appendages.size() > 0 && ImGui::Button(xorstr("Remove Offset")))
                         local_test.local_appendages.pop_back();
                     static int Local_Type = 0;
-                    ImGui::RadioButton("Integer##Local", &Local_Type, 0);
+                    ImGui::RadioButton(xorstr("Integer##Local"), &Local_Type, 0);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Float##Local", &Local_Type, 1);
+                    ImGui::RadioButton(xorstr("Float##Local"), &Local_Type, 1);
                     ImGui::SameLine();
-                    ImGui::RadioButton("String##Local", &Local_Type, 2);
+                    ImGui::RadioButton(xorstr("String##Local"), &Local_Type, 2);
 
                     if (auto ptr = local_tester::get_local_ptr(selected_thread, local_test))
                     {
@@ -667,12 +667,12 @@ namespace big
                 ImGui::EndGroup();
             }
             ImGui::Separator();
-            if (ImGui::Button(xorstr("Exit Program")))
+            if (ImGui::Button(xorstr("Unload Mod Menu")))
             {
                 g_running = false;
             }
             ImGui::SameLine();
-            if (ImGui::Button(xorstr("Close Game")))
+            if (ImGui::Button(xorstr("Exit Game")))
             {
                 exit(0);
             }

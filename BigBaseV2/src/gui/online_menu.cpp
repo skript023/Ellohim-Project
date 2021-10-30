@@ -1337,10 +1337,6 @@ namespace big
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Set ##BunkerMoney")))
                 {
-                    //LA(1784, 'gb_gunrunning') bunker = Counter --> LA(2029, 'gb_gunrunning') = Bunker Delivery
-                    //LA(589,'gb_contraband_sell') special cargo
-                    //LA(829,'gb_biker_contraband_sell') Heli Cargo
-                    //Local_533.f_582
                     switch (business_index)
                     {
                     case 0:
@@ -1350,7 +1346,7 @@ namespace big
                             {
                                 auto money_bunker = *g_pointers->m_money_in_bunker;
                                 if (money_bunker->money_in_bunker == 0) return;
-                                LOG(HACKER) << "Money : " << money_bunker->money_in_bunker;
+
                                 int kargo = *script_local(bunker_selling, m_local.bunker_sell).at(551).at(1).at(19).as<int*>();
                                 int data = BusinessMoney / money_bunker->money_in_bunker;
                                 *script_local(bunker_selling, m_local.bunker_sell).at(816).as<int*>() = kargo;
@@ -1375,8 +1371,9 @@ namespace big
                             if (auto mc_selling = rage_helper::find_script_thread(RAGE_JOAAT("gb_biker_contraband_sell")))
                             {
                                 auto money_business = *g_pointers->m_money_in_bunker; int money_in_mc = money_business->money_in_bunker;
+                                if (money_in_mc == 0) return;
                                 float mc_multiplier = systems::int_to_float(BusinessMoney / money_in_mc);
-                                LOG(HACKER) << mc_multiplier;
+
                                 *script_global(g_global.mc_sell_mult_far).as<float*>() = mc_multiplier;
                                 *script_global(g_global.mc_sell_mult_near).as<float*>() = mc_multiplier;
                                 int requirement = *script_local(mc_selling, m_local.mc_sell).at(143).as<int*>();
@@ -1399,6 +1396,7 @@ namespace big
                                 auto tuneable = game_helper::func_799(cargo);
                                 int temp = *script_global(tuneable).as<int*>();
                                 int result = BusinessMoney / cargo;
+                                if (result == 0) return;
                                 *script_global(tuneable).as<int*>() = result;
                                 *script_local(special_cargo, m_local.special_cargo_sell).at(56).as<int*>() = requirement;
 

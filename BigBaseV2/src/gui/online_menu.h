@@ -11,6 +11,10 @@ namespace big
 		static void render_online_tab();
 	};
 }
+//LA(1784, 'gb_gunrunning') bunker = Counter --> LA(2029, 'gb_gunrunning') = Bunker Delivery
+//LA(589,'gb_contraband_sell') special cargo
+//LA(829,'gb_biker_contraband_sell') Heli Cargo
+//Local_533.f_582
 /*
     *script_global(g_global.mc_document).as<int*>() = BusinessMoney;
     *script_global(g_global.mc_cash).as<int*>() = BusinessMoney;

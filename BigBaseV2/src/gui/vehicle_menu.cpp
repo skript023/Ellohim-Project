@@ -467,7 +467,8 @@ namespace big
                 g_settings.save();
             ImGui::Separator();
 
-            ImGui::Checkbox(xorstr("Vehicle Godmode"), g_settings.options["Vehicle Godmode"].get<bool*>());
+            if (ImGui::Checkbox(xorstr("Vehicle Godmode"), g_settings.options["Vehicle Godmode"].get<bool*>()))
+                g_settings.save();
             ImGui::SameLine(200);
             ImGui::Checkbox("Seat Belt", g_settings.options["Seatbelt"].get<bool*>());
             if (ImGui::Checkbox(xorstr("Boost Flag"), &BoostFlag))

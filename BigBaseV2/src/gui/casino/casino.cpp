@@ -412,8 +412,13 @@ namespace big
                 if (is_context_active("BJACK_BET") && *all_buttons_ready == 5)
                 {
                     *script_local(blackjack_thread, m_local.blackjack.bet_trigger).as<int*>() = 36864;
+                    *script_global(262145).at(26688).as<int*>() = INT_MAX;
                 }
             }
+        }
+        else if (!Activation && !systems::is_script_active(RAGE_JOAAT("BLACKJACK")))
+        {
+            *script_global(262145).at(26688).as<int*>() = 5000000;
         }
     }
 
