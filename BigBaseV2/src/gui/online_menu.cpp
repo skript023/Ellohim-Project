@@ -1349,7 +1349,8 @@ namespace big
                             if (auto bunker_selling = rage_helper::find_script_thread(RAGE_JOAAT("gb_gunrunning")))
                             {
                                 auto money_bunker = *g_pointers->m_money_in_bunker;
-                                LOG(INFO) << "Money : " << money_bunker->money_in_bunker;
+                                if (money_bunker->money_in_bunker == 0) return;
+                                LOG(HACKER) << "Money : " << money_bunker->money_in_bunker;
                                 int kargo = *script_local(bunker_selling, m_local.bunker_sell).at(551).at(1).at(19).as<int*>();
                                 int data = BusinessMoney / money_bunker->money_in_bunker;
                                 *script_local(bunker_selling, m_local.bunker_sell).at(816).as<int*>() = kargo;
