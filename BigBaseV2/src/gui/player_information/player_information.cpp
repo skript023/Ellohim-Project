@@ -215,12 +215,12 @@ namespace big
             ImGui::Text(fmt::format("Bunker Product : {} / 100", network::get_bunker_stock(g_selected.player)).c_str());
             ImGui::Separator();
             ImGui::Text("Business Supply");
-            ImGui::Text(fmt::format("Meth Supply : {}", network::get_meth_stock(g_selected.player)).c_str());
-            ImGui::Text(fmt::format("Weed Supply : {}", network::get_weed_stock(g_selected.player)).c_str());
-            ImGui::Text(fmt::format("Cocain Supply : {}", network::get_cocain_stock(g_selected.player)).c_str());
-            ImGui::Text(fmt::format("Cash Supply : {}", network::get_cash_stock(g_selected.player)).c_str());
-            ImGui::Text(fmt::format("Document Supply : {}", network::get_document_stock(g_selected.player)).c_str());
-            ImGui::Text(fmt::format("Bunker Supply : {}", network::get_bunker_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Meth Supply : {}", network::get_meth_supply(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Weed Supply : {}", network::get_weed_supply(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Cocain Supply : {}", network::get_cocain_supply(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Cash Supply : {}", network::get_cash_supply(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Document Supply : {}", network::get_document_supply(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Bunker Supply : {}", network::get_bunker_supply(g_selected.player)).c_str());
             ImGui::EndTabItem();
         }
     }
