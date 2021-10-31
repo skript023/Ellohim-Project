@@ -122,7 +122,7 @@ namespace big
             case 6:
             case 11:
             case 16:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 20) * 100;
             }
         }
         return 0;
@@ -139,7 +139,7 @@ namespace big
             case 7:
             case 12:
             case 17:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 80) * 100;
             }
         }
         return 0;
@@ -156,7 +156,7 @@ namespace big
             case 8:
             case 13:
             case 18:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 10) * 100;
             }
         }
         return 0;
@@ -173,7 +173,7 @@ namespace big
             case 9:
             case 14:
             case 19:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 40) * 100;
             }
         }
         return 0;
@@ -190,7 +190,7 @@ namespace big
             case 10:
             case 15:
             case 20:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 60) * 100;
             }
         }
         return 0;
