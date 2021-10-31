@@ -210,8 +210,8 @@ namespace big
         if (*g_pointers->m_is_session_started)
         {
             auto research_progress = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(12).as<int*>();
-            auto research_percentages = (research_progress / 60) * 100;
-            return systems::int_to_float(research_percentages);
+            auto research_percentages = (systems::int_to_float(research_progress) / 60.f) * 100.f;
+            return research_percentages;
         }
         return 0;
     }
