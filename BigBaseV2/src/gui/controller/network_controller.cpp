@@ -40,10 +40,10 @@ namespace big
             auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
             switch (location)
             {
-            case 1:
-            case 6:
-            case 11:
-            case 16:
+            case 2:
+            case 7:
+            case 12:
+            case 17:
                 return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
             }
         }
@@ -134,10 +134,10 @@ namespace big
             auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
             switch (location)
             {
-            case 1:
-            case 6:
-            case 11:
-            case 16:
+            case 2:
+            case 7:
+            case 12:
+            case 17:
                 return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
             }
         }
