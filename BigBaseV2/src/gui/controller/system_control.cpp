@@ -398,6 +398,11 @@ namespace big
         return std::nextafter(static_cast<float>(x), 0.f);
     }
 
+    float systems::round(float var)
+    {
+        return floorf(var * 100) / 100;
+    }
+
     bool validate_pointer(float Pointer, int64_t Bit)
     {
         auto pointer = std::addressof(Pointer);

@@ -213,7 +213,7 @@ namespace big
             auto research_percentages = (systems::int_to_float(research_progress) / 60.f) * 100.f;
             return research_percentages;
         }
-        return 0;
+        return 0.0f;
     }
 
     const char* network::get_meth_location(Player player)

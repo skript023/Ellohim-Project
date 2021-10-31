@@ -30,6 +30,7 @@ namespace big
 		static rage::vector3 to_rage_vector(Vector3 vector);
 		static int float_to_int(const float& num);
 		static float int_to_float(int x);
+		static float round(float var);
 	};
 	class fire
 	{
