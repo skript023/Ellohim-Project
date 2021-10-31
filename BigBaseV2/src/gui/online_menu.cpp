@@ -1183,49 +1183,37 @@ namespace big
                 }
                 if (ImGui::Button(xorstr("Trigger Meth Product"), ImVec2(200, 0)))
                 {
-                    network::trigger_meth_production();
+                    network::trigger_meth_production(g_local.player);
                 }
                 ImGui::SameLine(220);
                 if (ImGui::Button(xorstr("Trigger Weed Production"), ImVec2(200, 0)))
                 {
-                    network::trigger_weed_production();
+                    network::trigger_weed_production(g_local.player);
                 }
                 ImGui::SameLine(430);
                 if (ImGui::Button(xorstr("Trigger Coke Production"), ImVec2(200, 0)))
                 {
-                    network::trigger_cocain_production();
+                    network::trigger_cocain_production(g_local.player);
                 }
 
                 if (ImGui::Button(xorstr("Trigger Cash Production"), ImVec2(200, 0)))
                 {
-                    network::trigger_cash_production();
+                    network::trigger_cash_production(g_local.player);
                 }
                 ImGui::SameLine(220);
                 if (ImGui::Button(xorstr("Trigger Document Production"), ImVec2(200, 0)))
                 {
-                    network::trigger_document_production();
+                    network::trigger_document_production(g_local.player);
                 }
                 ImGui::SameLine(430);
                 if (ImGui::Button(xorstr("Trigger Bunker Product"), ImVec2(200, 0)))
                 {
-                    int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
-                    int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
-                    if (product == 100) LOG(HACKER) << "Trigger Bunker Production Function: Full Stock!";
-                    if (supply > 0)
-                        *script_global(g_global.business_index).at(5, 12).at(9).as<int*>() = 0;
-                    else
-                        LOG(HACKER) << "Trigger Bunker Production Function: Supplies are empty! Buy Supplies!";
+                    network::trigger_bunker_production(g_local.player);
                 }
                 
                 if (ImGui::Button(xorstr("Trigger Bunker Research"), ImVec2(200, 0)))
                 {
-                    int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
-                    int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
-                    if (product == 60) LOG(HACKER) << "Trigger Bunker Research Function: Research Progress Done!";
-                    if (supply > 0)
-                        *script_global(g_global.business_index).at(5, 12).at(13).as<int*>() = 0;
-                    else
-                        LOG(HACKER) << "Trigger Bunker Research Function: Supplies are empty! Buy Supplies!";
+                    network::trigger_bunker_research(g_local.player);
                 }
                 ImGui::SameLine(220);
                 if (ImGui::Button(xorstr("Trigger Nightclub Product"), ImVec2(200, 0)))

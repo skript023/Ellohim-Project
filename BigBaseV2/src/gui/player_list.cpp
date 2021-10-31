@@ -88,7 +88,7 @@ namespace big
             //Render
             player_information::render_player_event();
             player_information::render_player_info();
-
+            player_information::render_player_business_info();
             ImGui::EndTabBar();
             ImGui::PopID();
             ImGui::PopItemWidth();

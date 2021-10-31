@@ -30,7 +30,6 @@ namespace big
             int CurrentEXP = *script_global(1590908).at(g_selected.player, 874).at(205).at(1).as<int*>();
             int PlayerLevel = *script_global(1590908).at(g_selected.player, 874).at(205).at(6).as<int*>();
             int OffTheRadar = *script_global(2426097).at(g_selected.player, 443).at(204).as<int*>();
-            int BunkerID = *script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(5, 12).as<int*>();
 
             int selected_approach = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(22).as<int*>();
             int selected_target = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(7).as<int*>();
@@ -48,103 +47,7 @@ namespace big
             //auto CEONames = *script_global(1630816).at(g_selected.player, 597).at(11).at(105).as<uint64_t*>();
             const char* is_modded_account = GlobalRP < CurrentEXP ? "True" : "False";
             const char* is_modded_money = TotalMoney >= INT_MAX ? "True" : "False";
-            const char* MethLocation = "No Data";
-            const char* WeedLocation = "No Data";
-            const char* CokeLocation = "No Data";
-            const char* CashLocation = "No Data";
-            const char* DocLocation = "No Data";
-            for (int a = 0; a <= 4; a++)
-            {
-                for (int b = 0; b <= 5; b++)
-                {
-                    for (int c = 0; c <= 4; c++)
-                    {
-                        for (int d = 0; d <= 1; d++)
-                        {
-                            if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 1 && var::tbl_business[b][c][d] == 1)
-                            {
-                                MethLocation = "Paleto Bay";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 6 && var::tbl_business[b][c][d] == 6)
-                            {
-                                MethLocation = "El Burro Heights";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 11 && var::tbl_business[b][c][d] == 11)
-                            {
-                                MethLocation = "Grand Senora Desert";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 16 && var::tbl_business[b][c][d] == 16)
-                            {
-                                MethLocation = "Terminal";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 2 && var::tbl_business[b][c][d] == 2)
-                            {
-                                WeedLocation = "Mount Chiliad";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 7 && var::tbl_business[b][c][d] == 7)
-                            {
-                                WeedLocation = "Downtown Vinewood";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 12 && var::tbl_business[b][c][d] == 12)
-                            {
-                                WeedLocation = "San Chianski";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 17 && var::tbl_business[b][c][d] == 17)
-                            {
-                                WeedLocation = "Elysian Island";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 3 && var::tbl_business[b][c][d] == 3)
-                            {
-                                CokeLocation = "Paleto Bay";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 8 && var::tbl_business[b][c][d] == 8)
-                            {
-                                CokeLocation = "Morningwood";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 13 && var::tbl_business[b][c][d] == 13)
-                            {
-                                CokeLocation = "Alamo Sea";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 18 && var::tbl_business[b][c][d] == 18)
-                            {
-                                CokeLocation = "Elysian Island";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 4 && var::tbl_business[b][c][d] == 4)
-                            {
-                                CashLocation = "Paleto Bay";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 9 && var::tbl_business[b][c][d] == 9)
-                            {
-                                CashLocation = "Vespucci Canals";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 14 && var::tbl_business[b][c][d] == 14)
-                            {
-                                CashLocation = "Grand Senora Desert";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 19 && var::tbl_business[b][c][d] == 19)
-                            {
-                                CashLocation = "Cypress Flats";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 5 && var::tbl_business[b][c][d] == 5)
-                            {
-                                DocLocation = "Paleto Bay";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 10 && var::tbl_business[b][c][d] == 10)
-                            {
-                                DocLocation = "Textile City";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 15 && var::tbl_business[b][c][d] == 15)
-                            {
-                                DocLocation = "Grapeseed";
-                            }
-                            else if (*script_global(1590908).at(g_selected.player, 874).at(267).at(185).at(a, 12).as<int*>() == 20 && var::tbl_business[b][c][d] == 20)
-                            {
-                                DocLocation = "Elysian Island";
-                            }
-                        }
-                    }
-                }
-            }
+            
             const char* casino_status_wajib = board_status_1 == -1 ? "Skip Prep" : (board_status_1 == 127 && selected_approach == 1) ? "Complete" : (board_status_1 == 159 && selected_approach == 2) ? "Complete" : (board_status_1 == 799 && selected_approach == 3) ? "Complete" : (board_status_1 == 0) ? "No Progress" : (board_status_1 > 0) ? "In Progress" : "Mission Not Started";
             const char* casino_status_opsional = board_status_2 == -1 ? "Skip Prep" : (board_status_2 == 61 && selected_approach == 1) ? "Complete" : (board_status_2 == 339990 && selected_approach == 2) ? "Complete" : (board_status_2 == 3670038 && selected_approach == 3) ? "Complete" : board_status_2 == 0 ? "No Progress" : (board_status_2 > 0) ? "In Progress" : "Mission Not Started";
             const char* target_heist = selected_target == 0 ? "Cash" : selected_target == 1 ? "Gold" : selected_target == 2 ? "Art" : selected_target == 3 ? "Diamond" : "Not Selected";
@@ -228,7 +131,6 @@ namespace big
                 hacker = "Not Selected";
                 break;
             }
-            const char* BunkerLocation = BunkerID == 23 ? "Route86" : BunkerID == 24 ? "Farmhouse" : BunkerID == 25 ? "Smoke Tree Road" : BunkerID == 26 ? "Thomson Scrapyard" : BunkerID == 27 ? "Grapeseed" : BunkerID == 28 ? "Paleto Forest" : BunkerID == 29 ? "Ranton Canyon" : BunkerID == 30 ? "Lago Zancudo" : BunkerID == 31 ? "Chumash" : "No Data";
             const char* is_player_off_radar = OffTheRadar == 1 ? "True" : "False";
             int TotalBanked = TotalMoney - TotalCash;
 
@@ -264,13 +166,6 @@ namespace big
             ImGui::Text("Player HP : %d/%d", g_info.player_health, g_info.player_max_health);
             ImGui::Text("Player Armour : %d/%d", g_info.player_armour, g_info.player_max_armour);
             ImGui::Separator();
-            ImGui::Text(fmt::format("Bunker Location : {}", BunkerLocation).c_str());
-            ImGui::Text(fmt::format("Meth Location : {}", MethLocation).c_str());
-            ImGui::Text(fmt::format("Weed Location : {}", WeedLocation).c_str());
-            ImGui::Text(fmt::format("Coke Location :{}", CokeLocation).c_str());
-            ImGui::Text(fmt::format("Cash Location : {}", CashLocation).c_str());
-            ImGui::Text(fmt::format("Document Location : {}", DocLocation).c_str());
-            ImGui::Separator();
             ImGui::Text(fmt::format("Current Vehicle : {}", player::get_player_vehicle_name(g_selected.player)).c_str());
             ImGui::SameLine(350);
             ImGui::Text(fmt::format("Driver : {}", player::is_player_driver(g_selected.ped) ? "true" : "false").c_str());
@@ -297,6 +192,37 @@ namespace big
             ImGui::EndTabItem();
         }
 
+    }
+
+    void player_information::render_player_business_info()
+    {
+        if (ImGui::BeginTabItem("Business Info"))
+        {
+            ImGui::Text("Business Location");
+            ImGui::Text(fmt::format("Meth Location : {}", network::get_meth_location(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Weed Location : {}", network::get_weed_location(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Coke Location :{}", network::get_cocain_location(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Cash Location : {}", network::get_cash_location(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Document Location : {}", network::get_document_location(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Bunker Location : {}", network::get_bunker_location(g_selected.player)).c_str());
+            ImGui::Separator();
+            ImGui::Text("Business Stock");
+            ImGui::Text(fmt::format("Meth Product : {} / 80", network::get_meth_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Weed Product : {} / 10", network::get_weed_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Cocain Product : {} / 40", network::get_cocain_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Cash Product : {} / 60", network::get_cash_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Document Product : {} / 100", network::get_document_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Bunker Product : {} / 20", network::get_bunker_stock(g_selected.player)).c_str());
+            ImGui::Separator();
+            ImGui::Text("Business Supply");
+            ImGui::Text(fmt::format("Meth Supply : {}", network::get_meth_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Weed Supply : {}", network::get_weed_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Cocain Supply : {}", network::get_cocain_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Cash Supply : {}", network::get_cash_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Document Supply : {}", network::get_document_stock(g_selected.player)).c_str());
+            ImGui::Text(fmt::format("Bunker Supply : {}", network::get_bunker_stock(g_selected.player)).c_str());
+            ImGui::EndTabItem();
+        }
     }
 
     void player_information::render_player_event()

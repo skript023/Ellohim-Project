@@ -16,6 +16,194 @@
 
 namespace big
 {
+    int network::get_meth_supply(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 1:
+            case 6:
+            case 11:
+            case 16:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_weed_supply(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 1:
+            case 6:
+            case 11:
+            case 16:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_cocain_supply(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 3:
+            case 8:
+            case 13:
+            case 18:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_cash_supply(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 4:
+            case 9:
+            case 14:
+            case 19:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_document_supply(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 5:
+            case 10:
+            case 15:
+            case 20:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_bunker_supply(Player player)
+    {
+        if (*g_pointers->m_is_session_started)
+        {
+            return *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
+        }
+        return 0;
+    }
+
+    int network::get_meth_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 1:
+            case 6:
+            case 11:
+            case 16:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_weed_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 1:
+            case 6:
+            case 11:
+            case 16:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_cocain_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 3:
+            case 8:
+            case 13:
+            case 18:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_cash_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 4:
+            case 9:
+            case 14:
+            case 19:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_document_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 5:
+            case 10:
+            case 15:
+            case 20:
+                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>();
+            }
+        }
+        return 0;
+    }
+
+    int network::get_bunker_stock(Player player)
+    {
+        if (*g_pointers->m_is_session_started)
+        {
+            return *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
+        }
+        return 0;
+    }
+
     const char* network::get_meth_location(Player player)
     {
         for (int i = 0; i <= 4; i++)
@@ -33,6 +221,7 @@ namespace big
                 return "Terminal";
             }
         }
+        return "No Data";
     }
 
     const char* network::get_weed_location(Player player)
@@ -52,6 +241,7 @@ namespace big
                 return "Elysian Island";
             }
         }
+        return "No Data";
     }
 
     const char* network::get_cocain_location(Player player)
@@ -71,6 +261,7 @@ namespace big
                 return "Elysian Island";
             }
         }
+        return "No Data";
     }
 
     const char* network::get_cash_location(Player player)
@@ -90,6 +281,7 @@ namespace big
                 return "Cypress Flats";
             }
         }
+        return "No Data";
     }
 
     const char* network::get_document_location(Player player)
@@ -109,24 +301,53 @@ namespace big
                 return "Elysian Island";
             }
         }
+        return "No Data";
     }
 
-	void network::trigger_meth_production()
+    const char* network::get_bunker_location(Player player)
+    {
+        auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).as<int*>();
+
+        switch (location)
+        {
+        case 23:
+            return "Route86";
+        case 24:
+            return "Farmhouse";
+        case 25:
+            return "Smoke Tree Road";
+        case 26:
+            return "Thomson Scrapyard";
+        case 27:
+            return "Grapeseed";
+        case 28:
+            return "Paleto Forest";
+        case 29:
+            return "Ranton Canyon";
+        case 30:
+            return "Lago Zancudo";
+        case 31:
+            return "Chumash";
+        }
+        return "No Data";
+    }
+
+	void network::trigger_meth_production(Player player)
 	{
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).as<int*>();
             switch (location)
             {
                 case 1:
                 case 6:
                 case 11:
                 case 16:
-                    int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
-                    int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                    int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                    int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
                     if (product == 20) LOG(HACKER) << "Trigger Meth Production Function: Storage full with 20 Products!";
                     if (supply > 0)
-                        *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                        *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                     else
                         LOG(HACKER) << "Trigger Meth Production Function: Supplies are empty! Buy Supplies!";
                 break;
@@ -134,22 +355,22 @@ namespace big
         }
 	}
 
-    void network::trigger_weed_production()
+    void network::trigger_weed_production(Player player)
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).as<int*>();
             switch (location)
             {
             case 2:
             case 7:
             case 12:
             case 17:
-                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
-                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
                 if (product == 80) LOG(HACKER) << "Trigger Weed Production Function: Storage full with 80 Products!";
                 if (supply > 0)
-                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
                     LOG(HACKER) << "Trigger Weed Production Function: Supplies are empty! Buy Supplies!";
             break;
@@ -157,22 +378,22 @@ namespace big
         }
     }
 
-    void network::trigger_cocain_production()
+    void network::trigger_cocain_production(Player player)
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).as<int*>();
             switch (location)
             {
             case 3:
             case 8:
             case 13:
             case 18:
-                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
-                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
                 if (product == 10) LOG(HACKER) << "Trigger Cocaine Production Function: Storage full with 10 Products!";
                 if (supply > 0)
-                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
                     LOG(HACKER) << "Trigger Cocaine Production Function: Supplies are empty! Buy Supplies!";
             break;
@@ -180,22 +401,22 @@ namespace big
         }
     }
 
-    void network::trigger_cash_production()
+    void network::trigger_cash_production(Player player)
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).as<int*>();
             switch (location)
             {
             case 4:
             case 9:
             case 14:
             case 19:
-                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
-                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
                 if (product == 40) LOG(HACKER) << "Trigger Cash Production Function: Storage full with 40 Products!";
                 if (supply > 0)
-                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
                     LOG(HACKER) << "Trigger Cash Production Function: Supplies are empty! Buy Supplies!";
             break;
@@ -203,27 +424,49 @@ namespace big
         }
     }
 
-    void network::trigger_document_production()
+    void network::trigger_document_production(Player player)
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).as<int*>();
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).as<int*>();
             switch (location)
             {
             case 5:
             case 10:
             case 15:
             case 20:
-                int supply = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
-                int product = *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
+                int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
                 if (product == 60) LOG(HACKER) << "Trigger Documents Production Function: Storage full with 60 Products!";
                 if (supply > 0)
-                    *script_global(1590908).at(g_local.player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
                     LOG(HACKER) << "Trigger Documents Production Function: Supplies are empty! Buy Supplies!";
             break;
             }
         }
+    }
+
+    void network::trigger_bunker_production(Player player)
+    {
+        int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
+        int product = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
+        if (product == 100) LOG(HACKER) << "Trigger Bunker Production Function: Full Stock!";
+        if (supply > 0)
+            *script_global(g_global.business_index).at(5, 12).at(9).as<int*>() = 0;
+        else
+            LOG(HACKER) << "Trigger Bunker Production Function: Supplies are empty! Buy Supplies!";
+    }
+
+    void network::trigger_bunker_research(Player player)
+    {
+        int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
+        int product = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
+        if (product == 60) LOG(HACKER) << "Trigger Bunker Research Function: Research Progress Done!";
+        if (supply > 0)
+            *script_global(g_global.business_index).at(5, 12).at(13).as<int*>() = 0;
+        else
+            LOG(HACKER) << "Trigger Bunker Research Function: Supplies are empty! Buy Supplies!";
     }
 
 	void network::spectate_player(Ped playerped)

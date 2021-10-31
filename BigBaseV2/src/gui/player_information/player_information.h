@@ -10,5 +10,6 @@ namespace big
 	public:
 		static void render_player_info();
 		static void render_player_event();
+		static void render_player_business_info();
 	};
 }
