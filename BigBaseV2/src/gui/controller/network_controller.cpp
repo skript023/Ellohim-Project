@@ -13,6 +13,7 @@
 #include <gui/controller/Variable.h>
 #include <gui/controller/memory_address.hpp>
 #include "network_controller.h"
+#include "system_control.h"
 
 namespace big
 {
@@ -200,6 +201,17 @@ namespace big
         if (*g_pointers->m_is_session_started)
         {
             return *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
+        }
+        return 0;
+    }
+
+    float network::get_research_progress(Player player)
+    {
+        if (*g_pointers->m_is_session_started)
+        {
+            auto research_progress = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(12).as<int*>();
+            auto research_percentages = (research_progress / 60) * 100;
+            return systems::int_to_float(research_percentages);
         }
         return 0;
     }

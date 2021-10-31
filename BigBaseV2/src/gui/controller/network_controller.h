@@ -12,6 +12,7 @@ namespace big
 		static void spectate_player(Ped playerped);
 		static void set_session(int SessionId);
 		static void request_control(Entity entity);
+
 		static void trigger_meth_production(Player player);
 		static void trigger_weed_production(Player player);
 		static void trigger_cocain_production(Player player);
@@ -19,18 +20,22 @@ namespace big
 		static void trigger_document_production(Player player);
         static void trigger_bunker_production(Player player);
         static void trigger_bunker_research(Player player);
+
         static const char* get_meth_location(Player player);
         static const char* get_weed_location(Player player);
         static const char* get_cocain_location(Player player);
         static const char* get_cash_location(Player player);
         static const char* get_document_location(Player player);
         static const char* get_bunker_location(Player player);
+
         static int get_meth_stock(Player player);
         static int get_weed_stock(Player player);
         static int get_cocain_stock(Player player);
         static int get_cash_stock(Player player);
         static int get_document_stock(Player player);
         static int get_bunker_stock(Player player);
+        static float get_research_progress(Player player);
+
         static int get_meth_supply(Player player);
         static int get_weed_supply(Player player);
         static int get_cocain_supply(Player player);
