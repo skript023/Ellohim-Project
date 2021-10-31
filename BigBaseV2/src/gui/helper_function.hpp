@@ -19,7 +19,8 @@
 #include "gui/scenario/scenario.h"
 #include "gta/blip.hpp"
 #include "gui/game_event/game_helper.hpp"
-#include <gui\controller\xostr.h>
+#include "gui/controller/xostr.h"
+#include "gui/controller/url.hpp"
 
 namespace big
 {

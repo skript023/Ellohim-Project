@@ -134,7 +134,6 @@ namespace big
             const char* is_player_off_radar = OffTheRadar == 1 ? "True" : "False";
             int TotalBanked = TotalMoney - TotalCash;
 
-
             ImGui::Text("Ped ID : %d", g_selected.ped);
             ImGui::SameLine(200);
             ImGui::Text("Script Host : %s", g_local.ScriptHost == g_selected.player ? "True" : "False");
