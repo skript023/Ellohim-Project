@@ -117,8 +117,7 @@ namespace big
             case 6:
             case 11:
             case 16:
-                int supply = systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
-                return supply /= 100 * 100;
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -135,7 +134,7 @@ namespace big
             case 7:
             case 12:
             case 17:
-                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -152,7 +151,7 @@ namespace big
             case 8:
             case 13:
             case 18:
-                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -169,7 +168,7 @@ namespace big
             case 9:
             case 14:
             case 19:
-                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -186,7 +185,7 @@ namespace big
             case 10:
             case 15:
             case 20:
-                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(3).as<int*>());
             }
         }
         return 0.f;
