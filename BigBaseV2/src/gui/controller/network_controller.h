@@ -28,20 +28,27 @@ namespace big
         static const char* get_document_location(Player player);
         static const char* get_bunker_location(Player player);
 
-        static int get_meth_stock(Player player);
-        static int get_weed_stock(Player player);
-        static int get_cocain_stock(Player player);
-        static int get_cash_stock(Player player);
-        static int get_document_stock(Player player);
-        static int get_bunker_stock(Player player);
+        static float get_meth_stock(Player player);
+        static float get_weed_stock(Player player);
+        static float get_cocain_stock(Player player);
+        static float get_cash_stock(Player player);
+        static float get_document_stock(Player player);
+        static float get_bunker_stock(Player player);
         static float get_research_progress(Player player);
 
-        static int get_meth_supply(Player player);
-        static int get_weed_supply(Player player);
-        static int get_cocain_supply(Player player);
-        static int get_cash_supply(Player player);
-        static int get_document_supply(Player player);
-        static int get_bunker_supply(Player player);
+        static float get_meth_supply(Player player);
+        static float get_weed_supply(Player player);
+        static float get_cocain_supply(Player player);
+        static float get_cash_supply(Player player);
+        static float get_document_supply(Player player);
+        static float get_bunker_supply(Player player);
+
+        static void add_meth_supply(Player player, int supply);
+        static void add_weed_supply(Player player, int supply);
+        static void add_cocain_supply(Player player, int supply);
+        static void add_cash_supply(Player player, int supply);
+        static void add_document_supply(Player player, int supply);
+        static void add_bunker_supply(Player player, int supply);
 	};
 }
 /*

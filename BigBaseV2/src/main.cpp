@@ -61,24 +61,24 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 				}
 
 				g_hooking->disable();
-				LOG(INFO) << "Hooking disabled.";
+				LOG(HACKER) << "Hooking disabled.";
 
 				std::this_thread::sleep_for(1000ms);
 
 				g_script_mgr.remove_all_scripts();
-				LOG(INFO) << "Scripts unregistered.";
+				LOG(HACKER) << "Scripts unregistered.";
 
 				hooking_instance.reset();
-				LOG(INFO) << "Hooking uninitialized.";
+				LOG(HACKER) << "Hooking uninitialized.";
 
 				fiber_pool_instance.reset();
-				LOG(INFO) << "Fiber pool uninitialized.";
+				LOG(HACKER) << "Fiber pool uninitialized.";
 
 				renderer_instance.reset();
-				LOG(INFO) << "Renderer uninitialized.";
+				LOG(HACKER) << "Renderer uninitialized.";
 
 				pointers_instance.reset();
-				LOG(INFO) << "Pointers uninitialized.";
+				LOG(HACKER) << "Pointers uninitialized.";
 			}
 			catch (std::exception const &ex)
 			{

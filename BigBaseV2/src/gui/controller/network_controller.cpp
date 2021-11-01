@@ -18,7 +18,7 @@
 
 namespace big
 {
-    int network::get_meth_supply(Player player)
+    void network::add_meth_supply(Player player, int supply)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -29,13 +29,12 @@ namespace big
             case 6:
             case 11:
             case 16:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+                *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
             }
         }
-        return 0;
     }
 
-    int network::get_weed_supply(Player player)
+    void network::add_weed_supply(Player player, int supply)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -46,13 +45,12 @@ namespace big
             case 7:
             case 12:
             case 17:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+                *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
             }
         }
-        return 0;
     }
 
-    int network::get_cocain_supply(Player player)
+    void network::add_cocain_supply(Player player, int supply)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -63,13 +61,12 @@ namespace big
             case 8:
             case 13:
             case 18:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+                *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
             }
         }
-        return 0;
     }
 
-    int network::get_cash_supply(Player player)
+    void network::add_cash_supply(Player player, int supply)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -80,13 +77,12 @@ namespace big
             case 9:
             case 14:
             case 19:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+                *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
             }
         }
-        return 0;
     }
 
-    int network::get_document_supply(Player player)
+    void network::add_document_supply(Player player, int supply)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -97,22 +93,20 @@ namespace big
             case 10:
             case 15:
             case 20:
-                return *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>();
+                *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
             }
         }
-        return 0;
     }
 
-    int network::get_bunker_supply(Player player)
+    void network::add_bunker_supply(Player player, int supply)
     {
         if (*g_pointers->m_is_session_started)
         {
-            return *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
+            *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>() = supply;
         }
-        return 0;
     }
 
-    int network::get_meth_stock(Player player)
+    float network::get_meth_supply(Player player)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -123,13 +117,14 @@ namespace big
             case 6:
             case 11:
             case 16:
-                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 20) * 100;
+                int supply = systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
+                return supply /= 100 * 100;
             }
         }
-        return 0;
+        return 0.f;
     }
 
-    int network::get_weed_stock(Player player)
+    float network::get_weed_supply(Player player)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -140,13 +135,13 @@ namespace big
             case 7:
             case 12:
             case 17:
-                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 80) * 100;
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
             }
         }
-        return 0;
+        return 0.f;
     }
 
-    int network::get_cocain_stock(Player player)
+    float network::get_cocain_supply(Player player)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -157,13 +152,13 @@ namespace big
             case 8:
             case 13:
             case 18:
-                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 10) * 100;
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
             }
         }
-        return 0;
+        return 0.f;
     }
 
-    int network::get_cash_stock(Player player)
+    float network::get_cash_supply(Player player)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -174,13 +169,13 @@ namespace big
             case 9:
             case 14:
             case 19:
-                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 40) * 100;
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
             }
         }
-        return 0;
+        return 0.f;
     }
 
-    int network::get_document_stock(Player player)
+    float network::get_document_supply(Player player)
     {
         for (int i = 0; i <= 4; i++)
         {
@@ -191,19 +186,118 @@ namespace big
             case 10:
             case 15:
             case 20:
-                return (*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>() / 60) * 100;
+                return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>());
             }
         }
-        return 0;
+        return 0.f;
     }
 
-    int network::get_bunker_stock(Player player)
+    float network::get_bunker_supply(Player player)
     {
         if (*g_pointers->m_is_session_started)
         {
-            return *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
+            return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>());
         }
-        return 0;
+        return 0.f;
+    }
+
+    float network::get_meth_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 1:
+            case 6:
+            case 11:
+            case 16:
+                float product = systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>());
+                return (product / 20.f) * 100.f;
+            }
+        }
+        return 0.f;
+    }
+
+    float network::get_weed_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 2:
+            case 7:
+            case 12:
+            case 17:
+                float product = systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>());
+                return (product / 80.f) * 100.f;
+            }
+        }
+        return 0.f;
+    }
+
+    float network::get_cocain_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 3:
+            case 8:
+            case 13:
+            case 18:
+                float product = systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>());
+                return (product / 10.f) * 100.f;
+            }
+        }
+        return 0.f;
+    }
+
+    float network::get_cash_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 4:
+            case 9:
+            case 14:
+            case 19:
+                float product = systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>());
+                return (product / 40.f) * 100.f;
+            }
+        }
+        return 0.f;
+    }
+
+    float network::get_document_stock(Player player)
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            auto location = *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).as<int*>();
+            switch (location)
+            {
+            case 5:
+            case 10:
+            case 15:
+            case 20:
+                float product = systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(1).as<int*>());
+                return (product / 60.f) * 100.f;
+            }
+        }
+        return 0.f;
+    }
+
+    float network::get_bunker_stock(Player player)
+    {
+        if (*g_pointers->m_is_session_started)
+        {
+            return systems::int_to_float(*script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>());
+        }
+        return 0.f;
     }
 
     float network::get_research_progress(Player player)
