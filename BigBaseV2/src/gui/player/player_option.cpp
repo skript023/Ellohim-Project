@@ -2,14 +2,14 @@
 #include "common.hpp"
 #include "gta_util.hpp"
 #include "script_local.hpp"
-#include "gta\VehicleValues.h"
+#include "gta/VehicleValues.h"
 #include "fiber_pool.hpp"
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
 #include "gui/controller/ScriptController.h"
-#include "gui\player_list.h"
-#include "gta\Weapons.h"
+#include "gui/player_list.h"
+#include "gta/Weapons.h"
 #include "gui/controller/Variable.h"
 #include "gui/player/player_option.h"
 #include "gui/entity/entity_control.h"
@@ -19,6 +19,7 @@
 #include "gta/net_object_mgr.hpp"
 #include "gui/weapons/weapon_helper.h"
 #include "gui/vehicle/vehicle_helper.h"
+#include "gui/artificial_intelligence/artificial_intelligence.h"
 
 #define ARRAY_SIZE(_ARR)          ((int)(sizeof(_ARR) / sizeof(*(_ARR))))
 #define ARR_SZ(_ARR)              ((int)(sizeof(_ARR) / sizeof((_ARR)[0])))
@@ -36,12 +37,12 @@ namespace big
             STATS::STAT_GET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), &global_exp, -1);
             if (global_exp == total)
             {
-                LOG(HACKER) << "Your RP no longer need correction";
+                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Your RP no longer need correction", "~bold~~g~Ellohim Recovery");
             }
             else if (global_exp != total)
             {
                 STATS::STAT_SET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), total, true);
-                LOG(HACKER) << ("Your RP Has Been Corrected");
+                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Your RP Has Been Corrected", "~bold~~g~Ellohim Recovery");
             }
         });
     }
