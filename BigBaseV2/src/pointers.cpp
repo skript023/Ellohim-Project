@@ -179,7 +179,7 @@ namespace big
 
 		main_batch.add("Hash Table", "48 8B 05 ? ? ? ? 4C 8B 14 D0 EB 09 41 3B 0A 74 54 4D", [this](memory::handle ptr)
 		{
-			m_hash_table = ptr.add(3).rip().as<uint64_t*>();
+			m_hash_table = ptr.add(3).rip().as<CHashTable**>();
 		});
 
 		main_batch.add("Money In Bunker", "48 8D 05 ? ? ? ? 48 C1 E1 ? 48 03 C8 E8 ? ? ? ? 48 8B 5C", [this](memory::handle ptr)

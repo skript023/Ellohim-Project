@@ -227,15 +227,15 @@ namespace big
     {
         if (Activation && !g_local.transition)
         {
-            Memory::set_value((uintptr_t)g_pointers->m_hash_table, { 0x2EB8, 0x8E0 }, rage::joaat("player_one"));
-            Memory::set_value((uintptr_t)g_pointers->m_hash_table, { 0x2EB8, 0x8F0 }, rage::joaat("player_one"));
-            Memory::set_value((uintptr_t)g_pointers->m_hash_table, { 0x2EB8, 0x900 }, rage::joaat("player_one"));
+            auto hash_table = *g_pointers->m_hash_table; hash_table->m_ped_hash_table->m_slod = rage::joaat("player_one");
+            hash_table->m_ped_hash_table->m_slod = rage::joaat("player_one");
+            hash_table->m_ped_hash_table->m_slod = rage::joaat("player_one");
         }
         else
         {
-            Memory::set_value((uintptr_t)g_pointers->m_hash_table, { 0x2EB8, 0x8E0 }, rage::joaat("slod_human"));
-            Memory::set_value((uintptr_t)g_pointers->m_hash_table, { 0x2EB8, 0x8F0 }, rage::joaat("slod_small_quadped"));
-            Memory::set_value((uintptr_t)g_pointers->m_hash_table, { 0x2EB8, 0x900 }, rage::joaat("slod_large_quadped"));
+            auto hash_table = *g_pointers->m_hash_table; hash_table->m_ped_hash_table->m_slod = rage::joaat("slod_human");
+            hash_table->m_ped_hash_table->m_slod = rage::joaat("slod_small_quadped");
+            hash_table->m_ped_hash_table->m_slod = rage::joaat("slod_large_quadped");
         }
     }
 

@@ -83,7 +83,7 @@ namespace big
 		rage::datBitBuffer *m_bitbufferclass;
 		GameSetting* m_game_setting;
 		functions::ScriptGameEvent m_script_event{};
-		uint64_t *m_hash_table;
+		CHashTable **m_hash_table;
 		uintptr_t* m_camera_base;
 
 		PVOID m_send_net_info_to_lobby;
