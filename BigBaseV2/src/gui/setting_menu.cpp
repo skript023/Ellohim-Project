@@ -680,6 +680,7 @@ namespace big
             ImGui::Separator();
             if (ImGui::Button(xorstr("Unload Mod Menu")))
             {
+                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Unloading Menu, Bye....", "~bold~~g~Ellohim Unloader");
                 g_running = false;
             }
             ImGui::SameLine();
