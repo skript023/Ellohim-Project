@@ -50,6 +50,8 @@ namespace big
             {
                 controller::DumpEntryBoi();
             }
+            ImGui::Separator();
+
             if (ImGui::Button(xorstr("Benchmark")))
             {
                 auto start = std::chrono::high_resolution_clock::now();
@@ -58,12 +60,21 @@ namespace big
                 auto result = std::chrono::duration_cast<nanoseconds>(end - start);
                 message::notification("~bold~~y~Benchmark", fmt::format("~g~finished with a resulting time of: {} nanoseconds",std::to_string(result.count())).c_str(), "~bold~~g~Ellohim Private Menu");
             }
-            bool expand = g_pointers->m_game_setting->m_radar_expansion;
+            ImGui::Separator();
+
+            static bool expand = g_pointers->m_game_setting->m_radar_expansion;
             if (ImGui::Checkbox(xorstr("Expand Radar"), &expand))
             {
-                auto game_setting = g_pointers->m_game_setting;
-                game_setting->m_radar_expansion = expand;
+                g_pointers->m_game_setting->m_radar_expansion = expand;
             }
+            ImGui::SameLine();
+
+            static bool subtitle = g_pointers->m_game_setting->m_subtitle;
+            if (ImGui::Checkbox(xorstr("Subtitle"), &subtitle))
+            {
+                g_pointers->m_game_setting->m_subtitle = subtitle;
+            }
+
             /*
             if (ImGui::Button("Give Ammo"))
             {
