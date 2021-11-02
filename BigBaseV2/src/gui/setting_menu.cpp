@@ -209,7 +209,7 @@ namespace big
                 {
                     for (int i = 0; i < 32; ++i)
                     {
-                        if (!controller::cstrcmp(features::PlayerNames[i], "**Invalid**"))
+                        if (!strcmp(features::PlayerNames[i], "**Invalid**") == 0)
                         {
                             if (ImGui::Selectable(features::PlayerNames[i], i == g_event_tester.event_player))
                             {

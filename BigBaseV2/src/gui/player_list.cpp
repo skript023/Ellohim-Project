@@ -57,7 +57,7 @@ namespace big
                 for (int i = 0; i < 32; ++i)
                 {
                     std::string num = std::to_string(i);
-                    if (!controller::cstrcmp(features::PlayerNames[i],"**Invalid**"))
+                    if (!strcmp(features::PlayerNames[i],"**Invalid**") == 0)
                     {
                         strcpy(PlayerListMenu, "[");
                         strcat(PlayerListMenu, num.c_str());
