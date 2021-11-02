@@ -7,7 +7,7 @@ namespace big
 	class vehicle_tab
 	{
 	public:
-		static void render_vehicle_tab();
+		static void render_vehicle_tab(const char* tab_name);
 	};
 
 	static class vehicle_handling

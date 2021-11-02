@@ -46,9 +46,9 @@ namespace big
     }
     
     //======================================================Tab Render================================================================
-    void player_list::render_player_list()
+    void player_list::render_player_list(const char* tab_name)
     {
-        if (ImGui::BeginTabItem("Player List"))
+        if (ImGui::BeginTabItem(tab_name))
         {
             ImGui::TextColored(ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f }, "Total Player : %d", g_local.connected_player);
             char PlayerListMenu[200];

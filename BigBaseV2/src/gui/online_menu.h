@@ -8,7 +8,7 @@ namespace big
 	class online_menu
 	{
 	public:
-		static void render_online_tab();
+		static void render_online_tab(const char* tab_name);
 	};
 }
 //LA(1784, 'gb_gunrunning') bunker = Counter --> LA(2029, 'gb_gunrunning') = Bunker Delivery

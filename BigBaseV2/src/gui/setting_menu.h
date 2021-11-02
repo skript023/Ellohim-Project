@@ -8,6 +8,6 @@ namespace big
 	class setting_tab
 	{
 	public:
-		static void render_setting_tab();
+		static void render_setting_tab(const char* tab_name);
 	};
 }

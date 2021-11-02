@@ -23,9 +23,9 @@ namespace big
     Any tanggal[12];
     const char* StringValue = " ";
 
-    void player_menu::render_player_tab()
+    void player_menu::render_player_tab(const char* tab_name)
     {
-        if (ImGui::BeginTabItem(xorstr("Player")))
+        if (ImGui::BeginTabItem(tab_name))
         {
             auto end = std::chrono::system_clock::now();
             std::time_t date = std::chrono::system_clock::to_time_t(end);

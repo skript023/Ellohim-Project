@@ -236,7 +236,7 @@ namespace big
 
     void player_information::render_player_event()
     {
-        if (ImGui::BeginTabItem(xorstr("Game Event")))
+        if (ImGui::BeginTabItem(xorstr("Remote Event")))
         {
             static const char* const ScriptEvent[]{ "Teleport To Cayo", "Invite Apartment", "CEO Kick", "CEO Ban", "Rotate Cam","Vehicle Kick", "Clear Wanted", "Kick", "Send Transaction Failed", "Send To Mission", "Give Wanted Level", "Fake Money" };
             static const char* const NetworkEvent[]{ "Weapon", "Request Anim Player", "Send Explosion", "Spectate", "Send Shoot", "Repair Vehicle", "Control Vehicle", "Bad Sport" };
@@ -262,33 +262,33 @@ namespace big
             static bool bonus_repair = false;
             static bool all_player = false;
 
-            ImGui::RadioButton("Script Event", &event_type, 0);
+            ImGui::RadioButton(xorstr("Script Event"), &event_type, 0);
             ImGui::SameLine();
-            ImGui::RadioButton("Network Event", &event_type, 1);
+            ImGui::RadioButton(xorstr("Network Event"), &event_type, 1);
             ImGui::SameLine();
-            ImGui::RadioButton("Other##Event", &event_type, 2);
+            ImGui::RadioButton(xorstr("Other##Event"), &event_type, 2);
 
             switch (event_type)
             {
             case 0:
-                ImGui::Text("Script Event");
+                ImGui::Text(xorstr("Script Event"));
                 ImGui::PushItemWidth(250);
-                ImGui::Combo("##Script Event", &SelectedScriptEvent, ScriptEvent, IM_ARRAYSIZE(ScriptEvent));
+                ImGui::Combo(xorstr("##Script Event"), &SelectedScriptEvent, ScriptEvent, IM_ARRAYSIZE(ScriptEvent));
                 ImGui::PopItemWidth();
                 if (SelectedScriptEvent == 11)
                 {
                     ImGui::PushItemWidth(250);
-                    ImGui::InputScalar("Money Value", ImGuiDataType_S32, &MoneyValue);
+                    ImGui::InputScalar(xorstr("Money Value"), ImGuiDataType_S32, &MoneyValue);
                     ImGui::PopItemWidth();
-                    ImGui::RadioButton("Banked", &type, 0);
+                    ImGui::RadioButton(xorstr("Banked"), &type, 0);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Remove", &type, 1);
+                    ImGui::RadioButton(xorstr("Remove"), &type, 1);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Steal", &type, 2);
+                    ImGui::RadioButton(xorstr("Steal"), &type, 2);
                     ImGui::Separator();
                 }
 
-                if (ImGui::Button("Send Event"))
+                if (ImGui::Button(xorstr("Send Event")))
                 {
                     switch (SelectedScriptEvent)
                     {
@@ -343,25 +343,25 @@ namespace big
                 }
                 break;
             case 1:
-                ImGui::Text("Network Event");
+                ImGui::Text(xorstr("Network Event"));
                 ImGui::PushItemWidth(250);
-                ImGui::Combo("##Network Event", &SelectedNetworkEvent, NetworkEvent, IM_ARRAYSIZE(NetworkEvent));
+                ImGui::Combo(xorstr("##Network Event"), &SelectedNetworkEvent, NetworkEvent, IM_ARRAYSIZE(NetworkEvent));
                 ImGui::PopItemWidth();
                 if (SelectedNetworkEvent == 0)
                 {
-                    ImGui::RadioButton("Give Weapon", &WeaponOption, 0);
+                    ImGui::RadioButton(xorstr("Give Weapon"), &WeaponOption, 0);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Add Ammo", &WeaponOption, 1);
+                    ImGui::RadioButton(xorstr("Add Ammo"), &WeaponOption, 1);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Remove Weapon", &WeaponOption, 2);
+                    ImGui::RadioButton(xorstr("Remove Weapon"), &WeaponOption, 2);
                     ImGui::Separator();
                 }
                 if (SelectedNetworkEvent == 4)
                 {
                     ImGui::PushItemWidth(250);
                     if (!AirStrike)
-                        ImGui::Combo("Select Shoot Type", &SelectedShoot, var::ShootWeapon, IM_ARRAYSIZE(var::ShootWeapon));
-                    ImGui::Checkbox("Air Strike", &AirStrike);
+                        ImGui::Combo(xorstr("Select Shoot Type"), &SelectedShoot, var::ShootWeapon, IM_ARRAYSIZE(var::ShootWeapon));
+                    ImGui::Checkbox(xorstr("Air Strike"), &AirStrike);
                     ImGui::Separator();
                     ImGui::PopItemWidth();
                 }
@@ -370,9 +370,9 @@ namespace big
                     ImGui::PushItemWidth(250);
                     if (ExplosiveMode == 0)
                     {
-                        ImGui::Combo("Select Explosion Type", &SelectedExplosion, var::ExplosionList, IM_ARRAYSIZE(var::ExplosionList));
+                        ImGui::Combo(xorstr("Select Explosion Type"), &SelectedExplosion, var::ExplosionList, IM_ARRAYSIZE(var::ExplosionList));
                         //ImGui::Combo("Blame Player", &SelectedBlame, features::PlayerNames, IM_ARRAYSIZE(features::PlayerNames));
-                        if (ImGui::BeginCombo("Blame Player", features::PlayerNames[SelectedBlame]))
+                        if (ImGui::BeginCombo(xorstr("Blame Player"), features::PlayerNames[SelectedBlame]))
                         {
                             for (int i = 0; i < 32; ++i)
                             {
@@ -387,24 +387,24 @@ namespace big
                             ImGui::EndCombo();
                         }
                     }
-                    ImGui::Checkbox("Audio", &isAudio);
-                    ImGui::Checkbox("Invisible", &isInvinsible);
-                    ImGui::RadioButton("Explode Normal", &ExplosiveMode, 0);
+                    ImGui::Checkbox(xorstr("Audio"), &isAudio);
+                    ImGui::Checkbox(xorstr("Invisible"), &isInvinsible);
+                    ImGui::RadioButton(xorstr("Explode Normal"), &ExplosiveMode, 0);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Explode Lobby Blame", &ExplosiveMode, 1);
+                    ImGui::RadioButton(xorstr("Explode Lobby Blame"), &ExplosiveMode, 1);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Explode Lobby", &ExplosiveMode, 2);
+                    ImGui::RadioButton(xorstr("Explode Lobby"), &ExplosiveMode, 2);
                     ImGui::Text("Bypass 1 : 0x%X | Bypass 2 : 0x0%X", *(unsigned short*)g_pointers->m_add_owned_explosion_bypass_1, *(unsigned short*)g_pointers->m_add_owned_explosion_bypass_2);
                     ImGui::Separator();
                     ImGui::PopItemWidth();
                 }
                 if (SelectedNetworkEvent == 5)
                 {
-                    ImGui::Checkbox("Bonus Full Upgrade", &bonus_repair);
+                    ImGui::Checkbox(xorstr("Bonus Full Upgrade"), &bonus_repair);
                 }
                 if (SelectedNetworkEvent == 6)
                 {
-                    ImGui::Text("Player Must Inside Vehicle");
+                    ImGui::Text(xorstr("Player Must Inside Vehicle"));
                     ImGui::RadioButton("Launch", &control_type, 0);
                     ImGui::SameLine();
                     ImGui::RadioButton("Boost", &control_type, 1);
@@ -424,7 +424,7 @@ namespace big
                     ImGui::RadioButton("Launch  Flip", &control_type, 8);
                 }
 
-                if (ImGui::Button("Send Event"))
+                if (ImGui::Button(xorstr("Send Event")))
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
@@ -722,36 +722,36 @@ namespace big
                 }
                 break;
             case 2:
-                ImGui::Text("Other");
+                ImGui::Text(xorstr("Other"));
                 ImGui::PushItemWidth(250);
-                ImGui::Combo("##Other Event", &SelectedOtherEvent, OtherEvent, IM_ARRAYSIZE(OtherEvent));
+                ImGui::Combo(xorstr("##Other Event"), &SelectedOtherEvent, OtherEvent, IM_ARRAYSIZE(OtherEvent));
                 ImGui::PopItemWidth();
                 if (SelectedOtherEvent == 0)
                 {
-                    ImGui::Checkbox("Auto Get Into Vehicle", &AutoGetIn);
+                    ImGui::Checkbox(xorstr("Auto Get Into Vehicle"), &AutoGetIn);
                     ImGui::Separator();
                 }
                 if (SelectedOtherEvent == 5)
                 {
-                    ImGui::RadioButton("Desktop", &g_fitur.disconnect_type, 0);
+                    ImGui::RadioButton(xorstr("Force Quit"), &g_fitur.disconnect_type, 0);
                     ImGui::SameLine();
-                    ImGui::RadioButton("Network Error", &g_fitur.disconnect_type, 1);
+                    ImGui::RadioButton(xorstr("Network Error"), &g_fitur.disconnect_type, 1);
                     ImGui::SameLine();
-                    ImGui::RadioButton("DoS Attack", &g_fitur.disconnect_type, 2);
+                    ImGui::RadioButton(xorstr("DoS Attack"), &g_fitur.disconnect_type, 2);
 
                     if (g_fitur.disconnect_type == 0)
-                        ImGui::Checkbox("Desktop All?", &g_fitur.desktop_all);
+                        ImGui::Checkbox(xorstr("Force Quit All?"), &g_fitur.desktop_all);
                 }
                 if (SelectedOtherEvent == 6)
                 {
-                    ImGui::Text("Target must inside vehicle");
-                    ImGui::RadioButton("Teleport To Me", &teleport_type, 0);
-                    ImGui::RadioButton("Teleport To Waypoint", &teleport_type, 1);
-                    ImGui::RadioButton("Teleport To Objective", &teleport_type, 2);
-                    ImGui::Checkbox("All Player ?", &all_player);
+                    ImGui::Text(xorstr("Target must inside vehicle"));
+                    ImGui::RadioButton(xorstr("Teleport To Me"), &teleport_type, 0);
+                    ImGui::RadioButton(xorstr("Teleport To Waypoint"), &teleport_type, 1);
+                    ImGui::RadioButton(xorstr("Teleport To Objective"), &teleport_type, 2);
+                    ImGui::Checkbox(xorstr("All Player ?"), &all_player);
                 }
 
-                if (ImGui::Button("Send Event"))
+                if (ImGui::Button(xorstr("Send Event")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -1019,23 +1019,23 @@ namespace big
                 break;
             }
 
-            ImGui::Checkbox("Remote Off Radar", &features::remoteOTR);
+            ImGui::Checkbox(xorstr("Remote Off Radar"), &features::remoteOTR);
             ImGui::SameLine(200);
-            ImGui::Checkbox("Send Heal", &features::send_heal);
+            ImGui::Checkbox(xorstr("Send Heal"), &features::send_heal);
 
-            ImGui::Checkbox("Remote Bribe", &features::RemoteBribeToggle);
+            ImGui::Checkbox(xorstr("Remote Bribe"), &features::RemoteBribeToggle);
             ImGui::SameLine(200);
-            ImGui::Checkbox("Give Explosive Ammo", &g_fitur.explosive_weapon);
+            ImGui::Checkbox(xorstr("Give Explosive Ammo"), &g_fitur.explosive_weapon);
 
             bool IsHost = *script_global(1630816).at(g_local.player, 597).at(10).as<bool*>();
             if (IsHost)
             {
-                if (ImGui::Button("Kick (Host Only)"))
+                if (ImGui::Button(xorstr("Kick (Host Only)")))
                 {
                     g_fiber_pool->queue_job([]
-                        {
-                            NETWORK::NETWORK_SESSION_KICK_PLAYER(g_selected.player);
-                        });
+                    {
+                        NETWORK::NETWORK_SESSION_KICK_PLAYER(g_selected.player);
+                    });
                 }
             }
             if (ImGui::CollapsingHeader("Other"))

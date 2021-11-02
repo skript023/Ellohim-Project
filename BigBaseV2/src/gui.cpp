@@ -105,15 +105,15 @@ namespace big
 	{
 		TRY_CLAUSE
 		{
-			if (ImGui::Begin(xorstr("Wuhan Mod Menu - Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol")))
+			if (ImGui::Begin(xorstr("Ellohim Menu - Developer Edition")))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
-				player_menu::render_player_tab();
-				vehicle_tab::render_vehicle_tab();
-				lsc::render_lsc_tab();
-				online_menu::render_online_tab();
-				player_list::render_player_list();
-				setting_tab::render_setting_tab();
+				player_menu::render_player_tab(xorstr("Player"));
+				vehicle_tab::render_vehicle_tab(xorstr("Vehicle"));
+				lsc::render_lsc_tab(xorstr("Vehicle Costumize"));
+				online_menu::render_online_tab(xorstr("Online"));
+				player_list::render_player_list(xorstr("Player List"));
+				setting_tab::render_setting_tab(xorstr("Setting"));
 				ImGui::EndTabBar();
 			}
 			ImGui::End();

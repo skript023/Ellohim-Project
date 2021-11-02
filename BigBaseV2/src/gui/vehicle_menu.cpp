@@ -51,9 +51,9 @@ namespace big
         }
     }
 
-    void vehicle_tab::render_vehicle_tab()
+    void vehicle_tab::render_vehicle_tab(const char* tab_name)
     {
-        if (ImGui::BeginTabItem("Vehicle"))
+        if (ImGui::BeginTabItem(tab_name))
         {
             static char NamaMobil[255] = "";
             static int total_ped = 0;

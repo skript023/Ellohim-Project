@@ -19,9 +19,9 @@
 
 namespace big
 {
-    void setting_tab::render_setting_tab()
+    void setting_tab::render_setting_tab(const char* tab_name)
     {
-        if (ImGui::BeginTabItem(xorstr("Setting")))
+        if (ImGui::BeginTabItem(tab_name))
         {
             if (ImGui::Button(xorstr("End Session")))
             {

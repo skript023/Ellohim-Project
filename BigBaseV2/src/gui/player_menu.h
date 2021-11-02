@@ -8,7 +8,7 @@ namespace big
 	class player_menu
 	{
 	public:
-		static void render_player_tab();
+		static void render_player_tab(const char* tab_name);
 	};
 
 	static class self_option

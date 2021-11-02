@@ -239,7 +239,7 @@ namespace big
     "Blacklight",
     }; //14 items
 
-    void lsc::render_lsc_tab()
+    void lsc::render_lsc_tab(const char* tab_name)
     {
         static Vehicle player_vehicle{};
         static std::vector<std::string> slot_display_names{};
@@ -301,7 +301,7 @@ namespace big
 
         if (!slot_display_names.empty())
         {
-            if (ImGui::BeginTabItem("LSC"))
+            if (ImGui::BeginTabItem(tab_name))
             {
                 if (ImGui::Checkbox("Bulletproof Tires", &can_tires_burst))
                 {

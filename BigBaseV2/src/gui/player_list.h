@@ -8,7 +8,7 @@ namespace big
 	class player_list
 	{
 	public:
-		static void render_player_list();
+		static void render_player_list(const char* tab_name);
 
 	public:
 		static int SpoofLevel;

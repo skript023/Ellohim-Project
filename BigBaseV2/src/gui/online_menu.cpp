@@ -21,9 +21,9 @@ namespace big
 {
     int SelectedFriend{};
 
-    void online_menu::render_online_tab()
+    void online_menu::render_online_tab(const char* tab_name)
     {
-        if (ImGui::BeginTabItem(xorstr("Online")))
+        if (ImGui::BeginTabItem(tab_name))
         {
             static const char* const SessionList[]{
                 "Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session",
