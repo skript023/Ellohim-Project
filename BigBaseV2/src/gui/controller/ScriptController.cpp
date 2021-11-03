@@ -228,14 +228,14 @@ namespace big
         if (Activation && !g_local.transition)
         {
             auto hash_table = *g_pointers->m_hash_table; hash_table->m_ped_hash_table->m_slod = rage::joaat("player_one");
-            hash_table->m_ped_hash_table->m_slod = rage::joaat("player_one");
-            hash_table->m_ped_hash_table->m_slod = rage::joaat("player_one");
+            hash_table->m_ped_hash_table->m_slod_small = rage::joaat("player_one");
+            hash_table->m_ped_hash_table->m_slod_large = rage::joaat("player_one");
         }
         else
         {
             auto hash_table = *g_pointers->m_hash_table; hash_table->m_ped_hash_table->m_slod = rage::joaat("slod_human");
-            hash_table->m_ped_hash_table->m_slod = rage::joaat("slod_small_quadped");
-            hash_table->m_ped_hash_table->m_slod = rage::joaat("slod_large_quadped");
+            hash_table->m_ped_hash_table->m_slod_small = rage::joaat("slod_small_quadped");
+            hash_table->m_ped_hash_table->m_slod_large = rage::joaat("slod_large_quadped");
         }
     }
 
