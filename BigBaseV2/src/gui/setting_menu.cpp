@@ -103,9 +103,8 @@ namespace big
                 {
                     g_pointers->m_game_setting->m_crosshair_setting = crosshair_setting;
                 }
+                ImGui::Separator();
             }
-
-            ImGui::Separator();
             if (ImGui::CollapsingHeader(xorstr("Script Monitor")))
             {
                 static GtaThread* selected_thread{};
@@ -184,6 +183,7 @@ namespace big
                     }
                 }
                 ImGui::EndGroup();
+                ImGui::Separator();
             }
             if (ImGui::CollapsingHeader(xorstr("Script Event Tester")))
             {
@@ -279,6 +279,7 @@ namespace big
                     event_obj.arg_is_hex.clear();
                 }
                 ImGui::EndGroup();
+                ImGui::Separator();
             }
             if (*g_pointers->m_script_globals != nullptr)
             {
@@ -400,6 +401,7 @@ namespace big
                         global_test.global_appendages.clear();
                     }
                     ImGui::EndGroup();
+                    ImGui::Separator();
                 }
             }
             if (ImGui::CollapsingHeader(xorstr("Local Script Editor")))
@@ -546,6 +548,7 @@ namespace big
                         local_test.local_appendages.clear();
                     }
                     ImGui::EndGroup();
+                    ImGui::Separator();
                 }
             }
             if (ImGui::CollapsingHeader(xorstr("Stat Loader")))
@@ -682,11 +685,12 @@ namespace big
                 }
                 ImGui::PopItemWidth();
                 ImGui::EndGroup();
+                ImGui::Separator();
             }
             ImGui::Separator();
             if (ImGui::Button(xorstr("Unload Mod Menu")))
             {
-                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Unloading Menu, Bye....", "~bold~~g~Ellohim Unloader");
+                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Menu Unloaded", "~bold~~g~Ellohim Unloader");
                 g_running = false;
             }
             ImGui::SameLine();
