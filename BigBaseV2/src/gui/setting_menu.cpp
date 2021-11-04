@@ -62,43 +62,49 @@ namespace big
             }
             ImGui::Separator();
 
-            static bool expand = g_pointers->m_game_setting->m_radar_expansion;
-            if (ImGui::Checkbox(xorstr("Expand Radar"), &expand))
+            if (ImGui::CollapsingHeader(xorstr("Game Setting")))
             {
-                g_pointers->m_game_setting->m_radar_expansion = expand;
-            }
-            ImGui::SameLine();
-
-            static bool subtitle = g_pointers->m_game_setting->m_subtitle;
-            if (ImGui::Checkbox(xorstr("Subtitle"), &subtitle))
-            {
-                g_pointers->m_game_setting->m_subtitle = subtitle;
-            }
-
-            /*
-            if (ImGui::Button("Give Ammo"))
-            {
-                for (int i = 0; i <= rage_helper::get_local_ped()->m_weapon_inventory->m_total_player_weapon; ++i)
+                static bool expand = g_pointers->m_game_setting->m_radar_expansion;
+                if (ImGui::Checkbox(xorstr("Expand Radar"), &expand))
                 {
-                    rage_helper::get_local_ped()->m_weapon_inventory->m_weapon_list->m_weapon_ammo[i]->m_ammo = 9999;
+                    g_pointers->m_game_setting->m_radar_expansion = expand;
+                }
+                ImGui::SameLine(150);
+
+                static bool subtitle = g_pointers->m_game_setting->m_subtitle;
+                if (ImGui::Checkbox(xorstr("Subtitle"), &subtitle))
+                {
+                    g_pointers->m_game_setting->m_subtitle = subtitle;
+                }
+                ImGui::SameLine(300);
+
+                static bool effect_killer = g_pointers->m_game_setting->m_kill_effect;
+                if (ImGui::Checkbox(xorstr("Effect Killer"), &effect_killer))
+                {
+                    g_pointers->m_game_setting->m_kill_effect = effect_killer;
+                }
+
+                static bool overhead_display = g_pointers->m_game_setting->m_over_head_display;
+                if (ImGui::Checkbox(xorstr("Overhead Display"), &overhead_display))
+                {
+                    g_pointers->m_game_setting->m_over_head_display = overhead_display;
+                }
+                ImGui::SameLine(150);
+
+                static bool hud_setting = g_pointers->m_game_setting->m_hud_setting;
+                if (ImGui::Checkbox(xorstr("Hud Setting"), &hud_setting))
+                {
+                    g_pointers->m_game_setting->m_hud_setting = hud_setting;
+                }
+                ImGui::SameLine(300);
+
+                static bool crosshair_setting = g_pointers->m_game_setting->m_crosshair_setting;
+                if (ImGui::Checkbox(xorstr("Hud Setting"), &crosshair_setting))
+                {
+                    g_pointers->m_game_setting->m_crosshair_setting = crosshair_setting;
                 }
             }
-            //ImGui::Checkbox("Test", &g_fitur.testing);
-            
-            if (ImGui::Button("Test"))
-            {
-                if (player::is_player_in_any_vehicle(g_local.player))
-                {//0.03999999911f
-                    for (int i = 0; i <= 64; i++)//-100000000.f
-                    {
-                        if (rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) == nullptr || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) > reinterpret_cast<VehicleCollision*>(0x7FFFFFFFFFF) || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) < rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(1))
-                            continue;
-                        if (systems::is_float_equal(rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision, 0.03999999911f))
-                            rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision = -100000000.f;
-                    }
-                }
-            }
-            */
+
             ImGui::Separator();
             if (ImGui::CollapsingHeader(xorstr("Script Monitor")))
             {
