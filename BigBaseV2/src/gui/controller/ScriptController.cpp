@@ -243,7 +243,7 @@ namespace big
     {
         HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
         HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(Message);
-        HUD::END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT("CHAR_SOCIAL_CLUB", "CHAR_SOCIAL_CLUB", FALSE, 0, "~bold~Ellohim", "~bold~~y~Private Mod Menu");
+        HUD::END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT("CHAR_SOCIAL_CLUB", "CHAR_SOCIAL_CLUB", FALSE, 0, "~bold~Ellohim Private Mod Menu", "~bold~~y~Ellohim Message");
         HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(true, InPauseMenu);
     }
 

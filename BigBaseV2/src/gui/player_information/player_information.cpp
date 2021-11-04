@@ -18,9 +18,9 @@
 
 namespace big
 {
-    void player_information::render_player_info()
+    void player_information::render_player_info(const char* tab_name)
     {
-        if (ImGui::BeginTabItem(xorstr("Player Info")))
+        if (ImGui::BeginTabItem(tab_name))
         {
             const char* Host = *script_global(1630816).at(g_selected.player, 597).at(10).as<bool*>() ? "True" : "False";
 
@@ -193,13 +193,12 @@ namespace big
 
     }
 
-    void player_information::render_player_business_info()
+    void player_information::render_player_business_info(const char* tab_name)
     {
-        if (ImGui::BeginTabItem(xorstr("Business Info")))
+        if (ImGui::BeginTabItem(tab_name))
         {
             if (ImGui::CollapsingHeader(xorstr("Business Location")))
             {
-                ImGui::Text("Business Location : ");
                 ImGui::Text(fmt::format("Meth Location : {}", network::get_meth_location(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Weed Location : {}", network::get_weed_location(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Coke Location :{}", network::get_cocain_location(g_selected.player)).c_str());
@@ -210,7 +209,6 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Total Stock of Product")))
             {
-                ImGui::Text("Business Stock : ");
                 ImGui::Text(fmt::format("Meth Product : {:.2f}%%", network::get_meth_stock(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Weed Product : {:.2f}%%", network::get_weed_stock(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Cocain Product : {:.2f}%%", network::get_cocain_stock(g_selected.player)).c_str());
@@ -222,7 +220,6 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Total Supply")))
             {
-                ImGui::Text("Business Supply : ");
                 ImGui::Text(fmt::format("Meth Supply : {:.2f}%%", network::get_meth_supply(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Weed Supply : {:.2f}%%", network::get_weed_supply(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Cocain Supply : {:.2f}%%", network::get_cocain_supply(g_selected.player)).c_str());
@@ -234,9 +231,9 @@ namespace big
         }
     }
 
-    void player_information::render_player_event()
+    void player_information::render_player_event(const char* tab_name)
     {
-        if (ImGui::BeginTabItem(xorstr("Remote Event")))
+        if (ImGui::BeginTabItem(tab_name))
         {
             static const char* const ScriptEvent[]{ "Teleport To Cayo", "Invite Apartment", "CEO Kick", "CEO Ban", "Rotate Cam","Vehicle Kick", "Clear Wanted", "Kick", "Send Transaction Failed", "Send To Mission", "Give Wanted Level", "Fake Money" };
             static const char* const NetworkEvent[]{ "Weapon", "Request Anim Player", "Send Explosion", "Spectate", "Send Shoot", "Repair Vehicle", "Control Vehicle", "Bad Sport" };
@@ -493,7 +490,7 @@ namespace big
                             break;
                             case 1:
                             {
-                                for (int i = 0; i < g_local.connected_player; i++)
+                                for (int i = 0; i <= 32; i++)
                                 {
                                     if (PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(i) == PLAYER::PLAYER_PED_ID()) continue;
                                     {
@@ -510,7 +507,7 @@ namespace big
                             break;
                             case 2:
                             {
-                                for (int i = 0; i < g_local.connected_player; i++)
+                                for (int i = 0; i <= 32; i++)
                                 {
                                     if (PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(i) == PLAYER::PLAYER_PED_ID()) continue;
                                     {
@@ -700,7 +697,7 @@ namespace big
                             }
                             break;
                         case 7:
-                            for (int i = 0; i <= g_local.connected_player; i++)
+                            for (int i = 0; i <= 32; i++)
                             {
                                 Vehicle player_pv = vehicle_helper::get_personal_vehicle(i);
                                 auto pos = entity::get_entity_coords(player_pv, FALSE);
@@ -846,7 +843,7 @@ namespace big
                                     {
                                         Ped NewPed[33]{};
                                         int done = 0;
-                                        for (int i = 0; i <= g_local.connected_player; i++)
+                                        for (int i = 0; i <= 32; i++)
                                         {
                                             Ped AllPlayer = player::get_player_ped(i);
                                             if (ENTITY::DOES_ENTITY_EXIST(AllPlayer))
@@ -873,6 +870,7 @@ namespace big
                                                 ENTITY::SET_ENTITY_AS_MISSION_ENTITY(ped, FALSE, FALSE);
                                                 ENTITY::DELETE_ENTITY(&ped);
                                             }
+                                            script::get_current()->yield();
                                         }
                                         controller::ShowMessage("~g~Crash All End", false);
                                     }

@@ -86,9 +86,9 @@ namespace big
             ImGui::PushID(xorstr("##PlayerInfo"));
             ImGui::BeginTabBar(xorstr("Player Information"));
             //Render
-            player_information::render_player_event();
-            player_information::render_player_info();
-            player_information::render_player_business_info();
+            player_information::render_player_event(xorstr("Remote Event"));
+            player_information::render_player_info(xorstr("Player Info"));
+            player_information::render_player_business_info(xorstr("Business Info"));
             ImGui::EndTabBar();
             ImGui::PopID();
             ImGui::PopItemWidth();
