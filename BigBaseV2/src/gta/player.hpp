@@ -99,6 +99,16 @@ public:
 }; //Size: 0x00C4
 static_assert(sizeof(CNetGamePlayer) == 0xC4);
 
+class CNetworkPlayerMgr
+{
+public:
+	char pad_0x0000[376]; //0x0000
+	int32_t num_player; //0x0178 
+	char pad_0x017C[4]; //0x017C
+	CNetGamePlayer* m_get_player[33]; //0x0180
+};
+static_assert(sizeof(CNetworkPlayerMgr) == 0x288);
+
 class CutsceneManager
 {
 public:
@@ -159,16 +169,6 @@ public:
 	rage::vector3 m_position; //0x0050
 }; //Size: 0x005C
 static_assert(sizeof(CNavigation) == 0x5C);
-
-class CNetworkPlayerMgr
-{
-public:
-	char pad_0x0000[376]; //0x0000
-	int32_t num_player; //0x0178 
-	char pad_0x017C[4]; //0x017C
-	CNetGamePlayer* m_get_player[33]; //0x0180
-};
-static_assert(sizeof(CNetworkPlayerMgr) == 0x288);
 
 class CWeaponAmmo
 {
@@ -451,10 +451,17 @@ public:
 	int8_t m_entity_type; //0x0039
 	char pad_003A[14]; //0x003A
 	class CEntityDrawHandler* m_vehicle_draw; //0x0048
-	char pad_0050[128]; //0x0050
+	char pad_0050[64]; //0x0050
+	rage::vector3 m_entity_position; //0x0090
+	char pad_009C[52]; //0x009C
 	class netObject* m_net_object; //0x00D0
 	char pad_00D8[176]; //0x00D8
 	uint32_t m_damage_bits; //0x0188
+	uint32_t m_hostility; //0x018C
+	char pad_0190[240]; //0x0190
+	float m_health; //0x0280
+	char pad_0284[28]; //0x0284
+	float m_max_health; //0x02A0
 
 	bool is_invincible() { return(m_damage_bits & (1 << 8)); }
 	void enable_invincible() { m_damage_bits |= (1 << 8); }
@@ -464,15 +471,12 @@ public:
 	void enable_water_proof() { m_damage_bits |= (1 << 24); }
 	void disable_water_proof() { m_damage_bits &= ~(1 << 24); }
 }; //Size: 0x018C
-static_assert(sizeof(fwEntity) == 0x18C, "fwEntity is not properly sized");
+static_assert(sizeof(fwEntity) == 0x2A4, "fwEntity is not properly sized");
 
 class CVehicle : public fwEntity
 {
 public:
-	uint32_t m_hostility; //0x018C
-	char pad_0190[240]; //0x0190
-	float m_vehicle_health_1; //0x0280
-	char pad_0284[156]; //0x0284
+	char pad_02A4[124]; //0x0284
 	float m_vehicle_boost; //0x0320
 	char pad_0324[1308]; //0x0324
 	float m_vehicle_health_2; //0x0840

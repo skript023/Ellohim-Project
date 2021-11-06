@@ -109,11 +109,6 @@ static_assert(sizeof(GameSetting) == 0x271, "GameSetting is not properly sized")
 class CPed : public fwEntity
 {
 public:
-	uint32_t m_hostility; //0x018C
-	char pad_0190[240]; //0x0190
-	float m_health; //0x0280
-	char pad_0284[28]; //0x0284
-	float m_max_health; //0x02A0
 	char pad_02A4[2700]; //0x02A4
 	CVehicle* m_last_vehicle; //0x0D30
 	char pad_0D38[282]; //0x0D38
