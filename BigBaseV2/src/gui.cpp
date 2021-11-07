@@ -105,7 +105,7 @@ namespace big
 	{
 		TRY_CLAUSE
 		{
-			if (ImGui::Begin(xorstr("Ellohim Menu - Developer Edition")))
+			if (ImGui::Begin(xorstr("Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol")))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));
