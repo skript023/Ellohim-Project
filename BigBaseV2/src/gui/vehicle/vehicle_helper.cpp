@@ -105,27 +105,27 @@ namespace big
                 script::get_current()->yield();
                 auto VehicleHash = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_model_hash;
                 auto Flag = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4; //*(uint32_t*)((DWORD64)VehicleInfo + 0x588);
-                auto BoostLevel = Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0xD30, 0x320 });//*(float*)((DWORD64)VehiclePTR + 0x320);
+                auto BoostLevel = rage_helper::get_local_vehicle()->m_vehicle_boost;//Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0xD30, 0x320 });//*(float*)((DWORD64)VehiclePTR + 0x320);
 
                 if (VehicleHash == RAGE_JOAAT("Oppressor2") && BoostLevel < 0.99f && GetKeyState(0x58) & 0x8000)
                 {
-                    rage_helper::get_local_ped()->m_last_vehicle->m_vehicle_boost = 1.00f;
+                    rage_helper::get_local_vehicle()->m_vehicle_boost = 1.00f;
                 }
                 else if (VehicleHash == RAGE_JOAAT("Scramjet") && BoostLevel < 2.24f && GetKeyState(0x58) & 0x8000)
                 {
-                    rage_helper::get_local_ped()->m_last_vehicle->m_vehicle_boost = 2.25f;
+                    rage_helper::get_local_vehicle()->m_vehicle_boost = 2.25f;
                 }
                 else if (VehicleHash == RAGE_JOAAT("Toreador") && BoostLevel < 0.99f && GetKeyState(0x45) & 0x8000)
                 {
-                    rage_helper::get_local_ped()->m_last_vehicle->m_vehicle_boost = 1.00f;
+                    rage_helper::get_local_vehicle()->m_vehicle_boost = 1.00f;
                 }
                 else if (VehicleHash == RAGE_JOAAT("Voltic2") || VehicleHash == RAGE_JOAAT("Oppressor") || VehicleHash == RAGE_JOAAT("Vigilante") && GetKeyState(0x45) && BoostLevel < 1.24f)
                 {
-                    rage_helper::get_local_ped()->m_last_vehicle->m_vehicle_boost = 1.25f;
+                    rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
                 }
                 else if (Flag == 1107558400 || Memory::Is_Bit_Set(Flag, 30) && BoostLevel < 1.24f && GetKeyState(0x45) & 0x8000)
                 {
-                    rage_helper::get_local_ped()->m_last_vehicle->m_vehicle_boost = 1.25f;
+                    rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
                 }
                 else
                 {
@@ -387,7 +387,7 @@ namespace big
 
     void vehicle_helper::RepairVehicle(Ped player_ped)
     {
-        g_fiber_pool->queue_job([player_ped] {
+        g_fiber_pool->queue_job([=] {
             Vehicle VehicleId = PED::GET_VEHICLE_PED_IS_IN(player_ped, FALSE);
 
             network::request_control(VehicleId);

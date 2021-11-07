@@ -110,7 +110,7 @@ namespace big
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));
 				vehicle_tab::render_vehicle_tab(xorstr("Vehicle"));
-				lsc::render_lsc_tab(xorstr("Vehicle Costumize"));
+				lsc::render_lsc_tab(xorstr("LS Customs"));
 				online_menu::render_online_tab(xorstr("Online"));
 				player_list::render_player_list(xorstr("Player List"));
 				setting_tab::render_setting_tab(xorstr("Setting"));

@@ -339,28 +339,28 @@ namespace big
                 if (ImGui::Button("Full Upgrade Current Vehicle"))
                 {
                     g_fiber_pool->queue_job([]
+                    {
+                        if (PED::IS_PED_IN_ANY_VEHICLE(PLAYER::PLAYER_PED_ID(), FALSE))
                         {
-                            if (PED::IS_PED_IN_ANY_VEHICLE(PLAYER::PLAYER_PED_ID(), FALSE))
-                            {
-                                Vehicle vehicle = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
-                                VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_XENONHEADLIGHTS, TRUE);
-                                VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_TURBO, TRUE);
-                                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 0, TRUE);
-                                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 1, TRUE);
-                                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 2, TRUE);
-                                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 3, TRUE);
-                                VEHICLE::_SET_VEHICLE_NEON_LIGHTS_COLOUR(vehicle, NEON_COLOR_RED);
-                                VEHICLE::_SET_VEHICLE_XENON_LIGHTS_COLOR(vehicle, 8);
-                                VEHICLE::SET_VEHICLE_MOD_KIT(vehicle, 0);
+                            Vehicle vehicle = PED::GET_VEHICLE_PED_IS_USING(PLAYER::PLAYER_PED_ID());
+                            VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_XENONHEADLIGHTS, TRUE);
+                            VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_TURBO, TRUE);
+                            VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 0, TRUE);
+                            VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 1, TRUE);
+                            VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 2, TRUE);
+                            VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 3, TRUE);
+                            VEHICLE::_SET_VEHICLE_NEON_LIGHTS_COLOUR(vehicle, NEON_COLOR_RED);
+                            VEHICLE::_SET_VEHICLE_XENON_LIGHTS_COLOR(vehicle, 8);
+                            VEHICLE::SET_VEHICLE_MOD_KIT(vehicle, 0);
 
-                                for (int i = 0; i < 50; i++)
-                                {
-                                    VEHICLE::SET_VEHICLE_MOD(vehicle, i, VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, i) - 1, TRUE);
-                                }
-                                VEHICLE::SET_VEHICLE_WHEEL_TYPE(vehicle, 9);
-                                VEHICLE::SET_VEHICLE_MOD(vehicle, MOD_FRONTWHEEL, 52, TRUE);
+                            for (int i = 0; i < 50; i++)
+                            {
+                                VEHICLE::SET_VEHICLE_MOD(vehicle, i, VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, i) - 1, TRUE);
                             }
-                        });
+                            VEHICLE::SET_VEHICLE_WHEEL_TYPE(vehicle, 9);
+                            VEHICLE::SET_VEHICLE_MOD(vehicle, MOD_FRONTWHEEL, 52, TRUE);
+                        }
+                    });
                 }
                 if (ImGui::ListBoxHeader("Slot", ImVec2(200, 200)))
                 {
