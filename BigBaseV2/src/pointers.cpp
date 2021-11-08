@@ -280,6 +280,11 @@ namespace big
 		{
 			m_script_event = ptr.as<functions::ScriptGameEvent>();//48 89 44 24 ? 0F 95 C3
 		});
+
+		main_batch.add("Game Build", "48 83 EC 60 48 8D 0D ? ? ? ? E8", [this](memory::handle ptr)
+		{
+			m_game_build = ptr.sub(17).add(265 + 3).as<char*>();//48 89 44 24 ? 0F 95 C3
+		});
 		/*
 		main_batch.add("BitBuffer", "48 89 01 F6 C2 01 74 05 E8 ? ? ? ? 48 8B C3 48 83 C4 20 5B C3 CC CF", [this](memory::handle ptr)
 		{

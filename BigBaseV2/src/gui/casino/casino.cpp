@@ -148,6 +148,7 @@ namespace big
                 return *script_global(g_global.casino_stat).at(player, 68).at(24).as<int*>() == *script_global(g_global.casino_stat).at(player, 68).at(22).as<int*>();
             }
         }
+        return false;
     }
 
     void casino_heist::all_heist_take(int Take)

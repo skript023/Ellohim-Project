@@ -419,13 +419,6 @@ namespace big
 
             Hash hash_vehicle = controller::load(name);//load(name);
 
-            if (g_settings.options["Auto Get-in"])
-            {
-                STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
-                GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
-                GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", PLAYER::PLAYER_PED_ID(), 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
-            }
-
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
             auto vehicle = VEHICLE::CREATE_VEHICLE(hash_vehicle, pos.x, pos.y, pos.z + 1, heading + 90.0f, TRUE, TRUE, FALSE);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
@@ -481,6 +474,12 @@ namespace big
             if (VEHICLE::IS_THIS_MODEL_A_PLANE(hash_vehicle))
             {
                 VEHICLE::SET_PLANE_TURBULENCE_MULTIPLIER(vehicle, 0.0f);
+            }
+            if (g_settings.options["Auto Get-in"])
+            {
+                STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
+                GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
+                GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", PLAYER::PLAYER_PED_ID(), 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
             }
             STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_vehicle);
         }
@@ -652,14 +651,16 @@ namespace big
 
 		
 		ENTITY::_SET_ENTITY_SOMETHING(vehicle, TRUE);
+
         if (g_settings.options["Auto Get-in"])
         {
             STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
             GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
-            GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
+            GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.6f, false, false, false);
 
             PED::SET_PED_INTO_VEHICLE(PLAYER::PLAYER_PED_ID(), vehicle, -1);
         }
+
 		STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(modelHash);
 		if (*big::g_pointers->m_is_session_started)
 			set_mp_parameters_for_vehicle(vehicle);

@@ -50,6 +50,7 @@ namespace big
 		char *m_player_name_3;
 		char* m_player_name_4;
 		char* m_player_name_5;
+		char* m_game_build;
 		bool* m_blackout;
 		int* m_delivery;
 		CPlayerCrew *m_player_crew;
