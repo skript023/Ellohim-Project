@@ -52,6 +52,12 @@
     <Filter Include="gui\player_information">
       <UniqueIdentifier>{694fe5a7-4750-4123-8eb2-802521d6cd06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui\game_tabbar">
+      <UniqueIdentifier>{3f49b10b-5b86-412e-a6f8-633663608e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\hooks">
+      <UniqueIdentifier>{befed771-495b-46ec-a6be-ab1bffa6004d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\benchmark.h" />
@@ -222,25 +228,7 @@
     <ClInclude Include="src\gui\controller\network_controller.h">
       <Filter>gui\controller</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\setting_menu.h">
-      <Filter>gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\online_menu.h">
-      <Filter>gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\player_menu.h">
-      <Filter>gui</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\sync_hash.hpp">
-      <Filter>gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\vehicle_menu.h">
-      <Filter>gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\player_list.h">
-      <Filter>gui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\vehicle_customize.h">
       <Filter>gui</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\entity\entity_control.h">
@@ -276,14 +264,32 @@
     <ClInclude Include="src\gui\game_event\game_helper.hpp">
       <Filter>gui\game_event</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\controller\url.hpp">
-      <Filter>gui\controller</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\controller\xostr.h">
       <Filter>gui\controller</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\player_information\player_information.h">
       <Filter>gui\player_information</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\online_menu.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\player_list.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\player_menu.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\setting_menu.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\vehicle_customize.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\vehicle_menu.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\controller\http_request.hpp">
+      <Filter>gui\controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -349,24 +355,6 @@
     <ClCompile Include="src\gui\controller\network_controller.cpp">
       <Filter>gui\controller</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\setting_menu.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\online_menu.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\player_menu.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\vehicle_menu.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\player_list.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\vehicle_customize.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\entity\entity_control.cpp">
       <Filter>gui\entity</Filter>
     </ClCompile>
@@ -387,6 +375,63 @@
     </ClCompile>
     <ClCompile Include="src\gui\player_information\player_information.cpp">
       <Filter>gui\player_information</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\online_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\player_list.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\player_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\setting_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\vehicle_customize.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\vehicle_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\increment_event_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\scripted_game_event_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\clear_ped_task_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\request_control_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\explosion_event_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\remove_weapon_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\kick_vote_event_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\ptfx_event_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\send_net_info_to_lobby.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\censor_chat_hook.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\sync_tree_node.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\freemode_script_recovery.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\disable_error_screen.cpp">
+      <Filter>gui\hooks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include "detour_hook.hpp"
 #include "gta/fwddec.hpp"
+#include "gta/script_thread.hpp"
 #include "script_hook.hpp"
 #include "vmt_hook.hpp"
 
@@ -24,9 +25,16 @@ namespace big
 
 		static void RemoveWeaponEvent(int64_t thisptr, rage::datBitBuffer* buffer, CNetGamePlayer* sender, CNetGamePlayer* receiver);
 		static bool ScriptGameEvent(CScriptedGameEvent* NetEventStruct, CNetGamePlayer* sender);
+
 		static bool clone_create(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
 		static bool sync_can_apply(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
 		static bool sync_read_buffer(rage::netSyncTree* netSyncTree, int32_t sync_type, int32_t _sync_flag, rage::datBitBuffer* buffer, void* netLogStub);
+		
+		static void disable_error_screen(char* entryHeader, char* entryLine1, int instructionalKey, char* entryLine2, BOOL p4, Any p5, Any* p6, Any* p7, BOOL background);
+
+		static rage::eThreadState gta_thread_tick(GtaThread* a1, unsigned int a2);
+		static rage::eThreadState gta_thread_kill(GtaThread* thread);
+		
 		static constexpr auto swapchain_num_funcs = 19;
 		static constexpr auto swapchain_present_index = 8;
 		static constexpr auto swapchain_resizebuffers_index = 13;
@@ -78,6 +86,11 @@ namespace big
 		detour_hook m_clone_create_hook;
 		detour_hook m_sync_can_apply_hook;
 		detour_hook m_sync_read_buffer_hook;
+
+		detour_hook m_error_screen_hook;
+
+		detour_hook m_gta_thread_tick_hook;
+		detour_hook m_gta_thread_kill_hook;
 	};
 
 	inline hooking *g_hooking{};

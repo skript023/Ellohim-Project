@@ -1,7 +1,6 @@
 #include "hooking.hpp"
+#include "gta_util.hpp"
 #include "gui/player_list.h"
-#include "gta/net_game_event.hpp"
-#include "gta/net_object_mgr.hpp"
 #include "gui/helper_function.hpp"
 
 namespace big

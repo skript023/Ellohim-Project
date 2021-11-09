@@ -44,6 +44,14 @@ namespace big
 		m_clear_ped_hook("Clear Ped Task Event", g_pointers->m_clear_ped_event, &hooks::ClearPedTaskEvent),
 		m_script_event_hook("CScriptedGameEvent", g_pointers->m_script_event, &hooks::ScriptGameEvent),
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
+
+		// GTA Thread Tick
+		m_gta_thread_tick_hook("GTT", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
+		// GTA Thread Kill
+		m_gta_thread_kill_hook("GTK", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
+		// Error Screen
+		m_error_screen_hook("ES", g_pointers->m_error_screen, &hooks::disable_error_screen),
+
 		
 		m_request_control_event_hook("Request Control Event", g_pointers->m_request_control_event, &hooks::RequestControlEvent),
 		m_remove_weapon_event_hook("Remove Weapon Event", g_pointers->m_remove_weapon, &hooks::RemoveWeaponEvent),
@@ -94,6 +102,10 @@ namespace big
 		m_sync_can_apply_hook.enable();
 		m_sync_read_buffer_hook.enable();
 
+		m_gta_thread_kill_hook.enable();
+		m_gta_thread_tick_hook.enable();
+		m_error_screen_hook.enable();
+
 		m_run_script_threads_hook.enable();
 		m_convert_thread_to_fiber_hook.enable();
 
@@ -122,6 +134,10 @@ namespace big
 		m_clone_create_hook.disable();
 		m_sync_can_apply_hook.disable();
 		m_sync_read_buffer_hook.disable();
+
+		m_gta_thread_tick_hook.disable();
+		m_gta_thread_kill_hook.disable();
+		m_error_screen_hook.disable();
 
 		m_set_cursor_pos_hook.disable();
 		SetWindowLongPtrW(g_pointers->m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(m_og_wndproc));
