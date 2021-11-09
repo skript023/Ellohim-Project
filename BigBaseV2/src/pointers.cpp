@@ -291,6 +291,22 @@ namespace big
 			m_bitbufferclass = ptr.as<rage::datBitBuffer*>();
 		});
 		*/
+		main_batch.add("ESH", "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 60 4C 8B F2 48 8B 94 24 ? ? ? ? 33 DB", [this](memory::handle ptr)
+		{
+			m_error_screen = ptr.as<decltype(m_error_screen)>();
+		});
+
+		main_batch.add("TT", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 B9 ? ? ? ? ? 8B FA 48 8B D9 74 05", [this](memory::handle ptr)
+		{
+			m_gta_thread_tick = ptr.as<decltype(m_gta_thread_tick)>();
+		});
+
+		// Thread Kill
+		main_batch.add("TK", "48 89 5C 24 ? 57 48 83 EC 20 48 83 B9 ? ? ? ? ? 48 8B D9 74 14", [this](memory::handle ptr)
+		{
+			m_gta_thread_kill = ptr.as<decltype(m_gta_thread_kill)>();
+		});
+
 		main_batch.add("GetNetGamePlayer", "48 83 EC 28 33 C0 38 05 ? ? ? ? 74 0A", [this](memory::handle ptr)
 		{
 			m_get_net_game_player = ptr.as<functions::GetNetGamePlayer>();

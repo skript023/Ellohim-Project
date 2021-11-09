@@ -16,31 +16,18 @@ namespace big
 {
     void vehicle_helper::set_vehicle_collision(bool activation)
     {
-        if (rage_helper::get_local_ped()->m_is_in_vehicle)
-        {
-            if (auto vehicle = rage_helper::get_local_ped()->m_last_vehicle)
+        if (player::is_player_in_any_vehicle(g_local.player))
+        {//0.03999999911f
+            for (int i = 0; i <= 64; i++)//-100000000.f
             {
-                auto ph_arche = *(uintptr_t*)((uintptr_t)vehicle->m_navigation->m_ph_arche->m_ph_bound + 0x70);
-                for (int i = 0; i <= 64; ++i)
-                {
-                    auto collision = *(float*)(((uintptr_t)ph_arche + (i * 0x8)) + 0x2C);
-                    if (!*(uintptr_t*)((uintptr_t)ph_arche + (i * 0x8) + 0x2C))
-                        continue;
-                    LOG(HACKER) << collision;
-                    if (activation)
-                    {
-                        if (systems::is_float_equal(collision, 0.03999999911f))
-                            *(float*)((uintptr_t)ph_arche + (i * 0x8) + 0x2C) = -100000000.f;
-                    }
-                    else if (!activation)
-                    {
-                        if (systems::is_float_equal(collision, -100000000.f))
-                            *(float*)((uintptr_t)ph_arche + (i * 0x8) + 0x2C) = 0.03999999911f;
-                    }
-                }
+                if (rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) == nullptr || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) > reinterpret_cast<VehicleCollision*>(0x7FFFFFFFFFF) || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) < rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(1))
+                    continue;
+                if (systems::is_float_equal(rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision, 0.03999999911f))
+                    rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision = -100000000.f;
             }
         }
     }
+    
     void vehicle_helper::set_vehicle_turn_light(Vehicle vehicle, int TurnLight)
     {
         if (auto veh = rage_helper::entity_to_pointer<CVehicle*>(vehicle))
@@ -406,7 +393,7 @@ namespace big
 
     void vehicle_helper::vehicle(const char* name, Entity entity)
     {
-        QUEUE_JOB_BEGIN_CLAUSE(name, entity)
+        QUEUE_JOB_BEGIN_CLAUSE(=)
         {
             if (!*g_pointers->m_is_session_started) *script_global(4270934).as<bool*>() = true;
             auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
@@ -488,7 +475,7 @@ namespace big
 
     void vehicle_helper::SpawnVehicle(const char* name, bool pegasus, Player player_target)
     {
-        QUEUE_JOB_BEGIN_CLAUSE(name, pegasus, player_target)
+        QUEUE_JOB_BEGIN_CLAUSE(=)
         {
             //Vector3 player_coords = { Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0x30, 0x50 }), Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0x30, 0x54 }), Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0x30, 0x58 }) };
             auto ped = player::get_player_ped(player_target);
@@ -669,7 +656,7 @@ namespace big
 
     void vehicle_helper::attach_vehicle(const char* vehicle_name, Player player)
     {
-        QUEUE_JOB_BEGIN_CLAUSE(vehicle_name, player)
+        QUEUE_JOB_BEGIN_CLAUSE(=)
         {
             if (!*g_pointers->m_is_session_started) *script_global(4270934).as<bool*>() = true;
             auto entity = player::get_player_ped(player);

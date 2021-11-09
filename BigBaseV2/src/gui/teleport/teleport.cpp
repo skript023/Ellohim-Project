@@ -71,7 +71,7 @@ namespace big
     }
 
     void teleport::teleport_to_coords(Entity e, Vector3 coords) {
-        g_fiber_pool->queue_job([e, coords] {
+        g_fiber_pool->queue_job([=] {
             ENTITY::SET_ENTITY_COORDS_NO_OFFSET(e, coords.x, coords.y, coords.z, FALSE, FALSE, FALSE);
         });
     }

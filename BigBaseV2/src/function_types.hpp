@@ -34,5 +34,9 @@ namespace big::functions
 	using GetModelInfo = int64_t(*)(unsigned int model_hash, DWORD* a2);
 	using SendNetInfoToLobby = bool(*)(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 	using GetNetGamePlayer = CNetGamePlayer*(__fastcall*)(Player player);
+
+	using error_screen = void(char* entryHeader, char* entryLine1, int instructionalKey, char* entryLine2, BOOL p4, Any p5, Any* p6, Any* p7, BOOL background);
+	using gta_thread_tick = __int64(GtaThread* a1, unsigned int a2);
+	using gta_thread_kill = __int64(GtaThread* a1);
 }
 

@@ -75,6 +75,10 @@ namespace big
 		functions::player_pointer m_player_ptr{};
 		functions::get_player_name_t m_get_player_name{};
 
+		functions::error_screen* m_error_screen{};
+		functions::gta_thread_tick* m_gta_thread_tick{};
+		functions::gta_thread_kill* m_gta_thread_kill{};
+
 		functions::get_network_object_t m_get_network_object{};
 		functions::sync_can_apply_t m_sync_can_apply{};
 		functions::sync_read_t m_sync_read{};
