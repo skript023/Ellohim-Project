@@ -26,6 +26,8 @@ namespace big::functions
 	using PTFXEvent = bool(*)(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
 
 	using ReadDword = bool(*)(rage::datBitBuffer* ptr, uint32_t* integer, int bits);
+	using read_bitbuf_array = bool(rage::datBitBuffer* buffer, PVOID read, int bits, int);
+
 	using clone_create_t = bool (*) (CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, int32_t object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
 	using sync_can_apply_t = bool (*)(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
 	using sync_read_t = bool (*)(rage::netSyncTree* self, int32_t sync_type, int32_t sync_flag, rage::datBitBuffer* buffer, void* netLogStub);
@@ -38,5 +40,9 @@ namespace big::functions
 	using error_screen = void(char* entryHeader, char* entryLine1, int instructionalKey, char* entryLine2, BOOL p4, Any p5, Any* p6, Any* p7, BOOL background);
 	using gta_thread_tick = __int64(GtaThread* a1, unsigned int a2);
 	using gta_thread_kill = __int64(GtaThread* a1);
+	using send_event_ack = void(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, int event_index, int event_handled_bitset);
+	using report_cash_spawn = bool(__int64 creport_cash_spawn_event, CNetGamePlayer* source_player);
+	using report_myself_event_sender = void(__int64 a1, unsigned int a2, unsigned int a3, unsigned int a4);
+	using GetLabelText = const char* (void* unk, const char* label);
 }
 

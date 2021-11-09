@@ -79,6 +79,11 @@ namespace big
 		functions::gta_thread_tick* m_gta_thread_tick{};
 		functions::gta_thread_kill* m_gta_thread_kill{};
 
+		functions::read_bitbuf_array* m_read_bitbuf_array{};
+		functions::send_event_ack* m_send_event_ack{};
+		functions::report_cash_spawn* m_report_cash_spawn{};
+		functions::GetLabelText *m_get_label_text{};
+
 		functions::get_network_object_t m_get_network_object{};
 		functions::sync_can_apply_t m_sync_can_apply{};
 		functions::sync_read_t m_sync_read{};

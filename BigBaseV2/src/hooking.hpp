@@ -16,6 +16,7 @@ namespace big
 		//static bool GetEventData(std::int32_t eventGroup, std::int32_t eventIndex, std::uint64_t* argStruct, std::int32_t argCount);
 		static bool send_net_info_to_lobby(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 		static int censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text);
+		static const char* get_label_text(void* unk, const char* label);
 		
 		static bool ClearPedTaskEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
 		static bool RequestControlEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
@@ -70,6 +71,7 @@ namespace big
 
 		detour_hook m_run_script_threads_hook;
 		detour_hook m_convert_thread_to_fiber_hook;
+		detour_hook m_get_label_text;
 		detour_hook m_increment_event_hook;
 		
 		detour_hook m_send_net_info_to_lobby_hook;

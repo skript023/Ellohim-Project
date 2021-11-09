@@ -148,72 +148,13 @@ namespace big
 				return true;
 			}
 			break;
-		case 515799090:
-		case 1767220965:
-		case 1305720168:
-		case -275229102:
-		case -654645351:
-		case 1848973789:
-		case -194543830:
-		case -2063448951:
-		case 797978700:
-		case -176858990:
-		case 1731962870:
-		case 1152266822:
-		case 257478565:
-		case 23010443:
-		case 496476216:
-		case 1455421717:
-		case -419415284:
-		case 1358851648:
-		case -525866785:
-		case -1277389265:
-		case -892744477:
-		case 600486780:
-			if (g_settings.options["Block Kick"])
-			{
-				return true;
-			}
-			break;
-		case 1463355688: //Kick
-		case 575344561: //Kick Host
-		case -1382676328: //Kick Host
-		case 1256866538: //Kick Sp
-		case -1753084819: //Kick SP
-		case 1119864805: //Kick
-		case -1833002148: //Kick
-		case -1587276086: //Kick
-		case 1954846099: //Kick 1964309656
-		case 1659915470://
-		case -2017818728: // Kick Host
-		case 27785517: // Kick Host
-		case 641157117:
-		case -347755611: // Kick Host
-		case -137439024: // Kick Host
-		case 161038699: // Kick Host
-		case -1813981910:
 		case 2092565704:
-		case 202252150:
-		case -1503282114:
-		case 243981125:
-		case -1836118977:
-		case -169685950:
-		case -2071141142:
-		case -149227625:
-		case 1433396036:
-		case 1608876738:
-		case 458875017:
-		case 987018372:
-		case 813647057:
-		case 696123127:
 			if (g_settings.options["Block Kick"])
 			{
 				strcpy(sender_info, "~g~Blocked Kick Event From ");
 				strcat(sender_info, sender_name);
 				strcat(sender_info, " with hash ");
 				strcat(sender_info, std::to_string(EventHash).c_str());
-
-				LOG(INFO_TO_FILE) << "ID : " << std::to_string(sender_id) << " USER SENDER : " << sender_name << " USER ID : " << std::to_string(PlayerRID).c_str() << " EVENT HASH : " << std::to_string(EventHash).c_str();
 				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Block Kick Event From {} SCID {} with Hash {} Args Count {}{}", sender_name, PlayerRID, EventHash, args_size, ip).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
@@ -225,7 +166,6 @@ namespace big
 				}
 				return true;
 			}
-			break;
 		}
 
 		return g_hooking->m_script_event_hook.get_original<functions::ScriptGameEvent>()(NetEventStruct, sender);

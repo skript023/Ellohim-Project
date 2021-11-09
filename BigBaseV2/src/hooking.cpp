@@ -44,6 +44,7 @@ namespace big
 		m_clear_ped_hook("Clear Ped Task Event", g_pointers->m_clear_ped_event, &hooks::ClearPedTaskEvent),
 		m_script_event_hook("CScriptedGameEvent", g_pointers->m_script_event, &hooks::ScriptGameEvent),
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
+		m_get_label_text("Get Label Text", g_pointers->m_get_label_text, &hooks::get_label_text),
 
 		// GTA Thread Tick
 		m_gta_thread_tick_hook("GTT", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
@@ -86,6 +87,7 @@ namespace big
 		m_og_wndproc = reinterpret_cast<WNDPROC>(SetWindowLongPtrW(g_pointers->m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&hooks::wndproc)));
 		m_set_cursor_pos_hook.enable();
 		m_increment_event_hook.enable();
+		m_get_label_text.enable();
 		m_send_net_info_to_lobby_hook.enable();
 		m_censor_chat_text_hook.enable();
 		//m_get_event_data_hook.enable();
@@ -121,6 +123,7 @@ namespace big
 		m_increment_event_hook.disable();
 		m_send_net_info_to_lobby_hook.disable();
 		m_censor_chat_text_hook.disable();
+		m_get_label_text.disable();
 		//m_get_event_data_hook.disable();
 		
 		m_clear_ped_hook.disable();

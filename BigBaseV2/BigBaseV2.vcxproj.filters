@@ -58,6 +58,9 @@
     <Filter Include="gui\hooks">
       <UniqueIdentifier>{befed771-495b-46ec-a6be-ab1bffa6004d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui\custom_text">
+      <UniqueIdentifier>{6dacd9e4-59a5-4241-bb68-8d0672cfcdeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\benchmark.h" />
@@ -291,6 +294,9 @@
     <ClInclude Include="src\gui\controller\http_request.hpp">
       <Filter>gui\controller</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\custom_text\custom_text.hpp">
+      <Filter>gui\custom_text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -431,6 +437,12 @@
       <Filter>gui\hooks</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\hooks\disable_error_screen.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\custom_text\custom_text.cpp">
+      <Filter>gui\custom_text</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\custom_text\get_label_text.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
   </ItemGroup>

@@ -130,13 +130,13 @@ namespace big
 		{
 			m_waypoint_coords = ptr.add(3).rip().add(0x10).as<rage::vector3*>();
 		});
-		/*
+		
 		main_batch.add("Get Label Text", "75 ? E8 ? ? ? ? 8B 0D ? ? ? ? 65 48 8B 04 25 ? ? ? ? BA ? ? ? ? 48 8B 04 C8 8B 0C 02 D1 E9", [this](memory::handle ptr)
 		{
-			m_get_label_text = ptr.sub(19).as<functions::GetLabelText>();
+			m_get_label_text = ptr.sub(19).as<decltype(m_get_label_text)>();
 		});
-		48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 30 0F B7 51
-		*/
+		//48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 30 0F B7 51
+		
 		main_batch.add("Increment Event", "48 89 5C 24 ? 48 89 74 24 ? 55 57 41 55 41 56 41 57 48 8B EC 48 83 EC 60 8B 79 30", [this](memory::handle ptr)
 		{
 			m_increment_event = ptr.as<functions::IncrementEvent>();
@@ -296,15 +296,31 @@ namespace big
 			m_error_screen = ptr.as<decltype(m_error_screen)>();
 		});
 
-		main_batch.add("TT", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 B9 ? ? ? ? ? 8B FA 48 8B D9 74 05", [this](memory::handle ptr)
+		main_batch.add("Freemode Tick", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 B9 ? ? ? ? ? 8B FA 48 8B D9 74 05", [this](memory::handle ptr)
 		{
 			m_gta_thread_tick = ptr.as<decltype(m_gta_thread_tick)>();
 		});
 
 		// Thread Kill
-		main_batch.add("TK", "48 89 5C 24 ? 57 48 83 EC 20 48 83 B9 ? ? ? ? ? 48 8B D9 74 14", [this](memory::handle ptr)
+		main_batch.add("Freemode Thread Killed", "48 89 5C 24 ? 57 48 83 EC 20 48 83 B9 ? ? ? ? ? 48 8B D9 74 14", [this](memory::handle ptr)
 		{
 			m_gta_thread_kill = ptr.as<decltype(m_gta_thread_kill)>();
+		});
+
+		main_batch.add("Bit Buffer Array", "48 89 5C 24 ? 57 48 83 EC 30 41 8B F8 4C", [this](memory::handle ptr)
+		{
+			m_read_bitbuf_array = ptr.as<decltype(m_read_bitbuf_array)>();
+		});
+
+		// Send Event Acknowledge
+		main_batch.add("SEA", "48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 7A", [this](memory::handle ptr)
+		{
+			m_send_event_ack = ptr.sub(5).as<decltype(m_send_event_ack)>();
+		});
+
+		main_batch.add("RCSH", "40 53 48 83 EC 20 48 8B D9 48 85 D2 74 29", [this](memory::handle ptr)
+		{
+			m_report_cash_spawn = ptr.as<decltype(m_report_cash_spawn)>();
 		});
 
 		main_batch.add("GetNetGamePlayer", "48 83 EC 28 33 C0 38 05 ? ? ? ? 74 0A", [this](memory::handle ptr)
