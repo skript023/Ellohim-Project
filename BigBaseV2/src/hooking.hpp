@@ -12,20 +12,20 @@ namespace big
 	{
 		static bool run_script_threads(std::uint32_t ops_to_execute);
 		static void *convert_thread_to_fiber(void *param);
-		static bool IncrementStatEvent(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender, CNetGamePlayer* receiver);
+		static bool increment_stat_event(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender, CNetGamePlayer* receiver);
 		//static bool GetEventData(std::int32_t eventGroup, std::int32_t eventIndex, std::uint64_t* argStruct, std::int32_t argCount);
 		static bool send_net_info_to_lobby(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 		static int censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text);
 		static const char* get_label_text(void* unk, const char* label);
 		
-		static bool ClearPedTaskEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
-		static bool RequestControlEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
-		static void KickVoteEvent(int64_t thisptr, rage::datBitBuffer* buffer, CNetGamePlayer* sender, CNetGamePlayer* receiver);
-		static bool ExplosionEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
-		static bool PTFXEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
+		static bool clear_ped_task(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
+		static bool request_control_event(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
+		static void kick_vote_event(int64_t thisptr, rage::datBitBuffer* buffer, CNetGamePlayer* sender, CNetGamePlayer* receiver);
+		static bool explosion_event(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
+		static bool ptfx_event(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
 
-		static void RemoveWeaponEvent(int64_t thisptr, rage::datBitBuffer* buffer, CNetGamePlayer* sender, CNetGamePlayer* receiver);
-		static bool ScriptGameEvent(CScriptedGameEvent* NetEventStruct, CNetGamePlayer* sender);
+		static void remove_weapon_event(int64_t thisptr, rage::datBitBuffer* buffer, CNetGamePlayer* sender, CNetGamePlayer* receiver);
+		static bool scripted_game_event(CScriptedGameEvent* net_event_struct, CNetGamePlayer* sender);
 
 		static bool clone_create(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
 		static bool sync_can_apply(rage::netSyncTree* netSyncTree, rage::netObject* netObject);

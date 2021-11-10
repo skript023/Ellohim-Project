@@ -4,7 +4,7 @@
 
 namespace big
 {
-	bool hooks::ClearPedTaskEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver)
+	bool hooks::clear_ped_task(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver)
 	{
 		const char* sender_name = sender->get_name();
 		auto sender_id = sender->player_id;

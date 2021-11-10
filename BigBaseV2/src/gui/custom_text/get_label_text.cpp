@@ -12,8 +12,6 @@ namespace big
 
 				return "You're Using Wuhan Mod Menu";
 			}
-				
-
 		return g_hooking->m_get_label_text.get_original<decltype(&hooks::get_label_text)>()(unk, label);
 	}
 }

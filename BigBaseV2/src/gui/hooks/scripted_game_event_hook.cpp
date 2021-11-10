@@ -4,9 +4,9 @@
 
 namespace big
 {
-	bool hooks::ScriptGameEvent(CScriptedGameEvent* NetEventStruct, CNetGamePlayer* sender)
+	bool hooks::scripted_game_event(CScriptedGameEvent* net_event_struct, CNetGamePlayer* sender)
 	{
-		auto args = NetEventStruct->m_args;//reinterpret_cast<std::int64_t*>(NetEventStruct + 0x70);
+		auto args = net_event_struct->m_args;//reinterpret_cast<std::int64_t*>(NetEventStruct + 0x70);
 		auto sender_name = sender->get_name();//*reinterpret_cast<std::int8_t*>(CNetGamePlayer + 0x2D);
 		auto ip_address = sender->get_net_data()->m_relay_ip;//uint8_t out[4]; //*(uint32_t*)&out = ip_address;
 		int args_size = _ARRAYSIZE(args);//sizeof(*args) / sizeof(args[0]); //NetEventStruct->m_args_size;
@@ -168,7 +168,7 @@ namespace big
 			}
 		}
 
-		return g_hooking->m_script_event_hook.get_original<functions::ScriptGameEvent>()(NetEventStruct, sender);
+		return g_hooking->m_script_event_hook.get_original<functions::ScriptGameEvent>()(net_event_struct, sender);
 	}
 
 }

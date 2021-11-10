@@ -4,7 +4,7 @@
 
 namespace big
 {
-	bool hooks::ExplosionEvent(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver)
+	bool hooks::explosion_event(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver)
 	{
 		const char* sender_name = sender->get_name();
 		auto sender_rid = sender->get_net_data()->m_rockstar_id;

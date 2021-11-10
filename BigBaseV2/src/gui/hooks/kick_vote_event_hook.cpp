@@ -4,7 +4,7 @@
 
 namespace big
 {
-	void hooks::KickVoteEvent(int64_t thisptr, rage::datBitBuffer* buffer, CNetGamePlayer* sender, CNetGamePlayer* receiver)
+	void hooks::kick_vote_event(int64_t thisptr, rage::datBitBuffer* buffer, CNetGamePlayer* sender, CNetGamePlayer* receiver)
 	{
 		const char* sender_name = sender->get_name();
 		auto sender_id = sender->player_id;

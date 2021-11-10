@@ -4,7 +4,7 @@
 
 namespace big
 {
-	bool hooks::IncrementStatEvent(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender, CNetGamePlayer* receiver)
+	bool hooks::increment_stat_event(CNetworkIncrementStatEvent* net_event_struct, CNetGamePlayer* sender, CNetGamePlayer* receiver)
 	{
 		auto hash = net_event_struct->m_stat;//*reinterpret_cast<DWORD*>(net_event_struct + 0x30);
 		auto amount = net_event_struct->m_ammount;
