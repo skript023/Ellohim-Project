@@ -38,30 +38,27 @@ namespace big
 	hooking::hooking() :
 		m_swapchain_hook(*g_pointers->m_swapchain, hooks::swapchain_num_funcs),
 		m_set_cursor_pos_hook("SetCursorPos", memory::module("user32.dll").get_export("SetCursorPos").as<void*>(), &hooks::set_cursor_pos),
-		m_increment_event_hook("m_increment_event_hook", g_pointers->m_increment_event, &hooks::IncrementStatEvent),
+		m_increment_event_hook("m_increment_event_hook", g_pointers->m_increment_event, &hooks::increment_stat_event),
 		//m_get_event_data_hook("m_get_event_data_hook", g_pointers->m_get_event_data, &hooks::GetEventData),
 		m_send_net_info_to_lobby_hook("send_net_data", g_pointers->m_send_net_info_to_lobby, &hooks::send_net_info_to_lobby),
-		m_clear_ped_hook("Clear Ped Task Event", g_pointers->m_clear_ped_event, &hooks::ClearPedTaskEvent),
-		m_script_event_hook("CScriptedGameEvent", g_pointers->m_script_event, &hooks::ScriptGameEvent),
+		m_clear_ped_hook("Clear Ped Task Event", g_pointers->m_clear_ped_event, &hooks::clear_ped_task),
+		m_script_event_hook("CScriptedGameEvent", g_pointers->m_script_event, &hooks::scripted_game_event),
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
 		m_get_label_text("Get Label Text", g_pointers->m_get_label_text, &hooks::get_label_text),
 
-		// GTA Thread Tick
 		m_gta_thread_tick_hook("GTT", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
-		// GTA Thread Kill
 		m_gta_thread_kill_hook("GTK", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
-		// Error Screen
 		m_error_screen_hook("ES", g_pointers->m_error_screen, &hooks::disable_error_screen),
 
 		
-		m_request_control_event_hook("Request Control Event", g_pointers->m_request_control_event, &hooks::RequestControlEvent),
-		m_remove_weapon_event_hook("Remove Weapon Event", g_pointers->m_remove_weapon, &hooks::RemoveWeaponEvent),
-		m_kick_vote_hook("Vote Kick Event", g_pointers->m_kick_vote, &hooks::KickVoteEvent),
-		m_explosion_event_hook("Explosion Event", g_pointers->m_explosion_event, &hooks::ExplosionEvent),
+		m_request_control_event_hook("Request Control Event", g_pointers->m_request_control_event, &hooks::request_control_event),
+		m_remove_weapon_event_hook("Remove Weapon Event", g_pointers->m_remove_weapon, &hooks::remove_weapon_event),
+		m_kick_vote_hook("Vote Kick Event", g_pointers->m_kick_vote, &hooks::kick_vote_event),
+		m_explosion_event_hook("Explosion Event", g_pointers->m_explosion_event, &hooks::explosion_event),
 		m_clone_create_hook("Clone Create", g_pointers->m_clone_create, &hooks::clone_create),
 		m_sync_can_apply_hook("Sync Can Apply Obj", g_pointers->m_sync_can_apply, &hooks::sync_can_apply),
 		m_sync_read_buffer_hook("Sync Read Buffer", g_pointers->m_sync_read, &hooks::sync_read_buffer),
-		m_ptfx_event_hook("m_ptfx_event_hook", g_pointers->m_ptfx_event, &hooks::PTFXEvent),
+		m_ptfx_event_hook("m_ptfx_event_hook", g_pointers->m_ptfx_event, &hooks::ptfx_event),
 
 		m_run_script_threads_hook("Script hook", g_pointers->m_run_script_threads, &hooks::run_script_threads),
 		m_convert_thread_to_fiber_hook("ConvertThreadToFiber", memory::module("kernel32.dll").get_export("ConvertThreadToFiber").as<void*>(), &hooks::convert_thread_to_fiber)
