@@ -204,17 +204,17 @@ namespace big
 
 		main_batch.add("Player Name Pointer", "48 8D ? ? ? ? ? E8 ? ? ? ? 48 85 ? 75 ? 48 83 C4 ? C3 CC CC 48 83 EC ? 48 8D", [this](memory::handle ptr)
 		{
-			m_real_name = ptr.add(3).rip().add(0x24).as<char*>();
+			m_real_name = ptr.add(3).rip().add(0x24).as<decltype(m_real_name)>();
 		});
 
 		main_batch.add("Player Real Name", "48 8D 0D ? ? ? ? E9 ? ? ? ? 48 89 ? ? ? 57 48 83 EC ? BF ? ? ? ? 48 8D ? ? ? ? ? 48 81 EB", [this](memory::handle ptr)
 		{
-			m_real_name = ptr.add(3).rip().add(0x51F).as<char*>();
+			m_real_name_1 = ptr.add(3).rip().add(0x51F).as<decltype(m_real_name_1)>();
 		});
 
-		main_batch.add("Player Name Pointer 1", "48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83", [this](memory::handle ptr)
+		main_batch.add("Player Name ESP", "48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83", [this](memory::handle ptr)
 		{
-			m_player_name_1 = ptr.add(3).rip().add(0x84).as<char*>();
+			m_player_name_esp = ptr.add(3).rip().add(0x84).as<decltype(m_player_name_esp)>();
 		});
 		
 		main_batch.add("Send Net Info To Lobby", "E8 ? ? ? ? 84 C0 74 26 8B 96", [this](memory::handle ptr)//add(1).rip() E8 ? ? ? ? 84 C0 74 ? 44 8B ? ? ? ? ? ? 48 8D ? ? ? 48 8B ? E8 ? ? ? ? 84 C0 74 ? BF ? ? ? ? 4C 8D ? ? ? ? ? ? 40 8A ? 49 8B ? ? 49 8B ? ? 49 8B ? 5F C3 90 61
@@ -224,12 +224,12 @@ namespace big
 		
 		main_batch.add("Player Name Pointer 2", "8B 05 ? ? ? ? 40 B7 01 C1 E8 0C 40 84 C7 74 04 0F BA EB 0F", [this](memory::handle ptr)
 		{
-			m_player_name_2 = ptr.add(2).rip().add(0xBDC).as<char*>();
+			m_player_name_2 = ptr.add(2).rip().add(0xBDC).as<decltype(m_player_name_2)>();
 		});//48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83 45206
 
-		main_batch.add("Player Name Pointer 3", "48 8D 05 ? ? ? ? 48 63 CB 48 8B D6 48 69 C9 ? ? ? ? 48 03 C8 E8 ? ? ? ? 84 C0 75 21", [this](memory::handle ptr)
+		main_batch.add("Player Name Display", "48 8D 05 ? ? ? ? 48 63 CB 48 8B D6 48 69 C9 ? ? ? ? 48 03 C8 E8 ? ? ? ? 84 C0 75 21", [this](memory::handle ptr)
 		{
-			m_player_name_3 = ptr.add(3).rip().add(0x14).as<char*>();
+			m_player_name_display = ptr.add(3).rip().add(0x14).as<decltype(m_player_name_display)>();
 		});//48 8D ? ? ? ? ? E8 ? ? ? ? 80 25 F3 9C 30 01 0x291
 
 		main_batch.add("Player Name Pointer 4", "48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 83 25 BC C8 8B 01", [this](memory::handle ptr)

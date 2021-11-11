@@ -491,15 +491,9 @@ namespace big
 
     void player::local_name(char* Name)
     {
-        for (int i = 16; i >= 0; i--)
-        {
-            *(char*)((DWORD64)rage_helper::get_local_playerinfo()->m_name + i) = Name[i];
-            *(char*)((DWORD64)g_pointers->m_player_name_1 + i) = Name[i];
-            *(char*)((DWORD64)g_pointers->m_player_name_2 + i) = Name[i];
-            *(char*)((DWORD64)g_pointers->m_player_name_3 + i) = Name[i];
-            *(char*)((DWORD64)g_pointers->m_player_name_4 + i) = Name[i];
-            //*(char*)((DWORD64)g_pointers->m_player_name_5 + i) = Name[i];
-        }
+        strcpy(rage_helper::get_local_playerinfo()->m_name, Name);
+        strcpy(g_pointers->m_player_name_esp, Name);
+        strcpy(g_pointers->m_player_name_display, Name);
     }
 
     void player::change_name(const std::string& name, rage::netPlayerData* data)

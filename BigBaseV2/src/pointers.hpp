@@ -45,9 +45,10 @@ namespace big
 		DWORD64 *m_add_owned_explosion_bypass_1;
 		DWORD64 *m_add_owned_explosion_bypass_2;
 		char* m_real_name;
-		char *m_player_name_1;
+		char* m_real_name_1;
+		char *m_player_name_esp;
 		char *m_player_name_2;
-		char *m_player_name_3;
+		char *m_player_name_display;
 		char* m_player_name_4;
 		char* m_player_name_5;
 		char* m_game_build;

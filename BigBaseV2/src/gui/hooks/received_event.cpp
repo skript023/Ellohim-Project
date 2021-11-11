@@ -33,7 +33,7 @@ namespace big
 					return false;
 				}
 				buffer->Seek(0);
-				return true;
+				break;
 			}
 			case NETWORK_INCREMENT_STAT_EVENT:
 			{
@@ -47,7 +47,7 @@ namespace big
 				}
 
 				buffer->Seek(0);
-				return true;
+				break;
 			}
 			case NETWORK_CLEAR_PED_TASKS_EVENT:
 			{
@@ -134,9 +134,9 @@ namespace big
 					strcat(sender_info, source_player->get_name());
 					if (player::is_player_driver(g_local.ped) && network_id == g_local.vehicle_net_id)
 					{
-						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 						message::notification("Ellohim Private Menu", sender_info, "~bold~~g~Ellohim Menu Protection");
 
+						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 						return false;
 					}
 					buffer->Seek(0);
@@ -181,7 +181,7 @@ namespace big
 					}
 				}
 				buffer->Seek(0);
-				return true;
+				break;
 			}
 			case NETWORK_PTFX_EVENT:
 			{
