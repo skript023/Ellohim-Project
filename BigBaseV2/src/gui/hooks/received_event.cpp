@@ -3,15 +3,13 @@
 #include "gui/helper_function.hpp"
 #include "gta_util.hpp"
 #include "hooking.hpp"
-#include "hooks/hook_helper.hpp"
+#include "hook_helper.hpp"
 #include "gta/net_object_mgr.hpp"
 
 namespace big
 {
-	bool hooks::received_event(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size,rage::datBitBuffer* bit_buffer)
+	bool hooks::received_event(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size,rage::datBitBuffer* buffer)
 	{
-		//rage::datBitBuffer* buffer = new rage::datBitBuffer((void*)bit_buffer, (uint32_t)bit_buffer_size);
-		auto buffer = bit_buffer;
 		if (event_id > 90u) return false;
 
 		const char* event_name = *(char**)((DWORD64)event_manager + 8i64 * event_id + 243376);
@@ -134,7 +132,7 @@ namespace big
 					char sender_info[100];
 					strcpy(sender_info, "~bold~~g~Blocked Request Control From ");
 					strcat(sender_info, source_player->get_name());
-					if (player::is_player_driver(g_local.ped))
+					if (player::is_player_driver(g_local.ped) && network_id == g_local.vehicle_net_id)
 					{
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 						message::notification("Ellohim Private Menu", sender_info, "~bold~~g~Ellohim Menu Protection");
@@ -149,7 +147,7 @@ namespace big
 			{
 				uint32_t bitset{};
 				buffer->ReadDword(&bitset, MAX_PLAYERS);
-				if (g_settings.options["Kick Vote Block"] || bitset& (1 << target_player->player_id))
+				if (g_settings.options["Kick Vote Block"] && bitset& (1 << target_player->player_id))
 				{
 					message::notification("Ellohim Private Menu", fmt::format("~bold~~g~You Got Voted Kick By {}", source_player->get_name()).c_str(), "~bold~~g~Ellohim Protection");
 					LOG(INFO) << fmt::format("~bold~~g~You Got Voted Kick By {}", source_player->get_name());
@@ -157,7 +155,7 @@ namespace big
 					return false;
 				}
 				buffer->Seek(0);
-				return true;
+				break;
 			}
 			case EXPLOSION_EVENT:
 			{
@@ -202,6 +200,6 @@ namespace big
 				break;
 			}
 		}
-		return g_hooking->m_received_event_hook.get_original<decltype(&received_event)>()(event_manager, source_player, target_player, event_id, event_index, event_handled_bitset, bit_buffer_size, bit_buffer);
+		return g_hooking->m_received_event_hook.get_original<decltype(&received_event)>()(event_manager, source_player, target_player, event_id, event_index, event_handled_bitset, bit_buffer_size, buffer);
 	}
 }

@@ -397,30 +397,6 @@
     <ClCompile Include="src\gui\vehicle_menu.cpp">
       <Filter>gui\game_tabbar</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\hooks\increment_event_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\hooks\scripted_game_event_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\hooks\clear_ped_task_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\hooks\request_control_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\hooks\explosion_event_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\hooks\remove_weapon_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\hooks\kick_vote_event_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\hooks\ptfx_event_hook.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\hooks\send_net_info_to_lobby.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
@@ -439,7 +415,7 @@
     <ClCompile Include="src\gui\custom_text\get_label_text.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\received_event.cpp">
+    <ClCompile Include="src\gui\hooks\received_event.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
   </ItemGroup>

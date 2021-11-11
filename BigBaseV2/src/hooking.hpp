@@ -16,7 +16,7 @@ namespace big
 		static int censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text);
 		static const char* get_label_text(void* unk, const char* label);
 		
-		static bool received_event(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, uint16_t event_id, int event_index, int event_handled_bitset, int64_t bit_buffer_size, rage::datBitBuffer* bit_buffer);
+		static bool received_event(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, uint16_t event_id, int event_index, int event_handled_bitset, int64_t bit_buffer_size, rage::datBitBuffer* buffer);
 
 		static bool clone_create(rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
 		static bool sync_can_apply(rage::netSyncTree* netSyncTree, rage::netObject* netObject);

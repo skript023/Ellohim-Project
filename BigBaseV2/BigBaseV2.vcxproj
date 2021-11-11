@@ -278,16 +278,9 @@
     <ClCompile Include="src\gui\entity\entity_control.cpp" />
     <ClCompile Include="src\gui\game_event\game_event.cpp" />
     <ClCompile Include="src\gui\hooks\censor_chat_hook.cpp" />
-    <ClCompile Include="src\gui\hooks\clear_ped_task_hook.cpp" />
     <ClCompile Include="src\gui\hooks\disable_error_screen.cpp" />
-    <ClCompile Include="src\gui\hooks\explosion_event_hook.cpp" />
     <ClCompile Include="src\gui\hooks\freemode_script_recovery.cpp" />
-    <ClCompile Include="src\gui\hooks\increment_event_hook.cpp" />
-    <ClCompile Include="src\gui\hooks\kick_vote_event_hook.cpp" />
-    <ClCompile Include="src\gui\hooks\ptfx_event_hook.cpp" />
-    <ClCompile Include="src\gui\hooks\remove_weapon_hook.cpp" />
-    <ClCompile Include="src\gui\hooks\request_control_hook.cpp" />
-    <ClCompile Include="src\gui\hooks\scripted_game_event_hook.cpp" />
+    <ClCompile Include="src\gui\hooks\received_event.cpp" />
     <ClCompile Include="src\gui\hooks\send_net_info_to_lobby.cpp" />
     <ClCompile Include="src\gui\hooks\sync_tree_node.cpp" />
     <ClCompile Include="src\gui\player_information\player_information.cpp" />
@@ -297,7 +290,6 @@
     <ClCompile Include="src\gui\controller\ScriptController.cpp" />
     <ClCompile Include="src\gui\controller\system_control.cpp" />
     <ClCompile Include="src\gui\controller\Variable.cpp" />
-    <ClCompile Include="src\gui\received_event.cpp" />
     <ClCompile Include="src\gui\scenario\scenario.cpp" />
     <ClCompile Include="src\gui\vehicle_customize.cpp" />
     <ClCompile Include="src\gui\object\object_helper.cpp" />

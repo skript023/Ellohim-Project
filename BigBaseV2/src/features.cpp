@@ -192,6 +192,9 @@ namespace big::features
 			});
 		}
 	}
+	//HW_PROFILE_INFO hwProfileInfo;
+	//GetCurrentHwProfile(&hwProfileInfo);
+	//hwProfileInfo.szHwProfileGuid
 	void run_tick()
 	{
 		static ULONGLONG tick_1 = 0;

@@ -390,7 +390,6 @@ namespace big
         g_local.PlayerVehicle = PED::GET_VEHICLE_PED_IS_USING(g_local.ped);
         g_local.vehicle_net_id = NETWORK::NETWORK_GET_NETWORK_ID_FROM_ENTITY(g_local.PlayerVehicle);
         g_selected.ped = player::get_player_ped(g_selected.player);
-        g_local.net_id = NETWORK::NETWORK_GET_NETWORK_ID_FROM_ENTITY(PLAYER::PLAYER_PED_ID());
         g_local.is_cutscene_playing = CUTSCENE::IS_CUTSCENE_PLAYING();
         g_local.is_activity_session = NETWORK::NETWORK_IS_ACTIVITY_SESSION();
 

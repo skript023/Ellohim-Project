@@ -172,7 +172,7 @@ namespace big
     void teleport::teleport_to_player(Player player)
     {
         auto pos = player::get_player_coords(player);
-        auto e = player::is_player_in_any_vehicle(g_local.player) ? player::get_player_vehicle(g_local.player, false) : player::get_player_ped(g_local.player);
+        auto e = g_local.InVehicle ? player::get_player_vehicle(g_local.player, false) : player::get_player_ped(g_local.player);
         if (ENTITY::IS_ENTITY_A_VEHICLE(e))
             network::request_control(e);
         ENTITY::SET_ENTITY_COORDS_NO_OFFSET(e, pos.x, pos.y + 1.5f, pos.z, FALSE, FALSE, FALSE);
