@@ -385,10 +385,16 @@ namespace big
             g_local.player = PLAYER::PLAYER_ID();
             g_local.ped = PLAYER::PLAYER_PED_ID();
         }
-        g_event_tester.event_ped = PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(g_event_tester.event_player);
+        g_event_tester.event_ped = player::get_player_ped(g_event_tester.event_player);
         g_local.InVehicle = PED::IS_PED_IN_ANY_VEHICLE(g_local.ped, FALSE);
         g_local.PlayerVehicle = PED::GET_VEHICLE_PED_IS_USING(g_local.ped);
+        g_local.vehicle_net_id = NETWORK::NETWORK_GET_NETWORK_ID_FROM_ENTITY(g_local.PlayerVehicle);
         g_selected.ped = player::get_player_ped(g_selected.player);
+        g_local.net_id = NETWORK::NETWORK_GET_NETWORK_ID_FROM_ENTITY(PLAYER::PLAYER_PED_ID());
+        g_local.is_cutscene_playing = CUTSCENE::IS_CUTSCENE_PLAYING();
+        g_local.is_activity_session = NETWORK::NETWORK_IS_ACTIVITY_SESSION();
+
+
         g_local.ScriptHost = NETWORK::NETWORK_GET_HOST_OF_SCRIPT("freemode", -1, 0);
         g_local.character = *script_global(1312763).as<int*>();
         g_local.connected_player = NETWORK::NETWORK_GET_NUM_CONNECTED_PLAYERS();

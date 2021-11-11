@@ -20,12 +20,24 @@
 #include "gui/weapons/weapon_helper.h"
 #include "gui/vehicle/vehicle_helper.h"
 #include "gui/artificial_intelligence/artificial_intelligence.h"
+#include "gui/controller/http_request.hpp"
 
 #define ARRAY_SIZE(_ARR)          ((int)(sizeof(_ARR) / sizeof(*(_ARR))))
 #define ARR_SZ(_ARR)              ((int)(sizeof(_ARR) / sizeof((_ARR)[0])))
 
 namespace big
 {
+    void player::get_player_location(Player player)
+    {
+        const std::string domain = "https://get.geojs.io";
+        const std::string path = fmt::format("/v1/ip/geo/{}.json", player::get_player_ip(player));
+
+        http::Request request(domain + path);
+        std::string body;
+        http::Response res = request.send("GET", body);
+        LOG(HACKER) << body;
+    }
+
     void player::global_exp_correction()
     {
         g_fiber_pool->queue_job([] 

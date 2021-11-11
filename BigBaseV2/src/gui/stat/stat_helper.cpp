@@ -18,7 +18,7 @@ namespace big
 {
     std::string stats::get_packed_stat_name_from_hash(Hash hash)
     {
-        std::string sVar0;
+        std::string sVar0 = "Invalid";
         if (!is_all_stat_packed(hash))
         {
             for (auto char_stat : var::character_packed_hash)
@@ -45,7 +45,7 @@ namespace big
 
     std::string stats::get_stat_name_from_hash(Hash hash)
     {
-        std::string sVar0;
+        std::string sVar0 = "Invalid";
         if (!is_all_stat(hash))
         {
             for (auto char_stat : var::character_stat_hash)

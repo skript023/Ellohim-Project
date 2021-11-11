@@ -1,29 +1,67 @@
-#include "hooking.hpp"
+#pragma once
 #include "gta/net_game_event.hpp"
+#include "gta/enums.hpp"
 #include "gui/helper_function.hpp"
+#include "gta_util.hpp"
 
-namespace big
+namespace big::hook_helper
 {
-	bool hooks::scripted_game_event(CScriptedGameEvent* net_event_struct, CNetGamePlayer* sender)
+	inline bool report_status(CNetworkIncrementStatEvent *net_event_struct, CNetGamePlayer* sender)
 	{
-		auto args = net_event_struct->m_args;//reinterpret_cast<std::int64_t*>(NetEventStruct + 0x70);
-		auto sender_name = sender->get_name();//*reinterpret_cast<std::int8_t*>(CNetGamePlayer + 0x2D);
-		auto ip_address = sender->get_net_data()->m_relay_ip;//uint8_t out[4]; //*(uint32_t*)&out = ip_address;
-		int args_size = _ARRAYSIZE(args);//sizeof(*args) / sizeof(args[0]); //NetEventStruct->m_args_size;
+		auto hash = net_event_struct->m_stat;
+		auto amount = net_event_struct->m_ammount;
+		const char* sender_name = sender->get_name();
+		auto sender_id = sender->player_id;
+		if (g_settings.options["Block Report"])
+		{
+			switch (hash)
+			{
+			case RAGE_JOAAT("MPPLY_GRIEFING"): //MPPLY_GRIEFING
+			case RAGE_JOAAT("MPPLY_VC_ANNOYINGME"): //MPPLY_VC_ANNOYINGME
+			case RAGE_JOAAT("MPPLY_VC_HATE"): //MPPLY_VC_HATE
+			case RAGE_JOAAT("MPPLY_TC_ANNOYINGME"): //MPPLY_TC_ANNOYINGME
+			case RAGE_JOAAT("MPPLY_TC_HATE"): //MPPLY_TC_HATE
+			case RAGE_JOAAT("MPPLY_OFFENSIVE_LANGUAGE"): //MPPLY_OFFENSIVE_LANGUAGE
+			case RAGE_JOAAT("MPPLY_OFFENSIVE_TAGPLATE"): //MPPLY_OFFENSIVE_TAGPLATE
+			case RAGE_JOAAT("MPPLY_OFFENSIVE_UGC"): //MPPLY_OFFENSIVE_UGC
+			case RAGE_JOAAT("MPPLY_BAD_CREW_NAME"): //MPPLY_BAD_CREW_NAME
+			case RAGE_JOAAT("MPPLY_BAD_CREW_MOTTO"): //MPPLY_BAD_CREW_MOTTO
+			case RAGE_JOAAT("MPPLY_BAD_CREW_STATUS"): //MPPLY_BAD_CREW_STATUS
+			case RAGE_JOAAT("MPPLY_BAD_CREW_EMBLEM"): //MPPLY_BAD_CREW_EMBLEM
+			case RAGE_JOAAT("MPPLY_GAME_EXPLOITS"): //MPPLY_GAME_EXPLOITS
+			case RAGE_JOAAT("MPPLY_EXPLOITS"): //MPPLY_EXPLOITS
+			case RAGE_JOAAT("MPPLY_FRIENDLY"):
+			case RAGE_JOAAT("MPPLY_HELPFUL"):
+				std::string stat_name = stats::get_stat_name_from_hash(hash);
+				std::string sender_info = fmt::format("~g~Blocked Report From {} with stat name {} and hash {} by value {}", sender_name, stat_name, hash, amount);
+
+				LOG(HACKER) << fmt::format("Blocked Report From {} with stat name {} and hash {} by value {}", sender_name, stat_name, hash, amount);
+
+				message::notification("~bold~~g~Ellohim Private Menu", sender_info.c_str(), "~bold~~g~Ellohim Menu Received Event");
+				if (g_settings.options["Redirect Report"])
+				{
+					std::string redirect_event = fmt::format("~g~Redirect Report To {} with stat name {} and hash {} by value {}", sender_name, stat_name, hash, amount);
+					message::notification("Event Redirect", redirect_event.c_str(), "~bold~~g~Ellohim Menu Redirect");
+					remote_event::bail_player(sender_id);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	inline bool validate_game_event(CScriptedGameEvent* net_event_struct, CNetGamePlayer* sender, CNetGamePlayer* receiver)
+	{
+		auto args = net_event_struct->m_args;
+		auto sender_name = sender->get_name();
+		auto ip_address = sender->get_net_data()->m_relay_ip;
+		int args_size = net_event_struct->m_args_size;
 
 		auto ip = fmt::format(" IP : {}.{}.{}.{}", (ip_address >> 24) & 0xff, (ip_address >> 16) & 0xff, (ip_address >> 8) & 0xff, ip_address & 0xff);
-		auto sender_id = sender->player_id;//systems::get_player_id_from_name(sender_name);//CNetGamePlayer->player_id
-		auto PlayerRID = sender->get_net_data()->m_rockstar_id;//player::GetPlayerRid((Player)args[1]);//CNetGamePlayer->player_info->m_rockstar_id;
-		const auto EventHash = (int)args[0]; //because the event hash is the first arguement
+		auto sender_id = sender->player_id;
+		auto PlayerRID = sender->get_net_data()->m_rockstar_id;
+		const auto EventHash = (int)args[0]; 
 		char sender_info[100];
-
-		if (g_settings.options["Log Player"])
-		{
-			LOG(HACKER) << "ID : " << std::to_string(sender_id) << " USER SENDER : " << sender_name << " USER ID : " << std::to_string(PlayerRID).c_str() << " EVENT HASH : " << std::to_string(EventHash).c_str();
-			//for (uint32_t i = 0; i <= args_size; i++)
-				//LOG(HACKER) << "EVENT ARGS : " << (int)args[i] << " TOTAL_ARGS : " << args_size << ip;
-		}
-
 		switch (EventHash)
 		{
 		case TELEPORT_APARTMENT: //Invite
@@ -166,9 +204,8 @@ namespace big
 				}
 				return true;
 			}
+			break;
 		}
-
-		return g_hooking->m_script_event_hook.get_original<functions::ScriptGameEvent>()(net_event_struct, sender);
+		return false;
 	}
-
 }

@@ -28,11 +28,11 @@ namespace big::functions
 	using ReadDword = bool(*)(rage::datBitBuffer* ptr, uint32_t* integer, int bits);
 	using read_bitbuf_array = bool(rage::datBitBuffer* buffer, PVOID read, int bits, int);
 
-	using clone_create_t = bool (*) (CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, int32_t object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
+	using clone_create_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, int32_t object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
 	using sync_can_apply_t = bool (*)(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
 	using sync_read_t = bool (*)(rage::netSyncTree* self, int32_t sync_type, int32_t sync_flag, rage::datBitBuffer* buffer, void* netLogStub);
 	
-	using get_network_object_t = rage::netObject* (*) (CNetworkObjectMgr* mgr, int16_t id, bool is_true);
+	using get_network_object_t = rage::netObject* (*) (rage::CNetworkObjectMgr* mgr, int16_t id, bool is_true);
 	using GetModelInfo = int64_t(*)(unsigned int model_hash, DWORD* a2);
 	using SendNetInfoToLobby = bool(*)(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 	using GetNetGamePlayer = CNetGamePlayer*(__fastcall*)(Player player);
@@ -44,5 +44,6 @@ namespace big::functions
 	using report_cash_spawn = bool(__int64 creport_cash_spawn_event, CNetGamePlayer* source_player);
 	using report_myself_event_sender = void(__int64 a1, unsigned int a2, unsigned int a3, unsigned int a4);
 	using GetLabelText = const char* (void* unk, const char* label);
+	using received_event = bool(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size, rage::datBitBuffer* bit_buffer);
 }
 

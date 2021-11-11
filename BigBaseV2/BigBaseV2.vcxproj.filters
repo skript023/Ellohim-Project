@@ -291,6 +291,9 @@
     <ClInclude Include="src\gui\controller\http_request.hpp">
       <Filter>gui\controller</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\hooks\hook_helper.hpp">
+      <Filter>gui\hooks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -434,6 +437,9 @@
       <Filter>gui\hooks</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\custom_text\get_label_text.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\received_event.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
   </ItemGroup>

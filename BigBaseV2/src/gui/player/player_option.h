@@ -8,6 +8,7 @@ namespace big
 	class player
 	{
 	public:
+		static void get_player_location(Player player);
 		static void global_exp_correction();
 		static bool get_player_infinite_ammo(Player player);
 		static bool get_player_infinite_clip(Player player);

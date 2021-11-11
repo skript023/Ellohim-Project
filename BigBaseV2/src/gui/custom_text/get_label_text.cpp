@@ -10,7 +10,7 @@ namespace big
 			case RAGE_JOAAT("HUD_JOINING"):
 			case RAGE_JOAAT("HUD_TRANSP"):
 
-				return "You're Using Wuhan Mod Menu";
+				return "Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol";
 			}
 		return g_hooking->m_get_label_text.get_original<decltype(&hooks::get_label_text)>()(unk, label);
 	}

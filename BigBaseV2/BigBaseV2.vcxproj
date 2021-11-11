@@ -214,6 +214,7 @@
     <ClInclude Include="src\gui\entity\entity_control.h" />
     <ClInclude Include="src\gui\game_event\game_event.h" />
     <ClInclude Include="src\gui\game_event\game_helper.hpp" />
+    <ClInclude Include="src\gui\hooks\hook_helper.hpp" />
     <ClInclude Include="src\gui\player_information\player_information.h" />
     <ClInclude Include="src\gui\player_list.h" />
     <ClInclude Include="src\gui\casino\casino.h" />
@@ -296,6 +297,7 @@
     <ClCompile Include="src\gui\controller\ScriptController.cpp" />
     <ClCompile Include="src\gui\controller\system_control.cpp" />
     <ClCompile Include="src\gui\controller\Variable.cpp" />
+    <ClCompile Include="src\gui\received_event.cpp" />
     <ClCompile Include="src\gui\scenario\scenario.cpp" />
     <ClCompile Include="src\gui\vehicle_customize.cpp" />
     <ClCompile Include="src\gui\object\object_helper.cpp" />

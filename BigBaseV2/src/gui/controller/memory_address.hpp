@@ -14,8 +14,10 @@ namespace big
 	public:
 		static inline Player player{};
 		static inline Ped ped{};
+		static inline int net_id{};
 		static inline Player ScriptHost{};
 		static inline Vehicle PlayerVehicle{};
+		static inline int vehicle_net_id{};
 		static inline bool InVehicle{};
 		static inline bool Transition{};
 		static inline int character{};
@@ -27,6 +29,8 @@ namespace big
 		static inline bool transition{};
 		static inline bool is_male{};
 		static inline bool script_transition{};
+		static inline bool is_cutscene_playing{};
+		static inline bool is_activity_session{};
 	} g_local;
 
 	static class selected_player_info

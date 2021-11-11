@@ -291,7 +291,7 @@ namespace big
 			m_bitbufferclass = ptr.as<rage::datBitBuffer*>();
 		});
 		*/
-		main_batch.add("ESH", "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 60 4C 8B F2 48 8B 94 24 ? ? ? ? 33 DB", [this](memory::handle ptr)
+		main_batch.add("Error Screen Handler", "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 60 4C 8B F2 48 8B 94 24 ? ? ? ? 33 DB", [this](memory::handle ptr)
 		{
 			m_error_screen = ptr.as<decltype(m_error_screen)>();
 		});
@@ -313,12 +313,17 @@ namespace big
 		});
 
 		// Send Event Acknowledge
-		main_batch.add("SEA", "48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 7A", [this](memory::handle ptr)
+		main_batch.add("Send Event Ack", "48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 7A", [this](memory::handle ptr)
 		{
 			m_send_event_ack = ptr.sub(5).as<decltype(m_send_event_ack)>();
 		});
 
-		main_batch.add("RCSH", "40 53 48 83 EC 20 48 8B D9 48 85 D2 74 29", [this](memory::handle ptr)
+		main_batch.add("RECEIVED EVENT", "66 41 83 F9 ? 0F 83 ? ? ? ?", [this](memory::handle ptr)
+		{
+			m_received_event = ptr.as<decltype(m_received_event)>();
+		});
+
+		main_batch.add("Report Cash Spawn Event", "40 53 48 83 EC 20 48 8B D9 48 85 D2 74 29", [this](memory::handle ptr)
 		{
 			m_report_cash_spawn = ptr.as<decltype(m_report_cash_spawn)>();
 		});
