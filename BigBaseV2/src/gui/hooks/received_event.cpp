@@ -132,7 +132,7 @@ namespace big
 					char sender_info[100];
 					strcpy(sender_info, "~bold~~g~Blocked Request Control From ");
 					strcat(sender_info, source_player->get_name());
-					if (player::is_player_driver(g_local.ped) && network_id == g_local.vehicle_net_id)
+					if (player::is_player_driver(g_local.ped))
 					{
 						message::notification("Ellohim Private Menu", sender_info, "~bold~~g~Ellohim Menu Protection");
 

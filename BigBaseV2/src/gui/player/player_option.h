@@ -14,7 +14,7 @@ namespace big
 		static bool get_player_infinite_clip(Player player);
 		static bool is_player_in_any_vehicle(Player player);
 		static bool does_player_exist(Player player);
-		static bool is_player_driver(Entity Ped);
+		static bool is_player_driver(Ped Ped);
 		static bool is_ped_enemy(Entity Ped);
 		static int get_ped_type(Entity Ped);
 		static std::string get_player_ip(Player SelectedPlayer);

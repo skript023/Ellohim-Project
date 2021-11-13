@@ -59,7 +59,7 @@ namespace big
         });
     }
 
-    bool player::is_player_driver(Entity Ped)
+    bool player::is_player_driver(Ped Ped)
     {
         if (CPed* ped = rage_helper::entity_to_pointer<CPed*>(Ped))
         {

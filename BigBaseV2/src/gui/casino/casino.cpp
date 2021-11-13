@@ -17,6 +17,18 @@
 
 namespace big
 {
+    void apartment::instant_prep()
+    {
+        const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+        STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_HEIST_PLANNING_STAGE"), -1, TRUE);
+    }
+
+    void doomsday::instant_prep()
+    {
+        const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+        STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_GANGOPS_FLOW_MISSION_PROG"), -1, TRUE);
+    }
+
     void casino_heist::BigconHeist()
     {
         g_fiber_pool->queue_job([]

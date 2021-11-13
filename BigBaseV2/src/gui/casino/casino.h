@@ -5,6 +5,20 @@
 
 namespace big
 {
+	class doomsday
+	{
+	public:
+
+		static void instant_prep();
+
+	};
+
+	class apartment
+	{
+	public:
+		static void instant_prep();
+	};
+
 	class cayo_perico
 	{
 	public:
