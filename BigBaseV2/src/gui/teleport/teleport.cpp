@@ -61,13 +61,13 @@ namespace big
 
                 if (MISC::GET_GROUND_Z_FOR_3D_COORD(coords.x, coords.y, 1000.f, &groundZ, false, true))
                 {
-                    return Vector3(coords.x, coords.y, groundZ + 2.5f);
+                    return Vector3(coords.x, coords.y, groundZ + 2.0f);
                 }
                 script::get_current()->yield();
             }
             return Vector3(coords.x, coords.y, -225.f);
         }
-        return Vector3(coords.x, coords.y, coords.z + 2.5f);
+        return Vector3(coords.x, coords.y, coords.z + 2.0f);
     }
 
     void teleport::teleport_to_coords(Entity e, Vector3 coords) {
