@@ -145,6 +145,7 @@ namespace big
             ImGui::SameLine(400);
             ImGui::Text("Godmode : %s", player::get_player_invincible(g_selected.player) ? "True" : "False");
 
+            ImGui::Text("Local IP : %s", player::get_player_local_ip(g_selected.player));
             ImGui::Text("IP : %s", player::get_player_ip(g_selected.player));
             ImGui::SameLine(200);
             ImGui::Text("Wanted Level : %d", player::get_player_wanted_level(g_selected.player));

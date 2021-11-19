@@ -46,6 +46,8 @@ namespace big
 		static int get_player_armour(Player player);
 		static int get_player_max_amour(Player player);
 
+		static std::string get_player_local_ip(Player player);
+
 		static void local_name(char* Name);
 		static void RunSpeed(float speed);
 		static void SwimSpeed(float speed);

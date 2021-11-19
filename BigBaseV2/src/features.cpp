@@ -281,7 +281,7 @@ namespace big::features
 		vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
 		vehicle_helper::HornBoostFunc(HornBoost);
 
-		controller::FasterTimeScale(features::TimeScale);
+		controller::faster_time_scale(features::TimeScale);
 		
 		ai::explode_enemies(HeadshotPed);
 		ai::kill_enemies(KillNPCBool);

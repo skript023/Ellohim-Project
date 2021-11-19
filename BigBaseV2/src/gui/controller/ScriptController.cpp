@@ -65,6 +65,16 @@ namespace big
         return hash;
     }
 
+    Hash controller::load(Hash hash)
+    {
+        STREAMING::REQUEST_MODEL(hash);
+        while (!STREAMING::HAS_MODEL_LOADED(hash))
+        {
+            script::get_current()->yield();
+        }
+        return hash;
+    }
+
     const char* controller::load_anim(const char* anim)
     {
         STREAMING::REQUEST_ANIM_DICT(anim);

@@ -206,16 +206,16 @@ namespace big
                     *script_global(g_global.terorbyte).as<bool*>() = true;
                     break;
                 case 2:
-                    *script_global(g_global.kosatka).as<int*>() = true;
+                    *script_global(g_global.kosatka).as<bool*>() = true;
                     break;
                 case 3:
-                    *script_global(g_global.avanger).as<int*>() = true;
+                    *script_global(g_global.avanger).as<bool*>() = true;
                     break;
                 case 4:
-                    *script_global(g_global.moc).as<int*>() = true;
+                    *script_global(g_global.moc).as<bool*>() = true;
                     break;
                 case 5:
-                    *script_global(g_global.dinghy).as<int*>() = true;
+                    *script_global(g_global.dinghy).as<bool*>() = true;
                     break;
                 }
             }

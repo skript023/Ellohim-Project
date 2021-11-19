@@ -13,12 +13,7 @@
 
 #include <imgui.h>
 
-#include "gui/player_list.h"
-#include "gui/vehicle_menu.h"
-#include "gui/setting_menu.h"
-#include "gui/online_menu.h"
-#include "gui/player_menu.h"
-#include "gui/vehicle_customize.h"
+#include "gui/window/game_window.hpp"
 #include "gui\controller\xostr.h"
 
 namespace big
@@ -105,44 +100,7 @@ namespace big
 	{
 		TRY_CLAUSE
 		{
-			if (ImGui::Begin(xorstr("Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol")))
-			{
-				GetCurrentHwProfile(&g_gui.profile_info);
-				if (strcmp(g_gui.username, "None") == 0 && strcmp(g_gui.password, "None") == 0 && (*g_pointers->m_player_rid == 199227111 || *g_pointers->m_player_rid == 160920790))
-				{
-					ImGui::InputText("Username", g_gui.temp_username, IM_ARRAYSIZE(g_gui.temp_username));
-					ImGui::InputText("Password", g_gui.temp_password, IM_ARRAYSIZE(g_gui.temp_password), ImGuiInputTextFlags_Password);
-					if (ImGui::Button("Login"))
-					{
-						if (*g_pointers->m_player_rid == 199227111 || *g_pointers->m_player_rid == 160920790)
-						{
-							strcpy(g_gui.username, g_gui.temp_username);
-							strcpy(g_gui.password, g_gui.temp_password);
-						}
-						else
-						{
-							g_running = false;
-						}
-					}
-					ImGui::SameLine();
-					if (ImGui::Button("Quit"))
-					{
-						g_running = false;
-					}
-				}
-				if ((rage::joaat(g_gui.username) == RAGE_JOAAT("admin") && rage::joaat(g_gui.password) == RAGE_JOAAT("experiment")) || *g_pointers->m_player_rid == 170730888 || *g_pointers->m_player_rid == 140834687)
-				{
-					ImGui::BeginTabBar(xorstr("Tab Menu"));
-					player_menu::render_player_tab(xorstr("Player"));
-					vehicle_tab::render_vehicle_tab(xorstr("Vehicle"));
-					lsc::render_lsc_tab(xorstr("LS Customs"));
-					online_menu::render_online_tab(xorstr("Online"));
-					player_list::render_player_list(xorstr("Player List"));
-					setting_tab::render_setting_tab(xorstr("Setting"));
-					ImGui::EndTabBar();
-				}
-			}
-			ImGui::End();
+			game_window::render_base_window(xorstr("Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol"));
 		}
 		EXCEPT_CLAUSE
 	}

@@ -58,6 +58,9 @@
     <Filter Include="gui\hooks">
       <UniqueIdentifier>{befed771-495b-46ec-a6be-ab1bffa6004d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui\window">
+      <UniqueIdentifier>{bd8f2895-9b68-4e16-ab93-ab4fae45f8e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\benchmark.h" />
@@ -201,9 +204,6 @@
     <ClInclude Include="src\gui\controller\ScriptController.h">
       <Filter>gui\controller</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\controller\Variable.h">
-      <Filter>gui\controller</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\weapons\weapon_helper.h">
       <Filter>gui\weapons</Filter>
     </ClInclude>
@@ -294,6 +294,12 @@
     <ClInclude Include="src\gui\hooks\hook_helper.hpp">
       <Filter>gui\hooks</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\controller\game_variable.h">
+      <Filter>gui\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\window\game_window.hpp">
+      <Filter>gui\window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -332,9 +338,6 @@
       <Filter>gui\casino</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\controller\ScriptController.cpp">
-      <Filter>gui\controller</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\controller\Variable.cpp">
       <Filter>gui\controller</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\weapons\weapon_helper.cpp">
@@ -417,6 +420,12 @@
     </ClCompile>
     <ClCompile Include="src\gui\hooks\received_event.cpp">
       <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\controller\game_variable.cpp">
+      <Filter>gui\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\window\game_window.cpp">
+      <Filter>gui\window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,7 +20,7 @@ namespace big
 		if (ImGui::Begin(window_name))
 		{
 			GetCurrentHwProfile(&g_game_window.profile_info);
-			if (strcmp(g_game_window.username, "None") == 0 && strcmp(g_game_window.password, "None") == 0 && !(rage::joaat(std::to_string(*g_pointers->m_player_rid)) == RAGE_JOAAT("170730888") || rage::joaat(std::to_string(*g_pointers->m_player_rid)) == RAGE_JOAAT("140834687")))
+			if (strcmp(g_game_window.username, "None") == 0 && strcmp(g_game_window.password, "None") == 0 && !(rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-secondary_account") == RAGE_JOAAT("170730888-secondary_account") || rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-main_account") == RAGE_JOAAT("140834687-main_account")))
 			{
 				ImGui::InputText("Username", g_game_window.temp_username, IM_ARRAYSIZE(g_game_window.temp_username));
 				ImGui::InputText("Password", g_game_window.temp_password, IM_ARRAYSIZE(g_game_window.temp_password), ImGuiInputTextFlags_Password);
@@ -28,14 +28,18 @@ namespace big
 				{
 					switch (rage::joaat(std::to_string(*g_pointers->m_player_rid)))
 					{
-					case RAGE_JOAAT("199227111"):
-					case RAGE_JOAAT("160920790"):
-						strcpy(g_game_window.username, g_game_window.temp_username);
-						strcpy(g_game_window.password, g_game_window.temp_password);
-						break;
-					default:
-						g_running = false;
-						break;
+						case RAGE_JOAAT("199227111"):
+						case RAGE_JOAAT("160920790"):
+						case RAGE_JOAAT("148443584"):
+						case RAGE_JOAAT("196561748"):
+						case RAGE_JOAAT("96098918"):
+						case RAGE_JOAAT("176139389"):
+							strcpy(g_game_window.username, g_game_window.temp_username);
+							strcpy(g_game_window.password, g_game_window.temp_password);
+							break;
+						default:
+							g_running = false;
+							break;
 					}
 				}
 				ImGui::SameLine();
@@ -44,7 +48,7 @@ namespace big
 					g_running = false;
 				}
 			}
-			if ((rage::joaat(g_game_window.username) == RAGE_JOAAT("admin") && rage::joaat(g_game_window.password) == RAGE_JOAAT("experiment")) || (rage::joaat(std::to_string(*g_pointers->m_player_rid)) == RAGE_JOAAT("170730888") || rage::joaat(std::to_string(*g_pointers->m_player_rid)) == RAGE_JOAAT("140834687")))
+			if ((rage::joaat(g_game_window.username) == RAGE_JOAAT("admin") && rage::joaat(g_game_window.password) == RAGE_JOAAT("experiment")) || (rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-secondary_account") == RAGE_JOAAT("170730888-secondary_account") || rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-main_account") == RAGE_JOAAT("140834687-main_account")))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));

@@ -209,6 +209,7 @@
     <ClInclude Include="src\gta_util.hpp" />
     <ClInclude Include="src\gui.hpp" />
     <ClInclude Include="src\gui\artificial_intelligence\artificial_intelligence.h" />
+    <ClInclude Include="src\gui\controller\game_variable.h" />
     <ClInclude Include="src\gui\controller\http_request.hpp" />
     <ClInclude Include="src\gui\controller\xostr.h" />
     <ClInclude Include="src\gui\entity\entity_control.h" />
@@ -223,7 +224,6 @@
     <ClInclude Include="src\gui\controller\network_controller.h" />
     <ClInclude Include="src\gui\controller\ScriptController.h" />
     <ClInclude Include="src\gui\controller\system_control.h" />
-    <ClInclude Include="src\gui\controller\Variable.h" />
     <ClInclude Include="src\gui\event_json.h" />
     <ClInclude Include="src\gui\helper_function.hpp" />
     <ClInclude Include="src\gui\scenario\scenario.h" />
@@ -242,6 +242,7 @@
     <ClInclude Include="src\gui\vehicle_menu.h" />
     <ClInclude Include="src\gui\vehicle\vehicle_helper.h" />
     <ClInclude Include="src\gui\weapons\weapon_helper.h" />
+    <ClInclude Include="src\gui\window\game_window.hpp" />
     <ClInclude Include="src\hooking.hpp" />
     <ClInclude Include="src\imguibitfield.h" />
     <ClInclude Include="src\invoker.hpp" />
@@ -274,6 +275,7 @@
     <ClCompile Include="src\fonts.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\gui\artificial_intelligence\artificial_intelligence.cpp" />
+    <ClCompile Include="src\gui\controller\game_variable.cpp" />
     <ClCompile Include="src\gui\custom_text\get_label_text.cpp" />
     <ClCompile Include="src\gui\entity\entity_control.cpp" />
     <ClCompile Include="src\gui\game_event\game_event.cpp" />
@@ -289,7 +291,6 @@
     <ClCompile Include="src\gui\controller\network_controller.cpp" />
     <ClCompile Include="src\gui\controller\ScriptController.cpp" />
     <ClCompile Include="src\gui\controller\system_control.cpp" />
-    <ClCompile Include="src\gui\controller\Variable.cpp" />
     <ClCompile Include="src\gui\scenario\scenario.cpp" />
     <ClCompile Include="src\gui\vehicle_customize.cpp" />
     <ClCompile Include="src\gui\object\object_helper.cpp" />
@@ -304,6 +305,7 @@
     <ClCompile Include="src\gui\vehicle_menu.cpp" />
     <ClCompile Include="src\gui\vehicle\vehicle_helper.cpp" />
     <ClCompile Include="src\gui\weapons\weapon_helper.cpp" />
+    <ClCompile Include="src\gui\window\game_window.cpp" />
     <ClCompile Include="src\hooking.cpp" />
     <ClCompile Include="src\invoker.cpp" />
     <ClCompile Include="src\main.cpp" />

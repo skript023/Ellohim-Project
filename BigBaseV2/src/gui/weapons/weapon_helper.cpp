@@ -624,18 +624,21 @@ namespace big
         }
     }
 
-    Vector3 addVector(Vector3 vector, Vector3 vector2) {
+    Vector3 addVector(Vector3 vector, Vector3 vector2)
+    {
         vector.x += vector2.x;
         vector.y += vector2.y;
         vector.z += vector2.z;
         return vector;
     }
 
-    double DegreeToRadian(double n) {
+    double DegreeToRadian(double n)
+    {
         return n * 0.017453292519943295;
     }
 
-    Vector3 RotationToDirection(Vector3 rot) {
+    Vector3 RotationToDirection(Vector3 rot)
+    {
         double num = DegreeToRadian(rot.z);
         double num2 = DegreeToRadian(rot.x);
         double val = cos(num2);
@@ -646,7 +649,8 @@ namespace big
         return rot;
     }
 
-    Vector3 multiplyVector(Vector3 vector, float inc) {
+    Vector3 multiplyVector(Vector3 vector, float inc)
+    {
         vector.x *= inc;
         vector.y *= inc;
         vector.z *= inc;

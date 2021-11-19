@@ -703,6 +703,16 @@ namespace big
         return armour;
     }
 
+    std::string player::get_player_local_ip(Player player)
+    {
+        uint32_t player_ip = 0;
+        if (auto ped = rage_helper::get_player_pointer(player))
+        {
+            player_ip = ped->m_playerinfo->m_external_ip;
+        }
+        return fmt::format("{}.{}.{}.{}", (player_ip >> 24) & 0xff, (player_ip >> 16) & 0xff, (player_ip >> 8) & 0xff, player_ip & 0xff);
+    }
+
     std::string player::get_player_ip(Player player)
     {
         uint32_t player_ip = 0;
