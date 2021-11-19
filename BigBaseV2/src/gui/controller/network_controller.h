@@ -20,6 +20,8 @@ namespace big
         static void trigger_bunker_production(Player player);
         static void trigger_bunker_research(Player player);
 
+        static void trigger_nightclub_production();
+
         static const char* get_meth_location(Player player);
         static const char* get_weed_location(Player player);
         static const char* get_cocain_location(Player player);

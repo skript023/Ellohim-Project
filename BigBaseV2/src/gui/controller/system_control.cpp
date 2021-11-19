@@ -10,7 +10,7 @@
 #include "ScriptController.h"
 #include <gui\player_list.h>
 #include <gta\Weapons.h>
-#include <gui/controller/Variable.h>
+#include <gui/controller/game_variable.h>
 #include <gui/controller/memory_address.hpp>
 #include "system_control.h"
 #include "gta/net_object_mgr.hpp"
@@ -224,6 +224,16 @@ namespace big
             break;
         }
         return systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")) ? false : true;
+    }
+
+    std::string systems::char_to_string(char* a, int size)
+    {
+        int i;
+        std::string s = "";
+        for (i = 0; i < size; i++) {
+            s = s + a[i];
+        }
+        return s;
     }
 
     double systems::milisecond_to_day(int64_t Milisecond)

@@ -1117,7 +1117,7 @@ namespace big
                 static bool mc_timer_bool = false;
                 if (ImGui::Checkbox(xorstr("Extend MC Selling Time"), &mc_timer_bool))
                 {
-                    if (bunker_timer_bool)
+                    if (mc_timer_bool)
                     {
                         *script_global(g_global.mc_selling_time_1).as<int*>() = 18000000;
                         *script_global(g_global.mc_selling_time_2).as<int*>() = 18000000;
@@ -1174,7 +1174,7 @@ namespace big
                 {
                     if (cargo_selling_time)
                     {
-                        *script_global(g_global.special_cargo_selling_time).as<int*>() = 0;
+                        *script_global(g_global.special_cargo_selling_time).as<int*>() = 18000000;
                     }
                     else
                     {
@@ -1218,7 +1218,7 @@ namespace big
                 ImGui::SameLine(220);
                 if (ImGui::Button(xorstr("Trigger Nightclub Product"), ImVec2(200, 0)))
                 {
-                    controller::NightclubTriggerProduction();
+                    network::trigger_nightclub_production();
                 }
                 ImGui::SameLine(430);
                 if (ImGui::Button(xorstr("Max Nightclub Popularity"), ImVec2(200, 0)))

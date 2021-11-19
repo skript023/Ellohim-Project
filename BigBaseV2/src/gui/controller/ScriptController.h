@@ -9,8 +9,6 @@ namespace big
 	class controller
 	{
 		public:
-			static std::string char_to_string(char* a, int size);
-			
 			static bool cstrcmp(const char* s1, const char* s2);
 			static Hash load(const char* name);
 			static const char* load_anim(const char* anim);
@@ -18,25 +16,19 @@ namespace big
 			
 			
 			static void RequestControlOfid(Entity netid);
-			static Ped ClonePed(Ped ped);
-			static void CreatePed(Hash PedHash, Vector3 SpawnCoordinates, int ped_type, bool network_handle);
 			
 			
 			static void set_clipboard(const char* message);
 
 			
-			static void FasterTimeScale(bool Activation);
+			static void faster_time_scale(bool Activation);
 			static void TimeSpam(bool Activation);
 			
 			
 			static void InvalidModelProtection(bool Activation);
-			static Ped CrashPlayer(Entity target, Vector3 SpawnCoordinates);
 			static void ShowMessage(const char* Message, bool InPauseMenu);
 			
 			static void CheckInvalidPed();
-			static void NightclubTriggerProduction();
-			static void AttachPed(Hash PedHash, Ped Target);
-			
 			
 			static void variable_attach();
 			static void DumpEntryBoi();

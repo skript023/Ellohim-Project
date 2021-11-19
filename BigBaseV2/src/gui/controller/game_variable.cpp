@@ -1,4 +1,4 @@
-#include "Variable.h"
+#include "game_variable.h"
 #include "gta/Weapons.h"
 
 namespace big

@@ -10,7 +10,7 @@
 #include "gui/controller/ScriptController.h"
 #include <gui\player_list.h>
 #include <gta\Weapons.h>
-#include <gui/controller/Variable.h>
+#include <gui/controller/game_variable.h>
 #include <gui/teleport/teleport.h>
 #include "gui/controller/memory_address.hpp"
 #include "gui/controller/network_controller.h"

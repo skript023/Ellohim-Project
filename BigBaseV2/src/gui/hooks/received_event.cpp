@@ -40,7 +40,7 @@ namespace big
 				auto event_obj = CNetworkIncrementStatEvent();
 				buffer->ReadDword(&event_obj.m_stat, 32);
 				buffer->ReadDword(&event_obj.m_ammount, 32);
-				if (hook_helper::report_status(&event_obj, source_player))
+				if (hook_helper::report_status(&event_obj, source_player, target_player))
 				{
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;

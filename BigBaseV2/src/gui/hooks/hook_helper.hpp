@@ -6,7 +6,7 @@
 
 namespace big::hook_helper
 {
-	inline bool report_status(CNetworkIncrementStatEvent *net_event_struct, CNetGamePlayer* sender)
+	inline bool report_status(CNetworkIncrementStatEvent *net_event_struct, CNetGamePlayer* sender, CNetGamePlayer* receiver)
 	{
 		auto hash = net_event_struct->m_stat;
 		auto amount = net_event_struct->m_ammount;

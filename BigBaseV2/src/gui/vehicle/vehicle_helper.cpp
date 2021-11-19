@@ -7,10 +7,11 @@
 #include "gui/player_list.h"
 #include "gui/controller/ScriptController.h"
 #include "gui/controller/system_control.h"
-#include "gui/controller/Variable.h"
+#include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"
 #include "gui/player/player_option.h"
 #include "gui/controller/network_controller.h"
+#include "gui/game_event/game_event.h"
 
 namespace big
 {
@@ -208,7 +209,7 @@ namespace big
                         auto target = ENTITY::GET_ENTITY_COORDS(ped, TRUE);
                         if (MISC::GET_DISTANCE_BETWEEN_COORDS(playerPosition.x, playerPosition.y, playerPosition.z, target.x, target.y, target.z, false) > 300.0f)
                         {
-                            controller::CrashPlayer(ped, target);
+                            remote_event::crash_player(ped, target);
                         }
                         for (int64_t kick : var::KickHash)
                         {

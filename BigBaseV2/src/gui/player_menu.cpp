@@ -239,6 +239,10 @@ namespace big
 
                 ImGui::Checkbox("Teleport Gun", &g_fitur.teleport_gun);
 
+                ImGui::PushItemWidth(200);
+                ImGui::SliderInt("Burst Ammo", &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch, 0, 100);
+                ImGui::SliderFloat("Burst Spread", &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread, 0.f, 2.f);
+                ImGui::PopItemWidth();
 
                 ImGui::Text("Weapon Custom Explosion");
                 static int impact_type = 0;

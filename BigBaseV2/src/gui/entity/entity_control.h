@@ -14,4 +14,13 @@ namespace big
 		static Hash get_entity_model(Entity entity);
 		static Vector3 get_entity_coords(Entity entity, bool Alive);
 	};
+
+	class ped
+	{
+	public:
+
+		static Ped clone_ped(Ped ped);
+		static void attach_ped(Hash PedHash, Ped Target);
+		static void create_ped(Hash PedHash, Vector3 SpawnCoordinates, int ped_type, bool network_handle);
+	};
 }

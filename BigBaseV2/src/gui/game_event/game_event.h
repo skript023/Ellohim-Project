@@ -103,6 +103,7 @@ namespace big
 		static void send_to_mission(Player player);
 		static void give_fake_money(Player player, int TotalMoney);
 		static void remove_fake_money(Player player, int TotalMoney);
+		static Ped crash_player(Entity target, Vector3 SpawnCoordinates);
 		static void steal_fake_money(Player player, int TotalMoney);
 		static void give_wanted_level(Player player);
 	};

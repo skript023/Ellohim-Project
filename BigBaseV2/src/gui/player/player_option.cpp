@@ -10,7 +10,7 @@
 #include "gui/controller/ScriptController.h"
 #include "gui/player_list.h"
 #include "gta/Weapons.h"
-#include "gui/controller/Variable.h"
+#include "gui/controller/game_variable.h"
 #include "gui/player/player_option.h"
 #include "gui/entity/entity_control.h"
 #include "gui/object/object.h"
@@ -47,6 +47,7 @@ namespace big
             int total = first_account + second_account;
             int global_exp = 0;
             STATS::STAT_GET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), &global_exp, -1);
+            script::get_current()->yield();
             if (global_exp == total)
             {
                 message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Your RP no longer need correction", "~bold~~g~Ellohim Recovery");

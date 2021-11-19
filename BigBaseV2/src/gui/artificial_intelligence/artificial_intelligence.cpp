@@ -10,7 +10,7 @@
 #include "gui/controller/ScriptController.h"
 #include <gui\player_list.h>
 #include <gta\Weapons.h>
-#include <gui/controller/Variable.h>
+#include <gui/controller/game_variable.h>
 #include <gui/artificial_intelligence/artificial_intelligence.h>
 #include <gui/controller/network_controller.h>
 #include <gui/player/player_option.h>

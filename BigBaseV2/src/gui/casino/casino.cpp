@@ -9,7 +9,7 @@
 #include "features.hpp"
 #include "gui/controller/ScriptController.h"
 #include "casino.h"
-#include "gui/controller/Variable.h"
+#include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"
 #include "gui/controller/system_control.h"
 #include "gui/game_event/game_event.h"

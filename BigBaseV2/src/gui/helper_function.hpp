@@ -5,7 +5,7 @@
 #include "gui/persistence/persist_teleport.h"
 #include "gui/stat/stat_helper.h"
 #include "gui/vehicle/vehicle_helper.h"
-#include "gui/controller/Variable.h"
+#include "gui/controller/game_variable.h"
 #include "gui/weapons/weapon_helper.h"
 #include "gui/game_event/game_event.h"
 #include "gui/player/player_option.h"

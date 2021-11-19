@@ -15,6 +15,7 @@ namespace big
 		static bool is_number_64_bit(uint64_t number);
 		static bool is_script_active(rage::joaat_t Hash);
 		static bool is_model_valid(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
+		static std::string char_to_string(char* a, int size);
 		static int hotkey(char ch);
 		static float degree(float degs);
 		static std::string character_filter(const char* str);

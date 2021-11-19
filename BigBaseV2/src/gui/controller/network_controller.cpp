@@ -10,7 +10,7 @@
 #include "ScriptController.h"
 #include "gui\player_list.h"
 #include "gta\Weapons.h"
-#include "gui/controller/Variable.h"
+#include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"
 #include "network_controller.h"
 #include "system_control.h"
@@ -574,6 +574,18 @@ namespace big
         else
             message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Bunker Research Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
     }
+
+    void network::trigger_nightclub_production()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (*script_global(g_global.nc_trigger_product).at(i, 2).at(1).as<int*>() == 1)
+            {
+                *script_global(g_global.nc_trigger_product).at(i, 2).as<int*>() = 0;//2515749
+            }
+        }
+    }
+
 
 	void network::spectate_player(Ped playerped)
 	{

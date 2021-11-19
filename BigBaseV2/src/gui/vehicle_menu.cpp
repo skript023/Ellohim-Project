@@ -890,7 +890,7 @@ namespace big
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
                         auto coords = ENTITY::GET_ENTITY_COORDS(g_local.ped, TRUE);
-                        controller::CreatePed(rage::joaat(NamaPed), coords, 1, TRUE);
+                        ped::create_ped(rage::joaat(NamaPed), coords, 1, TRUE);
                     } QUEUE_JOB_END_CLAUSE
                 }
                 static int SelectionPedSpawn = 0;
@@ -901,7 +901,7 @@ namespace big
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
                         auto coords = ENTITY::GET_ENTITY_COORDS(g_local.ped, TRUE);
-                        controller::CreatePed(rage::joaat(var::PedList[SelectionPedSpawn]), coords, 1, TRUE);
+                        ped::create_ped(rage::joaat(var::PedList[SelectionPedSpawn]), coords, 1, TRUE);
                     } QUEUE_JOB_END_CLAUSE
                 }
             }

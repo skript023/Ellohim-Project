@@ -768,7 +768,7 @@ namespace big
                             break;
                             case 1:
                             {
-                                auto Cloned = controller::ClonePed(g_selected.ped);
+                                auto Cloned = ped::clone_ped(g_selected.ped);
                                 ENTITY::SET_ENTITY_INVINCIBLE(Cloned, TRUE);
                                 WEAPON::GIVE_DELAYED_WEAPON_TO_PED(Cloned, RAGE_JOAAT("WEAPON_MINIGUN"), 9999, TRUE);
                             }
@@ -816,7 +816,7 @@ namespace big
                                             auto pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
                                             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
 
-                                            Ped NewPed = controller::CrashPlayer(g_selected.ped, pos);
+                                            Ped NewPed = remote_event::crash_player(g_selected.ped, pos);
                                             int tick = 0;
                                             while (tick < 32)
                                             {
@@ -854,7 +854,7 @@ namespace big
 
                                                 if (AllPlayer != g_local.ped) {
                                                     auto coords = ENTITY::GET_ENTITY_COORDS(AllPlayer, TRUE);
-                                                    NewPed[i] = controller::CrashPlayer(AllPlayer, coords);
+                                                    NewPed[i] = remote_event::crash_player(AllPlayer, coords);
                                                 }
                                             }
                                             script::get_current()->yield();
@@ -888,7 +888,7 @@ namespace big
                                         auto pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
                                         auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
 
-                                        Ped NewPed = controller::CrashPlayer(g_selected.ped, pos);
+                                        Ped NewPed = remote_event::crash_player(g_selected.ped, pos);
                                         int tick = 0;
                                         while (tick < 32)
                                         {
@@ -1313,12 +1313,12 @@ namespace big
                     {
                         g_fiber_pool->queue_job([] {
                             auto coords = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
-                            controller::CreatePed(rage::joaat(PedHash), coords, 3, TRUE);
+                            ped::create_ped(rage::joaat(PedHash), coords, 3, TRUE);
                             });
                     }
                     if (ImGui::Button("Attach Ped##Manual"))
                     {
-                        controller::AttachPed(rage::joaat(PedHash), g_selected.ped);
+                        ped::attach_ped(rage::joaat(PedHash), g_selected.ped);
                     }
                     ImGui::PushItemWidth(250);
                     ImGui::Combo("##PedList", &SelectedPed, var::PedList, IM_ARRAYSIZE(var::PedList));
@@ -1327,12 +1327,12 @@ namespace big
                     {
                         g_fiber_pool->queue_job([] {
                             auto coords = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
-                            controller::CreatePed(rage::joaat(var::PedList[SelectedPed]), coords, 3, TRUE);
+                            ped::create_ped(rage::joaat(var::PedList[SelectedPed]), coords, 3, TRUE);
                             });
                     }
                     if (ImGui::Button("Attach Ped"))
                     {
-                        controller::AttachPed(rage::joaat(var::PedList[SelectedPed]), g_selected.ped);
+                        ped::attach_ped(rage::joaat(var::PedList[SelectedPed]), g_selected.ped);
                     }
                     if (ImGui::Button("Detach Ped"))
                     {

@@ -8,15 +8,60 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "gui/controller/ScriptController.h"
-#include <gui\player_list.h>
-#include <gui\player_list.h>
-#include <gta\Weapons.h>
-#include <gui/controller/Variable.h>
+#include "gui/player_list.h"
+#include "gui/player_list.h"
+#include "gta/Weapons.h"
+#include "gui/controller/game_variable.h"
 #include "game_event.h"
 #include "gui/controller/memory_address.hpp"
+#include "gui/entity/entity_control.h"
 
 namespace big
 {
+    Ped remote_event::crash_player(Entity target, Vector3 SpawnCoordinates)
+    {
+        Ped NewPed;
+        Hash PedHash = rage::joaat("slod_human");
+        auto playerPosition = ENTITY::GET_ENTITY_COORDS(g_local.ped, TRUE);
+        if (MISC::GET_DISTANCE_BETWEEN_COORDS(playerPosition.x, playerPosition.y, playerPosition.z, SpawnCoordinates.x, SpawnCoordinates.y, SpawnCoordinates.z, false) > 300.0f)
+        {
+            if (STREAMING::IS_MODEL_IN_CDIMAGE(PedHash))
+            {
+                if (STREAMING::IS_MODEL_VALID(PedHash))
+                {
+                    STREAMING::REQUEST_MODEL(PedHash);
+                    while (!STREAMING::HAS_MODEL_LOADED(PedHash))
+                    {
+                        script::get_current()->yield();
+                    }
+
+                    *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
+                    NewPed = PED::CREATE_PED(3, PedHash, SpawnCoordinates.x, SpawnCoordinates.y, SpawnCoordinates.z, 0, TRUE, TRUE);
+                    *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
+                    // Segmentation Fault
+                    script::get_current()->yield();
+                    if (*g_pointers->m_is_session_started)
+                    {
+                        ENTITY::_SET_ENTITY_SOMETHING(NewPed, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
+                        auto networkId = NETWORK::PED_TO_NET(NewPed);
+                        if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(NewPed))
+                            NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
+                    }
+                    ENTITY::ATTACH_ENTITY_TO_ENTITY(NewPed, target, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, TRUE, TRUE, 2, TRUE);
+
+                    STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(PedHash);
+                    return NewPed;
+                }
+            }
+        }
+        else
+        {
+            controller::ShowMessage("Crash failed because target is near you", false);
+            return -1;
+        }
+        return -1;
+    }
+
     void remote_event::take_all_cayo(int take)
     {
         QUEUE_JOB_BEGIN_CLAUSE(take)
@@ -72,7 +117,7 @@ namespace big
         g_fiber_pool->queue_job([player]
         {
             Vector3 coordinate = { 0.0f, 0.0f, 0.0f };
-            controller::CreatePed(rage::joaat("s_m_y_swat_01"), coordinate, 3, TRUE);
+            ped::create_ped(rage::joaat("s_m_y_swat_01"), coordinate, 3, TRUE);
             *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0xE990;
             *(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x9090;
             FIRE::ADD_OWNED_EXPLOSION(player, coordinate.x, coordinate.y, coordinate.z, EXPLOSION_TRAIN, 1000.0f, TRUE, FALSE, 2.0f);
@@ -226,7 +271,7 @@ namespace big
                     {
                         int64_t bail_event[3] = { 2092565704, g_local.player, *script_global(1630816).at(player, 597).at(508).as<int64_t*>() };
                         SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << player);
-                        controller::ShowMessage(fmt::format("~g~Hash Sent Kick To {}", PLAYER::GET_PLAYER_NAME(player)).c_str(), false);
+                        controller::ShowMessage(fmt::format("~g~Kick Has Been Sent To {}", PLAYER::GET_PLAYER_NAME(player)).c_str(), false);
                     }
                 }
             }
