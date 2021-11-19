@@ -662,7 +662,8 @@ namespace big
         if (toggle)
         {
             Player playerPed = PLAYER::PLAYER_PED_ID();
-            if (!PED::IS_PED_IN_ANY_VEHICLE(PLAYER::PLAYER_PED_ID(), TRUE)) {
+            if (!PED::IS_PED_IN_ANY_VEHICLE(PLAYER::PLAYER_PED_ID(), TRUE)) 
+            {
                 PLAYER::DISABLE_PLAYER_FIRING(PLAYER::PLAYER_PED_ID(), TRUE);
                 Vector3 gameplayCam = CAM::GET_GAMEPLAY_CAM_COORD();
                 Vector3 gameplayCamRot = CAM::GET_GAMEPLAY_CAM_ROT(0);
