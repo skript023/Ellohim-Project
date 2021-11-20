@@ -37,6 +37,13 @@ namespace big
 		static void RemoveCasinoCrew(bool Activation);
 		static void HeistCrewCutToZero(bool Activation);
 		static void AutoHeistCut(bool Activate);
+	public:
+		static inline bool casino_heist_crew{};
+		static inline bool auto_heist_cut{};
+		static inline bool casino_heist_remove_crew{};
+		static inline bool send_heal{};
+		static inline bool all_take_heist{};
+		static inline bool zero_heat{};
 	};
 
 	class casino_slot
@@ -48,6 +55,9 @@ namespace big
 		static void AutoPlay(bool Activation);
 		static void RigSlotMachine(bool Activation);
 		static void StopAnimation(bool Activation);
+	public:
+		static inline bool casino_rig{};
+
 	};
 
 	class blackjack
@@ -56,6 +66,9 @@ namespace big
 		static void BlackJack(bool Activation);
 		static bool is_context_active(char* text);
 		static void AutoPlay(bool Activation);
+	public:
+		static inline bool blackjack_rig{};
+
 	};
 
 	static class mission_status
@@ -77,5 +90,7 @@ namespace big
 	};
 
 	inline lucky_wheel g_lucky_wheel;
-	
+	inline static casino_heist* g_heist_option{};
+	inline static blackjack* g_blackjack_option{};
+	inline static casino_slot* g_casino_option{};
 }

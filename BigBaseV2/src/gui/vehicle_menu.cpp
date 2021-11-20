@@ -57,9 +57,9 @@ namespace big
         {
             static char NamaMobil[255] = "";
             static int total_ped = 0;
-            ImGui::InputText("##Kosong", NamaMobil, IM_ARRAYSIZE(NamaMobil), ImGuiInputTextFlags_CharsUppercase);
+            ImGui::InputText(xorstr("##Kosong"), NamaMobil, IM_ARRAYSIZE(NamaMobil), ImGuiInputTextFlags_CharsUppercase);
             ImGui::PushItemWidth(100.f);
-            ImGui::InputScalar("##Num", ImGuiDataType_S32, &total_ped);
+            ImGui::InputScalar(xorstr("##Num"), ImGuiDataType_S32, &total_ped);
             ImGui::PopItemWidth();
             if (ImGui::Button(xorstr("Native")))
             {
@@ -179,7 +179,7 @@ namespace big
                         ImGui::ListBox("##Vehicle List", &SelectedVehicle, var::tuner_update, IM_ARRAYSIZE(var::tuner_update));
                         break;
                     }
-                    if (ImGui::Button("Spawn Native"))
+                    if (ImGui::Button(xorstr("Spawn Native")))
                     {
                         switch (selected_category)
                         {
@@ -273,7 +273,7 @@ namespace big
                         }
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Spawn External"))
+                    if (ImGui::Button(xorstr("Spawn External")))
                     {
                         switch (selected_category)
                         {
@@ -368,7 +368,7 @@ namespace big
                     }
                 break;
                 case 1:
-                    if (ImGui::ListBoxHeader("##Personal Vehicle List"))
+                    if (ImGui::ListBoxHeader(xorstr("##Personal Vehicle List")))
                     {
                         if (*g_pointers->m_is_session_started)
                         {
@@ -390,7 +390,7 @@ namespace big
                         }
                         ImGui::ListBoxFooter();
                     }
-                    if (ImGui::Button("Call Personal"))
+                    if (ImGui::Button(xorstr("Call Personal")))
                     {
                         g_fiber_pool->queue_job([]
                         {
@@ -411,16 +411,16 @@ namespace big
                             }
                         });
                     }
-                    ImGui::Combo("##Change", &selected_hash, var::VechicleList, IM_ARRAYSIZE(var::VechicleList));
-                    if (ImGui::Button("Change"))
+                    ImGui::Combo(xorstr("##Change"), &selected_hash, var::VechicleList, IM_ARRAYSIZE(var::VechicleList));
+                    if (ImGui::Button(xorstr("Change")))
                     {
                         *script_global(1323703).at(SelectedPersonal, 142).at(66).as<uint32_t*>() = rage::get_hash_key<uint32_t>(var::VechicleList[selected_hash]);
                     }
                 break;
                 case 2:
                     static char vehicle_file_name_input[50]{};
-                    ImGui::InputText("Vehicle File Name", vehicle_file_name_input, IM_ARRAYSIZE(vehicle_file_name_input));
-                    if (ImGui::Button("Save Vehicle ##SaveVeh"))
+                    ImGui::InputText(xorstr("Vehicle File Name"), vehicle_file_name_input, IM_ARRAYSIZE(vehicle_file_name_input));
+                    if (ImGui::Button(xorstr("Save Vehicle ##SaveVeh")))
                     {
                         QUEUE_JOB_BEGIN_CLAUSE()
                         {
@@ -518,20 +518,20 @@ namespace big
                 }
             }
             ImGui::SameLine(200);
-            ImGui::Checkbox(xorstr("Horn Boost"), &features::HornBoost);
+            ImGui::Checkbox(xorstr("Horn Boost"), &g_vehicle_option->horn_boost);
             ImGui::SameLine(400);
             if (ImGui::Checkbox(xorstr("PV Revenge"), g_settings.options["PV Revenge"].get<bool*>()))
                 g_settings.save();
-            ImGui::Checkbox(xorstr("Infinite Boost On Key"), &features::InfiniteBoostOnKey);
-            ImGui::Checkbox(xorstr("Infinite Vehicle Ammo"), &features::InfiniteVehicleAmmo);
+            ImGui::Checkbox(xorstr("Infinite Boost On Key"), &g_vehicle_option->infinite_boost);
+            ImGui::Checkbox(xorstr("Infinite Vehicle Ammo"), &g_vehicle_option->infinite_ammo);
             ImGui::Separator();
 
-            if (ImGui::Button("Repair Vehicle"))
+            if (ImGui::Button(xorstr("Repair Vehicle")))
             {
                 vehicle_helper::RepairVehicle(g_local.ped);
             }
             ImGui::SameLine();
-            if (ImGui::Button("Get-in Closest Vehicle"))
+            if (ImGui::Button(xorstr("Get-in Closest Vehicle")))
             {
                 g_fiber_pool->queue_job([]
                     {
@@ -551,13 +551,13 @@ namespace big
                     });
             }
             ImGui::SameLine();
-            if (ImGui::Button("Set Ownership of Vehicle"))
+            if (ImGui::Button(xorstr("Set Ownership of Vehicle")))
             {
                 *script_global(2097152).at(6175, 2).as<int*>() = -1;
                 *script_global(2440277).at(502).at(16).as<int*>() = 1;
             }
             
-            if (ImGui::Button("Shinra Tensei"))
+            if (ImGui::Button(xorstr("Shinra Tensei")))
             {
                 g_fiber_pool->queue_job([] {
                     rage::CObjectInterface* objIF = g_pointers->m_replay_interface->m_object_interface;
@@ -589,7 +589,7 @@ namespace big
                 });
             }
             ImGui::SameLine();
-            if (ImGui::Button("Penis Truct"))
+            if (ImGui::Button(xorstr("Penis Truct")))
             {
                 QUEUE_JOB_BEGIN_CLAUSE()
                 {
@@ -662,7 +662,7 @@ namespace big
                 } QUEUE_JOB_END_CLAUSE
             }
 
-            if (ImGui::CollapsingHeader("Vehicle Handling"))
+            if (ImGui::CollapsingHeader(xorstr("Vehicle Handling")))
             {
                 const float top_min = -1.0f, top_max = 10.0f;
                 const float min = 1.0f, max = 10.0f;
@@ -702,7 +702,7 @@ namespace big
                         Memory::set_value((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x338 }, g_handling.f_acceleration);
                 }
             }
-            if (ImGui::CollapsingHeader("Vehicle Flag"))
+            if (ImGui::CollapsingHeader(xorstr("Vehicle Flag")))
             {
                 static int selected_flag = 0;
                 ImGui::Text("Vehicle Flag Type");
@@ -836,21 +836,21 @@ namespace big
                 }
             }
             
-            if (ImGui::CollapsingHeader("Object Spawner"))
+            if (ImGui::CollapsingHeader(xorstr("Object Spawner")))
             {
                 static char NamaObjek[255] = "";
-                ImGui::InputText("##NamaObject", NamaObjek, IM_ARRAYSIZE(NamaObjek), ImGuiInputTextFlags_CharsUppercase);
-                if (ImGui::Button("Spawn Object##InputVersion"))
+                ImGui::InputText(xorstr("##NamaObject"), NamaObjek, IM_ARRAYSIZE(NamaObjek), ImGuiInputTextFlags_CharsUppercase);
+                if (ImGui::Button(xorstr("Spawn Object##InputVersion")))
                 {
                     object::spawn_object(NamaObjek, g_local.ped);
                 }
                 static int SelectedObject = 0;
-                ImGui::Combo("##Object List", &SelectedObject, var::ObjectList, IM_ARRAYSIZE(var::ObjectList));
+                ImGui::Combo(xorstr("##Object List"), &SelectedObject, var::ObjectList, IM_ARRAYSIZE(var::ObjectList));
                 if (ImGui::Button("Spawn Object"))
                 {
                     object::spawn_object(var::ObjectList[SelectedObject], g_local.ped);
                 }
-                if (ImGui::Button("Remove Object Around Player"))
+                if (ImGui::Button(xorstr("Remove Object Around Player")))
                 {
                     g_fiber_pool->queue_job([]
                     {
@@ -880,7 +880,7 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader("Ped Spawner"))
+            if (ImGui::CollapsingHeader(xorstr("Ped Spawner")))
             {
                 static char NamaPed[255];
                 ImGui::Text("Spawn Ped Manually");

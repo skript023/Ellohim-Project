@@ -33,6 +33,10 @@ namespace big
 			
 			static void variable_attach();
 			static void DumpEntryBoi();
+	public:
+		static inline bool time_spam{};
+		static inline bool time_scale{};
+
 			
 	};
 	static class player_info
@@ -53,6 +57,8 @@ namespace big
 	extern bool isSpectatingMe(Player player);
 	
 	extern void Notification(const char* Meesage);
+
+	inline static controller* g_misc_option{};
 }
 /*
 ImGui::InputScalar("##Get hour", ImGuiDataType_U32, &date[6], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);

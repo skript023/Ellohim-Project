@@ -89,24 +89,24 @@ namespace big
             }
             ImGui::Separator();
 
-            ImGui::Checkbox(xorstr("Off Radar"), &features::Ghost);
+            ImGui::Checkbox(xorstr("Off Radar"), &g_player_option.ghost_organizations);
             ImGui::SameLine(200);
 
-            ImGui::Checkbox(xorstr("Reveal Player"), &features::RevealPlayer);
+            ImGui::Checkbox(xorstr("Reveal Player"), &g_player_option.reveal_players);
             ImGui::SameLine(400);
-            ImGui::Checkbox(xorstr("Blind Cops"), &features::BribeAuthority);
+            ImGui::Checkbox(xorstr("Blind Cops"), &g_player_option.blinds_cops);
 
-            ImGui::Checkbox(xorstr("All Mission Lives"), &features::AllMissionLLivesToggle);
+            ImGui::Checkbox(xorstr("All Mission Lives"), &g_player_option.all_mission_lives);
             ImGui::SameLine(200);
-            ImGui::Checkbox(xorstr("Time Scale"), &features::TimeScale);
+            ImGui::Checkbox(xorstr("Time Scale"), &g_misc_option->time_scale);
             ImGui::SameLine(400);
-            ImGui::Checkbox(xorstr("Explode Enemies"), &features::HeadshotPed);
+            ImGui::Checkbox(xorstr("Explode Enemies"), &g_npc_option->explode_ped);
 
-            ImGui::Checkbox(xorstr("Kill Enemies"), &features::KillNPCBool);
+            ImGui::Checkbox(xorstr("Kill Enemies"), &g_npc_option->kill_ped);
             ImGui::SameLine(200);
-            ImGui::Checkbox(xorstr("Time Spam"), &features::TimeSpammer);
+            ImGui::Checkbox(xorstr("Time Spam"), &g_misc_option->time_spam);
             ImGui::SameLine(400);
-            ImGui::Checkbox(xorstr("NPC HeadShot"), &features::AutoHeadShot);
+            ImGui::Checkbox(xorstr("NPC HeadShot"), &g_weapon_option->auto_headshot);
 
             if (ImGui::Button(xorstr("Load North Yankton")))
             {
@@ -302,15 +302,15 @@ namespace big
                 static int selected_mission = 0;
                 static const char* const tuner_mission[]{ "Union Depository", "Superdollar Deal", "Bank Contract", "ECU Job", "Prison Contract", "Agency Deal", "LOST Contract", "Data Contract" };
 
-                ImGui::Checkbox(xorstr("All Crew Cut 0%"), &features::CrewHeistBool);
+                ImGui::Checkbox(xorstr("All Crew Cut 0%"), &g_heist_option->casino_heist_crew);
                 ImGui::SameLine(200);
-                ImGui::Checkbox(xorstr("Auto Cut 85%"), &features::AutomaticHeistCut);
+                ImGui::Checkbox(xorstr("Auto Cut 85%"), &g_heist_option->auto_heist_cut);
                 ImGui::SameLine(400);
-                ImGui::Checkbox(xorstr("Auto Remove Crew"), &features::RemoveCrew);
+                ImGui::Checkbox(xorstr("Auto Remove Crew"), &g_heist_option->casino_heist_remove_crew);
 
                 ImGui::Checkbox(xorstr("Lester Cut"), &g_fitur.remove_lester_cut);
                 ImGui::SameLine(200);
-                ImGui::Checkbox(xorstr("Glass Cutter"), &features::zero_heat);
+                ImGui::Checkbox(xorstr("Glass Cutter"), &g_heist_option->zero_heat);
 
                 if (ImGui::Button(xorstr("Open Vault Door")))
                 {
@@ -940,7 +940,7 @@ namespace big
                     ImGui::InputInt(xorstr("##InputTake"), &player_list::CasinoTake, 1000000, 1000000);
                     if (ImGui::Button("Set Take"))
                     {
-                        features::AllTakeHeist = true;
+                        g_heist_option->all_take_heist = true;
                         casino_heist::all_heist_take(player_list::CasinoTake);
                     }
                     if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
@@ -1537,27 +1537,27 @@ namespace big
                 switch (g_fitur.stat_spoofer)
                 {
                 case 0:
-                    ImGui::InputScalar(xorstr("##Name"), ImGuiDataType_S32, &big::features::LevelForSpoof);
+                    ImGui::InputScalar(xorstr("##Name"), ImGuiDataType_S32, &g_spoofer_option->spoofed_level);
                     if (ImGui::Button(xorstr("Set Spoof##LoopLevel")))
                     {
-                        big::features::LevelSpoofer = true;
+                        g_spoofer_option->level_spoofer = true;
                     }
                     ImGui::SameLine();
                     if (ImGui::Button(xorstr("Disable Spoof##LoopLevel")))
                     {
-                        big::features::LevelSpoofer = false;
+                        g_spoofer_option->level_spoofer = false;
                     }
                     break;
                 case 1:
-                    ImGui::InputScalar(xorstr("##Money"), ImGuiDataType_S32, &features::fake_money);
+                    ImGui::InputScalar(xorstr("##Money"), ImGuiDataType_S32, &g_spoofer_option->spoofed_money);
                     if (ImGui::Button(xorstr("Set Spoof##Set Spoof Money")))
                     {
-                        features::money_spoofer = true;
+                        g_spoofer_option->money_spoofer = true;
                     }
                     ImGui::SameLine();
                     if (ImGui::Button(xorstr("Set Spoof##Disable Money Spoofer##S")))
                     {
-                        features::money_spoofer = false;
+                        g_spoofer_option->money_spoofer = false;
                     }
                     break;
                 }
@@ -1582,8 +1582,8 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Casino Stuff")))
             {
-                ImGui::Checkbox(xorstr("Blackjack Rig 2,5m Auto"), &features::BlackjackRig);
-                ImGui::Checkbox(xorstr("Slot Machine Rig 2,5m Auto"), &features::RigSlotBool);
+                ImGui::Checkbox(xorstr("Blackjack Rig 2,5m Auto"), &g_blackjack_option->blackjack_rig);
+                ImGui::Checkbox(xorstr("Slot Machine Rig 2,5m Auto"), &g_casino_option->casino_rig);
                 static int Reward;
                 ImGui::InputInt(xorstr("Rig Slot Multiplier"), &Reward);
                 if (ImGui::Button(xorstr("Set Multiplier")))

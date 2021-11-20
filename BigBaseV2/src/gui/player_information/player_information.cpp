@@ -804,7 +804,7 @@ namespace big
                             }
                             break;
                             case 4:
-                                outfit::StealOutfit(g_selected.player);
+                                outfit::steal_outfit(g_selected.player);
                                 break;
                             case 5:
                                 switch (g_fitur.disconnect_type)
@@ -1018,11 +1018,11 @@ namespace big
                 break;
             }
 
-            ImGui::Checkbox(xorstr("Remote Off Radar"), &features::remoteOTR);
+            ImGui::Checkbox(xorstr("Remote Off Radar"), &g_remote_option->remote_off_the_radars);
             ImGui::SameLine(200);
-            ImGui::Checkbox(xorstr("Send Heal"), &features::send_heal);
+            ImGui::Checkbox(xorstr("Send Heal"), &g_player_option.send_heal);
 
-            ImGui::Checkbox(xorstr("Remote Bribe"), &features::RemoteBribeToggle);
+            ImGui::Checkbox(xorstr("Remote Bribe"), &g_remote_option->bribe_authority);
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Give Explosive Ammo"), &g_fitur.explosive_weapon);
 

@@ -300,6 +300,9 @@
     <ClInclude Include="src\gui\window\game_window.hpp">
       <Filter>gui\window</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\controller\sha256.h">
+      <Filter>gui\controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />

@@ -13,6 +13,10 @@ namespace big
 		static void explode_enemies(bool Activation);
 		static void kill_all_npc(bool Activation);
 		static void explode_all_npc(bool Activation);
+	public:
+		static inline bool explode_ped{};
+		static inline bool kill_ped{};
+
 	};
 
 	class message
@@ -20,4 +24,6 @@ namespace big
 	public:
 		static void notification(const char* sender, const char* Message, const char* MessageTag);
 	};
+
+	inline static ai* g_npc_option{};
 }

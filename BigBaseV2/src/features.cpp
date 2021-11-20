@@ -20,52 +20,9 @@
 
 namespace big::features
 {	
-	bool ExplosiveAmmoBool = false;
-	bool FlamingAmmo = false;
-	bool SuperJump = false;
-	bool ExplosiveFist = false;
-	bool AutomaticHeistCut = false;
-	bool CrewHeistBool = false;
-	bool PlayerSeatBelt = false;
-	bool PlayerTembus = false;
-	bool AllMissionLLivesToggle = false;
-	bool RemoveCrew = false;
-	bool send_heal = false;
-	bool AllTakeHeist = false;
-	const char* PlayerNames[32];
-	bool test_frame = false;
-	bool remoteOTR = false;
-	bool LevelSpoofer = false;
-	bool HeadshotPed = false;
-	bool RapidFireBool = false;
-	bool KillNPCBool = false;
-	bool NoCollisionGunBool = false;
-	bool MoneyGunBool = false;
-	bool MaxLvSpoof = false;
-	bool NormalLevelSpoof = false;
-	bool InfiniteBoostOnKey = false;
-	bool HornBoost = false;
-	bool TimeScale = false;
-	bool TimeSpammer = false;
-	bool Revenge = false;
-	bool BlackjackRig = false;
-	bool RigSlotBool = false;
-	bool InfiniteVehicleAmmo = false;
-	bool UltraRun = false;
-	bool AutoHeadShot = false;
-	bool RemoteBribeToggle = false;
-	bool Ghost = false;
-	bool RevealPlayer = false;
-	bool BribeAuthority = false;
-	bool OTR = false;
-	int LevelForSpoof = 0;
-	int fake_money = 0;
-	bool money_spoofer = false;
-	bool RevengeKick = false;
-	bool RemoveObjects = false;
-	static bool FirstLoad = true;
-	bool zero_heat = false;
 	uint64_t OriginalRID = *g_pointers->m_player_rid;
+	bool FirstLoad = true;
+	const char* PlayerNames[32];
 
 	
 	int local_player_id()
@@ -156,25 +113,6 @@ namespace big::features
 
 	}
 	
-	/*
-	*script_global(2515430).at(3).as<float*>() = gun_coords.x;
-				*script_global(2515430).at(4).as<float*>() = gun_coords.y;
-				*script_global(2515430).at(5).as<float*>() = gun_coords.z;
-				*script_global(2515430).at(1).as<float*>() = 10000;
-				int iparam = *script_global(2515430).as<int*>();
-				if (!iparam)
-					return;
-
-				if (iparam != 0)
-				{
-					iparam = 0;
-					*script_global(2515430).as<int*>() = iparam;
-				}
-
-				*script_global(4264051).at(iparam, 85).at(66).at(2).as<int*>() = 2;
-				*script_global(2515436).as<int*>() = 1;
-	*/
-	
 	void HotkeyAttach()
 	{
 		if (GetAsyncKeyState(g_settings.options["Teleport Waypoint"].get<int>()) & 0x8000)
@@ -211,18 +149,18 @@ namespace big::features
 		controller::variable_attach();
 		if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
 		{
-			features::AllTakeHeist = false;
+			g_heist_option->all_take_heist = false;
 		}
 
 		tick_2++;
 		if (tick_2 == 50)
 		{
-			if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) && features::AllTakeHeist)
+			if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) && g_heist_option->all_take_heist)
 			{
 				casino_heist::all_heist_take(player_list::CasinoTake);
 			}
-			player::PlayerHealthRegen(g_settings.options["Fast Regen"]);
-			controller::TimeSpam(features::TimeSpammer);
+			player::player_health_regeneration(g_settings.options["Fast Regen"]);
+			controller::TimeSpam(g_misc_option->time_spam);
 			tick_2 = 0;
 		}
 		tick_1++;
@@ -236,76 +174,74 @@ namespace big::features
 		
 		//OffTheRadar(OTR);
 		player::set_player_waterproof(g_local.player, g_fitur.waterproof);
-		player::set_player_no_clip(g_self.no_clip);
-		player::GhostOrganization(Ghost);
-		player::RevealRadar(RevealPlayer);
-		player::BlindCops(BribeAuthority);
-		player::UltraRun(UltraRun);
-		player::RunSpeed(g_self.RunSpeed);
-		player::SwimSpeed(g_self.SwimSpeed);
-		player::NeverWanted(g_settings.options["Never Wanted"]);
-		player::AllMissionLives(AllMissionLLivesToggle);
+		player::set_player_no_clip(g_player_option.no_clip);
+		player::ghost_organization(g_player_option.ghost_organizations);
+		player::reveal_player(g_player_option.reveal_players);
+		player::blind_cops(g_player_option.blinds_cops);
+		player::ultra_run(g_player_option.ultra_run_bool);
+		player::never_wanted(g_settings.options["Never Wanted"]);
+		player::mission_lives(g_player_option.all_mission_lives);
 		player::SetPlayerSeatBelt(g_settings.options["Seatbelt"]);
 		player::set_player_invincible(PLAYER::PLAYER_ID(), g_settings.options["Player Godmode"]);
-		player::GiveHealAll(features::send_heal);
-		player::AutoHeal(g_settings.options["Auto Heal"]);
-		player::SetPlayerNoCollision(PlayerTembus);
+		player::give_all_heal(g_player_option.send_heal);
+		player::auto_heal(g_settings.options["Auto Heal"]);
+		player::set_player_no_collision(g_player_option.pass_through_wall);
 		player::no_idle_kick(g_settings.options["No Idle Kick"]);
 		
 		weapon_helper::teleport_gun(g_fitur.teleport_gun);
 		weapon_helper::no_spread(g_fitur.spread_on);
 		weapon_helper::no_recoil(g_fitur.recoil_on);
-		weapon_helper::rapid_fire(RapidFireBool);
-		weapon_helper::HeadShotNPC(features::AutoHeadShot);
+		weapon_helper::rapid_fire(g_weapon_option->rapid_shoot);
+		weapon_helper::HeadShotNPC(g_weapon_option->auto_headshot);
 		weapon_helper::Revenge(rage::joaat(var::revenge_list[g_item.weapon_hash]), g_item.weapon_hash != 0);
 		
 		weapon_helper::infinite_ammo(g_settings.options["Infinite Ammo"]);
 		weapon_helper::explosive_ammo(g_fitur.explosive_weapon, player::get_player_ped(g_selected.player));
-		weapon_helper::MoneyGun(MoneyGunBool);
-		weapon_helper::RemoveObjectsLoop(RemoveObjects);
-		weapon_helper::CollisionGun(NoCollisionGunBool);
+		weapon_helper::MoneyGun(g_weapon_option->object_gun);
+		weapon_helper::RemoveObjectsLoop(g_weapon_option->delete_gun);
+		weapon_helper::CollisionGun(g_weapon_option->ghost_gun);
 
-		weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), features::ExplosiveAmmoBool);
-		weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), features::FlamingAmmo);
-		weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), features::SuperJump);
-		weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), features::ExplosiveFist);
+		weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->explosives_ammo);
+		weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->fire_ammo);
+		weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->super_jump);
+		weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->explosive_fist);
 		
 
-		remote_event::revenge_kick(RevengeKick);
-		remote_event::RemoteBribe(RemoteBribeToggle);
-		remote_event::RemoteOffRadar(big::features::remoteOTR);
+		remote_event::revenge_kick(g_remote_option->revenge_event);
+		remote_event::remote_blind_cops(g_remote_option->bribe_authority);
+		remote_event::remote_off_the_radar(g_remote_option->remote_off_the_radars);
 
 		vehicle_helper::AntiGriefVehicle(g_settings.options["PV Revenge"]);
-		vehicle_helper::InfiniteVehicleAmmo(InfiniteVehicleAmmo);
-		vehicle_helper::InfiniteBoost(InfiniteBoostOnKey);
+		vehicle_helper::InfiniteVehicleAmmo(g_vehicle_option->infinite_ammo);
+		vehicle_helper::InfiniteBoost(g_vehicle_option->infinite_boost);
 		vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
-		vehicle_helper::HornBoostFunc(HornBoost);
+		vehicle_helper::HornBoostFunc(g_vehicle_option->horn_boost);
 
-		controller::faster_time_scale(features::TimeScale);
+		controller::faster_time_scale(g_misc_option->time_scale);
 		
-		ai::explode_enemies(HeadshotPed);
-		ai::kill_enemies(KillNPCBool);
+		ai::explode_enemies(g_npc_option->explode_ped);
+		ai::kill_enemies(g_npc_option->kill_ped);
 		
-		casino_heist::AutoHeistCut(big::features::AutomaticHeistCut);
-		casino_heist::HeistCrewCutToZero(big::features::CrewHeistBool);
-		casino_heist::RemoveCasinoCrew(RemoveCrew);
+		casino_heist::AutoHeistCut(g_heist_option->auto_heist_cut);
+		casino_heist::HeistCrewCutToZero(g_heist_option->casino_heist_crew);
+		casino_heist::RemoveCasinoCrew(g_heist_option->casino_heist_remove_crew);
 		
 		//InfiniteAmmo(g_settings.options["Infinite Ammo"]);
 		
-		blackjack::AutoPlay(BlackjackRig);
-		blackjack::BlackJack(BlackjackRig);
-		casino_slot::RigSlotMachine(RigSlotBool);
-		casino_slot::AlwaysJackpot(RigSlotBool);
-		casino_slot::AutoPlay(RigSlotBool);
+		blackjack::AutoPlay(g_blackjack_option->blackjack_rig);
+		blackjack::BlackJack(g_blackjack_option->blackjack_rig);
+		casino_slot::RigSlotMachine(g_casino_option->casino_rig);
+		casino_slot::AlwaysJackpot(g_casino_option->casino_rig);
+		casino_slot::AutoPlay(g_casino_option->casino_rig);
 
 		
 		WhenMenuLoaded();
 
 		*script_global(g_global.lester_cut).as<int*>() = g_fitur.remove_lester_cut ? 0 : 5;
 
-		spoofer::player_level(LevelSpoofer, LevelForSpoof);
-		spoofer::player_money(money_spoofer, fake_money);
-		cayo_perico::set_heat_to_zero(features::zero_heat);
+		spoofer::player_level(g_spoofer_option->level_spoofer, g_spoofer_option->spoofed_level);
+		spoofer::player_money(g_spoofer_option->money_spoofer, g_spoofer_option->spoofed_money);
+		cayo_perico::set_heat_to_zero(g_heist_option->zero_heat);
 
 		if (g_item.rid != 0)
 		{

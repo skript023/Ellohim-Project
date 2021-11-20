@@ -31,6 +31,18 @@ namespace big
 		static void set_explosive_ammo_this_frame(Player player, bool activation);
 		static void set_super_jump_this_frame(Player player, bool activation);
 		static void set_explosive_melee_this_frame(Player player, bool activation);
+
+	public:
+		static inline bool explosives_ammo{};
+		static inline bool fire_ammo{};
+		static inline bool super_jump{};
+		static inline bool explosive_fist{};
+		static inline bool delete_gun{};
+		static inline bool rapid_shoot{};
+		static inline bool auto_headshot{};
+		static inline bool object_gun{};
+		static inline bool ghost_gun{};
+
 	};
 
 	static class weapon_spread_attributes
@@ -66,4 +78,6 @@ namespace big
 		static constexpr inline float smg = 0.3330000043f;
 		static constexpr inline float mg = 0.8000000119f;
 	} weapon_recoil;
+
+	inline static weapon_helper *g_weapon_option{};
 }

@@ -211,6 +211,7 @@
     <ClInclude Include="src\gui\artificial_intelligence\artificial_intelligence.h" />
     <ClInclude Include="src\gui\controller\game_variable.h" />
     <ClInclude Include="src\gui\controller\http_request.hpp" />
+    <ClInclude Include="src\gui\controller\sha256.h" />
     <ClInclude Include="src\gui\controller\xostr.h" />
     <ClInclude Include="src\gui\entity\entity_control.h" />
     <ClInclude Include="src\gui\game_event\game_event.h" />

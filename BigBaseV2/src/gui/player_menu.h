@@ -11,17 +11,6 @@ namespace big
 		static void render_player_tab(const char* tab_name);
 	};
 
-	static class self_option
-	{
-	public:
-		static inline float RunSpeed = 1.0;
-		static inline float SwimSpeed = 1.0;
-		static inline float SneakSpeed = 1.0;
-		static inline bool ThermalVision = false;
-		static inline bool Nightvision = false;
-		static inline bool no_clip = false;
-	} g_self;
-
 	static class character_costume
 	{
 	public:

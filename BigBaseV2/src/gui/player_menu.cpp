@@ -42,65 +42,65 @@ namespace big
             if (ImGui::Checkbox(xorstr("No Idle Kick"), g_settings.options["No Idle Kick"].get<bool*>()))
                 g_settings.save();
             ImGui::SameLine(400);
-            if (ImGui::Checkbox("Auto Heal", g_settings.options["Auto Heal"].get<bool*>()))
+            if (ImGui::Checkbox(xorstr("Auto Heal"), g_settings.options["Auto Heal"].get<bool*>()))
                 g_settings.save();
 
             ImGui::Separator();
 
-            if (ImGui::Checkbox("Never Wanted", g_settings.options["Never Wanted"].get<bool*>()))
+            if (ImGui::Checkbox(xorstr("Never Wanted"), g_settings.options["Never Wanted"].get<bool*>()))
                 g_settings.save();
             ImGui::SameLine(200);
-            ImGui::Checkbox("Super Jump", &features::SuperJump);
+            ImGui::Checkbox(xorstr("Super Jump"), &g_weapon_option->super_jump);
             ImGui::SameLine(400);
             bool no_ragdol = rage_helper::get_local_ped()->m_ragdoll == 0x01;
-            if (ImGui::Checkbox("No Ragdoll", &no_ragdol))
+            if (ImGui::Checkbox(xorstr("No Ragdoll"), &no_ragdol))
             {
                 player::disable_player_ragdoll(g_local.player, no_ragdol);
             }
 
             ImGui::Separator();
 
-            ImGui::Checkbox("Water Proof", &g_fitur.waterproof);
+            ImGui::Checkbox(xorstr("Water Proof"), &g_fitur.waterproof);
             ImGui::SameLine(200);
-            ImGui::Checkbox("No Collision", &features::PlayerTembus);
+            ImGui::Checkbox(xorstr("No Collision"), &g_player_option.pass_through_wall);
             ImGui::SameLine(400);
             bool Blackout = *g_pointers->m_blackout;
 
-            if (ImGui::Checkbox("Blackout", &Blackout))
+            if (ImGui::Checkbox(xorstr("Blackout"), &Blackout))
             {
                 *g_pointers->m_blackout = Blackout;
             }
             ImGui::Separator();
 
             
-            if (ImGui::Checkbox("Nighvision", &g_self.Nightvision))
+            if (ImGui::Checkbox(xorstr("Nighvision"), &g_player_option.night_vision))
             {
                 g_fiber_pool->queue_job([]
                 {
-                    GRAPHICS::SET_NIGHTVISION(g_self.Nightvision);
-                    *script_global(g_global.vision).as<bool*>() = g_self.Nightvision;
+                    GRAPHICS::SET_NIGHTVISION(g_player_option.night_vision);
+                    *script_global(g_global.vision).as<bool*>() = g_player_option.night_vision;
                 });
             }
             ImGui::SameLine(200);
-            if (ImGui::Checkbox("Thermal Vision", &g_self.ThermalVision))
+            if (ImGui::Checkbox(xorstr("Thermal Vision"), &g_player_option.thermal_vision))
             {
                 g_fiber_pool->queue_job([]
                 {
-                    GRAPHICS::SET_SEETHROUGH(g_self.ThermalVision);
-                    *script_global(g_global.vision).as<bool*>() = g_self.ThermalVision;
+                    GRAPHICS::SET_SEETHROUGH(g_player_option.thermal_vision);
+                    *script_global(g_global.vision).as<bool*>() = g_player_option.thermal_vision;
                 });
             }
             ImGui::SameLine(400);
-            if (ImGui::Checkbox("Fast Regen", g_settings.options["Fast Regen"].get<bool*>()))
+            if (ImGui::Checkbox(xorstr("Fast Regen"), g_settings.options["Fast Regen"].get<bool*>()))
                 g_settings.save();
 
             ImGui::Separator();
-            ImGui::Checkbox("Ultra Run", &features::UltraRun);
+            ImGui::Checkbox(xorstr("Ultra Run"), &g_player_option.ultra_run_bool);
             ImGui::SameLine(200);
-            ImGui::Checkbox("Revenge Kick", &features::RevengeKick);
+            ImGui::Checkbox(xorstr("Revenge Kick"), &g_remote_option->revenge_event);
             ImGui::SameLine(400);
             bool super_punch = systems::is_float_equal(rage_helper::get_local_playerinfo()->m_super_punch, 1000.0f);
-            if (ImGui::Checkbox("Super Punch", &super_punch))
+            if (ImGui::Checkbox(xorstr("Super Punch"), &super_punch))
             {
                 if (super_punch)
                     rage_helper::get_local_playerinfo()->m_super_punch = 1000.0f;
@@ -109,7 +109,7 @@ namespace big
             }
 
             ImGui::Separator();
-            ImGui::Checkbox("No Clip", &g_self.no_clip);
+            ImGui::Checkbox(xorstr("No Clip"), &g_player_option.no_clip);
 
             /*
             if (ImGui::Button("RID Join"))
@@ -125,15 +125,15 @@ namespace big
                 });
             }*/
             int wanted_level_slider = player::get_player_wanted_level(g_local.player);
-            if (ImGui::SliderInt("Wanted Level", &wanted_level_slider, 0, 5))
+            if (ImGui::SliderInt(xorstr("Wanted Level"), &wanted_level_slider, 0, 5))
             {
                 player::set_player_wanted_level(g_local.player, wanted_level_slider);
             }
             const float min = 1.0f, max = 10.0f;
-            ImGui::SliderScalar("Run Speed", ImGuiDataType_Float, &g_self.RunSpeed, &min, &max);
-            ImGui::SliderScalar("Swim Speed", ImGuiDataType_Float, &g_self.SwimSpeed, &min, &max);
+            ImGui::SliderScalar(xorstr("Run Speed"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_run_speed, &min, &max);
+            ImGui::SliderScalar(xorstr("Swim Speed"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_swim_speed, &min, &max);
 
-            if (ImGui::Button("Heal Player"))
+            if (ImGui::Button(xorstr("Heal Player")))
             {
                 const int max_hp = player::get_player_max_health(g_local.player);
                 const int max_armor = player::get_player_max_amour(g_local.player);
@@ -141,12 +141,12 @@ namespace big
                 player::set_player_armour(g_local.player, max_armor);
             }
             ImGui::SameLine();
-            if (ImGui::Button("Suicide"))
+            if (ImGui::Button(xorstr("Suicide")))
             {
                 player::set_player_health(g_local.player, 0);
             }
             ImGui::SameLine();
-            if (ImGui::Button("Get-in to Personal Vehicle"))
+            if (ImGui::Button(xorstr("Get-in to Personal Vehicle")))
             {
                 //*script_global(2409291).at(8).as<int *>() = 1;
                 g_fiber_pool->queue_job([]
@@ -164,9 +164,9 @@ namespace big
             }
             ImGui::Separator();
 
-            if (ImGui::CollapsingHeader("Weapon Option"))
+            if (ImGui::CollapsingHeader(xorstr("Weapon Option")))
             {
-                if (ImGui::Button("Give Weapon"))
+                if (ImGui::Button(xorstr("Give Weapon")))
                 {
                     g_fiber_pool->queue_job([] {
                         int MaxAmmo;
@@ -188,7 +188,7 @@ namespace big
                         });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Add Ammo"))
+                if (ImGui::Button(xorstr("Add Ammo")))
                 {
                     g_fiber_pool->queue_job([]
                     {
@@ -207,66 +207,66 @@ namespace big
                     });
                 }
 
-                if (ImGui::Checkbox("Infinite Clip", g_settings.options["Infinite Clip"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Infinite Clip"), g_settings.options["Infinite Clip"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);
-                if (ImGui::Checkbox("Infinite Ammo", g_settings.options["Infinite Ammo"].get<bool*>()))
+                if (ImGui::Checkbox(xorstr("Infinite Ammo"), g_settings.options["Infinite Ammo"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                ImGui::Checkbox("Explosive Ammo", &features::ExplosiveAmmoBool);
+                ImGui::Checkbox(xorstr("Explosive Ammo"), &g_weapon_option->explosives_ammo);
 
-                ImGui::Checkbox("Flame Ammo", &features::FlamingAmmo);
+                ImGui::Checkbox(xorstr("Flame Ammo"), &g_weapon_option->fire_ammo);
                 ImGui::SameLine(200);
-                ImGui::Checkbox("Explosive Fist", &features::ExplosiveFist);
+                ImGui::Checkbox(xorstr("Explosive Fist"), &g_weapon_option->explosive_fist);
                 ImGui::SameLine(400);
-                ImGui::Checkbox("Delete Gun", &features::RemoveObjects);
+                ImGui::Checkbox(xorstr("Delete Gun"), &g_weapon_option->delete_gun);
 
-                ImGui::Checkbox("Rapid Fire", &features::RapidFireBool);
+                ImGui::Checkbox(xorstr("Rapid Fire"), &g_weapon_option->rapid_shoot);
                 ImGui::SameLine(200);
-                ImGui::Checkbox("Ghost Gun", &features::NoCollisionGunBool);
+                ImGui::Checkbox(xorstr("Ghost Gun"), &g_weapon_option->ghost_gun);
                 ImGui::SameLine(400);
-                ImGui::Checkbox("Vault Door Gun", &features::MoneyGunBool);
+                ImGui::Checkbox(xorstr("Vault Door Gun"), &g_weapon_option->object_gun);
 
-                bool is_burst_on = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch == 300;;
-                if (ImGui::Checkbox("Burst Ammo", &is_burst_on))
+                bool is_burst_on = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch == 300;
+                if (ImGui::Checkbox(xorstr("Burst Ammo"), &is_burst_on))
                 {
                     weapon_helper::burst_weapon_ammo(is_burst_on);
                 }
                 ImGui::SameLine(200);
-                ImGui::Checkbox("No Spread", &g_fitur.spread_on);
+                ImGui::Checkbox(xorstr("No Spread"), &g_fitur.spread_on);
                 ImGui::SameLine(400);
-                ImGui::Checkbox("No Recoil", &g_fitur.recoil_on);
+                ImGui::Checkbox(xorstr("No Recoil"), &g_fitur.recoil_on);
 
-                ImGui::Checkbox("Teleport Gun", &g_fitur.teleport_gun);
+                ImGui::Checkbox(xorstr("Teleport Gun"), &g_fitur.teleport_gun);
 
                 ImGui::PushItemWidth(200);
-                ImGui::SliderInt("Burst Ammo", &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch, 0, 100);
-                ImGui::SliderFloat("Burst Spread", &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread, 0.f, 2.f);
+                ImGui::SliderInt(xorstr("Burst Ammo"), &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch, 0, 100);
+                ImGui::SliderFloat(xorstr("Burst Spread"), &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread, 0.f, 2.f);
                 ImGui::PopItemWidth();
 
-                ImGui::Text("Weapon Custom Explosion");
+                ImGui::Text(xorstr("Weapon Custom Explosion"));
                 static int impact_type = 0;
-                if (ImGui::Combo("##WeaponImpact", &impact_type, var::ImpactList, IM_ARRAYSIZE(var::ImpactList)))
+                if (ImGui::Combo(xorstr("##WeaponImpact"), &impact_type, var::ImpactList, IM_ARRAYSIZE(var::ImpactList)))
                 {
                     rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_impact_type = impact_type == 0 ? 3 : 5;
                     rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_impact_explosion_type = impact_type - 1;
                 }
             }
-            if (ImGui::CollapsingHeader("Player Stat"))
+            if (ImGui::CollapsingHeader(xorstr("Player Stat")))
             {
                 static int e = 0;
-                ImGui::Text("Write Stat");
-                ImGui::RadioButton("Integer", &e, 0);
+                ImGui::Text(xorstr("Write Stat"));
+                ImGui::RadioButton(xorstr("Integer"), &e, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Increment", &e, 1);
+                ImGui::RadioButton(xorstr("Increment"), &e, 1);
                 ImGui::SameLine();
-                ImGui::RadioButton("Bool", &e, 2);
+                ImGui::RadioButton(xorstr("Bool"), &e, 2);
                 ImGui::SameLine();
-                ImGui::RadioButton("Float", &e, 3);
+                ImGui::RadioButton(xorstr("Float"), &e, 3);
                 ImGui::SameLine();
-                ImGui::RadioButton("Date", &e, 4);
+                ImGui::RadioButton(xorstr("Date"), &e, 4);
                 ImGui::SameLine();
-                ImGui::RadioButton("String", &e, 5);
+                ImGui::RadioButton(xorstr("String"), &e, 5);
                 ImGui::Separator();
                 static char StatName[255] = "";
                 static float StatValueFloat = 0;
@@ -277,38 +277,38 @@ namespace big
                 static bool inputs_step = false;
                 static char SetString[255];
 
-                ImGui::InputText("##StatNames", StatName, IM_ARRAYSIZE(StatName), ImGuiInputTextFlags_CharsUppercase);
+                ImGui::InputText(xorstr("##StatNames"), StatName, IM_ARRAYSIZE(StatName), ImGuiInputTextFlags_CharsUppercase);
 
                 switch (e)
                 {
                 case 0:
-                    ImGui::InputScalar("##Integer", ImGuiDataType_S64, &IntegerValue);
+                    ImGui::InputScalar(xorstr("##Integer"), ImGuiDataType_S64, &IntegerValue);
                     break;
 
                 case 1:
-                    ImGui::InputScalar("##Increment", ImGuiDataType_Float, &IncrementValue);
+                    ImGui::InputScalar(xorstr("##Increment"), ImGuiDataType_Float, &IncrementValue);
                     break;
 
                 case 2:
-                    ImGui::Checkbox("##BoolValue", &BoolValue);
+                    ImGui::Checkbox(xorstr("##BoolValue"), &BoolValue);
                     break;
 
                 case 3:
-                    ImGui::InputScalar("##Float", ImGuiDataType_Float, &StatValueFloat);
+                    ImGui::InputScalar(xorstr("##Float"), ImGuiDataType_Float, &StatValueFloat);
                     break;
                 case 4:
                     ImGui::PushItemWidth(70);
-                    ImGui::InputScalar("##Year", ImGuiDataType_U32, &tanggal[0]);
+                    ImGui::InputScalar(xorstr("##Year"), ImGuiDataType_U32, &tanggal[0]);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Year");
+                        ImGui::SetTooltip(xorstr("Year"));
                     ImGui::SameLine();
-                    ImGui::InputScalar("##month", ImGuiDataType_U32, &tanggal[2]);
+                    ImGui::InputScalar(xorstr("##month"), ImGuiDataType_U32, &tanggal[2]);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Month");
+                        ImGui::SetTooltip(xorstr("Month"));
                     ImGui::SameLine();
-                    ImGui::InputScalar("##day", ImGuiDataType_U32, &tanggal[4]);
+                    ImGui::InputScalar(xorstr("##day"), ImGuiDataType_U32, &tanggal[4]);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Day");
+                        ImGui::SetTooltip(xorstr("Day"));
                     ImGui::PopItemWidth();
                     /*
                     ImGui::InputScalar("##hour", ImGuiDataType_U32, &tanggal[6]);
@@ -318,11 +318,11 @@ namespace big
                     */
                     break;
                 case 5:
-                    ImGui::InputText("##Strings", SetString, IM_ARRAYSIZE(SetString));
+                    ImGui::InputText(xorstr("##Strings"), SetString, IM_ARRAYSIZE(SetString));
                     break;
                 }
 
-                if (ImGui::Button("Write Stat"))
+                if (ImGui::Button(xorstr("Write Stat")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -363,16 +363,16 @@ namespace big
                 }
                 ImGui::Separator();
                 static int r = 0;
-                ImGui::Text("Read Stat");
-                ImGui::RadioButton("Integer##Read", &r, 0);
+                ImGui::Text(xorstr("Read Stat"));
+                ImGui::RadioButton(xorstr("Integer##Read"), &r, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Bool##Read", &r, 1);
+                ImGui::RadioButton(xorstr("Bool##Read"), &r, 1);
                 ImGui::SameLine();
-                ImGui::RadioButton("Float##Read", &r, 2);
+                ImGui::RadioButton(xorstr("Float##Read"), &r, 2);
                 ImGui::SameLine();
-                ImGui::RadioButton("Date##Read", &r, 3);
+                ImGui::RadioButton(xorstr("Date##Read"), &r, 3);
                 ImGui::SameLine();
-                ImGui::RadioButton("String##Read", &r, 4);
+                ImGui::RadioButton(xorstr("String##Read"), &r, 4);
                 ImGui::Separator();
                 static int ReadIntegerValue;
                 static float ReadFloatValue;
@@ -384,51 +384,51 @@ namespace big
                 static char StringReturn[255];
                 static uint64_t Val;
 
-                ImGui::InputText("##ReadStat", GetStat, IM_ARRAYSIZE(GetStat), ImGuiInputTextFlags_CharsUppercase);
+                ImGui::InputText(xorstr("##ReadStat"), GetStat, IM_ARRAYSIZE(GetStat), ImGuiInputTextFlags_CharsUppercase);
 
                 switch (r)
                 {
                 case 0:
-                    ImGui::InputScalar("##Get Int", ImGuiDataType_U64, &Val, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get Int"), ImGuiDataType_U64, &Val, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Value of the stat");
+                        ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
 
                 case 1:
-                    ImGui::InputText("##Get Bool", BoolReturn, IM_ARRAYSIZE(BoolReturn), ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputText(xorstr("##Get Bool"), BoolReturn, IM_ARRAYSIZE(BoolReturn), ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Value of the stat");
+                        ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
 
                 case 2:
-                    ImGui::InputScalar("##Get Float", ImGuiDataType_Float, &ReadFloatValue, get_step ? &step_one : NULL, NULL, "%f", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get Float"), ImGuiDataType_Float, &ReadFloatValue, get_step ? &step_one : NULL, NULL, "%f", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Value of the stat");
+                        ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
                 case 3:
                     ImGui::Text("Year : %d Month : %d Day : %d", date[0], date[2], date[4]);
                     ImGui::PushItemWidth(70);
-                    ImGui::InputScalar("##Get year", ImGuiDataType_U32, &date[0], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get year"), ImGuiDataType_U32, &date[0], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Year");
+                        ImGui::SetTooltip(xorstr("Year"));
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Get month", ImGuiDataType_U32, &date[2], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get month"), ImGuiDataType_U32, &date[2], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Month");
+                        ImGui::SetTooltip(xorstr("Month"));
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Get day", ImGuiDataType_U32, &date[4], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get day"), ImGuiDataType_U32, &date[4], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Day");
+                        ImGui::SetTooltip(xorstr("Day"));
                     ImGui::PopItemWidth();
                     break;
                 case 4:
-                    ImGui::InputText("##Get String", StringReturn, IM_ARRAYSIZE(StringReturn));
+                    ImGui::InputText(xorstr("##Get String"), StringReturn, IM_ARRAYSIZE(StringReturn));
                     if (ImGui::IsItemHovered())
-                        ImGui::SetTooltip("Value of the stat");
+                        ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
                 }
 
-                if (ImGui::Button("Read Stat"))
+                if (ImGui::Button(xorstr("Read Stat")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -469,26 +469,26 @@ namespace big
                 static bool write_packed_bools_value = 0;
                 static char write_packed_stat_name[50];
 
-                ImGui::Text("Write Packed Stat");
-                ImGui::RadioButton("Packed Ints##Write", &write_packed_type, 0);
+                ImGui::Text(xorstr("Write Packed Stat"));
+                ImGui::RadioButton(xorstr("Packed Ints##Write"), &write_packed_type, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Packed Bools##Write", &write_packed_type, 1);
+                ImGui::RadioButton(xorstr("Packed Bools##Write"), &write_packed_type, 1);
 
-                ImGui::InputText("##WritePackedStatName", write_packed_stat_name, IM_ARRAYSIZE(write_packed_stat_name), ImGuiInputTextFlags_CharsUppercase);
+                ImGui::InputText(xorstr("##WritePackedStatName"), write_packed_stat_name, IM_ARRAYSIZE(write_packed_stat_name), ImGuiInputTextFlags_CharsUppercase);
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("Must be a number of stat index");
+                    ImGui::SetTooltip(xorstr("Must be a number of stat index"));
 
                 switch (write_packed_type)
                 {
                     case 0:
-                        ImGui::InputScalar("##Packed Ints Value", ImGuiDataType_S32, &write_packed_ints_value);
+                        ImGui::InputScalar(xorstr("##Packed Ints Value"), ImGuiDataType_S32, &write_packed_ints_value);
                     break;
                     case 1:
-                        ImGui::Checkbox("##Packed Bools Value", &write_packed_bools_value);
+                        ImGui::Checkbox(xorstr("##Packed Bools Value"), &write_packed_bools_value);
                     break;
                 }
 
-                if (ImGui::Button("Write Packed Stat"))
+                if (ImGui::Button(xorstr("Write Packed Stat")))
                 {
                     g_fiber_pool->queue_job([]
                     {
@@ -517,19 +517,19 @@ namespace big
                 static int packed_stat_value;
                 static bool packed_bool_value;
                 static char bool_string[20];
-                ImGui::Text("Read Packed Stat");
-                ImGui::RadioButton("Packed Ints##Read", &read_packed_type, 0);
+                ImGui::Text(xorstr("Read Packed Stat"));
+                ImGui::RadioButton(xorstr("Packed Ints##Read"), &read_packed_type, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Packed Bools##Read", &read_packed_type, 1);
+                ImGui::RadioButton(xorstr("Packed Bools##Read"), &read_packed_type, 1);
 
-                ImGui::InputText("##ReadPackedStatName", read_packed_stat_name, IM_ARRAYSIZE(read_packed_stat_name), ImGuiInputTextFlags_CharsUppercase);
+                ImGui::InputText(xorstr("##ReadPackedStatName"), read_packed_stat_name, IM_ARRAYSIZE(read_packed_stat_name), ImGuiInputTextFlags_CharsUppercase);
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("Must be a number of stat index");
+                    ImGui::SetTooltip(xorstr("Must be a number of stat index"));
 
                 switch (read_packed_type)
                 {
                     case 0:
-                        ImGui::InputScalar("##Get Packed Int", ImGuiDataType_U64, &packed_stat_value, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                        ImGui::InputScalar(xorstr("##Get Packed Int"), ImGuiDataType_U64, &packed_stat_value, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                         ImGui::Text("(Int32)Hash : %d | Name : %s | Index : %d | Value : %d", static_cast<uint32_t>(packed_stat_hash), stats::get_packed_stat_name_from_hash(static_cast<uint32_t>(packed_stat_hash)).c_str(), packed_stat_index, packed_stat_value);
                     break;
                     case 1:
@@ -538,7 +538,7 @@ namespace big
                     break;
                 }
 
-                if (ImGui::Button("Read Packed Stat"))
+                if (ImGui::Button(xorstr("Read Packed Stat")))
                 {
                     g_fiber_pool->queue_job([]
                     {
@@ -571,7 +571,7 @@ namespace big
                 static int SelectedPackedStat = 0;
                 ImGui::Text("Packed Bools");
                 ImGui::Combo("##PackedStat", &SelectedPackedStat, PackedStatList, IM_ARRAYSIZE(PackedStatList));
-                if (ImGui::Button("Set Packed Bools"))
+                if (ImGui::Button(xorstr("Set Packed Bools")))
                 {
                     g_fiber_pool->queue_job([] {
                         int character = g_local.character;
@@ -695,9 +695,9 @@ namespace big
                         });
                 }
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("This option will set stat to true");
+                    ImGui::SetTooltip(xorstr("This option will set stat to true"));
                 ImGui::SameLine();
-                if (ImGui::Button("Revert Packed Bools"))
+                if (ImGui::Button(xorstr("Revert Packed Bools")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -822,13 +822,13 @@ namespace big
                         });
                 }
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("This option will set stat to false");
+                    ImGui::SetTooltip(xorstr("This option will set stat to false"));
 
                 static int selected_unlocker = 0;
                 const char* const unlock_list[]{ "Basic Unlock", "Unlock All Bool Stat", "Unlock All Int Stat", "Unlock All Achievements", "Unlock Penthouse Decorations", "Unlock Casino Shop Stuff", "Unhide Weapons from Gunlocker", "Tuner New Costumes", "Global RP Correction" };
-                ImGui::Text("Unlocker");
-                ImGui::Combo("##Unlocker", &selected_unlocker, unlock_list, IM_ARRAYSIZE(unlock_list));
-                if (ImGui::Button("Set Unlock"))
+                ImGui::Text(xorstr("Unlocker"));
+                ImGui::Combo(xorstr("##Unlocker"), &selected_unlocker, unlock_list, IM_ARRAYSIZE(unlock_list));
+                if (ImGui::Button(xorstr("Set Unlock")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -2969,10 +2969,10 @@ namespace big
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Force Cloud Save"))) {
                     g_fiber_pool->queue_job([]
-                        {
-                            STATS::STAT_SAVE(0, 0, 3, 0);
-                            controller::ShowMessage(xorstr("~b~~g~Character Saved!"), true);
-                        });
+                    {
+                        STATS::STAT_SAVE(0, 0, 3, 0);
+                        message::notification("Ellohim Private Menu", "~bold~~g~Character Saved!", "~bold~~g~Ellohim Cloud Save");
+                    });
                 }
 
                 static int LevelArray;
@@ -2980,29 +2980,29 @@ namespace big
                 ImGui::Text(xorstr("Player Level"));
                 ImGui::RadioButton(xorstr("R* Gift Admin"), &level_type, 0);
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("This method requires changing session.");
+                    ImGui::SetTooltip(xorstr("This method requires changing session."));
                 ImGui::SameLine();
 
-                ImGui::RadioButton("Char XP FM", &level_type, 1);
+                ImGui::RadioButton(xorstr("Char XP FM"), &level_type, 1);
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("This method is instant, you don't need to change session.");
+                    ImGui::SetTooltip(xorstr("This method is instant, you don't need to change session."));
 
                 ImGui::SameLine();
-                ImGui::RadioButton("Char Rank FM", &level_type, 2);
+                ImGui::RadioButton(xorstr("Char Rank FM"), &level_type, 2);
 
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("This method is instant, you don't need to change session.");
+                    ImGui::SetTooltip(xorstr("This method is instant, you don't need to change session."));
 
                 ImGui::SameLine();
-                ImGui::RadioButton("Crew Level", &level_type, 3);
+                ImGui::RadioButton(xorstr("Crew Level"), &level_type, 3);
                 if (ImGui::IsItemHovered())
-                    ImGui::SetTooltip("This method is instant, you don't need to change session.");
+                    ImGui::SetTooltip(xorstr("This method is instant, you don't need to change session."));
 
                 ImGui::PushItemWidth(100);
-                ImGui::InputScalar("Rank 1-8000", ImGuiDataType_U32, &LevelArray);
+                ImGui::InputScalar(xorstr("Rank 1-8000"), ImGuiDataType_U32, &LevelArray);
                 ImGui::PopItemWidth();
 
-                if (ImGui::Button("Set Level"))
+                if (ImGui::Button(xorstr("Set Level")))
                 {
                     g_fiber_pool->queue_job([] {
                         const auto mpx = std::to_string(g_local.character);
@@ -3036,11 +3036,11 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader("Player Appearance"))
+            if (ImGui::CollapsingHeader(xorstr("Player Appearance")))
             {
                 static const char* const AppearanceList[] = { "Swat", "Santa", "Ghost", "Special", "Special2", "Police", "For W Captain" };
                 static const char* SelectedAppearance = AppearanceList[0];
-                if (ImGui::BeginCombo("##Costumes", SelectedAppearance)) // The second parameter is the label previewed before opening the combo.
+                if (ImGui::BeginCombo(xorstr("##Costumes"), SelectedAppearance)) // The second parameter is the label previewed before opening the combo.
                 {
                     for (int a = 0; a < IM_ARRAYSIZE(AppearanceList); a++)
                     {
@@ -3050,88 +3050,88 @@ namespace big
                     }
                     ImGui::EndCombo();
                 }
-                if (ImGui::Button("Set Appearance"))
+                if (ImGui::Button(xorstr("Set Appearance")))
                 {
                     if (controller::cstrcmp(SelectedAppearance, "Swat"))
                     {
                         g_fiber_pool->queue_job([]
                             {
-                                outfit::ResetAppearance();
-                                outfit::changeAppearance("TORSO", 17, 0);
-                                outfit::changeAppearance("MASK", 56, 1);
-                                outfit::changeAppearance("HATS", 40, 0);
-                                outfit::changeAppearance("JACKET", 19, 0);
-                                outfit::changeAppearance("GLASSES", 0, 1);
-                                outfit::changeAppearance("LEGS", 34, 0);
-                                outfit::changeAppearance("SHOES", 25, 0);
-                                outfit::changeAppearance("ACCESSORY", 0, 0);
-                                outfit::changeAppearance("UNDERSHIRT", 58, 0);
-                                outfit::changeAppearance("KEVLAR", 4, 1);
-                                outfit::changeAppearance("TORSO2", 55, 0);
-                                outfit::changeAppearance("BACK", 0, 0);
+                                outfit::reset_appearance();
+                                outfit::set_appearance("TORSO", 17, 0);
+                                outfit::set_appearance("MASK", 56, 1);
+                                outfit::set_appearance("HATS", 40, 0);
+                                outfit::set_appearance("JACKET", 19, 0);
+                                outfit::set_appearance("GLASSES", 0, 1);
+                                outfit::set_appearance("LEGS", 34, 0);
+                                outfit::set_appearance("SHOES", 25, 0);
+                                outfit::set_appearance("ACCESSORY", 0, 0);
+                                outfit::set_appearance("UNDERSHIRT", 58, 0);
+                                outfit::set_appearance("KEVLAR", 4, 1);
+                                outfit::set_appearance("TORSO2", 55, 0);
+                                outfit::set_appearance("BACK", 0, 0);
                             });
                     }
                     else if (controller::cstrcmp(SelectedAppearance, "Santa"))
                     {
                         g_fiber_pool->queue_job([]
                             {
-                                outfit::ResetAppearance();
-                                outfit::changeAppearance("MASK", 8, 0);
-                                outfit::changeAppearance("JACKET", 12, 0);
-                                outfit::changeAppearance("LEGS", 19, 0);
-                                outfit::changeAppearance("SHOES", 4, 4);
-                                outfit::changeAppearance("ACCESSORY", 10, 0);
-                                outfit::changeAppearance("UNDERSHIRT", 21, 2);
-                                outfit::changeAppearance("TORSO2", 19, 0);
+                                outfit::reset_appearance();
+                                outfit::set_appearance("MASK", 8, 0);
+                                outfit::set_appearance("JACKET", 12, 0);
+                                outfit::set_appearance("LEGS", 19, 0);
+                                outfit::set_appearance("SHOES", 4, 4);
+                                outfit::set_appearance("ACCESSORY", 10, 0);
+                                outfit::set_appearance("UNDERSHIRT", 21, 2);
+                                outfit::set_appearance("TORSO2", 19, 0);
                             });
                     }
                     else if (controller::cstrcmp(SelectedAppearance, "Ghost"))
                     {
                         g_fiber_pool->queue_job([]
                             {
-                                outfit::ResetAppearance();
-                                outfit::changeAppearance("JACKET", 17, 0);
-                                outfit::changeAppearance("MASK", 29, 0);
-                                outfit::changeAppearance("HATS", 28, 0);
-                                outfit::changeAppearance("GLASSES", 0, 1);
-                                outfit::changeAppearance("LEGS", 31, 0);
-                                outfit::changeAppearance("SHOES", 24, 0);
-                                outfit::changeAppearance("ACCESSORY", 30, 2);
-                                outfit::changeAppearance("UNDERSHIRT", 15, 0);
-                                outfit::changeAppearance("TORSO2", 50, 0);
-                                outfit::changeAppearance("BACK", 0, 0);
+                                outfit::reset_appearance();
+                                outfit::set_appearance("JACKET", 17, 0);
+                                outfit::set_appearance("MASK", 29, 0);
+                                outfit::set_appearance("HATS", 28, 0);
+                                outfit::set_appearance("GLASSES", 0, 1);
+                                outfit::set_appearance("LEGS", 31, 0);
+                                outfit::set_appearance("SHOES", 24, 0);
+                                outfit::set_appearance("ACCESSORY", 30, 2);
+                                outfit::set_appearance("UNDERSHIRT", 15, 0);
+                                outfit::set_appearance("TORSO2", 50, 0);
+                                outfit::set_appearance("BACK", 0, 0);
                             });
                     }
                     else if (controller::cstrcmp(SelectedAppearance, "Special"))
                     {
                         g_fiber_pool->queue_job([]
                             {
-                                outfit::ResetAppearance();
-                                outfit::changeAppearance("JACKET", 96, 0);
-                                outfit::changeAppearance("HATS", 40, 0);
-                                outfit::changeAppearance("MASK", 54, 0);
-                                outfit::changeAppearance("GLASSES", 0, 1);
-                                outfit::changeAppearance("LEGS", 34, 0);
-                                outfit::changeAppearance("SHOES", 25, 0);
-                                outfit::changeAppearance("ACCESSORY", 0, 0);
-                                outfit::changeAppearance("UNDERSHIRT", 15, 0);
-                                outfit::changeAppearance("TORSO2", 53, 0);
-                                outfit::changeAppearance("BACK", 51, 0);
+                                outfit::reset_appearance();
+                                outfit::set_appearance("JACKET", 96, 0);
+                                outfit::set_appearance("HATS", 40, 0);
+                                outfit::set_appearance("MASK", 54, 0);
+                                outfit::set_appearance("GLASSES", 0, 1);
+                                outfit::set_appearance("LEGS", 34, 0);
+                                outfit::set_appearance("SHOES", 25, 0);
+                                outfit::set_appearance("ACCESSORY", 0, 0);
+                                outfit::set_appearance("UNDERSHIRT", 15, 0);
+                                outfit::set_appearance("TORSO2", 53, 0);
+                                outfit::set_appearance("BACK", 51, 0);
                             });
                     }
                     else if (controller::cstrcmp(SelectedAppearance, "Special2"))
                     {
                         g_fiber_pool->queue_job([]
                             {
-                                outfit::ResetAppearance();
-                                outfit::changeAppearance("HATS", 40, 0);
-                                outfit::changeAppearance("MASK", 28, 0);
-                                outfit::changeAppearance("JACKET", 44, 0);
-                                outfit::changeAppearance("LEGS", 34, 0);
-                                outfit::changeAppearance("BACK", 45, 0);
-                                outfit::changeAppearance("SHOES", 25, 0);
-                                outfit::changeAppearance("UNDERSHIRT", 56, 1);
-                                outfit::changeAppearance("TORSO2", 53, 0);
+                                outfit::reset_appearance();
+                                outfit::set_appearance("HATS", 40, 0);
+                                outfit::set_appearance("MASK", 28, 0);
+                                outfit::set_appearance("JACKET", 44, 0);
+                                outfit::set_appearance("LEGS", 34, 0);
+                                outfit::set_appearance("BACK", 45, 0);
+                                outfit::set_appearance("SHOES", 25, 0);
+                                outfit::set_appearance("UNDERSHIRT", 56, 1);
+                                outfit::set_appearance("TORSO2", 53, 0);
                             });
                     }
                     else if (controller::cstrcmp(SelectedAppearance, "Police"))
@@ -3139,59 +3139,59 @@ namespace big
                         g_fiber_pool->queue_job([] {
                             if (ENTITY::GET_ENTITY_MODEL(g_local.ped) == RAGE_JOAAT("mp_m_freemode_01"))
                             {
-                                outfit::ResetAppearance();
-                                outfit::changeAppearance("JACKET", 41, 0);
-                                outfit::changeAppearance("MASK", -1, 1);
-                                outfit::changeAppearance("HATS", 47, 0);
-                                outfit::changeAppearance("GLASSES", 21, 1);
-                                outfit::changeAppearance("LEGS", 10, 0);
-                                outfit::changeAppearance("SHOES", 10, 0);
-                                outfit::changeAppearance("ACCESSORY", 0, 0);
-                                outfit::changeAppearance("UNDERSHIRT", 58, 0);
-                                outfit::changeAppearance("KEVLAR", -1, 1);
-                                outfit::changeAppearance("TORSO2", 55, 0);
-                                outfit::changeAppearance("BACK", 45, 0);
-                                outfit::changeAppearance("BADGE", 0, 0);
+                                outfit::reset_appearance();
+                                outfit::set_appearance("JACKET", 41, 0);
+                                outfit::set_appearance("MASK", -1, 1);
+                                outfit::set_appearance("HATS", 47, 0);
+                                outfit::set_appearance("GLASSES", 21, 1);
+                                outfit::set_appearance("LEGS", 10, 0);
+                                outfit::set_appearance("SHOES", 10, 0);
+                                outfit::set_appearance("ACCESSORY", 0, 0);
+                                outfit::set_appearance("UNDERSHIRT", 58, 0);
+                                outfit::set_appearance("KEVLAR", -1, 1);
+                                outfit::set_appearance("TORSO2", 55, 0);
+                                outfit::set_appearance("BACK", 45, 0);
+                                outfit::set_appearance("BADGE", 0, 0);
                             }
                             else if (ENTITY::GET_ENTITY_MODEL(g_local.ped) == RAGE_JOAAT("mp_f_freemode_01"))
                             {
-                                outfit::ResetAppearance();
-                                outfit::changeAppearance("JACKET", 35, 0);
-                                outfit::changeAppearance("HATS", 46, 0);
-                                outfit::changeAppearance("GLASSES", 20, 9);
-                                outfit::changeAppearance("LEGS", 8, 0);
-                                outfit::changeAppearance("SHOES", 7, 0);
-                                outfit::changeAppearance("ACCESSORY", 0, 0);
-                                outfit::changeAppearance("UNDERSHIRT", 35, 0);
-                                outfit::changeAppearance("TORSO2", 48, 0);
-                                outfit::changeAppearance("BACK", 86, 0);
-                                outfit::changeAppearance("BADGE", 0, 0);
+                                outfit::reset_appearance();
+                                outfit::set_appearance("JACKET", 35, 0);
+                                outfit::set_appearance("HATS", 46, 0);
+                                outfit::set_appearance("GLASSES", 20, 9);
+                                outfit::set_appearance("LEGS", 8, 0);
+                                outfit::set_appearance("SHOES", 7, 0);
+                                outfit::set_appearance("ACCESSORY", 0, 0);
+                                outfit::set_appearance("UNDERSHIRT", 35, 0);
+                                outfit::set_appearance("TORSO2", 48, 0);
+                                outfit::set_appearance("BACK", 86, 0);
+                                outfit::set_appearance("BADGE", 0, 0);
                             }
                             });
                     }
                     else if (controller::cstrcmp(SelectedAppearance, "For W Captain"))
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::ResetAppearance();
-                            outfit::changeAppearance("HAIR", 48, 0);
-                            outfit::changeAppearance("JACKET", 0, 0);
-                            outfit::changeAppearance("MASK", -1, 1);
-                            outfit::changeAppearance("HATS", 149, 0);
-                            outfit::changeAppearance("GLASSES", 22, 0);
-                            outfit::changeAppearance("LEGS", 8, 0);
-                            outfit::changeAppearance("SHOES", 7, 4);
-                            outfit::changeAppearance("ACCESSORY", 0, 0);
-                            outfit::changeAppearance("UNDERSHIRT", 38, 0);
-                            outfit::changeAppearance("KEVLAR", -1, 1);
-                            outfit::changeAppearance("TORSO2", 70, 0);
-                            outfit::changeAppearance("BACK", 0, 0);
+                            outfit::reset_appearance();
+                            outfit::set_appearance("HAIR", 48, 0);
+                            outfit::set_appearance("JACKET", 0, 0);
+                            outfit::set_appearance("MASK", -1, 1);
+                            outfit::set_appearance("HATS", 149, 0);
+                            outfit::set_appearance("GLASSES", 22, 0);
+                            outfit::set_appearance("LEGS", 8, 0);
+                            outfit::set_appearance("SHOES", 7, 4);
+                            outfit::set_appearance("ACCESSORY", 0, 0);
+                            outfit::set_appearance("UNDERSHIRT", 38, 0);
+                            outfit::set_appearance("KEVLAR", -1, 1);
+                            outfit::set_appearance("TORSO2", 70, 0);
+                            outfit::set_appearance("BACK", 0, 0);
                             });
                     }
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Reset"))
+                if (ImGui::Button(xorstr("Reset")))
                 {
-                    outfit::ResetAppearance();
+                    outfit::reset_appearance();
                 }
                 ImGui::Separator();
 
@@ -3199,325 +3199,325 @@ namespace big
 
                 if (g_local.is_male)
                 {
-                    ImGui::Text("Hair");
-                    if (ImGui::Combo("##Hair", &char_style.hair, player_clothing::male_hair, IM_ARRAYSIZE(player_clothing::male_hair)) && char_style.hair != -1)
+                    ImGui::Text(xorstr("Hair"));
+                    if (ImGui::Combo(xorstr("##Hair"), &char_style.hair, player_clothing::male_hair, IM_ARRAYSIZE(player_clothing::male_hair)) && char_style.hair != -1)
                     {
                         g_fiber_pool->queue_job([] {
                             LOG(HACKER) << char_style.hair << " " << player_clothing::male_hair[char_style.hair];
-                            outfit::changeAppearance("HAIR", char_style.hair, char_style.hair_colour);
+                            outfit::set_appearance("HAIR", char_style.hair, char_style.hair_colour);
                             });
                     }
 
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Colour Hair", ImGuiDataType_S32, &char_style.hair_colour);
+                    ImGui::InputScalar(xorstr("##Colour Hair"), ImGuiDataType_S32, &char_style.hair_colour);
 
-                    ImGui::Text("Hat");
-                    if (ImGui::Combo("##Hat", &char_style.hat, player_clothing::male_hats, IM_ARRAYSIZE(player_clothing::male_hats)) && char_style.hat != -1)
+                    ImGui::Text(xorstr("Hat"));
+                    if (ImGui::Combo(xorstr("##Hat"), &char_style.hat, player_clothing::male_hats, IM_ARRAYSIZE(player_clothing::male_hats)) && char_style.hat != -1)
                     {
                         g_fiber_pool->queue_job([] {
                             LOG(HACKER) << char_style.hat << " " << player_clothing::male_hats[char_style.hat];
-                            outfit::changeAppearance("HATS", char_style.hat, char_style.hat_colour);
+                            outfit::set_appearance("HATS", char_style.hat, char_style.hat_colour);
                             });
                     }
 
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Hat Colour", ImGuiDataType_S32, &char_style.hat_colour);
+                    ImGui::InputScalar(xorstr("##Hat Colour"), ImGuiDataType_S32, &char_style.hat_colour);
 
                     ImGui::Text("Mask");
-                    if (ImGui::Combo("##Mask", &char_style.mask, player_clothing::mask, IM_ARRAYSIZE(player_clothing::mask)) && char_style.mask != -1)
+                    if (ImGui::Combo(xorstr("##Mask"), &char_style.mask, player_clothing::mask, IM_ARRAYSIZE(player_clothing::mask)) && char_style.mask != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("MASK", char_style.mask, char_style.mask_colour);
+                            outfit::set_appearance("MASK", char_style.mask, char_style.mask_colour);
                             });
                     }
 
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Mask Colour", ImGuiDataType_S32, &char_style.mask_colour);
+                    ImGui::InputScalar(xorstr("##Mask Colour"), ImGuiDataType_S32, &char_style.mask_colour);
 
-                    ImGui::Text("Glasses");
-                    if (ImGui::Combo("##Glasses", &char_style.glasses, player_clothing::male_glasses, IM_ARRAYSIZE(player_clothing::male_glasses)) && char_style.glasses != -1)
+                    ImGui::Text(xorstr("Glasses"));
+                    if (ImGui::Combo(xorstr("##Glasses"), &char_style.glasses, player_clothing::male_glasses, IM_ARRAYSIZE(player_clothing::male_glasses)) && char_style.glasses != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("GLASSES", char_style.glasses, char_style.glasses_colour);
+                            outfit::set_appearance("GLASSES", char_style.glasses, char_style.glasses_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Glasses Colour", ImGuiDataType_S32, &char_style.glasses_colour);
+                    ImGui::InputScalar(xorstr("##Glasses Colour"), ImGuiDataType_S32, &char_style.glasses_colour);
 
-                    ImGui::Text("Top");
-                    if (ImGui::Combo("##Top", &char_style.top, player_clothing::male_tops, IM_ARRAYSIZE(player_clothing::male_tops)) && char_style.top != -1)
+                    ImGui::Text(xorstr("Top"));
+                    if (ImGui::Combo(xorstr("##Top"), &char_style.top, player_clothing::male_tops, IM_ARRAYSIZE(player_clothing::male_tops)) && char_style.top != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("TORSO2", char_style.top, char_style.top_colour);
+                            outfit::set_appearance("TORSO2", char_style.top, char_style.top_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Top Colour", ImGuiDataType_S32, &char_style.top_colour);
+                    ImGui::InputScalar(xorstr("##Top Colour"), ImGuiDataType_S32, &char_style.top_colour);
 
-                    ImGui::Text("Gloves");
-                    if (ImGui::Combo("##Gloves", &char_style.top2, player_clothing::male_torsos, IM_ARRAYSIZE(player_clothing::male_torsos)) && char_style.top2 != -1)
+                    ImGui::Text(xorstr("Gloves"));
+                    if (ImGui::Combo(xorstr("##Gloves"), &char_style.top2, player_clothing::male_torsos, IM_ARRAYSIZE(player_clothing::male_torsos)) && char_style.top2 != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("JACKET", char_style.top2, char_style.top2_colour);
+                            outfit::set_appearance("JACKET", char_style.top2, char_style.top2_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Gloves Colour", ImGuiDataType_S32, &char_style.top2_colour);
+                    ImGui::InputScalar(xorstr("##Gloves Colour"), ImGuiDataType_S32, &char_style.top2_colour);
 
-                    ImGui::Text("Legs");
-                    if (ImGui::Combo("##Legs", &char_style.legs, player_clothing::male_legs, IM_ARRAYSIZE(player_clothing::male_legs)) && char_style.legs != -1)
+                    ImGui::Text(xorstr("Legs"));
+                    if (ImGui::Combo(xorstr("##Legs"), &char_style.legs, player_clothing::male_legs, IM_ARRAYSIZE(player_clothing::male_legs)) && char_style.legs != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("LEGS", char_style.legs, char_style.legs_colour);
+                            outfit::set_appearance("LEGS", char_style.legs, char_style.legs_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Legs Colour", ImGuiDataType_S32, &char_style.legs_colour);
+                    ImGui::InputScalar(xorstr("##Legs Colour"), ImGuiDataType_S32, &char_style.legs_colour);
 
-                    ImGui::Text("Parachute");
-                    if (ImGui::Combo("##Parachute", &char_style.gloves, player_clothing::parachute, IM_ARRAYSIZE(player_clothing::parachute)) && char_style.gloves != -1)
+                    ImGui::Text(xorstr("Parachute"));
+                    if (ImGui::Combo(xorstr("##Parachute"), &char_style.gloves, player_clothing::parachute, IM_ARRAYSIZE(player_clothing::parachute)) && char_style.gloves != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("BACK", char_style.gloves, char_style.gloves_colour);
+                            outfit::set_appearance("BACK", char_style.gloves, char_style.gloves_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Parachute Colour", ImGuiDataType_S32, &char_style.gloves_colour);
+                    ImGui::InputScalar(xorstr("##Parachute Colour"), ImGuiDataType_S32, &char_style.gloves_colour);
 
-                    ImGui::Text("Shoes");
-                    if (ImGui::Combo("##Shoes", &char_style.shoes, player_clothing::male_shoes, IM_ARRAYSIZE(player_clothing::male_shoes)) && char_style.shoes != -1)
+                    ImGui::Text(xorstr("Shoes"));
+                    if (ImGui::Combo(xorstr("##Shoes"), &char_style.shoes, player_clothing::male_shoes, IM_ARRAYSIZE(player_clothing::male_shoes)) && char_style.shoes != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("SHOES", char_style.shoes, char_style.shoes_colour);
+                            outfit::set_appearance("SHOES", char_style.shoes, char_style.shoes_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Shoes Colour", ImGuiDataType_S32, &char_style.shoes_colour);
+                    ImGui::InputScalar(xorstr("##Shoes Colour"), ImGuiDataType_S32, &char_style.shoes_colour);
 
-                    ImGui::Text("Accessory");
-                    if (ImGui::Combo("##Accessory", &char_style.special, player_clothing::male_acc, IM_ARRAYSIZE(player_clothing::male_acc)) && char_style.special != -1)
+                    ImGui::Text(xorstr("Accessory"));
+                    if (ImGui::Combo(xorstr("##Accessory"), &char_style.special, player_clothing::male_acc, IM_ARRAYSIZE(player_clothing::male_acc)) && char_style.special != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("ACCESSORY", char_style.special, char_style.special_colour);
+                            outfit::set_appearance("ACCESSORY", char_style.special, char_style.special_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Accessory Colour", ImGuiDataType_S32, &char_style.special_colour);
+                    ImGui::InputScalar(xorstr("##Accessory Colour"), ImGuiDataType_S32, &char_style.special_colour);
 
-                    ImGui::Text("Undershirt");
+                    ImGui::Text(xorstr("Undershirt"));
 
-                    if (ImGui::Combo("##Undershirt", &char_style.special_1, player_clothing::male_undershirt, IM_ARRAYSIZE(player_clothing::male_undershirt)) && char_style.special_1 != -1)
+                    if (ImGui::Combo(xorstr("##Undershirt"), &char_style.special_1, player_clothing::male_undershirt, IM_ARRAYSIZE(player_clothing::male_undershirt)) && char_style.special_1 != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("UNDERSHIRT", char_style.special_1, char_style.special_1_colour);
+                            outfit::set_appearance("UNDERSHIRT", char_style.special_1, char_style.special_1_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Undershirt Colour", ImGuiDataType_S32, &char_style.special_1_colour);
+                    ImGui::InputScalar(xorstr("##Undershirt Colour"), ImGuiDataType_S32, &char_style.special_1_colour);
 
-                    ImGui::Text("Kevlar");
-                    if (ImGui::Combo("##Kevlar", &char_style.special_2, player_clothing::kevlar, IM_ARRAYSIZE(player_clothing::kevlar)) && char_style.special_2 != -1)
+                    ImGui::Text(xorstr("Kevlar"));
+                    if (ImGui::Combo(xorstr("##Kevlar"), &char_style.special_2, player_clothing::kevlar, IM_ARRAYSIZE(player_clothing::kevlar)) && char_style.special_2 != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("KEVLAR", char_style.special_1, char_style.special_1_colour);
+                            outfit::set_appearance("KEVLAR", char_style.special_1, char_style.special_1_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Kevlar Colour", ImGuiDataType_S32, &char_style.special_2_colour);
+                    ImGui::InputScalar(xorstr("##Kevlar Colour"), ImGuiDataType_S32, &char_style.special_2_colour);
 
-                    ImGui::Text("Ears");
-                    if (ImGui::Combo("##Ears", &char_style.ears, player_clothing::male_ears, IM_ARRAYSIZE(player_clothing::male_ears)) && char_style.ears != -1)
+                    ImGui::Text(xorstr("Ears"));
+                    if (ImGui::Combo(xorstr("##Ears"), &char_style.ears, player_clothing::male_ears, IM_ARRAYSIZE(player_clothing::male_ears)) && char_style.ears != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("EARS", char_style.ears, char_style.ears_colour);
+                            outfit::set_appearance("EARS", char_style.ears, char_style.ears_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Ears Colour", ImGuiDataType_S32, &char_style.ears_colour);
+                    ImGui::InputScalar(xorstr("##Ears Colour"), ImGuiDataType_S32, &char_style.ears_colour);
 
-                    ImGui::Text("Bracelet");
-                    if (ImGui::Combo("##Bracelet", &char_style.bracelet, player_clothing::male_bracelet, IM_ARRAYSIZE(player_clothing::male_bracelet)) && char_style.bracelet != -1)
+                    ImGui::Text(xorstr("Bracelet"));
+                    if (ImGui::Combo(xorstr("##Bracelet"), &char_style.bracelet, player_clothing::male_bracelet, IM_ARRAYSIZE(player_clothing::male_bracelet)) && char_style.bracelet != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("BRACELET", char_style.bracelet, char_style.bracelet_colour);
+                            outfit::set_appearance("BRACELET", char_style.bracelet, char_style.bracelet_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Bracelet Colour", ImGuiDataType_S32, &char_style.bracelet_colour);
+                    ImGui::InputScalar(xorstr("##Bracelet Colour"), ImGuiDataType_S32, &char_style.bracelet_colour);
                 }
                 else if (!g_local.is_male)
                 {
-                    ImGui::Text("Hair");
-                    if (ImGui::Combo("##Hair", &char_style.hair, player_clothing::female_hair, IM_ARRAYSIZE(player_clothing::female_hair)) && char_style.hair != -1)
+                    ImGui::Text(xorstr("Hair"));
+                    if (ImGui::Combo(xorstr("##Hair"), &char_style.hair, player_clothing::female_hair, IM_ARRAYSIZE(player_clothing::female_hair)) && char_style.hair != -1)
                     {
                         g_fiber_pool->queue_job([] {
                             LOG(HACKER) << char_style.hair << " " << player_clothing::female_hair[char_style.hair];
-                            outfit::changeAppearance("HAIR", char_style.hair, char_style.hair_colour);
+                            outfit::set_appearance("HAIR", char_style.hair, char_style.hair_colour);
                         });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Colour Hair", ImGuiDataType_S32, &char_style.hair_colour);
+                    ImGui::InputScalar(xorstr("##Colour Hair"), ImGuiDataType_S32, &char_style.hair_colour);
 
-                    ImGui::Text("Hat");
-                    if (ImGui::Combo("##Hat", &char_style.hat, player_clothing::female_hats, IM_ARRAYSIZE(player_clothing::female_hats)) && char_style.hat != -1)
+                    ImGui::Text(xorstr("Hat"));
+                    if (ImGui::Combo(xorstr("##Hat"), &char_style.hat, player_clothing::female_hats, IM_ARRAYSIZE(player_clothing::female_hats)) && char_style.hat != -1)
                     {
                         g_fiber_pool->queue_job([] {
                             LOG(HACKER) << char_style.hat << " " << player_clothing::female_hats[char_style.hat];
-                            outfit::changeAppearance("HATS", char_style.hat, char_style.hat_colour);
+                            outfit::set_appearance("HATS", char_style.hat, char_style.hat_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Hat Colour", ImGuiDataType_S32, &char_style.hat_colour);
+                    ImGui::InputScalar(xorstr("##Hat Colour"), ImGuiDataType_S32, &char_style.hat_colour);
 
-                    ImGui::Text("Mask");
+                    ImGui::Text(xorstr("Mask"));
 
-                    if (ImGui::Combo("##Mask", &char_style.mask, player_clothing::mask, IM_ARRAYSIZE(player_clothing::mask)) && char_style.mask != -1)
+                    if (ImGui::Combo(xorstr("##Mask"), &char_style.mask, player_clothing::mask, IM_ARRAYSIZE(player_clothing::mask)) && char_style.mask != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("MASK", char_style.mask, char_style.mask_colour);
+                            outfit::set_appearance("MASK", char_style.mask, char_style.mask_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Mask Colour", ImGuiDataType_S32, &char_style.mask_colour);
+                    ImGui::InputScalar(xorstr("##Mask Colour"), ImGuiDataType_S32, &char_style.mask_colour);
 
-                    ImGui::Text("Glasses");
-                    if (ImGui::Combo("##Glasses", &char_style.glasses, player_clothing::female_glasses, IM_ARRAYSIZE(player_clothing::female_glasses)) && char_style.glasses != -1)
+                    ImGui::Text(xorstr("Glasses"));
+                    if (ImGui::Combo(xorstr("##Glasses"), &char_style.glasses, player_clothing::female_glasses, IM_ARRAYSIZE(player_clothing::female_glasses)) && char_style.glasses != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("GLASSES", char_style.glasses, char_style.glasses_colour);
+                            outfit::set_appearance("GLASSES", char_style.glasses, char_style.glasses_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Glasses Colour", ImGuiDataType_S32, &char_style.glasses_colour);
+                    ImGui::InputScalar(xorstr("##Glasses Colour"), ImGuiDataType_S32, &char_style.glasses_colour);
 
-                    ImGui::Text("Top");
-                    if (ImGui::Combo("##Top", &char_style.top, player_clothing::female_tops, IM_ARRAYSIZE(player_clothing::female_tops)) && char_style.top != -1)
+                    ImGui::Text(xorstr("Top"));
+                    if (ImGui::Combo(xorstr("##Top"), &char_style.top, player_clothing::female_tops, IM_ARRAYSIZE(player_clothing::female_tops)) && char_style.top != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("TORSO2", char_style.top, char_style.top_colour);
+                            outfit::set_appearance("TORSO2", char_style.top, char_style.top_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Top Colour", ImGuiDataType_S32, &char_style.top_colour);
+                    ImGui::InputScalar(xorstr("##Top Colour"), ImGuiDataType_S32, &char_style.top_colour);
 
-                    ImGui::Text("Gloves");
-                    if (ImGui::Combo("##Gloves", &char_style.top2, player_clothing::female_torsos, IM_ARRAYSIZE(player_clothing::female_torsos)) && char_style.top2 != -1)
+                    ImGui::Text(xorstr("Gloves"));
+                    if (ImGui::Combo(xorstr("##Gloves"), &char_style.top2, player_clothing::female_torsos, IM_ARRAYSIZE(player_clothing::female_torsos)) && char_style.top2 != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("JACKET", char_style.top2, char_style.top2_colour);
+                            outfit::set_appearance("JACKET", char_style.top2, char_style.top2_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Gloves Colour", ImGuiDataType_S32, &char_style.top2_colour);
+                    ImGui::InputScalar(xorstr("##Gloves Colour"), ImGuiDataType_S32, &char_style.top2_colour);
 
-                    ImGui::Text("Legs");
-                    if (ImGui::Combo("##Legs", &char_style.legs, player_clothing::female_legs, IM_ARRAYSIZE(player_clothing::female_legs)) && char_style.legs != -1)
+                    ImGui::Text(xorstr("Legs"));
+                    if (ImGui::Combo(xorstr("##Legs"), &char_style.legs, player_clothing::female_legs, IM_ARRAYSIZE(player_clothing::female_legs)) && char_style.legs != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("LEGS", char_style.legs, char_style.legs_colour);
+                            outfit::set_appearance("LEGS", char_style.legs, char_style.legs_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Legs Colour", ImGuiDataType_S32, &char_style.legs_colour);
+                    ImGui::InputScalar(xorstr("##Legs Colour"), ImGuiDataType_S32, &char_style.legs_colour);
 
-                    ImGui::Text("Parachute");
-                    if (ImGui::Combo("##Parachute", &char_style.gloves, player_clothing::parachute, IM_ARRAYSIZE(player_clothing::parachute)) && char_style.gloves != -1)
+                    ImGui::Text(xorstr("Parachute"));
+                    if (ImGui::Combo(xorstr("##Parachute"), &char_style.gloves, player_clothing::parachute, IM_ARRAYSIZE(player_clothing::parachute)) && char_style.gloves != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("BACK", char_style.gloves, char_style.gloves_colour);
+                            outfit::set_appearance("BACK", char_style.gloves, char_style.gloves_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Parachute Colour", ImGuiDataType_S32, &char_style.gloves_colour);
+                    ImGui::InputScalar(xorstr("##Parachute Colour"), ImGuiDataType_S32, &char_style.gloves_colour);
 
-                    ImGui::Text("Shoes");
-                    if (ImGui::Combo("##Shoes", &char_style.shoes, player_clothing::female_shoes, IM_ARRAYSIZE(player_clothing::female_shoes)) && char_style.shoes != -1)
+                    ImGui::Text(xorstr("Shoes"));
+                    if (ImGui::Combo(xorstr("##Shoes"), &char_style.shoes, player_clothing::female_shoes, IM_ARRAYSIZE(player_clothing::female_shoes)) && char_style.shoes != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("SHOES", char_style.shoes, char_style.shoes_colour);
+                            outfit::set_appearance("SHOES", char_style.shoes, char_style.shoes_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Shoes Colour", ImGuiDataType_S32, &char_style.shoes_colour);
+                    ImGui::InputScalar(xorstr("##Shoes Colour"), ImGuiDataType_S32, &char_style.shoes_colour);
 
-                    ImGui::Text("Accessory");
-                    if (ImGui::Combo("##Accessory", &char_style.special, player_clothing::female_acc, IM_ARRAYSIZE(player_clothing::female_acc)) && char_style.special != -1)
+                    ImGui::Text(xorstr("Accessory"));
+                    if (ImGui::Combo(xorstr("##Accessory"), &char_style.special, player_clothing::female_acc, IM_ARRAYSIZE(player_clothing::female_acc)) && char_style.special != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("ACCESSORY", char_style.special, char_style.special_colour);
+                            outfit::set_appearance("ACCESSORY", char_style.special, char_style.special_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Accessory Colour", ImGuiDataType_S32, &char_style.special_colour);
+                    ImGui::InputScalar(xorstr("##Accessory Colour"), ImGuiDataType_S32, &char_style.special_colour);
 
                     ImGui::Text("Undershirt");
 
-                    if (ImGui::Combo("##Undershirt", &char_style.special_1, player_clothing::female_undershirt, IM_ARRAYSIZE(player_clothing::female_undershirt)) && char_style.special_1 != -1)
+                    if (ImGui::Combo(xorstr("##Undershirt"), &char_style.special_1, player_clothing::female_undershirt, IM_ARRAYSIZE(player_clothing::female_undershirt)) && char_style.special_1 != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("UNDERSHIRT", char_style.special_1, char_style.special_1_colour);
+                            outfit::set_appearance("UNDERSHIRT", char_style.special_1, char_style.special_1_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Undershirt Colour", ImGuiDataType_S32, &char_style.special_1_colour);
+                    ImGui::InputScalar(xorstr("##Undershirt Colour"), ImGuiDataType_S32, &char_style.special_1_colour);
 
-                    ImGui::Text("Kevlar");
+                    ImGui::Text(xorstr("Kevlar"));
                     if (ImGui::Combo("##Kevlar", &char_style.special_2, player_clothing::kevlar, IM_ARRAYSIZE(player_clothing::kevlar)) && char_style.special_2 != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("KEVLAR", char_style.special_1, char_style.special_1_colour);
+                            outfit::set_appearance("KEVLAR", char_style.special_1, char_style.special_1_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Kevlar Colour", ImGuiDataType_S32, &char_style.special_2_colour);
+                    ImGui::InputScalar(xorstr("##Kevlar Colour"), ImGuiDataType_S32, &char_style.special_2_colour);
 
-                    ImGui::Text("Ears");
-                    if (ImGui::Combo("##Ears", &char_style.ears, player_clothing::female_ears, IM_ARRAYSIZE(player_clothing::female_ears)) && char_style.ears != -1)
+                    ImGui::Text(xorstr("Ears"));
+                    if (ImGui::Combo(xorstr("##Ears"), &char_style.ears, player_clothing::female_ears, IM_ARRAYSIZE(player_clothing::female_ears)) && char_style.ears != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("EARS", char_style.ears, char_style.ears_colour);
+                            outfit::set_appearance("EARS", char_style.ears, char_style.ears_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Ears Colour", ImGuiDataType_S32, &char_style.ears_colour);
+                    ImGui::InputScalar(xorstr("##Ears Colour"), ImGuiDataType_S32, &char_style.ears_colour);
 
-                    ImGui::Text("Bracelet");
-                    if (ImGui::Combo("##Bracelet", &char_style.bracelet, player_clothing::female_bracelet, IM_ARRAYSIZE(player_clothing::female_bracelet)) && char_style.bracelet != -1)
+                    ImGui::Text(xorstr("Bracelet"));
+                    if (ImGui::Combo(xorstr("##Bracelet"), &char_style.bracelet, player_clothing::female_bracelet, IM_ARRAYSIZE(player_clothing::female_bracelet)) && char_style.bracelet != -1)
                     {
                         g_fiber_pool->queue_job([] {
-                            outfit::changeAppearance("BRACELET", char_style.bracelet, char_style.bracelet_colour);
+                            outfit::set_appearance("BRACELET", char_style.bracelet, char_style.bracelet_colour);
                             });
                     }
                     ImGui::SameLine();
-                    ImGui::InputScalar("##Bracelet Colour", ImGuiDataType_S32, &char_style.bracelet_colour);
+                    ImGui::InputScalar(xorstr("##Bracelet Colour"), ImGuiDataType_S32, &char_style.bracelet_colour);
                 }
-                ImGui::Text("Badge");
-                ImGui::InputScalar("##Badge", ImGuiDataType_S32, &char_style.badge);
+                ImGui::Text(xorstr("Badge"));
+                ImGui::InputScalar(xorstr("##Badge"), ImGuiDataType_S32, &char_style.badge);
                 ImGui::SameLine();
-                ImGui::InputScalar("##Badge Colour", ImGuiDataType_S32, &char_style.badge_colour);
+                ImGui::InputScalar(xorstr("##Badge Colour"), ImGuiDataType_S32, &char_style.badge_colour);
                 ImGui::PopItemWidth();
-                if (ImGui::Button("Set Cloth"))
+                if (ImGui::Button(xorstr("Set Cloth")))
                 {
                     g_fiber_pool->queue_job([]
                         {
                             if (char_style.badge != -1)
-                                outfit::changeAppearance("BADGE", char_style.badge, char_style.badge_colour);
+                                outfit::set_appearance("BADGE", char_style.badge, char_style.badge_colour);
                         });
                 }
             }
-            if (ImGui::CollapsingHeader("Teleport Option"))
+            if (ImGui::CollapsingHeader(xorstr("Teleport Option")))
             {
-                if (ImGui::Button("Teleport Waypoint"))
+                if (ImGui::Button(xorstr("Teleport Waypoint")))
                 {
                     teleport::teleport_to_marker();
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Teleport Objective"))
+                if (ImGui::Button(xorstr("Teleport Objective")))
                 {
                     teleport::teleport_to_objective();
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Teleport Forward"))
+                if (ImGui::Button(xorstr("Teleport Forward")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -3539,9 +3539,9 @@ namespace big
                 const char* const LocationName[]{ "Military Tower", "Arcadius Rooftop", "Top of Building in Construction", "FIB Roof", "FIB Top Floor",
                     "Vinewood Sign", "Observatory", "Mt. Chilliad", "Mt. Gordo", "office" };
                 static int SelectedLocation = 0;
-                ImGui::Text("Other Teleport");
-                ImGui::Combo("##Location", &SelectedLocation, LocationName, IM_ARRAYSIZE(LocationName));
-                if (ImGui::Button("Set Coords"))
+                ImGui::Text(xorstr("Other Teleport"));
+                ImGui::Combo(xorstr("##Location"), &SelectedLocation, LocationName, IM_ARRAYSIZE(LocationName));
+                if (ImGui::Button(xorstr("Set Coords")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -3620,9 +3620,9 @@ namespace big
                     "Arena Wars"
                 };
                 static int SelectedProperty = 0;
-                ImGui::Text("Property Teleport");
-                ImGui::Combo("##Property", &SelectedProperty, PropertyBlip, IM_ARRAYSIZE(PropertyBlip));
-                if (ImGui::Button("Teleport to Property"))
+                ImGui::Text(xorstr("Property Teleport"));
+                ImGui::Combo(xorstr("##Property"), &SelectedProperty, PropertyBlip, IM_ARRAYSIZE(PropertyBlip));
+                if (ImGui::Button(xorstr("Teleport to Property")))
                 {
                     g_fiber_pool->queue_job([]
                         {
@@ -3811,21 +3811,21 @@ namespace big
                 
                 static int selected_teleport;
                 static int teleport_type = 0;
-                ImGui::RadioButton("Standard Teleport", &teleport_type, 0);
+                ImGui::RadioButton(xorstr("Standard Teleport"), &teleport_type, 0);
                 ImGui::SameLine();
-                ImGui::RadioButton("Saved Teleport", &teleport_type, 1);
+                ImGui::RadioButton(xorstr("Saved Teleport"), &teleport_type, 1);
                 switch (teleport_type)
                 {
                     case 0:
-                        ImGui::Combo("##TeleportType", &SelectedType, var::TeleportList, IM_ARRAYSIZE(var::TeleportList));
+                        ImGui::Combo(xorstr("##TeleportType"), &SelectedType, var::TeleportList, IM_ARRAYSIZE(var::TeleportList));
                         switch (SelectedType)
                         {
                         case 1:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox("##CasinoHeist", &selected_teleport, var::CasinoHeistCoords, IM_ARRAYSIZE(var::CasinoHeistCoords));
+                            ImGui::ListBox(xorstr("##CasinoHeist"), &selected_teleport, var::CasinoHeistCoords, IM_ARRAYSIZE(var::CasinoHeistCoords));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
-                            if (ImGui::Button("Goto Coords"))
+                            if (ImGui::Button(xorstr("Goto Coords")))
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
@@ -3887,10 +3887,10 @@ namespace big
                             break;
                         case 2:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox("##CasinoHeist", &selected_teleport, var::CayoPericoHeistCoords, IM_ARRAYSIZE(var::CayoPericoHeistCoords));
+                            ImGui::ListBox(xorstr("##CasinoHeist"), &selected_teleport, var::CayoPericoHeistCoords, IM_ARRAYSIZE(var::CayoPericoHeistCoords));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
-                            if (ImGui::Button("Goto Coords"))
+                            if (ImGui::Button(xorstr("Goto Coords")))
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
@@ -3958,10 +3958,10 @@ namespace big
                             break;
                         case 3:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox("##Treasure", &selected_teleport, var::Treasure_Hunt, IM_ARRAYSIZE(var::Treasure_Hunt));
+                            ImGui::ListBox(xorstr("##Treasure"), &selected_teleport, var::Treasure_Hunt, IM_ARRAYSIZE(var::Treasure_Hunt));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
-                            if (ImGui::Button("Goto Coords"))
+                            if (ImGui::Button(xorstr("Goto Coords")))
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
@@ -3984,10 +3984,10 @@ namespace big
                             break;
                         case 4:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox("##NavyRevolver", &selected_teleport, var::NavyRevolver, IM_ARRAYSIZE(var::NavyRevolver));
+                            ImGui::ListBox(xorstr("##NavyRevolver"), &selected_teleport, var::NavyRevolver, IM_ARRAYSIZE(var::NavyRevolver));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
-                            if (ImGui::Button("Goto Coords"))
+                            if (ImGui::Button(xorstr("Goto Coords")))
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
@@ -4032,10 +4032,10 @@ namespace big
                             break;
                         case 5:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox("##MovieProp", &selected_teleport, var::MovieProp, IM_ARRAYSIZE(var::MovieProp));
+                            ImGui::ListBox(xorstr("##MovieProp"), &selected_teleport, var::MovieProp, IM_ARRAYSIZE(var::MovieProp));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
-                            if (ImGui::Button("Goto Coords"))
+                            if (ImGui::Button(xorstr("Goto Coords")))
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
@@ -4067,10 +4067,10 @@ namespace big
                             break;
                         case 6:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox("##PlayingCard", &selected_teleport, var::PlayingCard, IM_ARRAYSIZE(var::PlayingCard));
+                            ImGui::ListBox(xorstr("##PlayingCard"), &selected_teleport, var::PlayingCard, IM_ARRAYSIZE(var::PlayingCard));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
-                            if (ImGui::Button("Goto Coords"))
+                            if (ImGui::Button(xorstr("Goto Coords")))
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
@@ -4255,9 +4255,9 @@ namespace big
                         static std::string selected_location;
                         static char teleport_name[50]{};
                         ImGui::PushItemWidth(250);
-                        ImGui::InputText("Location Name", teleport_name, IM_ARRAYSIZE(teleport_name));
+                        ImGui::InputText(xorstr("Location Name"), teleport_name, IM_ARRAYSIZE(teleport_name));
 
-                        if (ImGui::Button("Save Location"))
+                        if (ImGui::Button(xorstr("Save Location")))
                         {
                             g_fiber_pool->queue_job([]
                                 {
@@ -4280,8 +4280,8 @@ namespace big
                         }
                         */
                         ImGui::PushItemWidth(250);
-                        ImGui::Text("Saved Locations");
-                        if (ImGui::ListBoxHeader("##empty", ImVec2(200, 200)))
+                        ImGui::Text(xorstr("Saved Locations"));
+                        if (ImGui::ListBoxHeader(xorstr("##empty"), ImVec2(200, 200)))
                         {
                             for (auto pair : teleport_locations)
                             {
@@ -4293,7 +4293,7 @@ namespace big
                         ImGui::SameLine();
                         ImGui::BeginGroup();
 
-                        if (ImGui::Button("Load Location"))
+                        if (ImGui::Button(xorstr("Load Location")))
                         {
                             g_fiber_pool->queue_job([]
                                 {
@@ -4304,7 +4304,7 @@ namespace big
                                     }
                                 });
                         }
-                        if (ImGui::Button("Delete Location"))
+                        if (ImGui::Button(xorstr("Delete Location")))
                         {
                             if (!selected_location.empty())
                             {
@@ -4317,11 +4317,11 @@ namespace big
                     break;
                 }
             }
-            if (ImGui::CollapsingHeader("Model Changer"))
+            if (ImGui::CollapsingHeader(xorstr("Model Changer")))
             {
                 static char hash[200];
-                ImGui::InputText("Model Changer##Manual", hash, IM_ARRAYSIZE(hash), ImGuiInputTextFlags_CharsUppercase);
-                if (ImGui::Button("Set Model##Manual"))
+                ImGui::InputText(xorstr("Model Changer##Manual"), hash, IM_ARRAYSIZE(hash), ImGuiInputTextFlags_CharsUppercase);
+                if (ImGui::Button(xorstr("Set Model##Manual")))
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
@@ -4337,8 +4337,8 @@ namespace big
                     } QUEUE_JOB_END_CLAUSE
                 }
                 static int SelectedModel = 0;
-                ImGui::Combo("##ModelList", &SelectedModel, var::PedList, IM_ARRAYSIZE(var::PedList));
-                if (ImGui::Button("Set Model"))
+                ImGui::Combo(xorstr("##ModelList"), &SelectedModel, var::PedList, IM_ARRAYSIZE(var::PedList));
+                if (ImGui::Button(xorstr("Set Model")))
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {

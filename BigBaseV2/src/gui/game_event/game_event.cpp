@@ -304,7 +304,7 @@ namespace big
         return rage_helper::find_script_thread(ScriptHash) != nullptr;
     }
 
-    void remote_event::RemoteOffRadar(bool toggle)
+    void remote_event::remote_off_the_radar(bool toggle)
     {
         if (toggle)
         {
@@ -314,7 +314,7 @@ namespace big
         }
     }
 
-    void remote_event::RemoteBribe(bool toggle)
+    void remote_event::remote_blind_cops(bool toggle)
     {
         if (toggle)
         {

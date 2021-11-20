@@ -491,28 +491,6 @@ namespace big
         }
     }
 
-    void weapon_helper::FrameFlag()
-    {
-        weapon_helper weapon;
-        if (features::ExplosiveAmmoBool)
-        {
-            weapon.bit_frame += 1 << 11;
-        }
-        if (features::FlamingAmmo)
-        {
-            weapon.bit_frame += 1 << 12;
-        }
-        if (features::ExplosiveFist)
-        {
-            weapon.bit_frame += 1 << 13;
-        }
-        if (features::SuperJump)
-        {
-            weapon.bit_frame += 1 << 14;
-        }
-        //rage_helper::get_local_playerinfo()->m_frame_flags = weapon.bit_frame;
-    }
-
     void infinite_ammo(bool activation)
     {
         rage_helper::get_local_ped()->m_weapon_inventory->m_weapon_ammo_flag = activation;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x10D0, 0x78 }, type);

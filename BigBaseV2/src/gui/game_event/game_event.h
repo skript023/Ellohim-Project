@@ -87,8 +87,8 @@ namespace big
 		static void take_casino_partial(int take);
 		static void get_name_from_event_hash(int32_t hash);
 		static void trigger_event(int64_t* args, int argsCount, int bitset);
-		static void RemoteOffRadar(bool toggle);
-		static void RemoteBribe(bool toggle);
+		static void remote_off_the_radar(bool toggle);
+		static void remote_blind_cops(bool toggle);
 		static void bail_player(Player player);
 		static void revenge_kick(bool Activation);
 		static void teleport_player_to_cayo(Player player);
@@ -106,6 +106,11 @@ namespace big
 		static Ped crash_player(Entity target, Vector3 SpawnCoordinates);
 		static void steal_fake_money(Player player, int TotalMoney);
 		static void give_wanted_level(Player player);
+	public:
+		static inline bool remote_off_the_radars{};
+		static inline bool bribe_authority{};
+		static inline bool revenge_event{};
+
 	};
 
 	class script_tester
@@ -143,4 +148,6 @@ namespace big
 
 	extern std::map<std::string, global_test_json::global_test_json> list_globals();
 	extern std::map<std::string, local_test_json::local_test_json> list_locals();
+
+	inline static remote_event* g_remote_option{};
 }

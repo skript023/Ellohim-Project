@@ -14,6 +14,7 @@ namespace big
 		static bool get_player_infinite_clip(Player player);
 		static bool is_player_in_any_vehicle(Player player);
 		static bool does_player_exist(Player player);
+		static void never_wanted(bool Activation);
 		static bool is_player_driver(Ped Ped);
 		static bool is_ped_enemy(Entity Ped);
 		static int get_ped_type(Entity Ped);
@@ -27,19 +28,22 @@ namespace big
 		static void disable_player_ragdoll(Player player, bool activation);
 		static Ped get_player_ped(Player player);
 		static void no_idle_kick(bool Trigger);
-		static void PlayerHealthRegen(bool Activation);
-		static void AutoHeal(bool Activation);
-		static void NeverWanted(bool Activation);
+
+		static void auto_heal(bool Activation);
+
+		static void player_health_regeneration(bool Activation);
+
+		
 		static void set_player_wanted_level(Player player, int Wantedlevel);
-		static void AllMissionLives(bool Activation);
+		static void mission_lives(bool Activation);
 		static void set_player_waterproof(Player player, bool Activation);
+		static void blind_cops(bool Activation);
 		static void SetPlayerSeatBelt(bool Activation);
 		static void set_player_invincible(Player player, bool Activation);
-		static void BlindCops(bool Activation);
-		static void RevealRadar(bool Activation);
-		static void OffTheRadar(bool Activation);
-		static void GhostOrganization(bool Activation);
-		static void SetPlayerNoCollision(bool Activation);
+		static void reveal_player(bool Activation);
+		static void off_the_radar(bool Activation);
+		static void ghost_organization(bool Activation);
+		static void set_player_no_collision(bool Activation);
 
 		static int get_player_health(Player player);
 		static int get_player_max_health(Player player);
@@ -49,12 +53,10 @@ namespace big
 		static std::string get_player_local_ip(Player player);
 
 		static void local_name(char* Name);
-		static void RunSpeed(float speed);
-		static void SwimSpeed(float speed);
-		static void UltraRun(bool Activation);
 		static uint64_t get_player_scid(Player player);
-		static void GiveHealAll(bool Activation);
-		static void SetPlayerLevel(int PlayerLevel);
+		static void ultra_run(bool Activation);
+		static void give_all_heal(bool Activation);
+		static void set_payer_level(int PlayerLevel);
 		static bool is_ped_shooting(Ped ped);
 		static void change_name(const std::string& name, rage::netPlayerData* data);
 		static bool get_player_invincible(Player player);
@@ -65,13 +67,29 @@ namespace big
 		static Vector3 get_player_coords(Player player);
 		static bool get_player_vehicle_invincible(Entity entity);
 		static bool get_player_waterproof(Player player);
+	public:
+		static inline bool all_mission_lives{};
+		static inline bool pass_through_wall{};
+		static inline bool send_heal{};
+		static inline bool blinds_cops{};
+		static inline bool reveal_players{};
+		static inline bool ultra_run_bool{};
+		static inline bool no_clip{};
+		static inline bool night_vision{};
+		static inline bool thermal_vision{};
+		static inline bool ghost_organizations{};
+
+
 	};
 	class outfit
 	{
 	public:
-		static void StealOutfit(Player player);
-		static void changeAppearance(char* family, int model, int texture);
-		static void ResetAppearance();
+		static void set_appearance(char* family, int model, int texture);
+
+		static void reset_appearance();
+
+		static void steal_outfit(Player player);
+
 	};
 	class spoofer
 	{
@@ -80,6 +98,17 @@ namespace big
 		static void player_scid(uint64_t FakeRID);
 		static void player_level(bool Activation, int level);
 		static void player_money(bool activation, int money);
+	public:
+		static inline bool money_spoofer{};
+		static inline bool level_spoofer{};
+		static inline bool crew_spoofer{};
+
+		static inline int spoofed_level{};
+		static inline int spoofed_money{};
+
+
 	};
 
+	inline static player g_player_option{};
+	inline static spoofer* g_spoofer_option{};
 }

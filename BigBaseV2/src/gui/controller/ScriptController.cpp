@@ -55,7 +55,7 @@ namespace big
 
     Hash controller::load(const char* name)
     {
-        const Hash hash = rage::joaat(name);
+        const Hash hash = RAGE_JOAAT_IMPL(name);
 
         STREAMING::REQUEST_MODEL(hash);
         while (!STREAMING::HAS_MODEL_LOADED(hash))

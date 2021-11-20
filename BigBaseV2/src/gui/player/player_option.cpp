@@ -21,6 +21,7 @@
 #include "gui/vehicle/vehicle_helper.h"
 #include "gui/artificial_intelligence/artificial_intelligence.h"
 #include "gui/controller/http_request.hpp"
+#include <gui\controller\xostr.h>
 
 #define ARRAY_SIZE(_ARR)          ((int)(sizeof(_ARR) / sizeof(*(_ARR))))
 #define ARR_SZ(_ARR)              ((int)(sizeof(_ARR) / sizeof((_ARR)[0])))
@@ -50,12 +51,12 @@ namespace big
             script::get_current()->yield();
             if (global_exp == total)
             {
-                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Your RP no longer need correction", "~bold~~g~Ellohim Recovery");
+                message::notification(xorstr("Ellohim Private Menu"), "~bold~~g~Your RP no longer need correction", "~bold~~g~Ellohim Recovery");
             }
             else if (global_exp != total)
             {
                 STATS::STAT_SET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), total, true);
-                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Your RP Has Been Corrected", "~bold~~g~Ellohim Recovery");
+                message::notification(xorstr("Ellohim Private Menu"), "~bold~~g~Your RP Has Been Corrected", "~bold~~g~Ellohim Recovery");
             }
         });
     }
@@ -273,7 +274,7 @@ namespace big
         }
     }
 
-    void player::AutoHeal(bool Activation)
+    void player::auto_heal(bool Activation)
     {
         if (Activation)
         {
@@ -293,7 +294,7 @@ namespace big
         }
     }
 
-    void player::PlayerHealthRegen(bool Activation)
+    void player::player_health_regeneration(bool Activation)
     {
         if (Activation)
         {
@@ -323,7 +324,7 @@ namespace big
         return false;
     }
 
-    void player::NeverWanted(bool Activation)
+    void player::never_wanted(bool Activation)
     {
         bool is_wanted_level = rage_helper::get_local_playerinfo()->m_is_wanted;
         if (Activation)
@@ -338,7 +339,7 @@ namespace big
         }
     }
 
-    void player::AllMissionLives(bool Activation)
+    void player::mission_lives(bool Activation)
     {
         if (Activation)
         {
@@ -416,7 +417,7 @@ namespace big
         }
     }
 
-    void player::BlindCops(bool Activation)
+    void player::blind_cops(bool Activation)
     {
         if (Activation)
         {
@@ -432,7 +433,7 @@ namespace big
         }
     }
 
-    void player::RevealRadar(bool Activation)
+    void player::reveal_player(bool Activation)
     {
         if (Activation)
         {
@@ -446,7 +447,7 @@ namespace big
         }
     }
 
-    void player::OffTheRadar(bool Activation)
+    void player::off_the_radar(bool Activation)
     {
         if (Activation)
         {
@@ -462,7 +463,7 @@ namespace big
         }
     }
 
-    void player::GhostOrganization(bool Activation)
+    void player::ghost_organization(bool Activation)
     {
         if (Activation)
         {
@@ -478,7 +479,7 @@ namespace big
         }
     }
 
-    void player::SetPlayerNoCollision(bool Activation)
+    void player::set_player_no_collision(bool Activation)
     {
         if (Activation)
         {
@@ -548,7 +549,7 @@ namespace big
         }
     }
 
-    void outfit::changeAppearance(char* family, int model, int texture)
+    void outfit::set_appearance(char* family, int model, int texture)
     {
         if (controller::cstrcmp(family, "HATS") || controller::cstrcmp(family, "GLASSES") || controller::cstrcmp(family, "EARS") || controller::cstrcmp(family, "WATCH") || controller::cstrcmp(family, "BRACELET"))
         {
@@ -594,7 +595,7 @@ namespace big
         }
     }
 
-    void outfit::ResetAppearance()
+    void outfit::reset_appearance()
     {
         PED::CLEAR_ALL_PED_PROPS(PLAYER::PLAYER_PED_ID());
         PED::CLEAR_PED_DECORATIONS(PLAYER::PLAYER_PED_ID());
@@ -603,7 +604,7 @@ namespace big
         PED::SET_PED_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID(), 9, 0, 0, 0);
     }
 
-    void outfit::StealOutfit(Player player)
+    void outfit::steal_outfit(Player player)
     {
         Ped their_ped = player::get_player_ped(player);
         for (int i = 0; i < 12; i++)
@@ -614,12 +615,7 @@ namespace big
         }
     }
 
-    void player::RunSpeed(float speed)
-    {
-        rage_helper::get_local_playerinfo()->m_run_speed = speed;
-    }
-
-    void player::UltraRun(bool Activation)
+    void player::ultra_run(bool Activation)
     {
         if (Activation)
         {
@@ -628,17 +624,12 @@ namespace big
                 Vector3 offset = ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(g_local.ped, 0, 0.6, 0);
                 ENTITY::APPLY_FORCE_TO_ENTITY(g_local.ped, 1, 0.0f, 1.3, 0, 0.0f, 0.0f, 0.0f, 0, TRUE, TRUE, TRUE, FALSE, TRUE);
                 PLAYER::SET_PLAYER_SPRINT(g_local.player, 1);
-                RunSpeed(1.30f);
+                rage_helper::get_local_playerinfo()->m_run_speed = 1.30f;
             }
         }
     }
 
-    void player::SwimSpeed(float speed)
-    {
-        rage_helper::get_local_playerinfo()->m_swim_speed = speed;
-    }
-
-    void player::GiveHealAll(bool Activation)
+    void player::give_all_heal(bool Activation)
     {
         if (Activation)
         {
@@ -658,7 +649,7 @@ namespace big
         }
     }
 
-    void player::SetPlayerLevel(int PlayerLevel)
+    void player::set_payer_level(int PlayerLevel)
     {
         g_fiber_pool->queue_job([PlayerLevel] {
             int SettingLevelPlayer = big::features::LevelData(PlayerLevel);

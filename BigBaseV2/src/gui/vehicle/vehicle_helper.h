@@ -32,6 +32,11 @@ namespace big
 		static void ClearVehicleFlag(int Flag, uint32_t FlagBit);
 		static void RemoveInsuranceClaims();
 		static void AntiGriefVehicle(bool Activation);
+	public:
+		static inline bool infinite_ammo{};
+		static inline bool infinite_boost{};
+		static inline bool horn_boost{};
+
 	};
 
 	static class vehicle_helper_variable
@@ -39,4 +44,6 @@ namespace big
 	public:
 		static inline Vehicle vehicle{};
 	}g_vehicle_variable;
+
+	inline static vehicle_helper *g_vehicle_option{};
 }
