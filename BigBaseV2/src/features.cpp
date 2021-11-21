@@ -192,14 +192,14 @@ namespace big::features
 		weapon_helper::no_spread(g_fitur.spread_on);
 		weapon_helper::no_recoil(g_fitur.recoil_on);
 		weapon_helper::rapid_fire(g_weapon_option->rapid_shoot);
-		weapon_helper::HeadShotNPC(g_weapon_option->auto_headshot);
-		weapon_helper::Revenge(rage::joaat(var::revenge_list[g_item.weapon_hash]), g_item.weapon_hash != 0);
+		weapon_helper::headshot_all_npc(g_weapon_option->auto_headshot);
+		weapon_helper::revenge(rage::joaat(var::revenge_list[g_item.weapon_hash]), g_item.weapon_hash != 0);
 		
 		weapon_helper::infinite_ammo(g_settings.options["Infinite Ammo"]);
 		weapon_helper::explosive_ammo(g_fitur.explosive_weapon, player::get_player_ped(g_selected.player));
-		weapon_helper::MoneyGun(g_weapon_option->object_gun);
-		weapon_helper::RemoveObjectsLoop(g_weapon_option->delete_gun);
-		weapon_helper::CollisionGun(g_weapon_option->ghost_gun);
+		weapon_helper::object_guns(g_weapon_option->object_gun);
+		weapon_helper::removal_gun(g_weapon_option->delete_gun);
+		weapon_helper::ghost_guns(g_weapon_option->ghost_gun);
 
 		weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->explosives_ammo);
 		weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->fire_ammo);
@@ -211,11 +211,11 @@ namespace big::features
 		remote_event::remote_blind_cops(g_remote_option->bribe_authority);
 		remote_event::remote_off_the_radar(g_remote_option->remote_off_the_radars);
 
-		vehicle_helper::AntiGriefVehicle(g_settings.options["PV Revenge"]);
-		vehicle_helper::InfiniteVehicleAmmo(g_vehicle_option->infinite_ammo);
-		vehicle_helper::InfiniteBoost(g_vehicle_option->infinite_boost);
+		vehicle_helper::anti_grief_vehicle(g_settings.options["PV Revenge"]);
+		vehicle_helper::infinite_vehicle_ammo(g_vehicle_option->infinite_ammo);
+		vehicle_helper::infinite_boosts(g_vehicle_option->infinite_boost);
 		vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
-		vehicle_helper::HornBoostFunc(g_vehicle_option->horn_boost);
+		vehicle_helper::horn_boosts(g_vehicle_option->horn_boost);
 
 		controller::faster_time_scale(g_misc_option->time_scale);
 		

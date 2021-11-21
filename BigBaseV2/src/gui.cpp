@@ -100,7 +100,7 @@ namespace big
 	{
 		TRY_CLAUSE
 		{
-			game_window::render_base_window(xorstr("Ellohim Internal - Gold Edition"));
+			game_window::render_base_window(xorstr("Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol"));
 		}
 		EXCEPT_CLAUSE
 	}

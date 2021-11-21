@@ -193,7 +193,7 @@ namespace big
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Remove Insurance")))
             {
-                vehicle_helper::RemoveInsuranceClaims();
+                vehicle_helper::claim_insurance();
             }
             static int selected_service = 0;
             const char* const service_list[]{ "Select", "Terrobyte", "Kosatka", "Avenger", "Mobile Operation Center", "Dinghy" };

@@ -40,6 +40,7 @@ namespace big
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER)
 		{
+			buffer->m_unkBit = buffer->m_maxBit;
 			message::notification("~bold~~o~Ellohim Private Menu", "Attempt To Crashing You", "~bold~~g~Ellohim Menu Protection");
 			return true;
 		}
@@ -56,6 +57,7 @@ namespace big
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER)
 		{
+			buffer->Seek(0);
 			message::notification("~bold~~o~Ellohim Private Menu", "Attempt To Crashing You", "~bold~~g~Ellohim Menu Protection");
 			return false;
 		}

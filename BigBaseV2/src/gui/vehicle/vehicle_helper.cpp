@@ -83,7 +83,7 @@ namespace big
         return sVar0;
     }
 
-    void vehicle_helper::InfiniteBoost(bool Activation)
+    void vehicle_helper::infinite_boosts(bool Activation)
     {
         if (Activation)
         {
@@ -123,7 +123,7 @@ namespace big
         }
     }
 
-    void vehicle_helper::HornBoostFunc(bool Activation)
+    void vehicle_helper::horn_boosts(bool Activation)
     {
         if (Activation)
         {
@@ -173,7 +173,7 @@ namespace big
         }
     }
 
-    void vehicle_helper::AntiGriefVehicle(bool Activation)
+    void vehicle_helper::anti_grief_vehicle(bool Activation)
     {
         if (Activation)
         {
@@ -222,7 +222,7 @@ namespace big
         }
     }
 
-    void vehicle_helper::RemoveInsuranceClaims()
+    void vehicle_helper::claim_insurance()
     {
         int _maxslots = 0, _index = 0, _hash = 0, _flags = 0;
         _maxslots = *script_global(1323703).as<int*>();//1323678
@@ -244,7 +244,7 @@ namespace big
         }
     }
 
-    void vehicle_helper::SetVehicleFlag(int Flag, uint32_t flagBit)
+    void vehicle_helper::set_vehicle_flag(int Flag, uint32_t flagBit)
     {
         if (g_local.InVehicle)
         {
@@ -303,7 +303,7 @@ namespace big
         }
     }
 
-    void vehicle_helper::ClearVehicleFlag(int Flag, uint32_t flagBit)
+    void vehicle_helper::clear_vehicle_flag(int Flag, uint32_t flagBit)
     {
         if (g_local.InVehicle)
         {
@@ -362,7 +362,7 @@ namespace big
         }
     }
 
-    void vehicle_helper::InfiniteVehicleAmmo(bool Activation)
+    void vehicle_helper::infinite_vehicle_ammo(bool Activation)
     {
         if (Activation && rage_helper::get_local_ped()->m_is_in_vehicle)
         {
@@ -373,7 +373,7 @@ namespace big
         }
     }
 
-    void vehicle_helper::RepairVehicle(Ped player_ped)
+    void vehicle_helper::repair_vehicle(Ped player_ped)
     {
         g_fiber_pool->queue_job([=] {
             Vehicle VehicleId = PED::GET_VEHICLE_PED_IS_IN(player_ped, FALSE);

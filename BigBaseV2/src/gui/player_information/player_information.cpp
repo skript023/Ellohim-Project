@@ -798,9 +798,21 @@ namespace big
                             break;
                             case 3:
                             {
-                                Vector3 remotePos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, true);
-                                constexpr auto cage = RAGE_JOAAT("prop_gold_cont_01");
-                                Object obj = OBJECT::CREATE_OBJECT(cage, remotePos.x, remotePos.y, remotePos.z - 1.0f, true, false, false);
+                                Vector3 pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, true);
+                                Hash cage = controller::load("prop_gold_cont_01");
+                                *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
+                                Object obj = OBJECT::CREATE_OBJECT(cage, pos.x, pos.y, pos.z - 1.0f, true, false, false);
+                                *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
+
+                                script::get_current()->yield();
+                                if (*g_pointers->m_is_session_started)
+                                {
+                                    ENTITY::_SET_ENTITY_SOMETHING(obj, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
+                                    auto networkId = NETWORK::OBJ_TO_NET(obj);
+                                    if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(obj))
+                                        NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
+                                }
+                                STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(cage);
                             }
                             break;
                             case 4:
@@ -926,7 +938,6 @@ namespace big
                                         *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
                                         network::request_control(e);
                                         *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-                                        script::get_current()->yield();
                                         teleport::teleport_to_coords(e, pos);
                                     }
                                     break;
@@ -944,7 +955,6 @@ namespace big
                                         *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
                                         network::request_control(e);
                                         *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-                                        script::get_current()->yield();
                                         teleport::teleport_to_coords(e, coords);
                                     }
                                     if (all_player)
@@ -964,7 +974,6 @@ namespace big
                                                 *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
                                                 network::request_control(e);
                                                 *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-                                                script::get_current()->yield();
                                                 teleport::teleport_to_coords(e, coords);
                                             }
                                         }
@@ -984,7 +993,6 @@ namespace big
                                         network::request_control(e);
                                         *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
 
-                                        script::get_current()->yield();
                                         teleport::teleport_to_coords(e, coords);
                                     }
                                     if (all_player)
@@ -1004,7 +1012,6 @@ namespace big
                                                 network::request_control(e);
                                                 *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
 
-                                                script::get_current()->yield();
                                                 teleport::teleport_to_coords(e, coords);
                                             }
                                         }
@@ -1037,14 +1044,14 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader("Other"))
+            if (ImGui::CollapsingHeader(xorstr("Other")))
             {
-                ImGui::PushID("##Control");
-                if (ImGui::BeginMenu("Control Entity"))
+                ImGui::PushID(xorstr("##Control"));
+                if (ImGui::BeginMenu(xorstr("Control Entity")))
                 {
                     static char VehicleName[200];
-                    ImGui::InputText("Vehicle Model Name##Name", VehicleName, IM_ARRAYSIZE(VehicleName), ImGuiInputTextFlags_CharsUppercase);
-                    if (ImGui::Button("Ram Player"))
+                    ImGui::InputText(xorstr("Vehicle Model Name##Name"), VehicleName, IM_ARRAYSIZE(VehicleName), ImGuiInputTextFlags_CharsUppercase);
+                    if (ImGui::Button(xorstr("Ram Player")))
                     {
                         QUEUE_JOB_BEGIN_CLAUSE()
                         {
@@ -1078,8 +1085,8 @@ namespace big
 
                 ImGui::Separator();
 
-                ImGui::PushID("##ObjectSpawner");
-                if (ImGui::BeginMenu("Object Spawner"))
+                ImGui::PushID(xorstr("##ObjectSpawner"));
+                if (ImGui::BeginMenu(xorstr("Object Spawner")))
                 {
                     static int g_selected_object = 0;
                     static char ObjHash[200];
@@ -1201,44 +1208,44 @@ namespace big
 
                 ImGui::Separator();
 
-                ImGui::PushID("##VehicleSpawner");
-                if (ImGui::BeginMenu("Vehicle Spawner"))
+                ImGui::PushID(xorstr("##VehicleSpawner"));
+                if (ImGui::BeginMenu(xorstr("Vehicle Spawner")))
                 {
                     ImGui::Text("Bypass : 0x0%X", *(unsigned short*)g_pointers->m_model_spawn_bypass);
                     static char VehHash[200];
                     ImGui::PushItemWidth(250);
-                    ImGui::InputText("Hash Vehicle##Manual", VehHash, IM_ARRAYSIZE(VehHash), ImGuiInputTextFlags_CharsUppercase);
+                    ImGui::InputText(xorstr("Hash Vehicle##Manual"), VehHash, IM_ARRAYSIZE(VehHash), ImGuiInputTextFlags_CharsUppercase);
                     ImGui::PopItemWidth();
-                    if (ImGui::Button("Spawn Manual##Manual"))
+                    if (ImGui::Button(xorstr("Spawn Manual##Manual")))
                     {
                         vehicle_helper::vehicle(VehHash, g_selected.ped);
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Plane Chase"))
+                    if (ImGui::Button(xorstr("Plane Chase")))
                     {
                         vehicle_helper::swam(VehHash, g_selected.ped);
                     }
-                    if (ImGui::Button("Attach Vehicle"))
+                    if (ImGui::Button(xorstr("Attach Vehicle")))
                     {
                         vehicle_helper::attach_vehicle(VehHash, g_selected.player);
                     }
                     ImGui::SameLine();
-                    ImGui::Checkbox("Godmode", &g_toggle.godmode);
+                    ImGui::Checkbox(xorstr("Godmode"), &g_toggle.godmode);
 
                     ImGui::PushItemWidth(250);
-                    ImGui::Combo("##ListVeh", &player_list::SelectedVehicle, var::VechicleList, IM_ARRAYSIZE(var::VechicleList)); // The second parameter is the label previewed before opening the combo.
+                    ImGui::Combo(xorstr("##ListVeh"), &player_list::SelectedVehicle, var::VechicleList, IM_ARRAYSIZE(var::VechicleList)); // The second parameter is the label previewed before opening the combo.
                     ImGui::PopItemWidth();
-                    if (ImGui::Button("Spawn Native"))
+                    if (ImGui::Button(xorstr("Spawn Native")))
                     {
                         vehicle_helper::vehicle(var::VechicleList[player_list::SelectedVehicle], g_selected.ped);
                     }
                     ImGui::SameLine();
-                    if (ImGui::Checkbox("Maxed Out", g_settings.options["Full Upgrade Bool"].get<bool*>()))
+                    if (ImGui::Checkbox(xorstr("Maxed Out"), g_settings.options["Full Upgrade Bool"].get<bool*>()))
                         g_settings.save();
                     ImGui::SameLine();
-                    if (ImGui::Checkbox("Auto Get-in ##V", g_settings.options["Auto Get-in"].get<bool*>()))
+                    if (ImGui::Checkbox(xorstr("Auto Get-in ##V"), g_settings.options["Auto Get-in"].get<bool*>()))
                         g_settings.save();
-                    if (ImGui::Button("Send CargoPlaneToAll"))
+                    if (ImGui::Button(xorstr("Send CargoPlaneToAll")))
                     {
                         QUEUE_JOB_BEGIN_CLAUSE()
                         {
@@ -1250,7 +1257,7 @@ namespace big
                             }
                         } QUEUE_JOB_END_CLAUSE
                     }
-                    if (ImGui::Button("Remove Vehicle Around"))
+                    if (ImGui::Button(xorstr("Remove Vehicle Around")))
                     {
                         g_fiber_pool->queue_job([]
                             {
@@ -1281,7 +1288,7 @@ namespace big
                                 }
                             });
                     }
-                    if (ImGui::Button("Remove Player Vehicle"))
+                    if (ImGui::Button(xorstr("Remove Player Vehicle")))
                     {
                         g_fiber_pool->queue_job([]
                             {
@@ -1302,40 +1309,40 @@ namespace big
 
                 ImGui::Separator();
 
-                ImGui::PushID("##PedSpawner");
-                if (ImGui::BeginMenu("Ped Spawner"))
+                ImGui::PushID(xorstr("##PedSpawner"));
+                if (ImGui::BeginMenu(xorstr("Ped Spawner")))
                 {
                     static int SelectedPed = 0;
                     static char PedHash[200];
                     ImGui::PushItemWidth(250);
-                    ImGui::InputText("Ped Hash##Manual", PedHash, IM_ARRAYSIZE(PedHash), ImGuiInputTextFlags_CharsUppercase);
+                    ImGui::InputText(xorstr("Ped Hash##Manual"), PedHash, IM_ARRAYSIZE(PedHash), ImGuiInputTextFlags_CharsUppercase);
                     ImGui::PopItemWidth();
-                    if (ImGui::Button("Spawn Ped##Manual"))
+                    if (ImGui::Button(xorstr("Spawn Ped##Manual")))
                     {
                         g_fiber_pool->queue_job([] {
                             auto coords = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
                             ped::create_ped(rage::joaat(PedHash), coords, 3, TRUE);
                             });
                     }
-                    if (ImGui::Button("Attach Ped##Manual"))
+                    if (ImGui::Button(xorstr("Attach Ped##Manual")))
                     {
                         ped::attach_ped(rage::joaat(PedHash), g_selected.ped);
                     }
                     ImGui::PushItemWidth(250);
-                    ImGui::Combo("##PedList", &SelectedPed, var::PedList, IM_ARRAYSIZE(var::PedList));
+                    ImGui::Combo(xorstr("##PedList"), &SelectedPed, var::PedList, IM_ARRAYSIZE(var::PedList));
                     ImGui::PopItemWidth();
-                    if (ImGui::Button("Spawn Ped"))
+                    if (ImGui::Button(xorstr("Spawn Ped")))
                     {
                         g_fiber_pool->queue_job([] {
                             auto coords = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
                             ped::create_ped(rage::joaat(var::PedList[SelectedPed]), coords, 3, TRUE);
                             });
                     }
-                    if (ImGui::Button("Attach Ped"))
+                    if (ImGui::Button(xorstr("Attach Ped")))
                     {
                         ped::attach_ped(rage::joaat(var::PedList[SelectedPed]), g_selected.ped);
                     }
-                    if (ImGui::Button("Detach Ped"))
+                    if (ImGui::Button(xorstr("Detach Ped")))
                     {
                         QUEUE_JOB_BEGIN_CLAUSE()
                         {
@@ -1367,10 +1374,10 @@ namespace big
                             }
                         } QUEUE_JOB_END_CLAUSE
                     }
-                    ImGui::Checkbox("Invisible Ped", &player_list::IsVisible);
+                    ImGui::Checkbox(xorstr("Invisible Ped"), &player_list::IsVisible);
                     ImGui::SameLine();
-                    ImGui::Checkbox("Aggresive Ped", &player_list::AggressivePed);
-                    ImGui::Checkbox("Body Guard", &player_list::AsBodyGuard);
+                    ImGui::Checkbox(xorstr("Aggresive Ped"), &player_list::AggressivePed);
+                    ImGui::Checkbox(xorstr("Body Guard"), &player_list::AsBodyGuard);
 
                     ImGui::EndMenu();
                 }
@@ -1378,14 +1385,14 @@ namespace big
 
                 ImGui::Separator();
 
-                ImGui::PushID("##PickupSpawner");
-                if (ImGui::BeginMenu("Pickup Spawner"))
+                ImGui::PushID(xorstr("##PickupSpawner"));
+                if (ImGui::BeginMenu(xorstr("Pickup Spawner")))
                 {
                     static int selected_pickup = 0;
                     static int selected_object = 0;
-                    ImGui::Combo("##PickupHash", &selected_pickup, var::PickupHash, IM_ARRAYSIZE(var::PickupHash));
-                    ImGui::Combo("##PropList", &selected_object, var::ObjectList, IM_ARRAYSIZE(var::ObjectList));
-                    if (ImGui::Button("Send Pickup"))
+                    ImGui::Combo(xorstr("##PickupHash"), &selected_pickup, var::PickupHash, IM_ARRAYSIZE(var::PickupHash));
+                    ImGui::Combo(xorstr("##PropList"), &selected_object, var::ObjectList, IM_ARRAYSIZE(var::ObjectList));
+                    if (ImGui::Button(xorstr("Send Pickup")))
                     {
                         object::CreatePickup(var::PickupHash[selected_pickup], var::ObjectList[selected_object], 9999, g_selected.ped);
                     }

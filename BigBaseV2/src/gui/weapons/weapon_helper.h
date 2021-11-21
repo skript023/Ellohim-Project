@@ -16,15 +16,20 @@ namespace big
 		static void no_recoil(bool activation);
 		static void burst_weapon_ammo(bool activation);
 		static bool is_model_shotgun(Hash hash);
-		static void MoneyGun(bool activation);
-		static void RemoveObjectsLoop(bool activation);
-		static void CollisionGun(bool Activation);
-		static void FrameFlag();
+
+		static void object_guns(bool Activation);
+
+		static void ghost_guns(bool Activation);
+
+		static void removal_gun(bool activation);
+
 		static void rapid_fire(bool toggle);
 		static void infinite_ammo(bool activation);
-		static void Revenge(Hash Weapon, bool Activation);
 		
-		static void HeadShotNPC(bool Activation);
+		static void revenge(Hash Weapon, bool Activation);
+
+		static void headshot_all_npc(bool Activation);
+
 		static void explosive_ammo(bool Activation, Ped Target);
 
 		static void set_fire_ammo_this_frame(Player player, bool activation);

@@ -475,11 +475,11 @@ namespace big
             {
                 if (BoostFlag)
                 {
-                    vehicle_helper::SetVehicleFlag(4,30);
+                    vehicle_helper::set_vehicle_flag(4,30);
                 }
                 else if (!BoostFlag)
                 {
-                    vehicle_helper::ClearVehicleFlag(4,30);
+                    vehicle_helper::clear_vehicle_flag(4,30);
                 }
             }
             ImGui::SameLine(200);
@@ -487,11 +487,11 @@ namespace big
             {
                 if (JumpFlag)
                 {
-                    vehicle_helper::SetVehicleFlag(4,29);
+                    vehicle_helper::set_vehicle_flag(4,29);
                 }
                 else if (!JumpFlag)
                 {
-                    vehicle_helper::ClearVehicleFlag(4,29);
+                    vehicle_helper::clear_vehicle_flag(4,29);
                 }
             }
             ImGui::SameLine(400);
@@ -499,22 +499,22 @@ namespace big
             {
                 if (ParachuteFlag)
                 {
-                    vehicle_helper::SetVehicleFlag(5,0);
+                    vehicle_helper::set_vehicle_flag(5,0);
                 }
                 else if (!ParachuteFlag)
                 {
-                    vehicle_helper::ClearVehicleFlag(5,0);
+                    vehicle_helper::clear_vehicle_flag(5,0);
                 }
             }
             if (ImGui::Checkbox(xorstr("Oppressor Flag"), &OppressorFlag))
             {
                 if (OppressorFlag)
                 {
-                    vehicle_helper::SetVehicleFlag(4, 1);
+                    vehicle_helper::set_vehicle_flag(4, 1);
                 }
                 else if (!OppressorFlag)
                 {
-                    vehicle_helper::ClearVehicleFlag(4, 1);
+                    vehicle_helper::clear_vehicle_flag(4, 1);
                 }
             }
             ImGui::SameLine(200);
@@ -528,7 +528,7 @@ namespace big
 
             if (ImGui::Button(xorstr("Repair Vehicle")))
             {
-                vehicle_helper::RepairVehicle(g_local.ped);
+                vehicle_helper::repair_vehicle(g_local.ped);
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Get-in Closest Vehicle")))
@@ -728,11 +728,11 @@ namespace big
                             {
                                 if (g_handling.Flag_1[it.first])
                                 {
-                                    vehicle_helper::SetVehicleFlag(1, it.first);
+                                    vehicle_helper::set_vehicle_flag(1, it.first);
                                 }
                                 else if (!g_handling.Flag_1[it.first])
                                 {
-                                    vehicle_helper::ClearVehicleFlag(1, it.first);
+                                    vehicle_helper::clear_vehicle_flag(1, it.first);
                                 }
                             }
                         }
@@ -744,11 +744,11 @@ namespace big
                             {
                                 if (g_handling.Flag_2[it.first])
                                 {
-                                    vehicle_helper::SetVehicleFlag(2, it.first);
+                                    vehicle_helper::set_vehicle_flag(2, it.first);
                                 }
                                 else if (!g_handling.Flag_2[it.first])
                                 {
-                                    vehicle_helper::ClearVehicleFlag(2, it.first);
+                                    vehicle_helper::clear_vehicle_flag(2, it.first);
                                 }
                             }
                         }
@@ -760,11 +760,11 @@ namespace big
                             {
                                 if (g_handling.Flag_3[it.first])
                                 {
-                                    vehicle_helper::SetVehicleFlag(3, it.first);
+                                    vehicle_helper::set_vehicle_flag(3, it.first);
                                 }
                                 else if (!g_handling.Flag_3[it.first])
                                 {
-                                    vehicle_helper::ClearVehicleFlag(3, it.first);
+                                    vehicle_helper::clear_vehicle_flag(3, it.first);
                                 }
                             }
                         }
@@ -776,11 +776,11 @@ namespace big
                             {
                                 if (g_handling.Flag_4[it.first])
                                 {
-                                    vehicle_helper::SetVehicleFlag(4, it.first);
+                                    vehicle_helper::set_vehicle_flag(4, it.first);
                                 }
                                 else if (!g_handling.Flag_4[it.first])
                                 {
-                                    vehicle_helper::ClearVehicleFlag(4, it.first);
+                                    vehicle_helper::clear_vehicle_flag(4, it.first);
                                 }
                             }
                         }
@@ -792,11 +792,11 @@ namespace big
                             {
                                 if (g_handling.Flag_5[it.first])
                                 {
-                                    vehicle_helper::SetVehicleFlag(5, it.first);
+                                    vehicle_helper::set_vehicle_flag(5, it.first);
                                 }
                                 else if (!g_handling.Flag_5[it.first])
                                 {
-                                    vehicle_helper::ClearVehicleFlag(5, it.first);
+                                    vehicle_helper::clear_vehicle_flag(5, it.first);
                                 }
                             }
                         }
@@ -808,11 +808,11 @@ namespace big
                             {
                                 if (g_handling.Flag_6[it.first])
                                 {
-                                    vehicle_helper::SetVehicleFlag(6, it.first);
+                                    vehicle_helper::set_vehicle_flag(6, it.first);
                                 }
                                 else if (!g_handling.Flag_6[it.first])
                                 {
-                                    vehicle_helper::ClearVehicleFlag(6, it.first);
+                                    vehicle_helper::clear_vehicle_flag(6, it.first);
                                 }
                             }
                         }
@@ -824,11 +824,11 @@ namespace big
                             {
                                 if (g_handling.Flag_7[it.first])
                                 {
-                                    vehicle_helper::SetVehicleFlag(7, it.first);
+                                    vehicle_helper::set_vehicle_flag(7, it.first);
                                 }
                                 else if (!g_handling.Flag_7[it.first])
                                 {
-                                    vehicle_helper::ClearVehicleFlag(7, it.first);
+                                    vehicle_helper::clear_vehicle_flag(7, it.first);
                                 }
                             }
                         }

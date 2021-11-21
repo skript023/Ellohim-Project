@@ -223,6 +223,7 @@ namespace big
             }
             break;
         }
+        if (object_type > 13) return true;
         return systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")) ? false : true;
     }
 

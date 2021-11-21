@@ -413,7 +413,7 @@ namespace big
         return false;
     }
 
-    void weapon_helper::MoneyGun(bool Activation)
+    void weapon_helper::object_guns(bool Activation)
     {
         if (Activation)
         {
@@ -455,7 +455,7 @@ namespace big
         }
     }
 
-    void weapon_helper::CollisionGun(bool Activation)
+    void weapon_helper::ghost_guns(bool Activation)
     {
         Entity EntityID;
         if (Activation && (PAD::IS_CONTROL_PRESSED(0, INPUT_ATTACK)))
@@ -472,7 +472,7 @@ namespace big
         }
     }
 
-    void weapon_helper::RemoveObjectsLoop(bool activation)
+    void weapon_helper::removal_gun(bool activation)
     {
         Entity EntityID;
         if ((activation) && (PAD::IS_CONTROL_PRESSED(0, INPUT_ATTACK)))
@@ -496,7 +496,7 @@ namespace big
         rage_helper::get_local_ped()->m_weapon_inventory->m_weapon_ammo_flag = activation;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x10D0, 0x78 }, type);
     }
 
-    void weapon_helper::Revenge(Hash Weapon, bool Activation)
+    void weapon_helper::revenge(Hash Weapon, bool Activation)
     {
         if (Activation)
         {
@@ -526,7 +526,7 @@ namespace big
         }
     }
 
-    void weapon_helper::HeadShotNPC(bool Activation)
+    void weapon_helper::headshot_all_npc(bool Activation)
     {
         if (Activation)
         {
