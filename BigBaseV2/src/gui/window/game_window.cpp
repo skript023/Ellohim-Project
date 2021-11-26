@@ -3,6 +3,7 @@
 #include "pointers.hpp"
 #include "imgui.h"
 #include "gta_util.hpp"
+#include "gui/controller/xostr.h"
 
 //Gui Tab Renderer
 #include "gui/player_list.h"
@@ -11,7 +12,7 @@
 #include "gui/online_menu.h"
 #include "gui/player_menu.h"
 #include "gui/vehicle_customize.h"
-#include "gui\controller\xostr.h"
+#include "gui/window/window_logger.hpp"
 
 namespace big
 {
@@ -19,20 +20,20 @@ namespace big
 	{
 		switch (rage::joaat(std::to_string(license) + "-PREMIUM_EDITION"))
 		{
-		case RAGE_JOAAT("199227111-PREMIUM_EDITION"):
-		case RAGE_JOAAT("160920790-PREMIUM_EDITION"):
-		case RAGE_JOAAT("148443584-PREMIUM_EDITION"):
-		case RAGE_JOAAT("196561748-PREMIUM_EDITION"):
-		case RAGE_JOAAT("96098918-PREMIUM_EDITION"):
-		case RAGE_JOAAT("176139389-PREMIUM_EDITION"):
-		case RAGE_JOAAT("156127327-PREMIUM_EDITION"):
-			return true;
-		default:
-			if (rage::joaat(std::to_string(license) + "-FREE_EDITION") == RAGE_JOAAT("170730888-FREE_EDITION") || rage::joaat(std::to_string(license) + "-FREE_EDITION") == RAGE_JOAAT("140834687-FREE_EDITION"))
-			{
+			case RAGE_JOAAT("199227111-PREMIUM_EDITION"):
+			case RAGE_JOAAT("160920790-PREMIUM_EDITION"):
+			case RAGE_JOAAT("148443584-PREMIUM_EDITION"):
+			case RAGE_JOAAT("196561748-PREMIUM_EDITION"):
+			case RAGE_JOAAT("96098918-PREMIUM_EDITION"):
+			case RAGE_JOAAT("176139389-PREMIUM_EDITION"):
+			case RAGE_JOAAT("156127327-PREMIUM_EDITION"):
 				return true;
-			}
-			return false;
+			default:
+				if (rage::joaat(std::to_string(license) + "-FREE_EDITION") == RAGE_JOAAT("170730888-FREE_EDITION") || rage::joaat(std::to_string(license) + "-FREE_EDITION") == RAGE_JOAAT("140834687-FREE_EDITION"))
+				{
+					return true;
+				}
+				return false;
 		}
 	}
 
@@ -79,6 +80,7 @@ namespace big
 				online_menu::render_online_tab(xorstr("Online"));
 				player_list::render_player_list(xorstr("Player List"));
 				setting_tab::render_setting_tab(xorstr("Setting"));
+				window_log::logger(xorstr("Log"));
 				ImGui::EndTabBar();
 			}
 			if (!game_window::check_license(*g_pointers->m_player_rid))

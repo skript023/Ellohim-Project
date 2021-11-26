@@ -16,6 +16,7 @@ namespace big
 		static inline char username[255] = "None";
 		static inline char password[255] = "None";
 		static inline HW_PROFILE_INFO profile_info;
+		static inline bool logger{};
 	};
 
 	inline static game_window* g_game_window{};
