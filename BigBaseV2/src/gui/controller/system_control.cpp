@@ -8,15 +8,15 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "ScriptController.h"
-#include <gui\player_list.h>
-#include <gta\Weapons.h>
-#include <gui/controller/game_variable.h>
-#include <gui/controller/memory_address.hpp>
+#include "gui/player_list.h"
+#include "gta/Weapons.h"
+#include "gui/controller/game_variable.h"
+#include "gui/controller/memory_address.hpp"
 #include "system_control.h"
 #include "gta/net_object_mgr.hpp"
 #include "gui/sync_hash.hpp"
-#include <gui/vehicle/vehicle_helper.h>
-#include <gui/object/object.h>
+#include "gui/vehicle/vehicle_helper.h"
+#include "gui/object/object.h"
 
 namespace big
 {
@@ -40,7 +40,7 @@ namespace big
         auto object_type = netObject->object_type;
         switch (object_type)
         {
-            case NET_OBJ_TYPE_AUTOMOBILE:
+        case NET_OBJ_TYPE_AUTOMOBILE:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_car)
@@ -56,7 +56,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_BIKE:
+        case NET_OBJ_TYPE_BIKE:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_bike)
@@ -72,7 +72,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_BOAT:
+        case NET_OBJ_TYPE_BOAT:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_boat)
@@ -88,7 +88,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_DOOR:
+        case NET_OBJ_TYPE_DOOR:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_door)
@@ -104,7 +104,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_HELI:
+        case NET_OBJ_TYPE_HELI:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_heli)
@@ -120,7 +120,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_OBJECT:
+        case NET_OBJ_TYPE_OBJECT:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_objects)
@@ -136,7 +136,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_PED:
+        case NET_OBJ_TYPE_PED:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_ped)
@@ -148,11 +148,11 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_PICKUP:
-                return false;
-            case NET_OBJ_TYPE_PICKUP_PLACEMENT:
-                return false;
-            case NET_OBJ_TYPE_PLANE:
+        case NET_OBJ_TYPE_PICKUP:
+            return false;
+        case NET_OBJ_TYPE_PICKUP_PLACEMENT:
+            return false;
+        case NET_OBJ_TYPE_PLANE:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_plane)
@@ -168,7 +168,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_SUBMARINE:
+        case NET_OBJ_TYPE_SUBMARINE:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_submarine)
@@ -184,7 +184,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_PLAYER:
+        case NET_OBJ_TYPE_PLAYER:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 switch (player_hash)
@@ -196,7 +196,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_TRAILER:
+        case NET_OBJ_TYPE_TRAILER:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_trailer)
@@ -206,7 +206,7 @@ namespace big
                 }
             }
             break;
-            case NET_OBJ_TYPE_TRAIN:
+        case NET_OBJ_TYPE_TRAIN:
             if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller") || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020"))))
             {
                 for (auto obj : sync_train)
@@ -223,7 +223,6 @@ namespace big
             }
             break;
         }
-        if (object_type > 13) return true;
         return systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) || !systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")) ? false : true;
     }
 

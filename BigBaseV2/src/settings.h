@@ -56,6 +56,7 @@ namespace big
 			"Redirect Network Event": false,
 			"PTFX Event Block": true,
 			"Disable Censor": true,
+			"Logger Window": false,
 			"script monitor sorted": false
 		})"_json;
 

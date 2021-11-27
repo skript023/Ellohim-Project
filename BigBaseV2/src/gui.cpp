@@ -107,6 +107,7 @@ namespace big
 
 	void gui::script_init()
 	{
+		g_gui.m_opened = true;
 	}
 
 	void gui::script_on_tick()
@@ -115,7 +116,6 @@ namespace big
 		{
 			if (g_gui.m_opened)
 			{
-				//PAD::DISABLE_ALL_CONTROL_ACTIONS(0);
 				PAD::DISABLE_CONTROL_ACTION(2, INPUT_ATTACK, TRUE);
 				PAD::DISABLE_CONTROL_ACTION(2, INPUT_ATTACK2, TRUE);
 				PAD::DISABLE_CONTROL_ACTION(2, INPUT_VEH_ATTACK, TRUE);
@@ -141,6 +141,7 @@ namespace big
 				PAD::DISABLE_CONTROL_ACTION(2, INPUT_LOOK_LR, TRUE);
 				PAD::DISABLE_CONTROL_ACTION(2, INPUT_LOOK_UD, TRUE);
 				PAD::DISABLE_CONTROL_ACTION(2, INPUT_VEH_FLY_ATTACK_CAMERA, TRUE);
+				PAD::DISABLE_CONTROL_ACTION(2, INPUT_VEH_EXIT, TRUE);
 			}
 		}
 		EXCEPT_CLAUSE

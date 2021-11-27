@@ -15,16 +15,19 @@
 
 namespace big
 {
-    void vehicle_helper::set_vehicle_collision(bool activation)
+    void vehicle_helper::set_vehicle_collision(Player player, bool activation)
     {
-        if (player::is_player_in_any_vehicle(g_local.player))
-        {//0.03999999911f
-            for (int i = 0; i <= 64; i++)//-100000000.f
-            {
-                if (rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) == nullptr || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) > reinterpret_cast<VehicleCollision*>(0x7FFFFFFFFFF) || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) < rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(1))
-                    continue;
-                if (systems::is_float_equal(rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision, 0.03999999911f))
-                    rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision = -100000000.f;
+        if (activation)
+        {
+            if (player::is_player_in_any_vehicle(player))
+            {//0.03999999911f
+                for (int i = 0; i <= 64; i++)//-100000000.f
+                {
+                    if (rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) == nullptr || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) > reinterpret_cast<VehicleCollision*>(0x7FFFFFFFFFF) || rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i) < rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(1))
+                        continue;
+                    if (systems::is_float_equal(rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision, 0.03999999911f))
+                        rage_helper::get_local_vehicle()->m_navigation->m_ph_arche->get_geometry(i)->m_collision = -100000000.f;
+                }
             }
         }
     }

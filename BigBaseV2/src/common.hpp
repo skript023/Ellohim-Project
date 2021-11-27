@@ -54,6 +54,10 @@
 
 #include "settings.h"
 
+#define MOD_NAME "Ellohim Private Menu"
+
+#define PRODUCT_NAME "Ellohim"
+
 namespace big
 {
 	using namespace std::chrono_literals;

@@ -2,7 +2,6 @@
 #include <renderer.hpp>
 #include <logger.hpp>
 #include "window_logger.hpp"
-#include "game_window.hpp"
 
 namespace big
 {
@@ -10,7 +9,7 @@ namespace big
     {
         ImGui::SetNextWindowSize({ 500, 250 }, ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowPos({ 50, 50 }, ImGuiCond_FirstUseEver);
-        if (g_game_window->logger && ImGui::Begin(window_name))
+        if (g_settings.options["Logger Window"] && ImGui::Begin(window_name))
         {
             ImGui::PushFont(g_renderer->m_monospace_font);
 

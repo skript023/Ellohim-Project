@@ -34,16 +34,7 @@ namespace big
 				return true;
 			}
 		}
-		__try
-		{
-			return g_hooking->m_clone_create_hook.get_original<functions::clone_create_t>()(mgr, src, dst, _object_type, _object_id, _object_flag, buffer, timestamp);
-		}
-		__except (EXCEPTION_EXECUTE_HANDLER)
-		{
-			buffer->m_unkBit = buffer->m_maxBit;
-			message::notification("~bold~~o~Ellohim Private Menu", "Attempt To Crashing You", "~bold~~g~Ellohim Menu Protection");
-			return true;
-		}
+		return g_hooking->m_clone_create_hook.get_original<functions::clone_create_t>()(mgr, src, dst, _object_type, _object_id, _object_flag, buffer, timestamp);
 	}
 
 	bool hooks::sync_read_buffer(rage::netSyncTree* netSyncTree, int32_t sync_type, int32_t _sync_flag, rage::datBitBuffer* buffer, void* netLogStub)
@@ -79,7 +70,7 @@ namespace big
 		const char* name = g_hook_variable.entity_id == object_id ? g_hook_variable.sender_name : "Unknown";
 		bool is_name_valid = strcmp(name, "Unknown") == 0;
 
-		
+
 		if (g_settings.options["Log Player"])
 		{
 			auto vehicle_name = vehicle_helper::get_vehicle_name_from_hash(vehicle_hash);
@@ -88,17 +79,16 @@ namespace big
 			auto player_name = player::get_ped_name_from_hash(netSyncTree->m_sync_tree_node->m_player_model);
 			LOG(INFO_TO_FILE) << fmt::format("Sender : {} | Ped : {} | Vehicle : {} | Object : {} | Pickup : {} | Player : {} | Type : {} | Object Id : {}", name, ped_name, vehicle_name, object_name, pickup_hash, player_name, netObject->object_type, netObject->object_id);
 		}
-		
+
 		if (g_settings.options["Crash Protection"])
 		{
 			if (object_validity || systems::is_model_valid(sync_tree, network_object) && !is_name_valid)
 			{
-				
 				auto vehicle_name = vehicle_helper::get_vehicle_name_from_hash(vehicle_hash);
 				auto ped_name = player::get_ped_name_from_hash(ped_hash);
 				auto object_name = object::get_object_name_from_hash(obj_hash);
 				auto player_name = player::get_ped_name_from_hash(netSyncTree->m_sync_tree_node->m_player_model);
-				
+
 				strcat(info, name);
 				message::notification("~bold~~o~Ellohim Private Menu", info, "~bold~~g~Ellohim Menu Protection");
 				LOG(HACKER) << fmt::format("Sender : {} | Ped : {} | Vehicle : {} | Object : {} | Pickup : {} | Player : {} | Type : {} | Object Id : {}", name, ped_name, vehicle_name, object_name, pickup_hash, player_name, netObject->object_type, netObject->object_id);
@@ -107,5 +97,4 @@ namespace big
 		}
 		return g_hooking->m_sync_can_apply_hook.get_original<functions::sync_can_apply_t>()(netSyncTree, netObject);
 	}
-
 }

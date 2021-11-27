@@ -303,6 +303,9 @@
     <ClInclude Include="src\gui\controller\sha256.h">
       <Filter>gui\controller</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\window\window_logger.hpp">
+      <Filter>gui\window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -428,6 +431,9 @@
       <Filter>gui\controller</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\window\game_window.cpp">
+      <Filter>gui\window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\window\window_logger.cpp">
       <Filter>gui\window</Filter>
     </ClCompile>
   </ItemGroup>

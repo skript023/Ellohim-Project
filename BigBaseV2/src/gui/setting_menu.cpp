@@ -62,6 +62,9 @@ namespace big
             }
             ImGui::Separator();
 
+            if (ImGui::Checkbox(xorstr("Logger"), g_settings.options["Logger Window"].get<bool*>()))
+                g_settings.save();
+
             if (ImGui::CollapsingHeader(xorstr("Game Setting")))
             {
                 static bool expand = g_pointers->m_game_setting->m_radar_expansion;

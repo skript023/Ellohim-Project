@@ -244,6 +244,7 @@
     <ClInclude Include="src\gui\vehicle\vehicle_helper.h" />
     <ClInclude Include="src\gui\weapons\weapon_helper.h" />
     <ClInclude Include="src\gui\window\game_window.hpp" />
+    <ClInclude Include="src\gui\window\window_logger.hpp" />
     <ClInclude Include="src\hooking.hpp" />
     <ClInclude Include="src\imguibitfield.h" />
     <ClInclude Include="src\invoker.hpp" />
@@ -307,6 +308,7 @@
     <ClCompile Include="src\gui\vehicle\vehicle_helper.cpp" />
     <ClCompile Include="src\gui\weapons\weapon_helper.cpp" />
     <ClCompile Include="src\gui\window\game_window.cpp" />
+    <ClCompile Include="src\gui\window\window_logger.cpp" />
     <ClCompile Include="src\hooking.cpp" />
     <ClCompile Include="src\invoker.cpp" />
     <ClCompile Include="src\main.cpp" />

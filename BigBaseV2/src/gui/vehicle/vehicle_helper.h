@@ -10,7 +10,7 @@ namespace big
 	class vehicle_helper
 	{
 	public:
-		static void set_vehicle_collision(bool activation);
+		static void set_vehicle_collision(Player player, bool activation);
 		static void set_vehicle_turn_light(Vehicle vehicle, int TurnLight);
 		static void set_vehicle_engine_on(Vehicle vehicle, bool EngineStatus);
 		static bool get_vehicle_engine(Vehicle vehicle);
