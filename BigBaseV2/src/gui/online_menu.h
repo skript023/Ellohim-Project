@@ -9,7 +9,42 @@ namespace big
 	{
 	public:
 		static void render_online_tab(const char* tab_name);
-	};
+
+    private:
+        static inline const char* const SessionList[]{"Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session","Closed Friend Session", "Find Friend Session","Solo Session", "Invite Only Session","Join Crew Session", "Join SCTV", "Leave GTA Online"};
+        static inline int SelectedSession = 0;
+
+        static inline int selected_service = 0;
+        static inline  const char* const service_list[]{ "Select", "Terrobyte", "Kosatka", "Avenger", "Mobile Operation Center", "Dinghy" };
+	
+        static inline const char* const weather_list[]{ "EXTRASUNNY", "CLEAR", "CLOUDS", "SMOG", "FOGGY", "OVERCAST", "RAIN", "THUNDER", "CLEARING", "NEUTRAL", "SNOW", "BLIZZARD", "SNOWLIGHT", "XMAS", "HALLOWEEN" };
+        static inline int selected_weather = 0;
+        static inline int Hour;
+        static inline int Minute;
+        static inline int Second;
+
+        static inline const char* const HeistList[]{ "Bigcon", "Silent", "Aggressive", "Cayo Perico" };
+        static inline int SelectedHeist = 0;
+        static inline int selected_mission = 0;
+
+        static inline int player_cut_1 = 0;
+        static inline int player_cut_2 = 0;
+        static inline int player_cut_3 = 0;
+        static inline int player_cut_4 = 0;
+
+        static inline const char* const tuner_mission[]{ "Union Depository", "Superdollar Deal", "Bank Contract", "ECU Job", "Prison Contract", "Agency Deal", "LOST Contract", "Data Contract" };
+        static inline int selected_heist_type = 0;
+
+        static inline int PotentialValue = 0;
+        static inline const char* const PotentialTake[]{ "Select", "Diamond", "Gold", "Artwork", "Cash", "Tequila", "Ruby", "Bearer Bonds","Pink Diamond", "Madrazo Files", "Saphire Panther",  "Fleeca", "Prison Break", "Humane Labs", "A Series","Pasific Standard", "ACT I", "ACT II", "ACT III" };
+        static inline int SelectedPotentialTake = 0;
+        static inline const char* const Bag[] = { "Bag Level 1", "Bag Level 2", "Bag Level 3", "Bag Level 4", "Over 1", "Over 2", "Infinite" };
+        static inline int SelectedBags = 0;
+        static inline int take_type = 0;
+
+        static inline const char* const CargoRareItems[] = { "Ornament Egg", "Gold Minigun", "Large Diamond", "Rare Hide", "Film Reel", "Pocket Watch" };
+        static inline int SelectedCargoItems = 0;
+    };
 }
 //LA(1784, 'gb_gunrunning') bunker = Counter --> LA(2029, 'gb_gunrunning') = Bunker Delivery
 //LA(589,'gb_contraband_sell') special cargo

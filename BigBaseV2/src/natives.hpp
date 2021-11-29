@@ -2074,7 +2074,7 @@ namespace MISC
 	NATIVE_DECL float GET_RANDOM_FLOAT_IN_RANGE(float startRange, float endRange) { return invoke<float>(0x313CE5879CEB6FCD, startRange, endRange); } // 0x313CE5879CEB6FCD 0x0562C4D0 b323
 	NATIVE_DECL int GET_RANDOM_INT_IN_RANGE(int startRange, int endRange) { return invoke<int>(0xD53343AA4FB7DD28, startRange, endRange); } // 0xD53343AA4FB7DD28 0x4051115B b323
 	NATIVE_DECL int _GET_RANDOM_INT_IN_RANGE_2(int startRange, int endRange) { return invoke<int>(0xF2D49816A804D134, startRange, endRange); } // 0xF2D49816A804D134 b1734
-	NATIVE_DECL BOOL GET_GROUND_Z_FOR_3D_COORD(float x, float y, float z, float* groundZ, BOOL unk, BOOL p5) { return invoke<BOOL>(0xC906A7DAB05C8D2B, x, y, z, groundZ, unk, p5); } // 0xC906A7DAB05C8D2B 0xA1BFD5E0 b323
+	NATIVE_DECL BOOL GET_GROUND_Z_FOR_3D_COORD(float x, float y, float z, float* groundZ, BOOL ignoreWater, BOOL p5) { return invoke<BOOL>(0xC906A7DAB05C8D2B, x, y, z, groundZ, ignoreWater, p5); } // 0xC906A7DAB05C8D2B 0xA1BFD5E0 b323
 	NATIVE_DECL BOOL GET_GROUND_Z_AND_NORMAL_FOR_3D_COORD(float x, float y, float z, float* groundZ, Vector3* normal) { return invoke<BOOL>(0x8BDC7BFC57A81E76, x, y, z, groundZ, normal); } // 0x8BDC7BFC57A81E76 0x64D91CED b323
 	NATIVE_DECL Any _GET_GROUND_Z_FOR_3D_COORD_2(Any p0, Any p1, Any p2, Any p3, Any p4, Any p5) { return invoke<Any>(0x9E82F0F362881B29, p0, p1, p2, p3, p4, p5); } // 0x9E82F0F362881B29 b505
 	NATIVE_DECL float ASIN(float p0) { return invoke<float>(0xC843060B5765DCE7, p0); } // 0xC843060B5765DCE7 0x998E5CAD b323

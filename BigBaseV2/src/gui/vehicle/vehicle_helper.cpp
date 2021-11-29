@@ -406,25 +406,14 @@ namespace big
 
             pos.x += player_list::DISTANCE_SPAWN * forward.x;
             pos.y += player_list::DISTANCE_SPAWN * forward.y;
-            MISC::GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, pos.z, &pos.z, TRUE, FALSE);
-
+            
             Hash hash_vehicle = controller::load(name);//load(name);
 
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
-            auto vehicle = VEHICLE::CREATE_VEHICLE(hash_vehicle, pos.x, pos.y, pos.z + 1, heading + 90.0f, TRUE, TRUE, FALSE);
+            auto vehicle = VEHICLE::CREATE_VEHICLE(hash_vehicle, pos.x, pos.y, pos.z + 1.f, heading + 90.0f, TRUE, TRUE, FALSE);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
 
             script::get_current()->yield();
-
-            if (*g_pointers->m_is_session_started)
-            {
-                DECORATOR::DECOR_SET_INT(vehicle, "MPBitset", 0);
-                ENTITY::_SET_ENTITY_SOMETHING(vehicle, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
-                auto networkId = NETWORK::VEH_TO_NET(vehicle);
-                if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(vehicle))
-                    NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
-                VEHICLE::SET_VEHICLE_IS_STOLEN(vehicle, FALSE);
-            }
 
             VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(vehicle, 1.f);
             VEHICLE::_SET_VEHICLE_CAN_BE_LOCKED_ON(vehicle, FALSE, FALSE);
@@ -473,6 +462,16 @@ namespace big
                 GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", PLAYER::PLAYER_PED_ID(), 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
             }
             STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_vehicle);
+
+            if (*g_pointers->m_is_session_started)
+            {
+                DECORATOR::DECOR_SET_INT(vehicle, "MPBitset", 0);
+                ENTITY::_SET_ENTITY_SOMETHING(vehicle, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
+                auto networkId = NETWORK::VEH_TO_NET(vehicle);
+                if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(vehicle))
+                    NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
+                VEHICLE::SET_VEHICLE_IS_STOLEN(vehicle, FALSE);
+            }
         }
         QUEUE_JOB_END_CLAUSE
     }

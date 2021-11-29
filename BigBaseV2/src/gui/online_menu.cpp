@@ -25,12 +25,6 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            static const char* const SessionList[]{
-                "Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session",
-                "Closed Friend Session", "Find Friend Session","Solo Session", "Invite Only Session",
-                "Join Crew Session", "Join SCTV", "Leave GTA Online"
-            };
-            static int SelectedSession = 0;
             ImGui::Combo(xorstr("Session Changer"), &SelectedSession, SessionList, IM_ARRAYSIZE(SessionList));
             if (ImGui::Button(xorstr("Select Session")))
             {
@@ -108,7 +102,7 @@ namespace big
             ImGui::SameLine(400);
             ImGui::Checkbox(xorstr("NPC HeadShot"), &g_weapon_option->auto_headshot);
 
-            if (ImGui::Button(xorstr("Load North Yankton")))
+            if (ImGui::Button(xorstr("Load North Yankton"), ImVec2(200, 0)))
             {
                 g_fiber_pool->queue_job([]
                 {
@@ -155,7 +149,7 @@ namespace big
                 });
             }
             ImGui::SameLine();
-            if (ImGui::Button(xorstr("RC Bandito")))
+            if (ImGui::Button(xorstr("RC Bandito"), ImVec2(200, 0)))
             {
                 g_fiber_pool->queue_job([] {
                     *script_global(g_global.rc_bandito).as<int*>() = 1;
@@ -164,7 +158,7 @@ namespace big
                     });
             }
             ImGui::SameLine();
-            if (ImGui::Button(xorstr("Minitank")))
+            if (ImGui::Button(xorstr("Minitank"), ImVec2(200, 0)))
             {
                 g_fiber_pool->queue_job([] {
                     *script_global(g_global.mini_tank).as<int*>() = 1;
@@ -172,8 +166,8 @@ namespace big
                     *script_global(g_global.mini_tank).as<int*>() = 0;
                     });
             }
-            ImGui::SameLine();
-            if (ImGui::Button(xorstr("Drone")))
+
+            if (ImGui::Button(xorstr("Drone"), ImVec2(200, 0)))
             {
                 g_fiber_pool->queue_job([] {
                     int flags = *script_global(g_global.drone).as<int*>();
@@ -191,12 +185,12 @@ namespace big
                     });
             }
             ImGui::SameLine();
-            if (ImGui::Button(xorstr("Remove Insurance")))
+            if (ImGui::Button(xorstr("Remove Insurance"), ImVec2(200, 0)))
             {
                 vehicle_helper::claim_insurance();
             }
-            static int selected_service = 0;
-            const char* const service_list[]{ "Select", "Terrobyte", "Kosatka", "Avenger", "Mobile Operation Center", "Dinghy" };
+
+            
             ImGui::PushItemWidth(250.f);
             if (ImGui::Combo(xorstr("Service"), &selected_service, service_list, IM_ARRAYSIZE(service_list)))
             {
@@ -225,18 +219,15 @@ namespace big
             if (ImGui::CollapsingHeader(xorstr("Misc")))
             {
                 ImGui::Text(xorstr("Weather Changer"));
-                const char* const WeatherList[]{ "EXTRASUNNY", "CLEAR", "CLOUDS", "SMOG", "FOGGY", "OVERCAST", "RAIN", "THUNDER", "CLEARING", "NEUTRAL", "SNOW", "BLIZZARD", "SNOWLIGHT", "XMAS", "HALLOWEEN" };
-                static int Selected = 0;
-                ImGui::Combo(xorstr("##WeatherID"), &Selected, WeatherList, IM_ARRAYSIZE(WeatherList));
+                
+                ImGui::Combo(xorstr("##WeatherID"), &selected_weather, weather_list, IM_ARRAYSIZE(weather_list));
                 if (ImGui::Button(xorstr("Set Weather")))
                 {
-                    systems::set_weather_type(WeatherList[Selected]);
+                    systems::set_weather_type(weather_list[selected_weather]);
                 }
                 ImGui::Separator();
                 ImGui::Text(xorstr("Clock Changer"));
-                static int Hour;
-                static int Minute;
-                static int Second;
+                
                 if (ImGui::SliderInt(xorstr("Hour"), &Hour, 1, 23))
                 {
                     g_fiber_pool->queue_job([]
@@ -297,11 +288,6 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Heist")))
             {
-                static const char* const HeistList[]{ "Bigcon", "Silent", "Aggressive", "Cayo Perico" };
-                static int SelectedHeist = 0;
-                static int selected_mission = 0;
-                static const char* const tuner_mission[]{ "Union Depository", "Superdollar Deal", "Bank Contract", "ECU Job", "Prison Contract", "Agency Deal", "LOST Contract", "Data Contract" };
-
                 ImGui::Checkbox(xorstr("All Crew Cut 0%"), &g_heist_option->casino_heist_crew);
                 ImGui::SameLine(200);
                 ImGui::Checkbox(xorstr("Auto Cut 85%"), &g_heist_option->auto_heist_cut);
@@ -312,7 +298,7 @@ namespace big
                 ImGui::SameLine(200);
                 ImGui::Checkbox(xorstr("Glass Cutter"), &g_heist_option->zero_heat);
 
-                if (ImGui::Button(xorstr("Open Vault Door")))
+                if (ImGui::Button(xorstr("Open Vault Door"), ImVec2(200, 0)))
                 {
                     g_fiber_pool->queue_job([] {
                         rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
@@ -330,7 +316,7 @@ namespace big
                     });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button(xorstr("Doomsday ACT III Hack")))
+                if (ImGui::Button(xorstr("Doomsday ACT III Hack"), ImVec2(200, 0)))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
                         if (auto doomsday = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
@@ -340,7 +326,7 @@ namespace big
                     });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button(xorstr("Instant Hack FP")))
+                if (ImGui::Button(xorstr("Instant Hack FP"), ImVec2(200, 0)))
                 {
                     if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")))
                     {
@@ -362,8 +348,8 @@ namespace big
                         });
                     }
                 }
-                ImGui::SameLine();
-                if (ImGui::Button(xorstr("Voltage Hack")))
+
+                if (ImGui::Button(xorstr("Voltage Hack"), ImVec2(200, 0)))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
                         if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
@@ -373,7 +359,7 @@ namespace big
                     });
                 }
                 ImGui::SameLine();
-                if (ImGui::Button(xorstr("Safe Crack")))
+                if (ImGui::Button(xorstr("Safe Crack"), ImVec2(200, 0)))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
                         if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
@@ -385,7 +371,8 @@ namespace big
                         }
                     });
                 }
-                if (ImGui::Button(xorstr("Motherboard Hacking")))
+                ImGui::SameLine();
+                if (ImGui::Button(xorstr("Motherboard Hacking"), ImVec2(200, 0)))
                 {
                     if (auto fleeca_bank = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
                     {
@@ -394,8 +381,9 @@ namespace big
                         *script_local(fleeca_bank, m_local.board_hacking_requirement).as<int*>() = 1;
                     }
                 }
+
                 ImGui::Text(xorstr("Instant Heist Setup"));
-                static int selected_heist_type = 0;
+                
                 ImGui::RadioButton(xorstr("Instant Heist Setup"), &selected_heist_type, 0);
                 ImGui::SameLine();
                 ImGui::RadioButton(xorstr("Instant Mission Contract Setup"), &selected_heist_type, 1);
@@ -751,10 +739,7 @@ namespace big
                 ImGui::Text(xorstr("Player 3"));
                 ImGui::SameLine();
                 ImGui::Text(xorstr("Player 4"));
-                static int player_cut_1 = 0;
-                static int player_cut_2 = 0;
-                static int player_cut_3 = 0;
-                static int player_cut_4 = 0;
+                
                 ImGui::InputScalar(xorstr("##Cut1"), ImGuiDataType_S8, &player_cut_1);
                 ImGui::SameLine();
                 ImGui::InputScalar(xorstr("##Cut2"), ImGuiDataType_S8, &player_cut_2);
@@ -806,17 +791,7 @@ namespace big
                     });
                 }
                 ImGui::Separator();
-                static int PotentialValue = 0;
-                static const char* const PotentialTake[]
-                {
-                    "Select", "Diamond", "Gold", "Artwork", "Cash", "Tequila", "Ruby", "Bearer Bonds",
-                    "Pink Diamond", "Madrazo Files", "Saphire Panther",  "Fleeca", "Prison Break", "Humane Labs", "A Series",
-                    "Pasific Standard", "ACT I", "ACT II", "ACT III"
-                };
-                static int SelectedPotentialTake = 0;
-                static const char* const Bag[] = { "Bag Level 1", "Bag Level 2", "Bag Level 3", "Bag Level 4", "Over 1", "Over 2", "Infinite" };
-                static int SelectedBags = 0;
-                static int take_type = 0;
+                
                 ImGui::RadioButton(xorstr("Potential Take"), &take_type, 0);
                 ImGui::SameLine();
                 ImGui::RadioButton(xorstr("Heist Take"), &take_type, 1);
@@ -1000,8 +975,6 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Business")))
             {
-                static const char* const CargoRareItems[] = { "Ornament Egg", "Gold Minigun", "Large Diamond", "Rare Hide", "Film Reel", "Pocket Watch" };
-                static int SelectedCargoItems = 0;
                 if (ImGui::BeginCombo(xorstr("Rare Item"), CargoRareItems[SelectedCargoItems])) // The second parameter is the label previewed before opening the combo.
                 {
                     for (int i = 0; i < IM_ARRAYSIZE(CargoRareItems); i++)

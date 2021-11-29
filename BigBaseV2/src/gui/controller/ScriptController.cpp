@@ -55,11 +55,10 @@ namespace big
 
     Hash controller::load(const char* name)
     {
-        const Hash hash = RAGE_JOAAT_IMPL(name);
-
-        STREAMING::REQUEST_MODEL(hash);
+        Hash hash = rage::joaat(name);
         while (!STREAMING::HAS_MODEL_LOADED(hash))
         {
+            STREAMING::REQUEST_MODEL(hash);
             script::get_current()->yield();
         }
         return hash;
@@ -67,12 +66,21 @@ namespace big
 
     Hash controller::load(Hash hash)
     {
-        STREAMING::REQUEST_MODEL(hash);
         while (!STREAMING::HAS_MODEL_LOADED(hash))
         {
+            STREAMING::REQUEST_MODEL(hash);
             script::get_current()->yield();
         }
         return hash;
+    }
+
+    void controller::ptfx_asset_load(const char* name)
+    {
+        STREAMING::REQUEST_NAMED_PTFX_ASSET(name);
+        while (!STREAMING::HAS_NAMED_PTFX_ASSET_LOADED(name))
+        {
+            script::get_current()->yield();
+        }
     }
 
     const char* controller::load_anim(const char* anim)

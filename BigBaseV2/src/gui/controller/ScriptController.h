@@ -11,6 +11,7 @@ namespace big
 		public:
 			static bool cstrcmp(const char* s1, const char* s2);
 			static Hash load(const char* name);
+			static void ptfx_asset_load(const char* name);
 			static Hash load(Hash hash);
 			static const char* load_anim(const char* anim);
 			
