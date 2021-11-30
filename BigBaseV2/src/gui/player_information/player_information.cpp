@@ -236,30 +236,6 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            static const char* const ScriptEvent[]{ "Teleport To Cayo", "Invite Apartment", "CEO Kick", "CEO Ban", "Rotate Cam","Vehicle Kick", "Clear Wanted", "Kick", "Send Transaction Failed", "Send To Mission", "Give Wanted Level", "Fake Money" };
-            static const char* const NetworkEvent[]{ "Weapon", "Request Anim Player", "Send Explosion", "Spectate", "Send Shoot", "Repair Vehicle", "Control Vehicle", "Bad Sport" };
-            static const char* const OtherEvent[]{ "Teleport To Player", "Clone Player", "Teleport All Ped", "Cage Player", "Steal Costume", "Disconnect", "Force Teleport" };
-            static int SelectedScriptEvent = 0;
-            static int SelectedNetworkEvent = 0;
-            static int SelectedOtherEvent = 0;
-
-            static int SelectedShoot = 0;
-            static int MoneyValue = 0;
-            static int type = 0;
-            static int SelectedExplosion = 0;
-            static int SelectedBlame = 0;
-            static int WeaponOption = 0;
-            static int ExplosiveMode = 0;
-            static int teleport_type = 0;
-            static int control_type = 0;
-            static bool isAudio = true;
-            static bool isInvinsible = false;
-            static bool AirStrike = false;
-            static bool AutoGetIn = false;
-            static int event_type = 0;
-            static bool bonus_repair = false;
-            static bool all_player = false;
-
             ImGui::RadioButton(xorstr("Script Event"), &event_type, 0);
             ImGui::SameLine();
             ImGui::RadioButton(xorstr("Network Event"), &event_type, 1);

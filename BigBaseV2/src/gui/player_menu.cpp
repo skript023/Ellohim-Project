@@ -20,9 +20,6 @@
 
 namespace big
 {
-    Any tanggal[12];
-    const char* StringValue = " ";
-
     void player_menu::render_player_tab(const char* tab_name)
     {
         if (ImGui::BeginTabItem(tab_name))
@@ -111,19 +108,6 @@ namespace big
             ImGui::Separator();
             ImGui::Checkbox(xorstr("No Clip"), &g_player_option.no_clip);
 
-            /*
-            if (ImGui::Button("RID Join"))
-            {
-                g_fiber_pool->queue_job([] {
-
-                    unsigned long long original = *(unsigned long long*)g_pointers->m_rid_joiner;
-                    unsigned long long target;
-                    memcpy(&target, &original, sizeof(original));
-                    result = target;
-
-
-                });
-            }*/
             int wanted_level_slider = player::get_player_wanted_level(g_local.player);
             if (ImGui::SliderInt(xorstr("Wanted Level"), &wanted_level_slider, 0, 5))
             {
@@ -268,33 +252,25 @@ namespace big
                 ImGui::SameLine();
                 ImGui::RadioButton(xorstr("String"), &e, 5);
                 ImGui::Separator();
-                static char StatName[255] = "";
-                static float StatValueFloat = 0;
-                static float IncrementValue = 0;
-                static int64_t IntegerValue = 0;
-                const uint64_t step_one = 100;
-                static bool BoolValue = true;
-                static bool inputs_step = false;
-                static char SetString[255];
-
-                ImGui::InputText(xorstr("##StatNames"), StatName, IM_ARRAYSIZE(StatName), ImGuiInputTextFlags_CharsUppercase);
+               
+                ImGui::InputText(xorstr("##Stat Name"), write_stat_name, IM_ARRAYSIZE(write_stat_name), ImGuiInputTextFlags_CharsUppercase);
 
                 switch (e)
                 {
                 case 0:
-                    ImGui::InputScalar(xorstr("##Integer"), ImGuiDataType_S64, &IntegerValue);
+                    ImGui::InputScalar(xorstr("##Integer"), ImGuiDataType_S64, &write_integer_value);
                     break;
 
                 case 1:
-                    ImGui::InputScalar(xorstr("##Increment"), ImGuiDataType_Float, &IncrementValue);
+                    ImGui::InputScalar(xorstr("##Increment"), ImGuiDataType_Float, &write_increment_value);
                     break;
 
                 case 2:
-                    ImGui::Checkbox(xorstr("##BoolValue"), &BoolValue);
+                    ImGui::Checkbox(xorstr("##BoolValue"), &write_bool_value);
                     break;
 
                 case 3:
-                    ImGui::InputScalar(xorstr("##Float"), ImGuiDataType_Float, &StatValueFloat);
+                    ImGui::InputScalar(xorstr("##Float"), ImGuiDataType_Float, &write_float_value);
                     break;
                 case 4:
                     ImGui::PushItemWidth(70);
@@ -318,48 +294,48 @@ namespace big
                     */
                     break;
                 case 5:
-                    ImGui::InputText(xorstr("##Strings"), SetString, IM_ARRAYSIZE(SetString));
+                    ImGui::InputText(xorstr("##Strings"), write_string_value, IM_ARRAYSIZE(write_string_value));
                     break;
                 }
 
                 if (ImGui::Button(xorstr("Write Stat")))
                 {
                     g_fiber_pool->queue_job([]
+                    {
+                        const auto chara = std::to_string(g_local.character);
+                        std::string final_stat_to_write = write_stat_name;
+                        std::string found_set_stat = final_stat_to_write.length() >= 3 ? final_stat_to_write.substr(2, 1) : final_stat_to_write;
+                        if (found_set_stat.compare("X") == 0)
                         {
-                            const auto chara = std::to_string(g_local.character);
-                            std::string WStatHash = StatName;
-                            std::string found_set_stat = WStatHash.length() >= 3 ? WStatHash.substr(2, 1) : WStatHash;
-                            if (found_set_stat.compare("X") == 0)
-                            {
-                                WStatHash.replace(2, 1, chara);
-                            }
+                            final_stat_to_write.replace(2, 1, chara);
+                        }
 
-                            switch (e)
-                            {
-                            case 0:
-                                STATS::STAT_SET_INT(rage::joaat(WStatHash), IntegerValue, TRUE);
-                                break;
+                        switch (e)
+                        {
+                        case 0:
+                            STATS::STAT_SET_INT(rage::joaat(final_stat_to_write), write_integer_value, TRUE);
+                            break;
 
-                            case 1:
-                                STATS::STAT_INCREMENT(rage::joaat(WStatHash), IncrementValue);
-                                break;
+                        case 1:
+                            STATS::STAT_INCREMENT(rage::joaat(final_stat_to_write), write_increment_value);
+                            break;
 
-                            case 2:
-                                STATS::STAT_SET_BOOL(rage::joaat(WStatHash), BoolValue, TRUE);
-                                break;
+                        case 2:
+                            STATS::STAT_SET_BOOL(rage::joaat(final_stat_to_write), write_bool_value, TRUE);
+                            break;
 
-                            case 3:
-                                STATS::STAT_SET_FLOAT(rage::joaat(WStatHash), StatValueFloat, TRUE);
-                                break;
+                        case 3:
+                            STATS::STAT_SET_FLOAT(rage::joaat(final_stat_to_write), write_float_value, TRUE);
+                            break;
 
-                            case 4:
-                                STATS::STAT_SET_DATE(rage::joaat(WStatHash), &tanggal[0], 7, TRUE);
-                                break;
-                            case 5:
-                                STATS::STAT_SET_STRING(rage::joaat(WStatHash), SetString, TRUE);
-                                break;
-                            }
-                        });
+                        case 4:
+                            STATS::STAT_SET_DATE(rage::joaat(final_stat_to_write), &tanggal[0], 7, TRUE);
+                            break;
+                        case 5:
+                            STATS::STAT_SET_STRING(rage::joaat(final_stat_to_write), write_string_value, TRUE);
+                            break;
+                        }
+                    });
                 }
                 ImGui::Separator();
                 static int r = 0;
@@ -374,17 +350,9 @@ namespace big
                 ImGui::SameLine();
                 ImGui::RadioButton(xorstr("String##Read"), &r, 4);
                 ImGui::Separator();
-                static int ReadIntegerValue;
-                static float ReadFloatValue;
-                static int ReadBoolValue;
-                static char GetStat[255];
-                static bool get_step = false;
-                static Any date[12];
-                static char BoolReturn[20];
-                static char StringReturn[255];
-                static uint64_t Val;
+                
 
-                ImGui::InputText(xorstr("##ReadStat"), GetStat, IM_ARRAYSIZE(GetStat), ImGuiInputTextFlags_CharsUppercase);
+                ImGui::InputText(xorstr("##ReadStat"), read_stat_name, IM_ARRAYSIZE(read_stat_name), ImGuiInputTextFlags_CharsUppercase);
 
                 switch (r)
                 {
@@ -395,34 +363,34 @@ namespace big
                     break;
 
                 case 1:
-                    ImGui::InputText(xorstr("##Get Bool"), BoolReturn, IM_ARRAYSIZE(BoolReturn), ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputText(xorstr("##Get Bool"), bool_to_text, IM_ARRAYSIZE(bool_to_text), ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
 
                 case 2:
-                    ImGui::InputScalar(xorstr("##Get Float"), ImGuiDataType_Float, &ReadFloatValue, get_step ? &step_one : NULL, NULL, "%f", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get Float"), ImGuiDataType_Float, &read_float_value, get_step ? &step_one : NULL, NULL, "%f", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
                 case 3:
-                    ImGui::Text("Year : %d Month : %d Day : %d", date[0], date[2], date[4]);
+                    ImGui::Text("Year : %d Month : %d Day : %d", read_date[0], read_date[2], read_date[4]);
                     ImGui::PushItemWidth(70);
-                    ImGui::InputScalar(xorstr("##Get year"), ImGuiDataType_U32, &date[0], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get year"), ImGuiDataType_U32, &read_date[0], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Year"));
                     ImGui::SameLine();
-                    ImGui::InputScalar(xorstr("##Get month"), ImGuiDataType_U32, &date[2], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get month"), ImGuiDataType_U32, &read_date[2], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Month"));
                     ImGui::SameLine();
-                    ImGui::InputScalar(xorstr("##Get day"), ImGuiDataType_U32, &date[4], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get day"), ImGuiDataType_U32, &read_date[4], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Day"));
                     ImGui::PopItemWidth();
                     break;
                 case 4:
-                    ImGui::InputText(xorstr("##Get String"), StringReturn, IM_ARRAYSIZE(StringReturn));
+                    ImGui::InputText(xorstr("##Get String"), read_string_value, IM_ARRAYSIZE(read_string_value));
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
@@ -431,44 +399,40 @@ namespace big
                 if (ImGui::Button(xorstr("Read Stat")))
                 {
                     g_fiber_pool->queue_job([]
+                    {
+                        const auto chara = std::to_string(g_local.character);
+                        std::string final_stat_to_read = read_stat_name;
+                        std::string found = final_stat_to_read.length() >= 3 ? final_stat_to_read.substr(2, 1) : final_stat_to_read;
+                        if (found.compare("X") == 0)
                         {
-                            const auto chara = std::to_string(g_local.character);
-                            std::string RStatHash = GetStat;
-                            std::string found = RStatHash.length() >= 3 ? RStatHash.substr(2, 1) : RStatHash;
-                            if (found.compare("X") == 0)
-                            {
-                                RStatHash.replace(2, 1, chara);
-                            }
-                            switch (r)
-                            {
-                            case 0:
-                                STATS::STAT_GET_INT(rage::joaat(RStatHash), &ReadIntegerValue, -1);
-                                Val = (uint64_t)ReadIntegerValue;
-                                break;
-                            case 1:
-                                STATS::STAT_GET_BOOL(rage::joaat(RStatHash), &ReadBoolValue, -1);
-                                strcpy(BoolReturn, ReadBoolValue ? "TRUE" : "FALSE");
-                                break;
-                            case 2:
-                                STATS::STAT_GET_FLOAT(rage::joaat(RStatHash), &ReadFloatValue, -1);
-                                break;
-                            case 3:
-                                STATS::STAT_GET_DATE(rage::joaat(RStatHash), &date[0], 7, -1);
-                                break;
-                            case 4:
-                                StringValue = STATS::STAT_GET_STRING(rage::joaat(RStatHash), -1);
-                                strcpy(StringReturn, StringValue);
-                                break;
-                            }
-                        });
+                            final_stat_to_read.replace(2, 1, chara);
+                        }
+                        switch (r)
+                        {
+                        case 0:
+                            STATS::STAT_GET_INT(rage::joaat(final_stat_to_read), &read_integer_value, -1);
+                            Val = (uint64_t)read_integer_value;
+                            break;
+                        case 1:
+                            STATS::STAT_GET_BOOL(rage::joaat(final_stat_to_read), &read_bool_value, -1);
+                            strcpy(bool_to_text, read_bool_value ? "TRUE" : "FALSE");
+                            break;
+                        case 2:
+                            STATS::STAT_GET_FLOAT(rage::joaat(final_stat_to_read), &read_float_value, -1);
+                            break;
+                        case 3:
+                            STATS::STAT_GET_DATE(rage::joaat(final_stat_to_read), &read_date[0], 7, -1);
+                            break;
+                        case 4:
+                            strcpy(read_string_value, STATS::STAT_GET_STRING(rage::joaat(final_stat_to_read), -1));
+                            break;
+                        }
+                    });
                 }
                 ImGui::Separator();
                 
                 static int write_packed_type = 0;
-                static int write_packed_ints_value = 0;
-                static bool write_packed_bools_value = 0;
-                static char write_packed_stat_name[50];
-
+                
                 ImGui::Text(xorstr("Write Packed Stat"));
                 ImGui::RadioButton(xorstr("Packed Ints##Write"), &write_packed_type, 0);
                 ImGui::SameLine();
@@ -509,14 +473,7 @@ namespace big
                 ImGui::Separator();
 
                 static int read_packed_type = 0;
-                static int read_packed_ints_value = 0;
-                static bool read_packed_bools_value = 0;
-                static char read_packed_stat_name[50];
-                static int packed_stat_index;
-                static int packed_stat_hash;
-                static int packed_stat_value;
-                static bool packed_bool_value;
-                static char bool_string[20];
+                
                 ImGui::Text(xorstr("Read Packed Stat"));
                 ImGui::RadioButton(xorstr("Packed Ints##Read"), &read_packed_type, 0);
                 ImGui::SameLine();
@@ -564,18 +521,14 @@ namespace big
                 }
 
                 ImGui::Separator();
-                static const char* const PackedStatList[]{ "_NGPSTAT_BOOL", "_NGPSTAT_BOOL", "_NGTATPSTAT_BOOL", "_NGDLCPSTAT_BOOL", "_NGDLCPSTAT_BOOL" ,
-                    "_DLCBIKEPSTAT_BOOL", "_DLCGUNPSTAT_BOOL", "_GUNTATPSTAT_BOOL", "_DLCSMUGCHARPSTAT_BOOL", "_GANGOPSPSTAT_BOOL" ,
-                    "_BUSINESSBATPSTAT_BOOL" , "_ARENAWARSPSTAT_BOOL" , "_CASINOPSTAT_BOOL" , "_CASINOHSTPSTAT_BOOL" ,
-                    "_HEIST3TATTOOSTAT_BOOL" , "_SU20PSTAT_BOOL" , "_SU20TATTOOSTAT_BOOL" , "_HISLANDPSTAT_BOOL", "_TUNERPSTAT_BOOL" };
-                static int SelectedPackedStat = 0;
+                
                 ImGui::Text("Packed Bools");
-                ImGui::Combo("##PackedStat", &SelectedPackedStat, PackedStatList, IM_ARRAYSIZE(PackedStatList));
+                ImGui::Combo("##PackedStat", &selected_packed_bools, packed_bool_list, IM_ARRAYSIZE(packed_bool_list));
                 if (ImGui::Button(xorstr("Set Packed Bools")))
                 {
                     g_fiber_pool->queue_job([] {
                         int character = g_local.character;
-                        switch (SelectedPackedStat)
+                        switch (selected_packed_bools)
                         {
                         case 0:
                             for (int i = 4207; i <= 4335; i++)
@@ -702,7 +655,7 @@ namespace big
                     g_fiber_pool->queue_job([]
                         {
                             int character = g_local.character;
-                            switch (SelectedPackedStat)
+                            switch (selected_packed_bools)
                             {
                             case 0:
                                 for (int i = 4207; i <= 4335; i++)
@@ -824,8 +777,7 @@ namespace big
                 if (ImGui::IsItemHovered())
                     ImGui::SetTooltip(xorstr("This option will set stat to false"));
 
-                static int selected_unlocker = 0;
-                const char* const unlock_list[]{ "Basic Unlock", "Unlock All Bool Stat", "Unlock All Int Stat", "Unlock All Achievements", "Unlock Penthouse Decorations", "Unlock Casino Shop Stuff", "Unhide Weapons from Gunlocker", "Tuner New Costumes", "Global RP Correction" };
+                
                 ImGui::Text(xorstr("Unlocker"));
                 ImGui::Combo(xorstr("##Unlocker"), &selected_unlocker, unlock_list, IM_ARRAYSIZE(unlock_list));
                 if (ImGui::Button(xorstr("Set Unlock")))
@@ -3038,8 +2990,6 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Player Appearance")))
             {
-                static const char* const AppearanceList[] = { "Swat", "Santa", "Ghost", "Special", "Special2", "Police", "For W Captain" };
-                static const char* SelectedAppearance = AppearanceList[0];
                 if (ImGui::BeginCombo(xorstr("##Costumes"), SelectedAppearance)) // The second parameter is the label previewed before opening the combo.
                 {
                     for (int a = 0; a < IM_ARRAYSIZE(AppearanceList); a++)
@@ -3536,9 +3486,6 @@ namespace big
                         });
                 }
 
-                const char* const LocationName[]{ "Military Tower", "Arcadius Rooftop", "Top of Building in Construction", "FIB Roof", "FIB Top Floor",
-                    "Vinewood Sign", "Observatory", "Mt. Chilliad", "Mt. Gordo", "office" };
-                static int SelectedLocation = 0;
                 ImGui::Text(xorstr("Other Teleport"));
                 ImGui::Combo(xorstr("##Location"), &SelectedLocation, LocationName, IM_ARRAYSIZE(LocationName));
                 if (ImGui::Button(xorstr("Set Coords")))
