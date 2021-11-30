@@ -11,8 +11,8 @@ namespace big
 		static void render_online_tab(const char* tab_name);
 
     private:
-        static inline const char* const SessionList[]{"Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session","Closed Friend Session", "Find Friend Session","Solo Session", "Invite Only Session","Join Crew Session", "Join SCTV", "Leave GTA Online"};
-        static inline int SelectedSession = 0;
+        static inline const char* const session_list[]{"Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session","Closed Friend Session", "Find Friend Session","Solo Session", "Invite Only Session","Join Crew Session", "Join SCTV", "Leave GTA Online"};
+        static inline int selected_session = 0;
 
         static inline int selected_service = 0;
         static inline  const char* const service_list[]{ "Select", "Terrobyte", "Kosatka", "Avenger", "Mobile Operation Center", "Dinghy" };

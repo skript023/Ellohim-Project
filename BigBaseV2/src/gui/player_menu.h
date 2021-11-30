@@ -11,15 +11,14 @@ namespace big
 		static void render_player_tab(const char* tab_name);
 	private:
 		static inline Any tanggal[12];
-		static inline const char* StringValue = " ";
 		static inline char write_stat_name[255] = "";
 		static inline float write_float_value = 0;
 		static inline float write_increment_value = 0;
 		static inline int64_t write_integer_value = 0;
+		static inline char write_string_value[255];
 		static inline const uint64_t step_one = 100;
 		static inline bool write_bool_value = true;
 		static inline bool inputs_step = false;
-		static inline char write_string_value[255];
 
 		static inline char read_stat_name[255];
 		static inline int read_integer_value;
@@ -54,18 +53,16 @@ namespace big
 		static inline int selected_unlocker = 0;
 		static inline const char* const unlock_list[]{ "Basic Unlock", "Unlock All Bool Stat", "Unlock All Int Stat", "Unlock All Achievements", "Unlock Penthouse Decorations", "Unlock Casino Shop Stuff", "Unhide Weapons from Gunlocker", "Tuner New Costumes", "Global RP Correction" };
 	
-	
 		static inline const char* const AppearanceList[] = { "Swat", "Santa", "Ghost", "Special", "Special2", "Police", "For W Captain" };
 		static inline const char* SelectedAppearance = AppearanceList[0];
 
 		static inline const char* const LocationName[]{ "Military Tower", "Arcadius Rooftop", "Top of Building in Construction", "FIB Roof", "FIB Top Floor",
 					"Vinewood Sign", "Observatory", "Mt. Chilliad", "Mt. Gordo", "office" };
 		static inline int SelectedLocation = 0;
-	};
 
-	static class character_costume
-	{
-	public:
+		static inline const char* const PropertyBlip[]{ "Arcade","MC Club House","Cocain Lockup","Meth Lab","Counterfeit Cash","Weed Farm","Document Forgery","Bunker","Nightclub","Hangar","CEO Office","Facility","Yacht","Submarine","Terrorbyte","Avanger","MOC","Arena Wars" };
+		static inline int SelectedProperty = 0;
+
 		static inline int hair{};
 		static inline int hat{};
 		static inline int mask{};
@@ -96,5 +93,5 @@ namespace big
 		static inline int bracelet_colour{};
 		static inline int badge{};
 		static inline int badge_colour{};
-	} char_style;
+	};
 }

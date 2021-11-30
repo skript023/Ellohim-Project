@@ -42,7 +42,7 @@ namespace big
 		if (ImGui::Begin(window_name))
 		{
 			GetCurrentHwProfile(&g_game_window->profile_info);
-			if (strcmp(g_game_window->username, "None") == 0 && strcmp(g_game_window->password, "None") == 0 && !(rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-FREE_EDITION") == RAGE_JOAAT("170730888-FREE_EDITION") || rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-FREE_EDITION") == RAGE_JOAAT("140834687-FREE_EDITION")))
+			if (!(rage::joaat(g_game_window->username) == RAGE_JOAAT("admin") && rage::joaat(g_game_window->password) == RAGE_JOAAT("experiment")) && !(rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-FREE_EDITION") == RAGE_JOAAT("170730888-FREE_EDITION") || rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-FREE_EDITION") == RAGE_JOAAT("140834687-FREE_EDITION")))
 			{
 				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
 				ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);

@@ -25,10 +25,10 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            ImGui::Combo(xorstr("Session Changer"), &SelectedSession, SessionList, IM_ARRAYSIZE(SessionList));
+            ImGui::Combo(xorstr("Session Changer"), &selected_session, session_list, IM_ARRAYSIZE(session_list));
             if (ImGui::Button(xorstr("Select Session")))
             {
-                switch (SelectedSession)
+                switch (selected_session)
                 {
                 case 0:
                     network::set_session(0);
@@ -190,7 +190,6 @@ namespace big
                 vehicle_helper::claim_insurance();
             }
 
-            
             ImGui::PushItemWidth(250.f);
             if (ImGui::Combo(xorstr("Service"), &selected_service, service_list, IM_ARRAYSIZE(service_list)))
             {
