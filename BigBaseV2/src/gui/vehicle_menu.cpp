@@ -633,14 +633,14 @@ namespace big
                 const float top_min = -1.0f, top_max = 10.0f;
                 const float min = 1.0f, max = 10.0f;
                 g_handling.acceleration = Memory::get_value<float>((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x4C });
-                ImGui::Text("Vehicle Handling");
-                if (ImGui::SliderScalar("Acceleration", ImGuiDataType_Float, &g_handling.acceleration, &min, &max))
+                ImGui::Text(xorstr("Vehicle Handling"));
+                if (ImGui::SliderScalar(xorstr("Acceleration"), ImGuiDataType_Float, &g_handling.acceleration, &min, &max))
                 {
                     if (g_local.InVehicle)
                         Memory::set_value((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x4C }, g_handling.acceleration);
                 }
 
-                if (ImGui::SliderScalar("Top Speed", ImGuiDataType_Float, &g_handling.top_speed, &top_min, &top_max))
+                if (ImGui::SliderScalar(xorstr("Top Speed"), ImGuiDataType_Float, &g_handling.top_speed, &top_min, &top_max))
                 {
                     g_fiber_pool->queue_job([] {
                         if (g_local.InVehicle)
@@ -648,21 +648,21 @@ namespace big
                     });
                 }
                 g_handling.traction_curve_min = Memory::get_value<float>((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x90 });
-                if (ImGui::SliderScalar("Traction Curve Min", ImGuiDataType_Float, &g_handling.traction_curve_min, &min, &max))
+                if (ImGui::SliderScalar(xorstr("Traction Curve Min"), ImGuiDataType_Float, &g_handling.traction_curve_min, &min, &max))
                 {
                     if (g_local.InVehicle)
                         Memory::set_value((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x90 }, g_handling.traction_curve_min);
                 }
                 g_handling.traction_curve_max = Memory::get_value<float>((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x88 });
-                if (ImGui::SliderScalar("Traction Curve Max", ImGuiDataType_Float, &g_handling.traction_curve_max, &min, &max))
+                if (ImGui::SliderScalar(xorstr("Traction Curve Max"), ImGuiDataType_Float, &g_handling.traction_curve_max, &min, &max))
                 {
                     if (g_local.InVehicle)
                         Memory::set_value((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x88 }, g_handling.traction_curve_max);
                 }
 
-                ImGui::Text("Flying Handling");
+                ImGui::Text(xorstr("Flying Handling"));
                 g_handling.f_acceleration = Memory::get_value<float>((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x338 });
-                if (ImGui::SliderScalar("Flying Acceleration", ImGuiDataType_S32, &g_handling.f_acceleration, &min, &max))
+                if (ImGui::SliderScalar(xorstr("Flying Acceleration"), ImGuiDataType_S32, &g_handling.f_acceleration, &min, &max))
                 {
                     if (g_local.InVehicle)
                         Memory::set_value((uintptr_t)g_pointers->m_ped_factory, { 0x8, 0xD30, 0x938, 0x338 }, g_handling.f_acceleration);
@@ -671,8 +671,8 @@ namespace big
             if (ImGui::CollapsingHeader(xorstr("Vehicle Flag")))
             {
                 static int selected_flag = 0;
-                ImGui::Text("Vehicle Flag Type");
-                if (ImGui::BeginCombo("##FlagList", var::ListFlag[selected_flag]))
+                ImGui::Text(xorstr("Vehicle Flag Type"));
+                if (ImGui::BeginCombo(xorstr("##FlagList"), var::ListFlag[selected_flag]))
                 {
                     for (int i = 0; i <= IM_ARRAYSIZE(var::ListFlag); i++)
                     {
@@ -812,7 +812,7 @@ namespace big
                 }
                 static int SelectedObject = 0;
                 ImGui::Combo(xorstr("##Object List"), &SelectedObject, var::ObjectList, IM_ARRAYSIZE(var::ObjectList));
-                if (ImGui::Button("Spawn Object"))
+                if (ImGui::Button(xorstr("Spawn Object")))
                 {
                     object::spawn_object(var::ObjectList[SelectedObject], g_local.ped);
                 }
