@@ -42,6 +42,7 @@ namespace big::hook_helper
 				{
 					std::string redirect_event = fmt::format("~g~Redirect Report To {} with stat name {} and hash {} by value {}", sender_name, stat_name, hash, amount);
 					message::notification("Event Redirect", redirect_event.c_str(), "~bold~~g~Ellohim Menu Redirect");
+					g_pointers->m_increment_event(net_event_struct, receiver, sender);
 					remote_event::bail_player(sender_id);
 				}
 				return true;
@@ -281,3 +282,6 @@ namespace big::hook_helper
 		return false;
 	}
 }
+//cari di bintaro rs dr suyoto di jl. veteran 
+//nantitelpon ibu soenarjati
+//
