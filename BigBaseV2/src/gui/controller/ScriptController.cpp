@@ -278,5 +278,16 @@ namespace big
         g_info.PlayerZone = HUD::_GET_LABEL_TEXT(ZONE::GET_NAME_OF_ZONE(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z));
         PATHFIND::GET_STREET_NAME_AT_COORD(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z, &g_info.StreetNameHash, &g_info.CrossingRoadHash);
         g_info.PlayerStreet = HUD::GET_STREET_NAME_FROM_HASH_KEY(g_info.StreetNameHash);
+
+        if (http_response_tick == 100)
+        {
+            provider = player::get_player_internet_provider(g_selected.player);
+            city = player::get_player_city(g_selected.player);
+            country = player::get_player_country(g_selected.player);
+        }
+
+        if (http_response_tick >= 500)
+            http_response_tick = 0;
+        http_response_tick++;
     }
 }

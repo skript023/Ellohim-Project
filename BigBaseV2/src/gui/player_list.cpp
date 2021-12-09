@@ -57,13 +57,13 @@ namespace big
                 for (int i = 0; i < 32; ++i)
                 {
                     std::string num = std::to_string(i);
-                    if (!strcmp(features::PlayerNames[i],"**Invalid**") == 0)
+                    if (!strcmp(g_misc_option->player_names[i],"**Invalid**") == 0)
                     {
                         strcpy(PlayerListMenu, "[");
                         strcat(PlayerListMenu, num.c_str());
                         strcat(PlayerListMenu, "]");
-                        strcat(PlayerListMenu, features::PlayerNames[i]);
-                        if (*script_global(1630816).at(i, 597).at(10).as<bool*>())
+                        strcat(PlayerListMenu, g_misc_option->player_names[i]);
+                        if (network::network_is_host(i))
                         {
                             strcat(PlayerListMenu, "[H]");
                         }
@@ -74,6 +74,7 @@ namespace big
                         if (ImGui::Selectable(PlayerListMenu, i == g_selected.player))
                         {
                             g_selected.player = i;
+                            g_misc_option->http_response_tick = 99;
                         }
                     }
                 }

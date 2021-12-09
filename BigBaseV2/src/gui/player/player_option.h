@@ -8,6 +8,9 @@ namespace big
 	class player
 	{
 	public:
+		static std::string get_player_city(Player player);
+		static std::string get_player_internet_provider(Player player);
+		static std::string get_player_country(Player player);
 		static const char* get_player_heist_hacker(Player player);
 		static const char* get_player_heist_gunman(Player player);
 		static const char* get_player_heist_driver(Player player);
@@ -95,7 +98,9 @@ namespace big
 		static inline bool night_vision{};
 		static inline bool thermal_vision{};
 		static inline bool ghost_organizations{};
-
+	private:
+		static inline int request_tick = 0;
+		
 
 	};
 	class outfit

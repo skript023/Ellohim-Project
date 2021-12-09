@@ -16,6 +16,7 @@
 #include "helper_function.hpp"
 #include "benchmark.h"
 #include "gui/setting_menu.h"
+#include "gui/controller/http_request.hpp"
 
 namespace big
 {
@@ -61,7 +62,7 @@ namespace big
                 message::notification("~bold~~y~Benchmark", fmt::format("~g~finished with a resulting time of: {} nanoseconds",std::to_string(result.count())).c_str(), "~bold~~g~Ellohim Private Menu");
             }
             ImGui::Separator();
-
+            
             if (ImGui::Checkbox(xorstr("Logger"), g_settings.options["Logger Window"].get<bool*>()))
                 g_settings.save();
 
@@ -214,13 +215,13 @@ namespace big
                 static int selected_target = 0;
                 ImGui::PushItemWidth(200.f);
                 //ImGui::Combo("Target Player", &TargetPlayer, features::PlayerNames, IM_ARRAYSIZE(features::PlayerNames));
-                if (ImGui::BeginCombo("Target Player", features::PlayerNames[selected_target]))
+                if (ImGui::BeginCombo("Target Player", g_misc_option->player_names[selected_target]))
                 {
                     for (int i = 0; i < 32; ++i)
                     {
-                        if (!strcmp(features::PlayerNames[i], "**Invalid**") == 0)
+                        if (!strcmp(g_misc_option->player_names[i], "**Invalid**") == 0)
                         {
-                            if (ImGui::Selectable(features::PlayerNames[i], i == g_event_tester.event_player))
+                            if (ImGui::Selectable(g_misc_option->player_names[i], i == g_event_tester.event_player))
                             {
                                 selected_target = i;
                                 g_event_tester.event_player = i;

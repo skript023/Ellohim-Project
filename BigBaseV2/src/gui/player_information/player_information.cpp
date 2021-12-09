@@ -33,6 +33,10 @@ namespace big
             ImGui::SameLine(400);
             ImGui::Text("Godmode : %s", player::get_player_invincible(g_selected.player) ? "True" : "False");
 
+            ImGui::Text("ISP : %s", g_misc_option->provider.c_str());
+            ImGui::Text("Country : %s", g_misc_option->country.c_str());
+            ImGui::Text("City : %s", g_misc_option->city.c_str());
+
             ImGui::Text("Local IP : %s", player::get_player_local_ip(g_selected.player));
             ImGui::Text("IP : %s", player::get_player_ip(g_selected.player));
             ImGui::SameLine(200);
@@ -75,7 +79,7 @@ namespace big
 
             ImGui::Separator();
             ImGui::Text("X : %f        Y : %f        Z : %f", g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z);
-
+            
             ImGui::EndTabItem();
         }
 
@@ -233,13 +237,13 @@ namespace big
                     {
                         ImGui::Combo(xorstr("Select Explosion Type"), &SelectedExplosion, var::ExplosionList, IM_ARRAYSIZE(var::ExplosionList));
                         //ImGui::Combo("Blame Player", &SelectedBlame, features::PlayerNames, IM_ARRAYSIZE(features::PlayerNames));
-                        if (ImGui::BeginCombo(xorstr("Blame Player"), features::PlayerNames[SelectedBlame]))
+                        if (ImGui::BeginCombo(xorstr("Blame Player"), g_misc_option->player_names[SelectedBlame]))
                         {
                             for (int i = 0; i < 32; ++i)
                             {
-                                if (!controller::cstrcmp(features::PlayerNames[i], "**Invalid**"))
+                                if (!controller::cstrcmp(g_misc_option->player_names[i], "**Invalid**"))
                                 {
-                                    if (ImGui::Selectable(features::PlayerNames[i], i == SelectedBlame))
+                                    if (ImGui::Selectable(g_misc_option->player_names[i], i == SelectedBlame))
                                     {
                                         SelectedBlame = i;
                                     }

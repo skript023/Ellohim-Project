@@ -28,6 +28,60 @@
 
 namespace big
 {
+    std::string player::get_player_city(Player player)
+    {
+        try
+        {
+            http::Request request{ fmt::format("http://ip-api.com/json/{}", get_player_ip(player)) };
+
+            // send a get request
+            const auto response = request.send("GET");
+            auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
+            return result["city"].get<std::string>(); // print the result
+        }
+        catch (const std::exception& e)
+        {
+            LOG(HACKER) << "Request failed, error: " << e.what();
+        }
+        return "Unidentified";
+    }
+
+    std::string player::get_player_internet_provider(Player player)
+    {
+        try
+        {
+            http::Request request{ fmt::format("http://ip-api.com/json/{}", get_player_ip(player)) };
+
+            // send a get request
+            const auto response = request.send("GET");
+            auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
+            return result["isp"].get<std::string>(); // print the result
+        }
+        catch (const std::exception& e)
+        {
+            LOG(HACKER) << "Request failed, error: " << e.what();
+        }
+        return "Unidentified";
+    }
+
+    std::string player::get_player_country(Player player)
+    {
+        try
+        {
+            http::Request request{ fmt::format("http://ip-api.com/json/{}", get_player_ip(player)) };
+
+            // send a get request
+            const auto response = request.send("GET");
+            auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
+            return result["country"].get<std::string>(); // print the result
+        }
+        catch (const std::exception& e)
+        {
+            LOG(HACKER) << "Request failed, error: " << e.what();
+        }
+        return "Unidentified";
+    }
+
     const char* player::get_player_heist_hacker(Player player)
     {
         int selected_hacker = *script_global(g_global.casino_stat).at(player, 68).at(18).at(14).as<int*>();

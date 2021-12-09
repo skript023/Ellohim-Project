@@ -37,8 +37,11 @@ namespace big
 	public:
 		static inline bool time_spam{};
 		static inline bool time_scale{};
-
-			
+		static inline std::string provider{};
+		static inline std::string city{};
+		static inline std::string country{};
+		static inline int http_response_tick = 0;
+		static inline const char* player_names[32];
 	};
 	static class player_info
 	{

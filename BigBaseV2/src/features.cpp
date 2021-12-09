@@ -22,7 +22,6 @@ namespace big::features
 {	
 	uint64_t OriginalRID = *g_pointers->m_player_rid;
 	bool FirstLoad = true;
-	const char* PlayerNames[32];
 
 	
 	int local_player_id()
@@ -252,7 +251,7 @@ namespace big::features
 		{
 			for (int i = 0; i < 32; ++i) 
 			{
-				PlayerNames[i] = PLAYER::GET_PLAYER_NAME(i);//player::get_player_name(i);
+				g_misc_option->player_names[i] = PLAYER::GET_PLAYER_NAME(i);//player::get_player_name(i);
 			}
 		}
 	}
