@@ -237,6 +237,19 @@ namespace big
 		static constexpr inline uint32_t host_kick = 1622591 + 1;
 		static const inline int32_t repair_vehicle = 2426865 + 1 + (g_local.player * 449) + 231;
 		static constexpr inline uint32_t disconnect = 31622;
+
+		//Player Stats
+		static constexpr inline int32_t player_stat = 1590908;
+		static constexpr inline int32_t player_size = 874;
+		static constexpr inline int32_t player_offset = 205;
+
+		static constexpr inline int32_t radar_toggle = 2426097;
+		static constexpr inline int32_t radar_size = 443;
+		static constexpr inline int32_t radar_time = 2441237;
+		static constexpr inline int32_t radar_offset = 209;
+
+		static constexpr inline int32_t bullshark_time = radar_time;
+		static constexpr inline int32_t suicide_time = radar_time;
 	} g_global;
 
 	static class constant_local

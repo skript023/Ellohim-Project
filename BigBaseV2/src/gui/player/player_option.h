@@ -8,9 +8,26 @@ namespace big
 	class player
 	{
 	public:
+		static const char* get_player_heist_hacker(Player player);
+		static const char* get_player_heist_gunman(Player player);
+		static const char* get_player_heist_driver(Player player);
+		static const char* get_player_heist_target(Player player);
+		static const char* get_player_heist_hard_approach(Player player);
+		static const char* get_player_heist_last_approach(Player player);
+		static const char* get_player_heist_approach(Player player);
+		static const char* get_player_heist_secondary_status(Player player);
+		static const char* get_player_heist_primary_status(Player player);
+		static const char* is_modded_account(Player player);
+		static int get_player_banked_money(Player player);
+		static int get_player_level(Player player);
+		static int get_player_exp(Player player);
+		static int get_player_global_exp(Player player);
+		static int get_player_cash(Player player);
+		static int get_player_total_money(Player player);
 		static void get_player_location(Player player);
 		static void global_exp_correction();
 		static bool get_player_infinite_ammo(Player player);
+		static bool is_player_out_of_radar(Player player);
 		static bool get_player_infinite_clip(Player player);
 		static bool is_player_in_any_vehicle(Player player);
 		static bool does_player_exist(Player player);

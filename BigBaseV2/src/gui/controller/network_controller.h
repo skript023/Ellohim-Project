@@ -44,6 +44,8 @@ namespace big
         static float get_document_supply(Player player);
         static float get_bunker_supply(Player player);
 
+        static bool network_is_host(Player player);
+
         static void add_meth_supply(Player player, int supply);
         static void add_weed_supply(Player player, int supply);
         static void add_cocain_supply(Player player, int supply);

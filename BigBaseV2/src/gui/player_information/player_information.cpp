@@ -22,118 +22,6 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            const char* Host = *script_global(1630816).at(g_selected.player, 597).at(10).as<bool*>() ? "True" : "False";
-
-            int TotalMoney = *script_global(1590908).at(g_selected.player, 874).at(205).at(56).as<int*>();
-            int TotalCash = *script_global(1590908).at(g_selected.player, 874).at(205).at(3).as<int*>();
-            int GlobalRP = *script_global(1590908).at(g_selected.player, 874).at(205).at(5).as<int*>();
-            int CurrentEXP = *script_global(1590908).at(g_selected.player, 874).at(205).at(1).as<int*>();
-            int PlayerLevel = *script_global(1590908).at(g_selected.player, 874).at(205).at(6).as<int*>();
-            int OffTheRadar = *script_global(2426097).at(g_selected.player, 443).at(204).as<int*>();
-
-            int selected_approach = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(22).as<int*>();
-            int selected_target = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(7).as<int*>();
-            int selected_hacker = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(14).as<int*>();
-            int selected_driver = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(12).as<int*>();
-            int selected_gunman = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(10).as<int*>();
-            int board_status_1 = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(1).as<int*>();
-            int board_status_2 = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).as<int*>();
-            int security_pass = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(15).as<int*>();
-            int duggan_level = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(8).as<int*>();
-            int hard_approach = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(24).as<int*>();
-            int last_approach = *script_global(g_global.casino_stat).at(g_selected.player, 68).at(23).as<int*>();
-            int transition_check = *script_global(2426097).at(g_selected.player, 443).as<int*>();
-            int casino_states = 0;//*script_global(2426097).at(g_selected.player, 443).at(314).at(4).as<int*>();
-            //auto CEONames = *script_global(1630816).at(g_selected.player, 597).at(11).at(105).as<uint64_t*>();
-            const char* is_modded_account = GlobalRP < CurrentEXP ? "True" : "False";
-            const char* is_modded_money = TotalMoney >= INT_MAX ? "True" : "False";
-            
-            const char* casino_status_wajib = board_status_1 == -1 ? "Skip Prep" : (board_status_1 == 127 && selected_approach == 1) ? "Complete" : (board_status_1 == 159 && selected_approach == 2) ? "Complete" : (board_status_1 == 799 && selected_approach == 3) ? "Complete" : (board_status_1 == 0) ? "No Progress" : (board_status_1 > 0) ? "In Progress" : "Mission Not Started";
-            const char* casino_status_opsional = board_status_2 == -1 ? "Skip Prep" : (board_status_2 == 61 && selected_approach == 1) ? "Complete" : (board_status_2 == 339990 && selected_approach == 2) ? "Complete" : (board_status_2 == 3670038 && selected_approach == 3) ? "Complete" : board_status_2 == 0 ? "No Progress" : (board_status_2 > 0) ? "In Progress" : "Mission Not Started";
-            const char* target_heist = selected_target == 0 ? "Cash" : selected_target == 1 ? "Gold" : selected_target == 2 ? "Art" : selected_target == 3 ? "Diamond" : "Not Selected";
-            const char* approach = selected_approach == 0 ? "Not Selected" : selected_approach == 1 ? "Silent" : selected_approach == 2 ? "Bigcon" : selected_approach == 3 ? "Aggressive" : "Not Selected";
-            const char* approach_terakhir = last_approach == 0 ? "Not Selected" : last_approach == 1 ? "Silent" : last_approach == 2 ? "Bigcon" : last_approach == 3 ? "Aggressive" : "Not Selected";
-            const char* approach_sulit = hard_approach == 0 ? "Not Selected" : hard_approach == 1 ? "Silent" : hard_approach == 2 ? "Bigcon" : hard_approach == 3 ? "Aggressive" : "Not Selected";
-
-
-            const char* supir;
-            switch (selected_driver)
-            {
-            case 0:
-                supir = "Not Selected";
-                break;
-            case 1:
-                supir = "Karim Denz";
-                break;
-            case 2:
-                supir = "Taliana";
-                break;
-            case 3:
-                supir = "Eddie Toh";
-                break;
-            case 4:
-                supir = "Zach";
-                break;
-            case 5:
-                supir = "Chester";
-                break;
-            default:
-                supir = "Not Selected";
-                break;
-            }
-            const char* gunman;
-            switch (selected_gunman)
-            {
-            case 0:
-                gunman = "Not Selected";
-                break;
-            case 1:
-                gunman = "Karl Alboraji";
-                break;
-            case 2:
-                gunman = "Gustavo";
-                break;
-            case 3:
-                gunman = "Charlie";
-                break;
-            case 4:
-                gunman = "Chester";
-                break;
-            case 5:
-                gunman = "Packie";
-                break;
-            default:
-                gunman = "Not Selected";
-                break;
-            }
-            const char* hacker;
-            switch (selected_gunman)
-            {
-            case 0:
-                hacker = "Not Selected";
-                break;
-            case 1:
-                hacker = "Rickie Luckens";
-                break;
-            case 2:
-                hacker = "Christian";
-                break;
-            case 3:
-                hacker = "Yohan";
-                break;
-            case 4:
-                hacker = "Avi Schwartzman";
-                break;
-            case 5:
-                hacker = "Paige Harris";
-                break;
-            default:
-                hacker = "Not Selected";
-                break;
-            }
-            const char* is_player_off_radar = OffTheRadar == 1 ? "True" : "False";
-            int TotalBanked = TotalMoney - TotalCash;
-
             ImGui::Text("Ped ID : %d", g_selected.ped);
             ImGui::SameLine(200);
             ImGui::Text("Script Host : %s", g_local.ScriptHost == g_selected.player ? "True" : "False");
@@ -141,7 +29,7 @@ namespace big
             ImGui::Text("Waterproof : %s", player::get_player_waterproof(g_selected.player) ? "True" : "False");
             ImGui::Text("RID : %d", player::get_player_scid(g_selected.player));
             ImGui::SameLine(200);
-            ImGui::Text("Host : %s", Host);
+            ImGui::Text("Host : %s", network::network_is_host(g_selected.player) ? "True" : "False");
             ImGui::SameLine(400);
             ImGui::Text("Godmode : %s", player::get_player_invincible(g_selected.player) ? "True" : "False");
 
@@ -150,16 +38,16 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Text("Wanted Level : %d", player::get_player_wanted_level(g_selected.player));
 
-            ImGui::Text("Cash : $%d", TotalCash);
+            ImGui::Text("Cash : $%d", player::get_player_cash(g_selected.player));
             ImGui::SameLine(200);
-            ImGui::Text("Bank : $%d", TotalBanked < 0 ? 0 : TotalBanked);
-            ImGui::Text("Level : %d", PlayerLevel);
+            ImGui::Text("Bank : $%d", player::get_player_banked_money(g_selected.player));
+            ImGui::Text("Level : %d", player::get_player_level(g_selected.player));
             ImGui::SameLine(200);
-            ImGui::Text("Off Radar : %s", is_player_off_radar);
-            ImGui::Text("Modded Account : %s", is_modded_account);
+            ImGui::Text("Off Radar : %s", player::is_player_out_of_radar(g_selected.player) ? "True" : "False");
+            ImGui::Text("Modded Account : %s", player::is_modded_account(g_selected.player));
             //ImGui::Text(fmt::format("Organization : {}", CEONames).c_str());//systems::character_filter( CEONames.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890_") != std::string::npos ? "Error" : 
 
-            ImGui::Text("Current EXP : %d/%d", CurrentEXP, GlobalRP);
+            ImGui::Text("Current EXP : %d/%d", player::get_player_exp(g_selected.player), player::get_player_global_exp(g_selected.player));
             ImGui::Text("Location : %s", g_info.PlayerZone);
             ImGui::Text("Zone : %s", g_info.PlayerStreet);
 
@@ -173,18 +61,17 @@ namespace big
             ImGui::Text(fmt::format("Current Weapon : {}", player::get_player_weapon(g_selected.player)).c_str());
             ImGui::Text(fmt::format("Infinite Ammo : {} / Infinite Clip : {}", player::get_player_infinite_ammo(g_selected.player), player::get_player_infinite_clip(g_selected.player)).c_str());
             ImGui::Separator();
-            //ImGui::Text("Casino States : %s", casino_states == 1 << 0 || casino_states == 1 << 11 ? "Always on" : casino_states == 1 << 2 ? "Blackjack" : casino_states == 1 << 3 ? "Poket" : casino_states == 1 << 5 ? "Roulette" : casino_states == 1 << 6 ? "LuckyWheel" : casino_states == 1 << 7 ? "Rig Slot" : casino_states == 1 << 8 ? "Horse Racing" : casino_states == 1 << 13 ? "Using Bar" : casino_states == 1 << 15 ? "Using Hotspring" : "No Data");
-            ImGui::Text("Main Mission : %s", casino_status_wajib);
-            ImGui::Text("Optional Mission : %s", casino_status_opsional);
-            ImGui::Text("Target : %s", target_heist);
-            ImGui::Text("Approach : %s", approach);
-            ImGui::Text("Last Approach : %s", approach_terakhir);
-            ImGui::Text("Hard Approach : %s", approach_sulit);
-            ImGui::Text("Driver : %s", supir);
-            ImGui::Text("Gunman : %s", gunman);
-            ImGui::Text("Hacker : %s", hacker);
-            ImGui::Text("Security Pass : Level %d", security_pass);
-            ImGui::Text("Disrupted Level : %d", duggan_level);
+            ImGui::Text("Main Mission : %s", player::get_player_heist_primary_status(g_selected.player));
+            ImGui::Text("Optional Mission : %s", player::get_player_heist_secondary_status(g_selected.player));
+            ImGui::Text("Target : %s", player::get_player_heist_target(g_selected.player));
+            ImGui::Text("Approach : %s", player::get_player_heist_approach(g_selected.player));
+            ImGui::Text("Last Approach : %s", player::get_player_heist_last_approach(g_selected.player));
+            ImGui::Text("Hard Approach : %s", player::get_player_heist_hard_approach(g_selected.player));
+            ImGui::Text("Driver : %s", player::get_player_heist_driver(g_selected.player));
+            ImGui::Text("Gunman : %s", player::get_player_heist_gunman(g_selected.player));
+            ImGui::Text("Hacker : %s", player::get_player_heist_hacker(g_selected.player));
+            ImGui::Text("Security Pass : Level %d", *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(15).as<int*>());
+            ImGui::Text("Disrupted Level : %d", *script_global(g_global.casino_stat).at(g_selected.player, 68).at(18).at(8).as<int*>());
 
             ImGui::Separator();
             ImGui::Text("X : %f        Y : %f        Z : %f", g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z);

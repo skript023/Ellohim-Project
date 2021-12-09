@@ -21,13 +21,187 @@
 #include "gui/vehicle/vehicle_helper.h"
 #include "gui/artificial_intelligence/artificial_intelligence.h"
 #include "gui/controller/http_request.hpp"
-#include <gui\controller\xostr.h>
+#include "gui/controller/xostr.h"
 
 #define ARRAY_SIZE(_ARR)          ((int)(sizeof(_ARR) / sizeof(*(_ARR))))
 #define ARR_SZ(_ARR)              ((int)(sizeof(_ARR) / sizeof((_ARR)[0])))
 
 namespace big
 {
+    const char* player::get_player_heist_hacker(Player player)
+    {
+        int selected_hacker = *script_global(g_global.casino_stat).at(player, 68).at(18).at(14).as<int*>();
+        switch (selected_hacker)
+        {
+            case 1:
+                return "Rickie Luckens";
+            case 2:
+                return "Christian";
+            case 3:
+                return "Yohan";
+            case 4:
+                return "Avi Schwartzman";
+            case 5:
+                return "Paige Harris";
+        }
+        return "Not Selected";
+    }
+
+    const char* player::get_player_heist_gunman(Player player)
+    {
+        int selected_gunman = *script_global(g_global.casino_stat).at(player, 68).at(18).at(10).as<int*>();
+        switch (selected_gunman)
+        {
+            case 1:
+                return"Karl Alboraji";
+            case 2:
+                return"Gustavo";
+            case 3:
+                return"Charlie";
+            case 4:
+                return"Chester";
+            case 5:
+                return"Packie";
+        }
+        return"Not Selected";
+    }
+
+    const char* player::get_player_heist_driver(Player player)
+    {
+        int selected_driver = *script_global(g_global.casino_stat).at(player, 68).at(18).at(12).as<int*>();
+        switch (selected_driver)
+        {
+            case 1:
+                return "Karim Denz";
+            case 2:
+                return "Taliana";
+            case 3:
+                return "Eddie Toh";
+            case 4:
+                return "Zach";
+            case 5:
+                return "Chester";
+        }
+        return "Not Selected";
+    }
+
+    const char* player::get_player_heist_target(Player player)
+    {
+        int selected_target = *script_global(g_global.casino_stat).at(player, 68).at(18).at(7).as<int*>();
+        switch (selected_target)
+        {
+            case 0:
+                return "Cash";
+            case 1:
+                return "Gold";
+            case 2:
+                return "Artwork";
+            case 3:
+                return "Diamond";
+        }
+        return "Unidentified";
+    }
+
+    const char* player::get_player_heist_hard_approach(Player player)
+    {
+        int selected_approach = *script_global(g_global.casino_stat).at(player, 68).at(24).as<int*>();
+        switch (selected_approach)
+        {
+        case 1:
+            return "Silent";
+        case 2:
+            return "Bigcon";
+        case 3:
+            return "Aggressive";
+        }
+        return "Not Selected";
+    }
+
+    const char* player::get_player_heist_last_approach(Player player)
+    {
+        int selected_approach = *script_global(g_global.casino_stat).at(player, 68).at(23).as<int*>();
+        switch (selected_approach)
+        {
+        case 1:
+            return "Silent";
+        case 2:
+            return "Bigcon";
+        case 3:
+            return "Aggressive";
+        }
+        return "Not Selected";
+    }
+
+    const char* player::get_player_heist_approach(Player player)
+    {
+        int selected_approach = *script_global(g_global.casino_stat).at(player, 68).at(22).as<int*>();
+        switch (selected_approach)
+        {
+            case 1: 
+                return "Silent";
+            case 2:
+                return "Bigcon";
+            case 3:
+                return "Aggressive";
+        }
+        return "Not Selected";
+    }
+
+    const char* player::get_player_heist_secondary_status(Player player)
+    {
+        int board_status_2 = *script_global(g_global.casino_stat).at(player, 68).at(18).as<int*>();
+        int selected_approach = *script_global(g_global.casino_stat).at(player, 68).at(22).as<int*>();
+        const char* casino_status_opsional = board_status_2 == -1 ? "Skip Prep" : (board_status_2 == 61 && selected_approach == 1) ? "Completed" : (board_status_2 == 339990 && selected_approach == 2) ? "Completed" : (board_status_2 == 3670038 && selected_approach == 3) ? "Completed" : board_status_2 == 0 ? "No Progress" : (board_status_2 > 0) ? "In Progress" : "Mission Not Started";
+        return casino_status_opsional;
+    }
+
+    const char* player::get_player_heist_primary_status(Player player)
+    {
+        int board_status_1 = *script_global(g_global.casino_stat).at(player, 68).at(18).at(1).as<int*>();
+        int selected_approach = *script_global(g_global.casino_stat).at(player, 68).at(22).as<int*>();
+        const char* casino_status_wajib = board_status_1 == -1 ? "Skip Prep" : (board_status_1 == 127 && selected_approach == 1) ? "Completed" : (board_status_1 == 159 && selected_approach == 2) ? "Completed" : (board_status_1 == 799 && selected_approach == 3) ? "Completed" : (board_status_1 == 0) ? "No Progress" : (board_status_1 > 0) ? "In Progress" : "Mission Not Started";
+        return casino_status_wajib;
+    }
+
+    const char* player::is_modded_account(Player player)
+    {
+        auto result = get_player_exp(player) > get_player_global_exp(player);
+        return result ? "True" : "False";
+    }
+
+    int player::get_player_banked_money(Player player)
+    {
+        auto total = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(56).as<int*>();
+        auto cash = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(3).as<int*>();
+        auto result = (total - cash);
+        return (result < 0) ? 0 : result;
+    }
+
+    int player::get_player_level(Player player)
+    {
+        return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(6).as<int*>();
+    }
+
+    int player::get_player_exp(Player player)
+    {
+        return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(1).as<int*>();
+    }
+
+    int player::get_player_global_exp(Player player)
+    {
+        return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(5).as<int*>();
+    }
+
+    int player::get_player_cash(Player player)
+    {
+        return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(3).as<int*>();
+    }
+
+    int player::get_player_total_money(Player player)
+    {
+        return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(56).as<int*>();
+    }
+
     void player::get_player_location(Player player)
     {
         const std::string domain = "https://get.geojs.io";
@@ -451,14 +625,14 @@ namespace big
     {
         if (Activation)
         {
-            *script_global(2426865).at(PLAYER::PLAYER_ID(), 449).at(209).as<int*>() = 1;
-            *script_global(2441237).at(70).as<int*>() = NETWORK::GET_NETWORK_TIME();
+            *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 1;
+            *script_global(g_global.radar_time).at(70).as<int*>() = NETWORK::GET_NETWORK_TIME();
             *script_global(2544210).at(4628).as<int*>() = 3;
         }
         else
         {
-            *script_global(2426865).at(PLAYER::PLAYER_ID(), 449).at(209).as<int*>() = 0;
-            *script_global(2441237).at(70).as<int*>() = 0;
+            *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 0;
+            *script_global(g_global.radar_time).at(70).as<int*>() = 0;
             *script_global(2544210).at(4628).as<int*>() = 0;
         }
     }
@@ -467,14 +641,14 @@ namespace big
     {
         if (Activation)
         {
-            *script_global(2426865).at(PLAYER::PLAYER_ID(), 449).at(209).as<int*>() = 1;
-            *script_global(2441237).at(70).as<int*>() = NETWORK::GET_NETWORK_TIME();
+            *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 1;
+            *script_global(g_global.radar_time).at(70).as<int*>() = NETWORK::GET_NETWORK_TIME();
             *script_global(2544210).at(4628).as<int*>() = 4;
         }
         else
         {
-            *script_global(2426865).at(PLAYER::PLAYER_ID(), 449).at(209).as<int*>() = 0;
-            *script_global(2441237).at(70).as<int*>() = 0;
+            *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 0;
+            *script_global(g_global.radar_time).at(70).as<int*>() = 0;
             *script_global(2544210).at(4628).as<int*>() = 0;
         }
     }
@@ -483,11 +657,11 @@ namespace big
     {
         if (Activation)
         {
-            rage_helper::get_local_ped()->m_navigation->m_ph_arche->m_ph_bound->m_ph_composite->m_ph_geometry[0x0]->m_collision = -1.0f;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x30, 0x10, 0x20, 0x70, 0x0, 0x2C }, -1.0f);
+            rage_helper::get_local_ped()->m_navigation->m_ph_arche->get_geometry(0)->m_collision = -1.0f;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x30, 0x10, 0x20, 0x70, 0x0, 0x2C }, -1.0f);
         }
         else
         {
-            rage_helper::get_local_ped()->m_navigation->m_ph_arche->m_ph_bound->m_ph_composite->m_ph_geometry[0x0]->m_collision = 0.25f;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x30, 0x10, 0x20, 0x70, 0x0, 0x2C }, 0.25f);
+            rage_helper::get_local_ped()->m_navigation->m_ph_arche->get_geometry(0)->m_collision = 0.25f;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x30, 0x10, 0x20, 0x70, 0x0, 0x2C }, 0.25f);
         }
     }
 
@@ -537,7 +711,7 @@ namespace big
     {
         if (activation)
         {
-            *script_global(1590908).at(g_local.player, 874).at(205).at(6).as<int*>() = level;
+            *script_global(g_global.player_stat).at(g_local.player, g_global.player_size).at(g_global.player_offset).at(6).as<int*>() = level;
         }
     }
 
@@ -545,7 +719,7 @@ namespace big
     {
         if (activation)
         {
-            *script_global(1590908).at(g_local.player, 874).at(205).at(56).as<int*>() = money;
+            *script_global(g_global.player_stat).at(g_local.player, g_global.player_size).at(g_global.player_offset).at(56).as<int*>() = money;
         }
     }
 
@@ -825,5 +999,10 @@ namespace big
             return ped->m_weapon_inventory->is_infinite_ammo();
         }
         return false;
+    }
+
+    bool player::is_player_out_of_radar(Player player)
+    {
+        return *script_global(g_global.radar_toggle).at(player, 443).at(209).as<bool*>();
     }
 }

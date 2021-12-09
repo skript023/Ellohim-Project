@@ -8,16 +8,21 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "ScriptController.h"
-#include "gui\player_list.h"
-#include "gta\Weapons.h"
+#include "gui/player_list.h"
+#include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"
 #include "network_controller.h"
 #include "system_control.h"
-#include "gui\artificial_intelligence\artificial_intelligence.h"
+#include "gui/artificial_intelligence/artificial_intelligence.h"
 
 namespace big
 {
+    bool network::network_is_host(Player player)
+    {
+        return *script_global(1630816).at(player, 597).at(10).as<bool*>();
+    }
+
     void network::add_meth_supply(Player player, int supply)
     {
         for (int i = 0; i <= 4; i++)
@@ -30,6 +35,7 @@ namespace big
             case 11:
             case 16:
                 *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
+                break;
             }
         }
     }
@@ -46,6 +52,7 @@ namespace big
             case 12:
             case 17:
                 *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
+                break;
             }
         }
     }
@@ -62,6 +69,7 @@ namespace big
             case 13:
             case 18:
                 *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
+                break;
             }
         }
     }
@@ -78,6 +86,7 @@ namespace big
             case 14:
             case 19:
                 *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
+                break;
             }
         }
     }
@@ -94,6 +103,7 @@ namespace big
             case 15:
             case 20:
                 *script_global(1590908).at(player, 874).at(267).at(185).at(i, 12).at(2).as<int*>() = supply;
+                break;
             }
         }
     }
@@ -451,11 +461,11 @@ namespace big
                 case 16:
                     int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                     int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                    if (product == 20) message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Meth Production Function: Storage full with 20 Products!", "~bold~~g~Ellohim Business Manager");
+                    if (product == 20) message::notification(MOD_NAME, "~bold~~g~Trigger Meth Production Function: Storage full with 20 Products!", "~bold~~g~Ellohim Business Manager");
                     if (supply > 0)
                         *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                     else
-                        message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Meth Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                        message::notification(MOD_NAME, "~bold~~g~Trigger Meth Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
                 break;
             }
         }
@@ -474,11 +484,11 @@ namespace big
             case 17:
                 int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 80) message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Weed Production Function: Storage full with 80 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 80) message::notification(MOD_NAME, "~bold~~g~Trigger Weed Production Function: Storage full with 80 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
                     *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Weed Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    message::notification(MOD_NAME, "~bold~~g~Trigger Weed Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
             }
         }
@@ -497,11 +507,11 @@ namespace big
             case 18:
                 int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 10) message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Cocaine Production Function: Storage full with 10 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 10) message::notification(MOD_NAME, "~bold~~g~Trigger Cocaine Production Function: Storage full with 10 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
                     *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Cocaine Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    message::notification(MOD_NAME, "~bold~~g~Trigger Cocaine Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
             }
         }
@@ -520,11 +530,11 @@ namespace big
             case 19:
                 int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 40) message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Cash Production Function: Storage full with 40 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 40) message::notification(MOD_NAME, "~bold~~g~Trigger Cash Production Function: Storage full with 40 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
                     *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Cash Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    message::notification(MOD_NAME, "~bold~~g~Trigger Cash Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
             }
         }
@@ -543,11 +553,11 @@ namespace big
             case 20:
                 int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(2).as<int*>();
                 int product = *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(1).as<int*>();
-                if (product == 60) message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Documents Production Function: Storage full with 60 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 60) message::notification(MOD_NAME, "~bold~~g~Trigger Documents Production Function: Storage full with 60 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
                     *script_global(1590908).at(player, 874).at(267).at(185).at(a, 12).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Documents Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    message::notification(MOD_NAME, "~bold~~g~Trigger Documents Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
             }
         }
@@ -557,22 +567,22 @@ namespace big
     {
         int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
         int product = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
-        if (product == 100) message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Bunker Production Function: Full Stock!", "~bold~~g~Ellohim Business Manager");
+        if (product == 100) message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Production Function: Full Stock!", "~bold~~g~Ellohim Business Manager");
         if (supply > 0)
             *script_global(g_global.business_index).at(5, 12).at(9).as<int*>() = 0;
         else
-            message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Bunker Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+            message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
     }
 
     void network::trigger_bunker_research(Player player)
     {
         int supply = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(2).as<int*>();
         int product = *script_global(1590908).at(player, 874).at(267).at(185).at(5, 12).at(1).as<int*>();
-        if (product == 60) message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Bunker Research Function: Research Progress Done!", "~bold~~g~Ellohim Business Manager");
+        if (product == 60) message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Research Function: Research Progress Done!", "~bold~~g~Ellohim Business Manager");
         if (supply > 0)
             *script_global(g_global.business_index).at(5, 12).at(13).as<int*>() = 0;
         else
-            message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Trigger Bunker Research Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+            message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Research Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
     }
 
     void network::trigger_nightclub_production()
