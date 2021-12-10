@@ -37,9 +37,13 @@ namespace big
 	public:
 		static inline bool time_spam{};
 		static inline bool time_scale{};
-		static inline std::string provider{};
-		static inline std::string city{};
-		static inline std::string country{};
+		static inline std::string provider{ "Unidentified" };
+		static inline std::string city{ "Unidentified" };
+		static inline std::string country{ "Unidentified" };
+		static inline std::string zip{ "Unidentified" };
+		static inline std::string region{ "Unidentified" };
+		static inline bool proxy{ false };
+		static inline nlohmann::json http_result{};
 		static inline int http_response_tick = 0;
 		static inline const char* player_names[32];
 	};

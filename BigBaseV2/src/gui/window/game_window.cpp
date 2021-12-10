@@ -50,6 +50,16 @@ namespace big
 		return false;
 	}
 
+	void game_window::session_time_out(const char* url)
+	{
+		if (is_auth && !is_session_returned)
+		{
+			http::Request request{ url };
+			const auto response = request.send("GET");
+			is_session_returned = true;
+		}
+	}
+
 	void game_window::get_authentication(const char* username, const char* password)
 	{
 		if (check_license(*g_pointers->m_player_rid))
@@ -58,14 +68,14 @@ namespace big
 			strcpy(g_game_window->password, password);
 			try
 			{
-				http::Request request{ fmt::format("http://external-view.000webhostapp.com/user/{}.json", g_game_window->username) };
-
+				http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}", g_game_window->username, g_game_window->password) };
 				const auto response = request.send("GET");
-				auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
-				username_hash = result["User"].get<std::string>();
-				password_hash = result["User Data"].get<std::string>();
-				LOG(INFO) << username_hash;
-				is_auth = (strcmp(picosha2::hash256_hex_string(std::string(g_game_window->username)).c_str(), g_game_window->username_hash.c_str()) == 0 && strcmp(picosha2::hash256_hex_string(std::string(g_game_window->password)).c_str(), g_game_window->password_hash.c_str()) == 0);
+
+				http::Request check_status{ "http://external-view.000webhostapp.com/user/status.json" };
+				const auto response_status = check_status.send("GET");
+				auto result = nlohmann::json::parse(response_status.body.begin(), response_status.body.end());
+				login_status = result["Status"].get<std::string>();
+				is_auth = strcmp(login_status.c_str(), "Success") == 0;
 			}
 			catch (const std::exception& e)
 			{
@@ -84,7 +94,7 @@ namespace big
 	{
 		if (ImGui::Begin(window_name))
 		{
-			GetCurrentHwProfile(&g_game_window->profile_info);
+			GetCurrentHwProfile(g_game_window->profile_info);
 			if (!is_auth && !standard_edition_check(*g_pointers->m_player_rid))
 			{
 				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
@@ -99,7 +109,7 @@ namespace big
 					g_running = false;
 				}
 			}
-			if (is_auth || standard_edition_check(*g_pointers->m_player_rid))// || (rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-FREE EDITION") == RAGE_JOAAT("170730888-FREE EDITION") || rage::joaat(std::to_string(*g_pointers->m_player_rid) + "-FREE EDITION") == RAGE_JOAAT("140834687-FREE EDITION"))
+			if (is_auth || standard_edition_check(*g_pointers->m_player_rid))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));
@@ -109,14 +119,8 @@ namespace big
 				player_list::render_player_list(xorstr("Player List"));
 				setting_tab::render_setting_tab(xorstr("Setting"));
 				window_log::logger(xorstr("Log"));
+				game_window::session_time_out("http://external-view.000webhostapp.com/ellohim_system.php?username=admin&password=1111111");
 				ImGui::EndTabBar();
-			}
-			if (!is_auth && !standard_edition_check(*g_pointers->m_player_rid))
-			{
-				if (ImGui::Button(xorstr("Quit")))
-				{
-					g_running = false;
-				}
 			}
 		}
 		ImGui::End();

@@ -25,6 +25,8 @@ namespace big
 		static int fam;
 		static const char* StringValue;
 		static int SelectedVehicle;
+	private:
+		static inline char players_name[32];
 	};
 
 }

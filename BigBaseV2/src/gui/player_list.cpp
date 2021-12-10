@@ -51,30 +51,29 @@ namespace big
         if (ImGui::BeginTabItem(tab_name))
         {
             ImGui::TextColored(ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f }, "Total Player : %d", g_local.connected_player);
-            char PlayerListMenu[200];
             if (ImGui::ListBoxHeader(xorstr("##empty"), ImVec2(230, 400)))
             {
                 for (int i = 0; i < 32; ++i)
                 {
-                    std::string num = std::to_string(i);
+                    auto num = std::to_string(i);
                     if (!strcmp(g_misc_option->player_names[i],"**Invalid**") == 0)
                     {
-                        strcpy(PlayerListMenu, "[");
-                        strcat(PlayerListMenu, num.c_str());
-                        strcat(PlayerListMenu, "]");
-                        strcat(PlayerListMenu, g_misc_option->player_names[i]);
+                        strcpy(players_name, "[");
+                        strcat(players_name, num.c_str());
+                        strcat(players_name, "]");
+                        strcat(players_name, g_misc_option->player_names[i]);
                         if (network::network_is_host(i))
                         {
-                            strcat(PlayerListMenu, "[H]");
+                            strcat(players_name, "[H]");
                         }
                         if (i == g_local.ScriptHost)
                         {
-                            strcat(PlayerListMenu, "[SH]");
+                            strcat(players_name, "[SH]");
                         }
-                        if (ImGui::Selectable(PlayerListMenu, i == g_selected.player))
+                        if (ImGui::Selectable(players_name, i == g_selected.player))
                         {
                             g_selected.player = i;
-                            g_misc_option->http_response_tick = 99;
+                            g_misc_option->http_response_tick = 0;
                         }
                     }
                 }

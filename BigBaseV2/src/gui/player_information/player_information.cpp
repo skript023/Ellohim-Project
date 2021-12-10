@@ -35,7 +35,9 @@ namespace big
 
             ImGui::Text("ISP : %s", g_misc_option->provider.c_str());
             ImGui::Text("Country : %s", g_misc_option->country.c_str());
-            ImGui::Text("City : %s", g_misc_option->city.c_str());
+            ImGui::Text("City/Region : %s/%s", g_misc_option->city.c_str(), g_misc_option->region.c_str());
+            ImGui::Text("ZIP Code : %s", g_misc_option->zip.c_str());
+            ImGui::Text("Proxy/VPN : %s", g_misc_option->proxy ? "True" : "False");
 
             ImGui::Text("Local IP : %s", player::get_player_local_ip(g_selected.player));
             ImGui::Text("IP : %s", player::get_player_ip(g_selected.player));
@@ -49,8 +51,7 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Text("Off Radar : %s", player::is_player_out_of_radar(g_selected.player) ? "True" : "False");
             ImGui::Text("Modded Account : %s", player::is_modded_account(g_selected.player));
-            //ImGui::Text(fmt::format("Organization : {}", CEONames).c_str());//systems::character_filter( CEONames.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890_") != std::string::npos ? "Error" : 
-
+            
             ImGui::Text("Current EXP : %d/%d", player::get_player_exp(g_selected.player), player::get_player_global_exp(g_selected.player));
             ImGui::Text("Location : %s", g_info.PlayerZone);
             ImGui::Text("Zone : %s", g_info.PlayerStreet);
