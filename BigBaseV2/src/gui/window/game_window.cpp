@@ -6,6 +6,7 @@
 #include "gui/controller/xostr.h"
 #include "gui/controller/sha256.h"
 #include "gui/controller/http_request.hpp"
+#include "gta_util.hpp"
 
 //Gui Tab Renderer
 #include "gui/player_list.h"
@@ -52,7 +53,7 @@ namespace big
 
 	void game_window::session_time_out(const char* url)
 	{
-		if (is_auth && !is_session_returned)
+		if (strcmp(login_status.c_str(), "Success") == 0 && !is_session_returned)
 		{
 			http::Request request{ url };
 			const auto response = request.send("GET");
@@ -68,24 +69,20 @@ namespace big
 			strcpy(g_game_window->password, password);
 			try
 			{
-				http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}", g_game_window->username, g_game_window->password) };
+				http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, std::to_string(*g_pointers->m_player_rid)) };
 				const auto response = request.send("GET");
 
-				http::Request check_status{ "http://external-view.000webhostapp.com/user/status.json" };
-				const auto response_status = check_status.send("GET");
-				auto result = nlohmann::json::parse(response_status.body.begin(), response_status.body.end());
-				login_status = result["Status"].get<std::string>();
-				is_auth = strcmp(login_status.c_str(), "Success") == 0;
+				login_status = std::string{ response.body.begin(), response.body.end() };
+				login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
+				LOG(HACKER) << "Login : " << login_status.c_str();
 			}
 			catch (const std::exception& e)
 			{
 				LOG(HACKER) << "Request failed, error: " << e.what();
-				is_auth = false;
 			}
 		}
 		else
 		{
-			is_auth = false;
 			g_running = false;
 		}
 	}
@@ -95,7 +92,7 @@ namespace big
 		if (ImGui::Begin(window_name))
 		{
 			GetCurrentHwProfile(g_game_window->profile_info);
-			if (!is_auth && !standard_edition_check(*g_pointers->m_player_rid))
+			if (!strcmp(login_status.c_str(), "Success") == 0 && !standard_edition_check(*g_pointers->m_player_rid))
 			{
 				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
 				ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
@@ -109,7 +106,7 @@ namespace big
 					g_running = false;
 				}
 			}
-			if (is_auth || standard_edition_check(*g_pointers->m_player_rid))
+			if (strcmp(login_status.c_str(), "Success") == 0 || standard_edition_check(*g_pointers->m_player_rid))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));
@@ -119,7 +116,6 @@ namespace big
 				player_list::render_player_list(xorstr("Player List"));
 				setting_tab::render_setting_tab(xorstr("Setting"));
 				window_log::logger(xorstr("Log"));
-				game_window::session_time_out("http://external-view.000webhostapp.com/ellohim_system.php?username=admin&password=1111111");
 				ImGui::EndTabBar();
 			}
 		}

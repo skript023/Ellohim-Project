@@ -52,7 +52,6 @@ namespace big
                 controller::DumpEntryBoi();
             }
             ImGui::Separator();
-
             if (ImGui::Button(xorstr("Benchmark")))
             {
                 auto start = std::chrono::high_resolution_clock::now();
