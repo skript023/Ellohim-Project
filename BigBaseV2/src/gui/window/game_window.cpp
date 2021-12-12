@@ -53,7 +53,7 @@ namespace big
 
 	void game_window::session_time_out(const char* url)
 	{
-		if (strcmp(login_status.c_str(), "Success") == 0 && !is_session_returned)
+		if (rage::joaat(login_status) == RAGE_JOAAT("Success") && !is_session_returned)
 		{
 			http::Request request{ url };
 			const auto response = request.send("GET");
@@ -74,7 +74,7 @@ namespace big
 
 				login_status = std::string{ response.body.begin(), response.body.end() };
 				login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
-				LOG(HACKER) << "Login : " << login_status.c_str();
+				LOG(HACKER) << "Login : " << login_status;
 			}
 			catch (const std::exception& e)
 			{
@@ -92,13 +92,13 @@ namespace big
 		if (ImGui::Begin(window_name))
 		{
 			GetCurrentHwProfile(g_game_window->profile_info);
-			if (!strcmp(login_status.c_str(), "Success") == 0 && !standard_edition_check(*g_pointers->m_player_rid))
+			if (!(rage::joaat(login_status) == RAGE_JOAAT("Success")) && !standard_edition_check(*g_pointers->m_player_rid))
 			{
 				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
 				ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
 				if (ImGui::Button(xorstr("Login")))
 				{
-					get_authentication(temp_username, temp_password);
+					get_authentication(g_game_window->temp_username, g_game_window->temp_password);
 				}
 				ImGui::SameLine();
 				if (ImGui::Button(xorstr("Quit")))
@@ -106,7 +106,7 @@ namespace big
 					g_running = false;
 				}
 			}
-			if (strcmp(login_status.c_str(), "Success") == 0 || standard_edition_check(*g_pointers->m_player_rid))
+			if (rage::joaat(login_status) == RAGE_JOAAT("Success") || standard_edition_check(*g_pointers->m_player_rid))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));
