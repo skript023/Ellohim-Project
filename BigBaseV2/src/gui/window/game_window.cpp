@@ -31,26 +31,20 @@ namespace big
 
 	void game_window::get_authentication(const char* username, const char* password)
 	{
-		if (check_license(*g_pointers->m_player_rid))
+		strcpy(g_game_window->username, username);
+		strcpy(g_game_window->password, password);
+		try
 		{
-			strcpy(g_game_window->username, username);
-			strcpy(g_game_window->password, password);
-			try
-			{
-				http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, std::to_string(*g_pointers->m_player_rid)) };
-				const auto response = request.send("GET");
+			http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, std::to_string(*g_pointers->m_player_rid)) };
+			const auto response = request.send("GET");
 
-				login_status = std::string{ response.body.begin(), response.body.end() };
-				login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
-				LOG(HACKER) << "Login : " << login_status;
-			}
-			catch (const std::exception& e)
-			{
-				LOG(HACKER) << "Request failed, error: " << e.what();
-			}
+			login_status = std::string{ response.body.begin(), response.body.end() };
+			login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
+			LOG(HACKER) << "Login : " << login_status;
 		}
-		else
+		catch (const std::exception& e)
 		{
+			LOG(HACKER) << "Request failed, error: " << e.what();
 			g_running = false;
 		}
 	}
@@ -62,7 +56,6 @@ namespace big
 			if (!(rage::joaat(login_status) == RAGE_JOAAT("Success")))
 			{
 				GetCurrentHwProfile(g_game_window->profile_info);
-				ImGui::Text(fmt::format("Your Profile : {}", g_game_window->profile_info->szHwProfileName).c_str());
 				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
 				ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
 				if (ImGui::Button(xorstr("Login")))

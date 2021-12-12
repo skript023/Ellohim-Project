@@ -7,8 +7,6 @@ namespace big
 	class game_window
 	{
 	public:
-		static bool check_license(uint64_t license);
-		static bool standard_edition_check(uint64_t license);
 		static void session_time_out(const char* url);
 		static void get_authentication(const char* username, const char* password);
 		static void render_base_window(const char* window_name);
