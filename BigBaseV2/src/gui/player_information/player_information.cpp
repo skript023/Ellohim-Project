@@ -22,6 +22,7 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
+            controller::get_player_info_from_ip(g_selected.player);
             ImGui::Text("Ped ID : %d", g_selected.ped);
             ImGui::SameLine(200);
             ImGui::Text("Script Host : %s", g_local.ScriptHost == g_selected.player ? "True" : "False");

@@ -233,6 +233,38 @@ namespace big
         file.close();
     }
 
+    void controller::get_player_info_from_ip(Player player)
+    {
+        if (http_response_tick == 10)
+        {
+            try
+            {
+                if (!strcmp(player::get_player_ip(player).c_str(), "0.0.0.0") == 0)
+                {
+                    http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(player)) };
+
+                    // send a get request
+                    const auto response = request.send("GET");
+                    auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
+                    provider = result["isp"].get<std::string>();
+                    country = result["country"].get<std::string>();
+                    city = result["city"].get<std::string>();
+                    region = result["regionName"].get<std::string>();
+                    zip = result["zip"].get<std::string>();
+                    proxy = result["proxy"].get<bool>();
+                }
+            }
+            catch (const std::exception& e)
+            {
+                LOG(HACKER) << "Request failed, error: " << e.what();
+            }
+        }
+
+        if (http_response_tick >= 500)
+            http_response_tick = 0;
+        http_response_tick++;
+    }
+
     void controller::variable_attach()
     {
         if (g_local.player != PLAYER::PLAYER_ID() || g_local.ped != PLAYER::PLAYER_PED_ID())
@@ -279,34 +311,5 @@ namespace big
         g_info.PlayerZone = HUD::_GET_LABEL_TEXT(ZONE::GET_NAME_OF_ZONE(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z));
         PATHFIND::GET_STREET_NAME_AT_COORD(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z, &g_info.StreetNameHash, &g_info.CrossingRoadHash);
         g_info.PlayerStreet = HUD::GET_STREET_NAME_FROM_HASH_KEY(g_info.StreetNameHash);
-
-        if (http_response_tick == 10)
-        {
-            try
-            {
-                if (!strcmp(player::get_player_ip(g_selected.player).c_str(), "0.0.0.0") == 0)
-                {
-                    http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(g_selected.player)) };
-
-                    // send a get request
-                    const auto response = request.send("GET");
-                    auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
-                    provider = result["isp"].get<std::string>();
-                    country = result["country"].get<std::string>();
-                    city = result["city"].get<std::string>();
-                    region = result["regionName"].get<std::string>();
-                    zip = result["zip"].get<std::string>();
-                    proxy = result["proxy"].get<bool>();
-                }
-            }
-            catch (const std::exception& e)
-            {
-                LOG(HACKER) << "Request failed, error: " << e.what();
-            }
-        }
-
-        if (http_response_tick >= 500)
-            http_response_tick = 0;
-        http_response_tick++;
     }
 }

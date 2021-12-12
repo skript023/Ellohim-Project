@@ -19,38 +19,6 @@
 
 namespace big
 {
-	bool game_window::check_license(uint64_t license)
-	{
-		switch (rage::joaat(std::to_string(license) + "-PREMIUM EDITION"))
-		{
-			case RAGE_JOAAT("199227111-PREMIUM EDITION"):
-			case RAGE_JOAAT("160920790-PREMIUM EDITION"):
-			case RAGE_JOAAT("148443584-PREMIUM EDITION"):
-			case RAGE_JOAAT("196561748-PREMIUM EDITION"):
-			case RAGE_JOAAT("96098918-PREMIUM EDITION"):
-			case RAGE_JOAAT("176139389-PREMIUM EDITION"):
-			case RAGE_JOAAT("156127327-PREMIUM EDITION"):
-				return true;
-			default:
-				if (rage::joaat(std::to_string(license) + "-FREE EDITION") == RAGE_JOAAT("170730888-FREE EDITION") || rage::joaat(std::to_string(license) + "-FREE EDITION") == RAGE_JOAAT("140834687-FREE EDITION"))
-				{
-					return true;
-				}
-				return false;
-		}
-	}
-
-	bool game_window::standard_edition_check(uint64_t license)
-	{
-		switch (rage::joaat(std::to_string(license) + "-FREE EDITION"))
-		{
-			case RAGE_JOAAT("170730888-FREE EDITION"):
-			case RAGE_JOAAT("140834687-FREE EDITION"):
-				return true;
-		}
-		return false;
-	}
-
 	void game_window::session_time_out(const char* url)
 	{
 		if (rage::joaat(login_status) == RAGE_JOAAT("Success") && !is_session_returned)
@@ -91,9 +59,10 @@ namespace big
 	{
 		if (ImGui::Begin(window_name))
 		{
-			GetCurrentHwProfile(g_game_window->profile_info);
-			if (!(rage::joaat(login_status) == RAGE_JOAAT("Success")) && !standard_edition_check(*g_pointers->m_player_rid))
+			if (!(rage::joaat(login_status) == RAGE_JOAAT("Success")))
 			{
+				GetCurrentHwProfile(g_game_window->profile_info);
+				ImGui::Text(fmt::format("Your Profile : {}", g_game_window->profile_info->szHwProfileName).c_str());
 				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
 				ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
 				if (ImGui::Button(xorstr("Login")))
@@ -106,7 +75,8 @@ namespace big
 					g_running = false;
 				}
 			}
-			if (rage::joaat(login_status) == RAGE_JOAAT("Success") || standard_edition_check(*g_pointers->m_player_rid))
+
+			if (rage::joaat(login_status) == RAGE_JOAAT("Success"))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));

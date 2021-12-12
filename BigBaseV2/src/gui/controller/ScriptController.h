@@ -14,7 +14,7 @@ namespace big
 			static void ptfx_asset_load(const char* name);
 			static Hash load(Hash hash);
 			static const char* load_anim(const char* anim);
-			
+			static void get_player_info_from_ip(Player player);
 			
 			
 			static void RequestControlOfid(Entity netid);

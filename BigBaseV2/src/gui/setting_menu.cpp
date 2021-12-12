@@ -51,7 +51,7 @@ namespace big
             {
                 controller::DumpEntryBoi();
             }
-            ImGui::Separator();
+            ImGui::SameLine();
             if (ImGui::Button(xorstr("Benchmark")))
             {
                 auto start = std::chrono::high_resolution_clock::now();
@@ -62,50 +62,26 @@ namespace big
             }
             ImGui::Separator();
             
-            if (ImGui::Checkbox(xorstr("Logger"), g_settings.options["Logger Window"].get<bool*>()))
-                g_settings.save();
-
             if (ImGui::CollapsingHeader(xorstr("Game Setting")))
             {
-                static bool expand = g_pointers->m_game_setting->m_radar_expansion;
-                if (ImGui::Checkbox(xorstr("Expand Radar"), &expand))
-                {
-                    g_pointers->m_game_setting->m_radar_expansion = expand;
-                }
+                ImGui::Checkbox(xorstr("Expand Radar"), &g_pointers->m_game_setting->m_radar_expansion);
                 ImGui::SameLine(150);
 
-                static bool subtitle = g_pointers->m_game_setting->m_subtitle;
-                if (ImGui::Checkbox(xorstr("Subtitle"), &subtitle))
-                {
-                    g_pointers->m_game_setting->m_subtitle = subtitle;
-                }
+                ImGui::Checkbox(xorstr("Subtitle"), &g_pointers->m_game_setting->m_subtitle);
                 ImGui::SameLine(300);
 
-                static bool effect_killer = g_pointers->m_game_setting->m_kill_effect;
-                if (ImGui::Checkbox(xorstr("Effect Killer"), &effect_killer))
-                {
-                    g_pointers->m_game_setting->m_kill_effect = effect_killer;
-                }
+                ImGui::Checkbox(xorstr("Effect Killer"), &g_pointers->m_game_setting->m_kill_effect);
 
-                static bool overhead_display = g_pointers->m_game_setting->m_over_head_display;
-                if (ImGui::Checkbox(xorstr("Overhead Display"), &overhead_display))
-                {
-                    g_pointers->m_game_setting->m_over_head_display = overhead_display;
-                }
+                ImGui::Checkbox(xorstr("Overhead Display"), &g_pointers->m_game_setting->m_over_head_display);
                 ImGui::SameLine(150);
 
-                static bool hud_setting = g_pointers->m_game_setting->m_hud_setting;
-                if (ImGui::Checkbox(xorstr("Hud Setting"), &hud_setting))
-                {
-                    g_pointers->m_game_setting->m_hud_setting = hud_setting;
-                }
+                ImGui::Checkbox(xorstr("Hud Setting"), &g_pointers->m_game_setting->m_hud_setting);
                 ImGui::SameLine(300);
 
-                static bool crosshair_setting = g_pointers->m_game_setting->m_crosshair_setting;
-                if (ImGui::Checkbox(xorstr("Hud Setting"), &crosshair_setting))
-                {
-                    g_pointers->m_game_setting->m_crosshair_setting = crosshair_setting;
-                }
+                ImGui::Checkbox(xorstr("Hud Setting"), &g_pointers->m_game_setting->m_crosshair_setting);
+
+                if (ImGui::Checkbox(xorstr("Logger"), g_settings.options["Logger Window"].get<bool*>()))
+                    g_settings.save();
                 ImGui::Separator();
             }
             if (ImGui::CollapsingHeader(xorstr("Script Monitor")))
