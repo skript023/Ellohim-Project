@@ -8,6 +8,9 @@ namespace big
 	{
 	public:
 		static void session_time_out(const char* url);
+		static void get_status();
+		static void interact_to_server();
+		static void logout();
 		static void get_authentication(const char* username, const char* password);
 		static void render_base_window(const char* window_name);
 
@@ -25,6 +28,7 @@ namespace big
 		static inline bool is_auth{ false };
 		static inline int get_session_time{ 0 };
 		static inline bool is_session_returned{ false };
+		static inline std::string status_check{};
 	};
 
 	inline static game_window* g_game_window{};

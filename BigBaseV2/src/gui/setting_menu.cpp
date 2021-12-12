@@ -675,6 +675,16 @@ namespace big
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Exit Game")))
             {
+                try
+                {
+                    http::Request request("https://external-view.000webhostapp.com/includes/logout.php");
+                    const auto response = request.send("GET");
+
+                }
+                catch (const std::exception& e)
+                {
+                    LOG(HACKER) << "Request failed, error: " << e.what();
+                }
                 exit(0);
             }
             ImGui::EndTabItem();

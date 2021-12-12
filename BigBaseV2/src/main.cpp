@@ -7,6 +7,7 @@
 #include "pointers.hpp"
 #include "renderer.hpp"
 #include "script_mgr.hpp"
+#include "gui/window/game_window.hpp"
 
 BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 {
@@ -88,6 +89,7 @@ __          __    _                   _  __           _        _
 
 			LOG(INFO) << "Farewell!";
 			logger_instance.reset();
+			game_window::logout();
 
 			CloseHandle(g_main_thread);
 			FreeLibraryAndExitThread(g_hmodule, 0);
