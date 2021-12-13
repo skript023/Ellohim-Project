@@ -11,16 +11,16 @@ namespace big
 		static void get_status();
 		static void interact_to_server();
 		static void logout();
-		static void get_authentication(const char* username, const char* password);
+		static bool get_authentication(const char* username, const char* password);
 		static void render_base_window(const char* window_name);
 
 	public:
 		static inline bool logger{};
 	private:
-		static inline char temp_username[255];
-		static inline char temp_password[255];
-		static inline char username[255];
-		static inline char password[255];
+		static inline char temp_username[128];
+		static inline char temp_password[128];
+		static inline char username[128];
+		static inline char password[128];
 		static inline HW_PROFILE_INFO *profile_info;
 		static inline std::string username_hash{};
 		static inline std::string password_hash{};

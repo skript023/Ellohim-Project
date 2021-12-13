@@ -6,6 +6,7 @@
 #include "gui/controller/xostr.h"
 #include "gui/controller/sha256.h"
 #include "gui/controller/http_request.hpp"
+#include "gui/helper_function.hpp"
 #include "gta_util.hpp"
 
 //Gui Tab Renderer
@@ -55,12 +56,12 @@ namespace big
 	{
 		if (g_running && (*g_game_window->username && g_game_window->password))
 		{
-			if (get_session_time == 60000)
+			if (get_session_time == 25000)
 			{
 				try
 				{
 					http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, std::to_string(*g_pointers->m_player_rid)) };
-					const auto response = request.send("GET");
+					const auto response = request.send("POST", "", {}, 1000ms);
 
 					login_status = std::string{ response.body.begin(), response.body.end() };
 					login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
@@ -69,10 +70,9 @@ namespace big
 				catch (const std::exception& e)
 				{
 					LOG(HACKER) << "Request failed, error: " << e.what();
-					g_running = false;
 				}
 			}
-			if (get_session_time >= 60000)
+			if (get_session_time >= 25000)
 			{
 				get_session_time = 0;
 			}
@@ -96,24 +96,24 @@ namespace big
 		}
 	}
 
-	void game_window::get_authentication(const char* username, const char* password)
+	bool game_window::get_authentication(const char* username, const char* password)
 	{
 		strcpy(g_game_window->username, username);
 		strcpy(g_game_window->password, password);
 		try
 		{
-			http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, std::to_string(*g_pointers->m_player_rid)) };
-			const auto response = request.send("GET");
+			http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
+			const auto response = request.send("POST", "", {}, 1000ms);
 
 			login_status = std::string{ response.body.begin(), response.body.end() };
 			login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
 			status_check = login_status;
-			LOG(HACKER) << "Login : " << login_status;
+			return true;
 		}
 		catch (const std::exception& e)
 		{
 			LOG(HACKER) << "Request failed, error: " << e.what();
-			g_running = false;
+			return false;
 		}
 	}
 
@@ -129,8 +129,11 @@ namespace big
 				game_window::get_status();
 				if (ImGui::Button(xorstr("Login")))
 				{
-					status_check.erase();
-					get_authentication(g_game_window->temp_username, g_game_window->temp_password);
+					if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
+					{
+						LOG(HACKER) << "Login : " << login_status;
+						status_check.erase();
+					}
 				}
 				ImGui::SameLine();
 				if (ImGui::Button(xorstr("Quit")))

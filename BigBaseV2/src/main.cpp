@@ -90,7 +90,7 @@ __          __    _                   _  __           _        _
 			LOG(INFO) << "Farewell!";
 			logger_instance.reset();
 			game_window::logout();
-
+			LOG(INFO) << "Logout from session.!";
 			CloseHandle(g_main_thread);
 			FreeLibraryAndExitThread(g_hmodule, 0);
 		}, nullptr, 0, &g_main_thread_id);
