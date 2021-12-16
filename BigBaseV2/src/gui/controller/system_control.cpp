@@ -413,12 +413,6 @@ namespace big
         return floorf(var * 100) / 100;
     }
 
-    std::string systems::w_char_to_string(wchar_t* wchar)
-    {
-        std::wstring ws(wchar);
-        return std::string(ws.begin(), ws.end());
-    }
-
     bool validate_pointer(float Pointer, int64_t Bit)
     {
         auto pointer = std::addressof(Pointer);

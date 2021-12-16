@@ -33,7 +33,6 @@ namespace big
 		static int float_to_int(const float& num);
 		static float int_to_float(int x);
 		static float round(float var);
-		static std::string w_char_to_string(wchar_t* wchar);
 	};
 	class fire
 	{

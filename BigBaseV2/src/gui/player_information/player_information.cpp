@@ -759,8 +759,7 @@ namespace big
                                     break;
                                 case 1:
                                 {
-                                    int64_t bail_event[3] = { 2092565704, g_local.player, *script_global(1630816).at(g_selected.player, 597).at(508).as<int64_t*>() };
-                                    SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << g_selected.player);
+                                    remote_event::bail_player(g_selected.player);
                                 }
                                 break;
                                 case 2:
@@ -787,8 +786,7 @@ namespace big
                                             ENTITY::DELETE_ENTITY(&NewPed);
                                         }
                                     }
-                                    int64_t bail_event[3] = { 2092565704, g_local.player, *script_global(1630816).at(g_selected.player, 597).at(508).as<int64_t*>() };
-                                    SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << g_selected.player);
+                                    remote_event::bail_player(g_selected.player);
 
                                     auto message = fmt::format("~g~DoS Attack Has Been Sent to {}", player::get_player_ip(g_selected.player));
                                     message::notification("~bold~~g~Ellohim Private Menu", message.c_str(), "~bold~~g~Ellohim DoS Attack");

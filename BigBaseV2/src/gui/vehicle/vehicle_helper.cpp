@@ -15,6 +15,18 @@
 
 namespace big
 {
+    void vehicle_helper::allow_unrelease_vehicle(bool activate)
+    {
+        *script_global(262145).at(31474).as<bool*>() = activate;
+        *script_global(262145).at(31475).as<bool*>() = activate;
+        *script_global(262145).at(31476).as<bool*>() = activate;
+        *script_global(262145).at(31477).as<bool*>() = activate;
+        *script_global(262145).at(31478).as<bool*>() = activate;
+        *script_global(262145).at(31479).as<bool*>() = activate;
+        *script_global(262145).at(31480).as<bool*>() = activate;
+        *script_global(262145).at(31481).as<bool*>() = activate;
+    }
+
     void vehicle_helper::set_vehicle_collision(Player player, bool activation)
     {
         if (activation)
@@ -400,6 +412,7 @@ namespace big
         QUEUE_JOB_BEGIN_CLAUSE(=)
         {
             if (!*g_pointers->m_is_session_started) *script_global(4533757).as<bool*>() = true;
+            vehicle_helper::allow_unrelease_vehicle(true);
             auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
@@ -629,6 +642,7 @@ namespace big
 	Vehicle vehicle_helper::create_vehicle(Hash modelHash, float x, float y, float z, float heading)
 	{
 		*script_global(4533757).as<bool*>() = true;
+        vehicle_helper::allow_unrelease_vehicle(true);
 		while (!STREAMING::HAS_MODEL_LOADED(modelHash))
 		{
 			STREAMING::REQUEST_MODEL(modelHash);
