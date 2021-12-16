@@ -322,7 +322,7 @@ namespace big
         {
             if (auto slots_thread = rage_helper::find_script_thread(RAGE_JOAAT("CASINO_SLOTS")))
             {
-                *script_local(slots_thread, 1648).as<int*>() = 4;
+                *script_local(slots_thread, m_local.slot.animation).as<int*>() = 4;
             }
         }
     }
@@ -335,7 +335,7 @@ namespace big
             {
                 for (int i = 1; i <= 195; i++)
                 {
-                    auto local1356 = script_local(slots_thread, 1356).at(1);
+                    auto local1356 = script_local(slots_thread, m_local.slot.jackpot_trigger).at(1);
                     int break_value = *local1356.at(i).as<int*>();
                     if (break_value != 64) {
                         *local1356.at(i).as<int*>() = 6;
@@ -353,7 +353,7 @@ namespace big
             {
                 for (int c = 0; c <= 63; c++)
                 {
-                    *script_local(slots_thread, 1356).at(1).at(f, 65).at(1).at(c).as<int*>() = ID;
+                    *script_local(slots_thread, m_local.slot.jackpot_trigger).at(1).at(f, 65).at(1).at(c).as<int*>() = ID;
                 }
             }
         }
@@ -366,7 +366,7 @@ namespace big
             {
                 for (int i = 1; i <= 10; i++)
                 {
-                    auto local1356 = script_local(slots_thread, 1356).at(278);
+                    auto local1356 = script_local(slots_thread, m_local.slot.jackpot_trigger).at(278);
                     *local1356.at(i).as<int*>() = Reward; //if 1000 it will set to 1000x
                 }
             }
@@ -379,14 +379,14 @@ namespace big
         {
             if (auto slots_thread = rage_helper::find_script_thread(RAGE_JOAAT("CASINO_SLOTS")))
             {
-                auto local_1644 = script_local(slots_thread, 1646).as<int*>();
-                auto local_3407 = script_local(slots_thread, 3409).at(PLAYER::PLAYER_ID(), 11).at(10).as<int*>();
+                auto local_1644 = script_local(slots_thread, m_local.slot.slot_autoplay).as<int*>();
+                auto local_3407 = script_local(slots_thread, m_local.slot.entry_func).at(PLAYER::PLAYER_ID(), 11).at(10).as<int*>();
                 if (*local_3407 == 0)
                 {
-                    *script_local(slots_thread, 1646).as<int*>() = 8;
+                    *script_local(slots_thread, m_local.slot.slot_autoplay).as<int*>() = 8;
                 }
                 else if (*local_3407 == 3) {
-                    *script_local(slots_thread, 3409).at(PLAYER::PLAYER_ID(), 11).at(10).as<int*>() = 6;
+                    *script_local(slots_thread, m_local.slot.entry_func).at(PLAYER::PLAYER_ID(), 11).at(10).as<int*>() = 6;
                 }
             }
         }

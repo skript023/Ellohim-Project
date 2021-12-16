@@ -296,8 +296,8 @@ namespace big
         g_local.script_transition = features::TransitionCheck() && *g_pointers->m_is_session_started;
         g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 834 + 9 + 1;
         g_global.business_index = g_global.player_stat + 1 + (g_local.player * g_global.player_size) + 267 + 187;
-        m_local.blackjack.current_table = 1784 + 1 + (g_local.player * 8) + 4;
-        m_local.blackjack.bet_trigger = 1784 + 1 + (g_local.player * 8);
+        m_local.blackjack.current_table = 1788 + 1 + (g_local.player * 8) + 4;
+        m_local.blackjack.bet_trigger = 1788 + 1 + (g_local.player * 8);
 
         g_ptr.WorldPTR = (uintptr_t)g_pointers->m_ped_factory;
         g_original.rid = *g_pointers->m_player_rid;

@@ -266,20 +266,24 @@ namespace big
 		{
 		public:
 			static inline uint32_t current_table{};
-			static constexpr inline uint32_t current_card = 124 + 1;
+			static constexpr inline uint32_t current_card = 128 + 1;
 			static inline uint32_t bet_trigger{};
-			static constexpr inline uint32_t button_ready = 2041 + 874 + 693;
-			static constexpr inline uint32_t unk_1 = 2041;
-			static constexpr inline uint32_t unk_2 = 3628;
-			static constexpr inline uint32_t unk_3 = 122;
+			static constexpr inline uint32_t button_ready = 2045 + 874 + 693;
+			static constexpr inline uint32_t unk_1 = 2045;
+			static constexpr inline uint32_t unk_2 = 3632;
+			static constexpr inline uint32_t unk_3 = 120;//122
 		}blackjack;
 		static class casino_slot_local
 		{
 		public:
 			static inline uint32_t current_slot{};
-			static constexpr inline uint32_t struct_21 = 221;
-			static constexpr inline uint32_t unk_1 = 2133;
-			static constexpr inline uint32_t unk_2 = 2136;
+			static constexpr inline int32_t jackpot_trigger = 1360;
+			static constexpr inline int32_t animation = 1652;
+			static constexpr inline int32_t slot_autoplay = 1650;
+			static constexpr inline int32_t entry_func = 3413;
+			static constexpr inline uint32_t struct_21 = 225;
+			static constexpr inline uint32_t unk_1 = 2137;
+			static constexpr inline uint32_t unk_2 = 2140;
 		}slot;
 		static class casino_lucky_wheel
 		{
