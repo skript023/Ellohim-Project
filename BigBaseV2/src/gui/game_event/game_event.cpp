@@ -269,8 +269,7 @@ namespace big
                 {
                     if (ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, ped, TRUE) && WEAPON::HAS_ENTITY_BEEN_DAMAGED_BY_WEAPON(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 0, 2))
                     {
-                        int64_t bail_event[3] = { BAIL_NETWORK, g_local.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
-                        SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << player);
+                        bail_player(player);
                         controller::ShowMessage(fmt::format("~g~Kick Has Been Sent To {}", PLAYER::GET_PLAYER_NAME(player)).c_str(), false);
                     }
                 }

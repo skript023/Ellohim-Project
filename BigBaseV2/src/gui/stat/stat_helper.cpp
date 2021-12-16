@@ -763,13 +763,13 @@ namespace big
         return iVar0;
     }
 
-    bool stats::set_packed_bool(int iParam0, bool bParam1, int iParam2)
+    void stats::set_packed_bool(int Index, bool Value, int Character)
     {
-        if (iParam2 == -1)
+        if (Character == -1)
         {
-            iParam2 = g_local.character;
+            Character = rage_helper::get_character();
         }
-        STATS::STAT_SET_BOOL_MASKED(iParam0, bParam1, iParam2);
+        STATS::STAT_SET_BOOL_MASKED(Index, Value, Character);
     }
 
     int stats::packed_bool_stat_mask(int iParam0)
@@ -1012,13 +1012,13 @@ namespace big
         return bVar0;
     }
 
-    bool stats::get_packed_bool(int iParam0, int iParam1)
+    bool stats::get_packed_bool(int Index, int Character)
     {
-        if (iParam1 == -1)
+        if (Character == -1)
         {
-            iParam1 = g_local.character;
+            Character = rage_helper::get_character();
         }
-        return STATS::STAT_GET_BOOL_MASKED(iParam0, iParam1);
+        return STATS::STAT_GET_BOOL_MASKED(Index, Character);
     }
 
     std::filesystem::path stats::get_stats_config()

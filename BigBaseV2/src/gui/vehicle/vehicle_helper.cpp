@@ -192,15 +192,7 @@ namespace big
     {
         if (Activation)
         {
-            Vehicle vehicle;
-            if (rage::joaat(SCRIPT::GET_THIS_SCRIPT_NAME()) == RAGE_JOAAT("freemode"))
-            {
-                if (NETWORK::NETWORK_DOES_NETWORK_ID_EXIST(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>()) && NETWORK::NETWORK_DOES_ENTITY_EXIST_WITH_NETWORK_ID(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>()))
-                {
-                    vehicle = NETWORK::NET_TO_VEH(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>());
-                }
-            }
-            vehicle = *script_global(2544210).at(298).as<int*>();
+            Vehicle vehicle = get_personal_vehicle(g_local.player);
             rage::CPedInterface* ped_interface = g_pointers->m_replay_interface->m_ped_interface;
             for (int i = 0; i < ped_interface->m_max_peds; i++)
             {
@@ -226,11 +218,7 @@ namespace big
                         {
                             remote_event::crash_player(ped, target);
                         }
-                        for (int64_t kick : var::KickHash)
-                        {
-                            int64_t kick_event[2] = { kick, ped };
-                            SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_event, 2, 1 << player);
-                        }
+                        remote_event::bail_player(player);
                     }
                 }
             }

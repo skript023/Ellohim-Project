@@ -294,7 +294,7 @@ namespace big
         g_mission.doomsday_board = rage_helper::find_script_thread(RAGE_JOAAT("gb_gang_ops_planning")) != nullptr;
         g_mission.apartment_board = rage_helper::find_script_thread(RAGE_JOAAT("fmmc_launcher")) != nullptr;
         g_local.script_transition = features::TransitionCheck() && *g_pointers->m_is_session_started;
-        g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 834 + 9 + 1;
+        g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 848 + 9 + 1; //h4_islandx_disc_StrandedWhale
         g_global.business_index = g_global.player_stat + 1 + (g_local.player * g_global.player_size) + 267 + 187;
         m_local.blackjack.current_table = 1788 + 1 + (g_local.player * 8) + 4;
         m_local.blackjack.bet_trigger = 1788 + 1 + (g_local.player * 8);

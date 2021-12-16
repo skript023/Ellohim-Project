@@ -51,9 +51,9 @@ namespace big
 		static int packed_bool_stat_mask(int iParam0);
 		static int packed_bool_stat_name(int iParam0, int iParam1);
 		static bool get_packed_bool(int iParam0, int iParam1, int iParam2);
-		static bool get_packed_bool(int iParam0, int iParam1);
+		static bool get_packed_bool(int Index, int Character);
 		static bool set_packed_bool(int iParam0, bool bParam1, int iParam2, int iParam3);
-		static bool set_packed_bool(int iParam0, bool bParam1, int iParam2);
+		static void set_packed_bool(int Index, bool Value, int Character);
 
 		static std::filesystem::path get_stats_config();
 		static nlohmann::json get_stats_json();

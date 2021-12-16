@@ -456,7 +456,7 @@ namespace big
                                 stats::set_packed_int(packed_index, write_packed_ints_value, -1, TRUE);
                             break;
                             case 1:
-                                stats::set_packed_bool(packed_index, write_packed_bools_value, -1, TRUE);
+                                stats::set_packed_bool(packed_index, write_packed_bools_value, -1);
                             break;
                         }
                     });
@@ -518,126 +518,138 @@ namespace big
                 ImGui::Combo("##PackedStat", &selected_packed_bools, packed_bool_list, IM_ARRAYSIZE(packed_bool_list));
                 if (ImGui::Button(xorstr("Set Packed Bools")))
                 {
-                    g_fiber_pool->queue_job([] {
+                    g_fiber_pool->queue_job([]
+                    {
                         int character = g_local.character;
                         switch (selected_packed_bools)
                         {
                         case 0:
                             for (int i = 4207; i <= 4335; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 4207), FALSE, TRUE, character, "_NGPSTAT_BOOL"), TRUE, ((i - 4207) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 4207)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 1:
-                            for (int i = 4335; i <= 4399; i++)
+                            for (int i = 4335; i < 4399; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 4335), FALSE, FALSE, 0, "_NGPSTAT_BOOL"), TRUE, ((i - 4335) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 4335)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 2:
-                            for (int i = 6029; i <= 6413; i++)
+                            for (int i = 6029; i < 6413; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 6029), FALSE, TRUE, character, "_NGTATPSTAT_BOOL"), TRUE, ((i - 6029) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 6029)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 3:
-                            for (int i = 7385; i <= 7641; i++)
+                            for (int i = 7385; i < 7641; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 7385), FALSE, TRUE, character, "_NGDLCPSTAT_BOOL"), TRUE, ((i - 7385) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 7385)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 4:
-                            for (int i = 7321; i <= 7385; i++)
+                            for (int i = 7321; i < 7385; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 7321), FALSE, FALSE, 0, "_NGDLCPSTAT_BOOL"), TRUE, ((i - 7321) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 7321)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 5:
-                            for (int i = 9361; i <= 9553; i++)
+                            for (int i = 9361; i < 9553; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 9361), FALSE, TRUE, character, "_DLCBIKEPSTAT_BOOL"), TRUE, ((i - 9361) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 9361)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 6:
-                            for (int i = 15369; i <= 15561; i++)
+                            for (int i = 15369; i < 15561; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15369), FALSE, TRUE, character, "_DLCGUNPSTAT_BOOL"), TRUE, ((i - 15369) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15369)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 7:
-                            for (int i = 15562; i <= 15946; i++)
+                            for (int i = 15562; i < 15946; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15562), FALSE, TRUE, character, "_GUNTATPSTAT_BOOL"), TRUE, ((i - 15562) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15562)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 8:
-                            for (int i = 15946; i <= 16010; i++)
+                            for (int i = 15946; i < 16010; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15946), FALSE, TRUE, character, "_DLCSMUGCHARPSTAT_BOOL"), TRUE, ((i - 15946) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15946)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 9:
-                            for (int i = 18098; i <= 18162; i++)
+                            for (int i = 18098; i < 18162; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 18098), FALSE, TRUE, character, "_GANGOPSPSTAT_BOOL"), TRUE, ((i - 18098) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 18098)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 10:
-                            for (int i = 22066; i <= 22194; i++)
+                            for (int i = 22066; i < 22194; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 22066), FALSE, TRUE, character, "_BUSINESSBATPSTAT_BOOL"), TRUE, ((i - 22066) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 22066)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 11:
-                            for (int i = 24962; i <= 25538; i++)
+                            for (int i = 24962; i < 25538; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 24962), FALSE, TRUE, character, "_ARENAWARSPSTAT_BOOL"), TRUE, ((i - 24962) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 24962)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 12:
-                            for (int i = 26810; i <= 27258; i++)
+                            for (int i = 26810; i < 27258; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 26810), FALSE, TRUE, character, "_CASINOPSTAT_BOOL"), TRUE, ((i - 26810) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 26810)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 13:
-                            for (int i = 28098; i <= 28354; i++)
+                            for (int i = 28098; i < 28354; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 28098), FALSE, TRUE, character, "_CASINOHSTPSTAT_BOOL"), TRUE, ((i - 28098) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 28098)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 14:
-                            for (int i = 28355; i <= 28483; i++)
+                            for (int i = 28355; i < 28483; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 28355), FALSE, TRUE, character, "_HEIST3TATTOOSTAT_BOOL"), TRUE, ((i - 28355) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 28355)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 15:
-                            for (int i = 30227; i <= 30355; i++)
+                            for (int i = 30227; i < 30355; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30227), FALSE, TRUE, character, "_SU20PSTAT_BOOL"), TRUE, ((i - 30227) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30227)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 16:
-                            for (int i = 30355; i <= 30483; i++)
+                            for (int i = 30355; i < 30483; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30355), FALSE, TRUE, character, "_SU20TATTOOSTAT_BOOL"), TRUE, ((i - 30355) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30355)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 17:
-                            for (int i = 30515; i <= 30707; i++)
+                            for (int i = 30515; i < 30707; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30515), FALSE, TRUE, character, "_HISLANDPSTAT_BOOL"), TRUE, ((i - 30515) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30515)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         case 18:
-                            for (int i = 31707; i <= 32283; i++)
+                            for (int i = 31707; i < 32283; i++)
                             {
-                                STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 31707), FALSE, TRUE, character, "_TUNERPSTAT_BOOL"), TRUE, ((i - 31707) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 31707)) * 64), TRUE);
+                                stats::set_packed_bool(i, true, -1);
+                            }
+                            break;
+                        case 19:
+                            for (int i = 32283; i < 32411; i++)
+                            {
+                                stats::set_packed_bool(i, true, -1);
+                            }
+                        case 20:
+                            for (int i = 32411; i < 32475; i++)
+                            {
+                                stats::set_packed_bool(i, true, -1);
                             }
                             break;
                         }
-                        });
+                    });
                 }
                 if (ImGui::IsItemHovered())
                     ImGui::SetTooltip(xorstr("This option will set stat to true"));
@@ -650,117 +662,129 @@ namespace big
                             switch (selected_packed_bools)
                             {
                             case 0:
-                                for (int i = 4207; i <= 4335; i++)
+                                for (int i = 4207; i < 4335; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 4207), FALSE, TRUE, character, "_NGPSTAT_BOOL"), FALSE, ((i - 4207) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 4207)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 1:
-                                for (int i = 4335; i <= 4399; i++)
+                                for (int i = 4335; i < 4399; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 4335), FALSE, FALSE, 0, "_NGPSTAT_BOOL"), FALSE, ((i - 4335) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 4335)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 2:
-                                for (int i = 6029; i <= 6413; i++)
+                                for (int i = 6029; i < 6413; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 6029), FALSE, TRUE, character, "_NGTATPSTAT_BOOL"), FALSE, ((i - 6029) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 6029)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 3:
-                                for (int i = 7385; i <= 7641; i++)
+                                for (int i = 7385; i < 7641; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 7385), FALSE, TRUE, character, "_NGDLCPSTAT_BOOL"), FALSE, ((i - 7385) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 7385)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 4:
-                                for (int i = 7321; i <= 7385; i++)
+                                for (int i = 7321; i < 7385; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 7321), FALSE, FALSE, 0, "_NGDLCPSTAT_BOOL"), FALSE, ((i - 7321) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 7321)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 5:
-                                for (int i = 9361; i <= 9553; i++)
+                                for (int i = 9361; i < 9553; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 9361), FALSE, TRUE, character, "_DLCBIKEPSTAT_BOOL"), FALSE, ((i - 9361) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 9361)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 6:
-                                for (int i = 15369; i <= 15561; i++)
+                                for (int i = 15369; i < 15561; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15369), FALSE, TRUE, character, "_DLCGUNPSTAT_BOOL"), FALSE, ((i - 15369) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15369)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 7:
-                                for (int i = 15562; i <= 15946; i++)
+                                for (int i = 15562; i < 15946; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15562), FALSE, TRUE, character, "_GUNTATPSTAT_BOOL"), FALSE, ((i - 15562) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15562)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 8:
-                                for (int i = 15946; i <= 16010; i++)
+                                for (int i = 15946; i < 16010; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15946), FALSE, TRUE, character, "_DLCSMUGCHARPSTAT_BOOL"), FALSE, ((i - 15946) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15946)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 9:
-                                for (int i = 18098; i <= 18162; i++)
+                                for (int i = 18098; i < 18162; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 18098), FALSE, TRUE, character, "_GANGOPSPSTAT_BOOL"), FALSE, ((i - 18098) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 18098)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 10:
-                                for (int i = 22066; i <= 22194; i++)
+                                for (int i = 22066; i < 22194; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 22066), FALSE, TRUE, character, "_BUSINESSBATPSTAT_BOOL"), FALSE, ((i - 22066) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 22066)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 11:
-                                for (int i = 24962; i <= 25538; i++)
+                                for (int i = 24962; i < 25538; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 24962), FALSE, TRUE, character, "_ARENAWARSPSTAT_BOOL"), FALSE, ((i - 24962) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 24962)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 12:
-                                for (int i = 26810; i <= 27258; i++)
+                                for (int i = 26810; i < 27258; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 26810), FALSE, TRUE, character, "_CASINOPSTAT_BOOL"), FALSE, ((i - 26810) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 26810)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 13:
-                                for (int i = 28098; i <= 28354; i++)
+                                for (int i = 28098; i < 28354; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 28098), FALSE, TRUE, character, "_CASINOHSTPSTAT_BOOL"), FALSE, ((i - 28098) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 28098)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 14:
-                                for (int i = 28355; i <= 28483; i++)
+                                for (int i = 28355; i < 28483; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 28355), FALSE, TRUE, character, "_HEIST3TATTOOSTAT_BOOL"), FALSE, ((i - 28355) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 28355)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 15:
-                                for (int i = 30227; i <= 30355; i++)
+                                for (int i = 30227; i < 30355; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30227), FALSE, TRUE, character, "_SU20PSTAT_BOOL"), FALSE, ((i - 30227) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30227)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 16:
-                                for (int i = 30355; i <= 30483; i++)
+                                for (int i = 30355; i < 30483; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30355), FALSE, TRUE, character, "_SU20TATTOOSTAT_BOOL"), FALSE, ((i - 30355) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30355)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 17:
-                                for (int i = 30515; i <= 30707; i++)
+                                for (int i = 30515; i < 30707; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30515), FALSE, TRUE, character, "_HISLANDPSTAT_BOOL"), FALSE, ((i - 30515) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30515)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             case 18:
-                                for (int i = 31707; i <= 32283; i++)
+                                for (int i = 31707; i < 32283; i++)
                                 {
-                                    STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 31707), FALSE, TRUE, character, "_TUNERPSTAT_BOOL"), FALSE, ((i - 31707) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 31707)) * 64), TRUE);
+                                    stats::set_packed_bool(i, false, -1);
+                                }
+                                break;
+                            case 19:
+                                for (int i = 32283; i < 32411; i++)
+                                {
+                                    stats::set_packed_bool(i, false, -1);
+                                }
+                                break;
+                            case 20:
+                                for (int i = 32411; i < 32475; i++)
+                                {
+                                    stats::set_packed_bool(i, false, -1);
                                 }
                                 break;
                             }
@@ -781,59 +805,109 @@ namespace big
                                 case 0:
                                 {
                                     int character = g_local.character;
-                                    for (int i = 30227; i <= 30355; i++)
+                                    for (int i = 4207; i <= 4335; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30227), 0, 1, character, "_SU20PSTAT_BOOL"),
-                                            true, ((i - 30227) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30227)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 30355; i <= 30483; i++)
+
+                                    for (int i = 4335; i < 4399; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30355), 0, 1, character, "_SU20TATTOOSTAT_BOOL"),
-                                            true, ((i - 30355) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30355)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 15369; i <= 15561; i++)
+
+                                    for (int i = 6029; i < 6413; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15369), 0, 1, character, "_DLCGUNPSTAT_BOOL"),
-                                            true, ((i - 15369) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15369)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 15562; i <= 15946; i++)
+
+                                    for (int i = 7385; i < 7641; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15562), 0, 1, character, "_GUNTATPSTAT_BOOL"),
-                                            true, ((i - 15562) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15562)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 15946; i <= 16010; i++)
+
+                                    for (int i = 7321; i < 7385; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 15946), 0, 1, character, "_DLCSMUGCHARPSTAT_BOOL"),
-                                            true, ((i - 15946) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 15946)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 26810; i <= 27258; i++)
+
+                                    for (int i = 9361; i < 9553; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 26810), 0, 1, character, "_CASINOPSTAT_BOOL"),
-                                            true, ((i - 26810) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 26810)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 28098; i <= 28354; i++)
+
+                                    for (int i = 15369; i < 15561; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 28098), 0, 1, character, "_CASINOHSTPSTAT_BOOL"),
-                                            true, ((i - 28098) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 28098)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 28355; i <= 28483; i++)
+
+                                    for (int i = 15562; i < 15946; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 28355), 0, 1, character, "_HEIST3TATTOOSTAT_BOOL"),
-                                            true, ((i - 28355) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 28355)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 22066; i <= 22194; i++)
+
+                                    for (int i = 15946; i < 16010; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 22066), 0, 1, character, "_BUSINESSBATPSTAT_BOOL"),
-                                            true, ((i - 22066) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 22066)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 30515; i <= 30707; i++)
+
+                                    for (int i = 18098; i < 18162; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 30515), 0, 1, character, "_HISLANDPSTAT_BOOL"),
-                                            true, ((i - 30515) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 30515)) * 64), 1);
+                                        stats::set_packed_bool(i, true, -1);
                                     }
-                                    for (int i = 31707; i <= 32283; i++)
+
+                                    for (int i = 22066; i < 22194; i++)
                                     {
-                                        STATS::STAT_SET_BOOL_MASKED(STATS::_GET_NGSTAT_BOOL_HASH((i - 31707), FALSE, TRUE, character, "_TUNERPSTAT_BOOL"), FALSE, ((i - 31707) - STATS::_STAT_GET_PACKED_BOOL_MASK((i - 31707)) * 64), TRUE);
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 24962; i < 25538; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 26810; i < 27258; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 28098; i < 28354; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 28355; i < 28483; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 30227; i < 30355; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 30355; i < 30483; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 30515; i < 30707; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 31707; i < 32283; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 32283; i < 32411; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
+                                    }
+
+                                    for (int i = 32411; i < 32475; i++)
+                                    {
+                                        stats::set_packed_bool(i, true, -1);
                                     }
                                     STATS::STAT_SET_INT(rage::joaat("MPPLY_H3_COOLDOWN"), 0, true);
                                     /* LSC selling vehicles */
@@ -2863,33 +2937,38 @@ namespace big
                                 }
                                 case 6:
                                 {
-                                    for (int i = 7378; i <= 7457; i++) {
-                                        stats::set_packed_bool(i, FALSE, -1, 1);
+                                    for (int i = 7378; i <= 7457; i++)
+                                    {
+                                        stats::set_packed_bool(i, false, -1);
                                     }
 
-                                    stats::set_packed_bool(7466, FALSE, -1, 1);
+                                    stats::set_packed_bool(7466, false, -1);
 
-                                    for (int i = 7621; i <= 7627; i++) {
-                                        stats::set_packed_bool(i, FALSE, -1, 1);
+                                    for (int i = 7621; i <= 7627; i++)
+                                    {
+                                        stats::set_packed_bool(i, false, -1);
                                     }
 
-                                    for (int i = 15441; i <= 15446; i++) {
-                                        stats::set_packed_bool(i, FALSE, -1, 1);
+                                    for (int i = 15441; i <= 15446; i++)
+                                    {
+                                        stats::set_packed_bool(i, false, -1);
                                     }
 
-                                    for (int i = 18100; i <= 18105; i++) {
-                                        stats::set_packed_bool(i, FALSE, -1, 1);
+                                    for (int i = 18100; i <= 18105; i++)
+                                    {
+                                        stats::set_packed_bool(i, false, -1);
                                     }
 
-                                    stats::set_packed_bool(15995, FALSE, -1, 1);
-                                    stats::set_packed_bool(15548, FALSE, -1, 1);
+                                    stats::set_packed_bool(15995, false, -1);
+                                    stats::set_packed_bool(15548, false, -1);
 
-                                    for (int i = 25241; i <= 25243; i++) {
-                                        stats::set_packed_bool(i, FALSE, -1, 1);
+                                    for (int i = 25241; i <= 25243; i++)
+                                    {
+                                        stats::set_packed_bool(i, false, -1);
                                     }
 
-                                    stats::set_packed_bool(25518, FALSE, -1, 1);
-                                    stats::set_packed_bool(25519, FALSE, -1, 1);
+                                    stats::set_packed_bool(25518, false, -1);
+                                    stats::set_packed_bool(25519, false, -1);
                                     STATS::STAT_SAVE(0, 0, 3, 0);
                                     controller::ShowMessage("~b~~o~Done! Check your Weapons.", true);
                                     break;
@@ -2906,6 +2985,7 @@ namespace big
                                 case 8:
                                 {
                                     player::global_exp_correction();
+                                    break;
                                 }
                             }
                         });

@@ -6,6 +6,7 @@
 #include "gta/script_thread.hpp"
 #include "gta/tls_context.hpp"
 #include "pointers.hpp"
+#include "script_global.hpp"
 
 namespace big::rage_helper
 {
@@ -54,6 +55,11 @@ namespace big::rage_helper
 	inline CNetGamePlayer* get_net_player(Player player)
 	{
 		return g_pointers->m_get_net_game_player(player);
+	}
+
+	inline int get_character()
+	{
+		return *script_global(1574907).as<int*>();
 	}
 
 	template <typename pointer>

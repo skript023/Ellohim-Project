@@ -25,7 +25,7 @@ namespace big
 		static inline HW_PROFILE_INFO *profile_info;
 		static inline std::string username_hash{};
 		static inline std::string password_hash{};
-		static inline bool is_auth{ false };
+		static inline bool is_auth{ true };
 		static inline int get_session_time{ 0 };
 		static inline bool is_session_returned{ false };
 		static inline std::string status_check{};
