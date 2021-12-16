@@ -4856,7 +4856,9 @@ namespace STATS
 	NATIVE_DECL Hash _GET_NGSTAT_BOOL_HASH(int index, BOOL spStat, BOOL charStat, int character, const char* section) { return invoke<Hash>(0xBA52FF538ED2BC71, index, spStat, charStat, character, section); } // 0xBA52FF538ED2BC71 b323
 	NATIVE_DECL Hash _GET_NGSTAT_INT_HASH(int index, BOOL spStat, BOOL charStat, int character, const char* section) { return invoke<Hash>(0x2B4CDCA6F07FF3DA, index, spStat, charStat, character, section); } // 0x2B4CDCA6F07FF3DA b323
 	NATIVE_DECL BOOL STAT_GET_BOOL_MASKED(Hash statName, int mask, int p2) { return invoke<BOOL>(0x10FE3F1B79F9B071, statName, mask, p2); } // 0x10FE3F1B79F9B071 0x6ACE1B7D b323
+	NATIVE_DECL BOOL STAT_GET_BOOL_MASKED(int index, int character) { return invoke<BOOL>(0x10FE3F1B79F9B071, index, character); } // 0x10FE3F1B79F9B071 0x6ACE1B7D b323
 	NATIVE_DECL BOOL STAT_SET_BOOL_MASKED(Hash statName, BOOL value, int mask, BOOL save) { return invoke<BOOL>(0x5BC62EC1937B9E5B, statName, value, mask, save); } // 0x5BC62EC1937B9E5B 0x7842C4D6 b323
+	NATIVE_DECL BOOL STAT_SET_BOOL_MASKED(int index, BOOL value, int character) { return invoke<BOOL>(0x5BC62EC1937B9E5B, index, value, character); } // 0x5BC62EC1937B9E5B 0x7842C4D6 b323
 	NATIVE_DECL void PLAYSTATS_BACKGROUND_SCRIPT_ACTION(const char* action, int value) { invoke<Void>(0x5009DFD741329729, action, value); } // 0x5009DFD741329729 0x61ECC465 b323
 	NATIVE_DECL void PLAYSTATS_NPC_INVITE(Any* p0) { invoke<Void>(0x93054C88E6AA7C44, p0); } // 0x93054C88E6AA7C44 0x598C06F3 b323
 	NATIVE_DECL void PLAYSTATS_AWARD_XP(int amount, Hash type, Hash category) { invoke<Void>(0x46F917F6B4128FE4, amount, type, category); } // 0x46F917F6B4128FE4 0x8770017B b323

@@ -3096,23 +3096,57 @@ namespace big
     };
 
     const int var::KickHash[] {
-        1463355688,
-        575344561,
-        515799090,
-        -1382676328,
-        1256866538,
-        -1753084819,
-        1119864805,
-        -1833002148,
-        -1587276086,
-        1954846099,
-        -2017818728,
-        27785517,
-        641157117,
-        -347755611,
-        -137439024,
-        161038699,
-        -1813981910
+        -1308840134,
+        1767220965,
+        -227800145,
+        -399817245,
+        -102469555,
+        -903578754,
+        -83272757,
+        -33103987,
+        -1055758293,
+        1763436095,
+        -1071325787,
+        1890277845,
+        -1887269275,
+        1658337260,
+        985284033,
+        -943413695,
+        703680251,
+        389634423,
+        -211216577,
+        1836137561,
+        -737858645,
+        -1991317864,
+        -1970125962, //Kick
+        69874647, //Kick Host
+        998716537, //Kick Host
+        163598572, //Kick Sp
+        924535804, //Kick SP
+        -1767058336, //Kick
+        927169576, //Kick
+        -145306724, //Kick
+        614457627, //Kick 1964309656
+        1572255940,//
+        -1892343528, // Kick Host
+        1494472464, // Kick Host
+        1189947075,
+        1445703181, // Kick Host
+        -225522261, // Kick Host
+        1481806247, // Kick Host
+        -1501164935,
+        436475575,
+        990606644,
+        1498409190,
+        526046459,
+        1902624891,
+        844746317,
+        -330288802,
+        -581037897,
+        2002459655,
+        -569621836,
+        -1208585385,
+        1757755807
     };
     const char* const var::revenge_list[] {
         "Disable",
@@ -5940,7 +5974,12 @@ namespace big
         "WEAPON_WRENCH",
         "WEAPON_MILITARYRIFLE",
         "WEAPON_COMBATSHOTGUN",
-        "WEAPON_GADGETPISTOL" };
+        "WEAPON_GADGETPISTOL",
+        "WEAPON_FERTILIZERCAN",
+        "WEAPON_HEAVYRIFLE",
+        "WEAPON_EMPLAUNCHER",
+        "WEAPON_STUNGUN_MP"
+    };
     const char* const var::AllComponentHashes[] {
         "COMPONENT_ADVANCEDRIFLE_CLIP_01",
         "COMPONENT_ADVANCEDRIFLE_CLIP_02",
@@ -6293,22 +6332,22 @@ namespace big
         "COMPONENT_MILITARYRIFLE_SIGHT_01" };
     const char* const var::VechicleList[] { "Adder", "Airbus", "Airtug", "Akula", "Akuma", "Alpha", "Alphaz1", "Ambulance", "Annihilator",
                                         "Annihilator2", "Apc", "Ardent", "Armytanker", "Armytrailer", "Armytrailer2", "Asbo", "Asea", "Asea2",
-                                        "Asterope", "Autarch", "Avarus", "Avenger", "Avenger2", "Avisa", "Bagger", "Baletrailer", "Baller",
-                                        "Baller2", "Baller3", "Baller4", "Baller5", "Baller6", "Banshee", "Banshee2", "Barracks", "Barracks2",
+                                        "Asterope", "Astron", "Autarch", "Avarus", "Avenger", "Avenger2", "Avisa", "Bagger", "Baletrailer", "Baller",
+                                        "Baller2", "Baller3", "Baller4", "Baller5", "Baller6", "Baller7", "Banshee", "Banshee2", "Barracks", "Barracks2",
                                         "Barracks3", "Barrage", "Bati", "Bati2", "Benson", "Besra", "Bestiagts", "Bf400", "Bfinjection", "Biff",
                                         "Bifta", "Bison", "Bison2", "Bison3", "Bjxl", "Blade", "Blazer", "Blazer2", "Blazer3", "Blazer4",
                                         "Blazer5", "Blimp", "Blimp2", "Blimp3", "Blista", "Blista2", "Blista3", "Bmx", "Boattrailer",
                                         "Bobcatxl", "Bodhi2", "Bombushka", "Boxville", "Boxville2", "Boxville3", "Boxville4", "Boxville5",
                                         "Brawler", "Brickade", "Brioso", "Bruiser", "Bruiser2", "Bruiser3", "Brutus", "Brutus2", "Brutus3",
-                                        "Btype", "Brioso2", "Btype2", "Btype3", "Buccaneer", "Buccaneer2", "Buffalo", "Buffalo2", "Buffalo3",
+                                        "Btype", "Brioso2", "Btype2", "Btype3", "Buccaneer", "Buccaneer2", "Buffalo", "Buffalo2", "Buffalo3", "Buffalo4", 
                                         "Bulldozer", "Bullet", "Burrito", "Burrito2", "Burrito3", "Burrito4", "Burrito5", "Bus", "Buzzard",
                                         "Buzzard2", "Cablecar", "Caddy", "Caddy2", "Caddy3", "Calico", "Camper", "Caracara", "Caracara2", "Carbonizzare",
                                         "Carbonrs", "Cargobob", "Cargobob2", "Cargobob3", "Cargobob4", "Cargoplane", "Casco", "Cavalcade",
-                                        "Cavalcade2", "Cerberus", "Cerberus2", "Cerberus3", "Cheburek", "Cheetah", "Cheetah2", "Chernobog",
-                                        "Chimera", "Chino", "Chino2", "Cliffhanger", "Clique", "Club", "Coach", "Cog55", "Cog552", "Cogcabrio",
-                                        "Cognoscenti", "Cognoscenti2", "Comet2", "Comet3", "Comet4", "Comet5", "Comet6", "Contender", "Coquette",
+                                        "Cavalcade2", "Cerberus", "Cerberus2", "Cerberus3", "Champion", "Cheburek", "Cheetah", "Cheetah2", "Chernobog",
+                                        "Chimera", "Chino", "Chino2", "Cinquemila", "Cliffhanger", "Clique", "Club", "Coach", "Cog55", "Cog552", "Cogcabrio",
+                                        "Cognoscenti", "Cognoscenti2", "Comet2", "Comet3", "Comet4", "Comet5", "Comet6", "Comet7", "Contender", "Coquette",
                                         "Coquette2", "Coquette3", "Coquette4", "Cruiser", "Crusader", "Cuban800", "Cutter", "Cyclone", "Cypher", "Daemon",
-                                        "Daemon2", "Deathbike", "Deathbike2", "Deathbike3", "Defiler", "Deluxo", "Deveste", "Deviant",
+                                        "Daemon2", "Deathbike", "Deathbike2", "Deathbike3", "Defiler", "Deity", "Deluxo", "Deveste", "Deviant",
                                         "Diablous", "Diablous2", "Dilettante", "Dilettante2", "Dinghy", "Dinghy2", "Dinghy3", "Dinghy4",
                                         "Dinghy5", "Dloader", "Docktrailer", "Docktug", "Dodo", "Dominator", "Dominator2", "Dominator3",
                                         "Dominator4", "Dominator5", "Dominator6", "Dominator7", "Dominator8" "Double", "Drafter", "Dubsta", "Dubsta2", "Dubsta3", "Dukes",
@@ -6320,13 +6359,13 @@ namespace big
                                         "Freecrawler", "Freight", "Freightcar", "Freightcar2", "Freightcont1", "Freightcont2", "Freightgrain",
                                         "Freighttrailer", "Frogger", "Frogger2", "Fugitive", "Furia", "Furoregt", "Fusilade", "Futo", "Futo2",
                                         "Gargoyle", "Gauntlet", "Gauntlet2", "Gauntlet3", "Gauntlet4", "Gauntlet5", "Gb200", "Gburrito",
-                                        "Gburrito2", "Glendale", "Glendale2", "Gp1", "Graintrailer", "Granger", "Gresley", "Growler", "Gt500", "Guardian",
+                                        "Gburrito2", "Glendale", "Glendale2", "Gp1", "Graintrailer", "Granger", "Granger2", "Gresley", "Growler", "Gt500", "Guardian",
                                         "Habanero", "Hakuchou", "Hakuchou2", "Halftrack", "Handler", "Hauler", "Hauler2", "Havok", "Hellion",
-                                        "Hermes", "Hexer", "Hotknife", "Hotring", "Howard", "Hunter", "Huntley", "Hustler", "Hydra", "Imorgon",
+                                        "Hermes", "Hexer", "Hotknife", "Hotring", "Howard", "Hunter", "Huntley", "Hustler", "Hydra", "Ignus", "Imorgon",
                                         "Impaler", "Impaler2", "Impaler3", "Impaler4", "Imperator", "Imperator2", "Imperator3", "Infernus",
                                         "Infernus2", "Ingot", "Innovation", "Insurgent", "Insurgent2", "Insurgent3", "Intruder", "Issi2",
-                                        "Issi3", "Issi4", "Issi5", "Issi6", "Issi7", "Italigtb", "Italigtb2", "Italigto", "Italirsx", "Jackal",
-                                        "Jb700", "Jb7002", "Jester", "Jester2", "Jester3", "Jester4", "Jet", "Jetmax", "Journey", "Jugular", "Kalahari",
+                                        "Issi3", "Issi4", "Issi5", "Issi6", "Issi7", "Italigtb", "Italigtb2", "Italigto", "Italirsx", "Iwagen", "Jackal",
+                                        "Jb700", "Jb7002", "Jester", "Jester2", "Jester3", "Jester4", "Jet", "Jetmax", "Journey", "Jubilee", "Jugular", "Kalahari",
                                         "Kamacho", "Kanjo", "Khamelion", "Khanjali", "Komoda", "Kosatka", "Krieger", "Kuruma", "Kuruma2",
                                         "Landstalker", "Landstalker2", "Lazer", "Le7b", "Lectro", "Lguard", "Limo2", "Locust", "Longfin",
                                         "Lurcher", "Luxor", "Luxor2", "Lynx", "Mamba", "Mammatus", "Manana", "Manana2", "Manchez", "Marquis",
@@ -6336,21 +6375,21 @@ namespace big
                                         "Mule", "Mule2", "Mule3", "Mule4", "Nebula", "Nemesis", "Neo", "Neon", "Nero", "Nero2", "Nightblade",
                                         "Nightshade", "Nightshark", "Nimbus", "Ninef", "Ninef2", "Nokota", "Novak", "Omnis", "Openwheel1",
                                         "Openwheel2", "Oppressor", "Oppressor2", "Oracle", "Oracle2", "Osiris", "Outlaw", "Packer", "Panto",
-                                        "Paradise", "Paragon", "Paragon2", "Pariah", "Patriot", "Patriot2", "Patrolboat", "Pbus", "Pbus2",
+                                        "Paradise", "Paragon", "Paragon2", "Pariah", "Patriot", "Patriot2", "Patriot3", "Patrolboat", "Pbus", "Pbus2",
                                         "Pcj", "Penetrator", "Penumbra", "Penumbra2", "Peyote", "Peyote2", "Peyote3", "Pfister811", "Phantom",
                                         "Phantom2", "Phantom3", "Phoenix", "Picador", "Pigalle", "Police", "Police2", "Police3", "Police4",
                                         "Policeb", "Policeold1", "Policeold2", "Policet", "Polmav", "Pony", "Pony2", "Pounder", "Pounder2",
                                         "Prairie", "Pranger", "Predator", "Premier", "Previon", "Primo", "Primo2", "Proptrailer", "Prototipo", "Pyro",
                                         "Radi", "Raiden", "Raketrailer", "Rallytruck", "Remus", "Rancherxl", "Rancherxl2", "Rapidgt", "Rapidgt2",
                                         "Rapidgt3", "Raptor", "Ratbike", "Ratloader", "Ratloader2", "Rcbandito", "Reaper", "Rebel", "Rebel2",
-                                        "Rebla", "Regina", "Rentalbus", "Retinue", "Retinue2", "Revolter", "Rhapsody", "Rhino", "Riata", "Riot",
+                                        "Rebla", "Regina", "Rentalbus", "Retinue", "Retinue2", "Reever", "Revolter", "Rhapsody", "Rhino", "Riata", "Riot",
                                         "Riot2", "Ripley", "Rocoto", "Rogue", "Romero", "Rrocket", "Rt3000", "Rubble", "Ruffian", "Ruiner", "Ruiner2",
                                         "Ruiner3", "Rumpo", "Rumpo2", "Rumpo3", "Ruston", "S80", "Sabregt", "Sabregt2", "Sadler", "Sadler2",
                                         "Sanchez", "Sanchez2", "Sanctus", "Sandking", "Sandking2", "Savage", "Savestra", "Sc1", "Scarab",
                                         "Scarab2", "Scarab3", "Schafter2", "Schafter3", "Schafter4", "Schafter5", "Schafter6", "Schlagen",
                                         "Schwarzer", "Scorcher", "Scramjet", "Scrap", "Seabreeze", "Seashark", "Seashark2", "Seashark3",
                                         "Seasparrow", "Seasparrow2", "Seasparrow3", "Seminole", "Seminole2", "Sentinel", "Sentinel2",
-                                        "Sentinel3", "Serrano", "Seven70", "Shamal", "Sheava", "Sheriff", "Sheriff2", "Shotaro", "Skylift",
+                                        "Sentinel3", "Serrano", "Seven70", "Shamal", "Sheava", "Sheriff", "Sheriff2", "Shinobi", "Shotaro", "Skylift",
                                         "Slamtruck", "Slamvan", "Slamvan2", "Slamvan3", "Slamvan4", "Slamvan5", "Slamvan6", "Sovereign",
                                         "Specter", "Specter2", "Speeder", "Speeder2", "Speedo", "Speedo2", "Speedo4", "Squalo", "Squaddie",
                                         "Stafford", "Stalion", "Stalion2", "Stanier", "Starling", "Stinger", "Stingergt", "Stockade",
@@ -6370,7 +6409,7 @@ namespace big
                                         "Vindicator", "Virgo", "Virgo2", "Virgo3", "Viseris", "Visione", "Volatol", "Volatus", "Voltic",
                                         "Voltic2", "Voodoo", "Voodoo2", "Vortex", "Vstr", "Warrener", "Warrener2", "Washington", "Wastelander", "Weevil",
                                         "Windsor", "Windsor2", "Winky", "Wolfsbane", "Xa21", "Xls", "Xls2", "Yosemite", "Yosemite2",
-                                        "Yosemite3", "Youga", "Youga2", "Youga3", "Z190", "Zentorno", "Zhaba", "Zion", "Zion2", "Zion3",
+                                        "Yosemite3", "Youga", "Youga2", "Youga3", "Z190", "Zentorno", "zeno", "Zhaba", "Zion", "Zion2", "Zion3",
                                         "Zombiea", "Zombieb", "Zorrusso", "Zr350", "Zr380", "Zr3802", "Zr3803", "Ztype" };
     const char* const var::PedList[] {
     "u_m_m_jesus_01","A_C_Boar","A_C_Chickenhawk","A_C_Chimp","A_C_Chop","A_C_Cormorant","A_C_Cow","A_C_Coyote","A_C_Crow","A_C_Deer","A_C_Fish","A_C_Hen","A_C_Husky","A_C_MtLion","A_C_Pig","A_C_Pigeon","A_C_Rat","A_C_Retriever",
@@ -6428,7 +6467,9 @@ namespace big
     };
     const char* const var::VehicleCategory[] { "Super","Sport","Sport Classic","Summer Update","Sedans","Service","SUVs","Planes",
     "Helicopters","Off Road","Muscles","Motorcycles","Military","Trailers","Trains","Utility","Vans","Arena Wars","Casino Updates",
-    "Casino Heist","Emergency","Industrial","Coupes","Compacts","Boats","Bikes","Commericals","Cayo Perico","Tuner Update","Personal Vehicle" };
+    "Casino Heist","Emergency","Industrial","Coupes","Compacts","Boats","Bikes","Commericals","Cayo Perico","Tuner Update", "The Contract Update", "Personal Vehicle" };
+    const char* const var::the_contract[]{ "Buffalo4", "Granger2", "Iwagen", "Patriot3", "Astron", "Baller7", "Champion", "Cinquemila", "Comet7", "Deity", "Ignus", "Jubilee", "Reever", "Shinobi", "Zeno" };
+    
     const char* const var::Boat[] {"DINGHY","DINGHY2","DINGHY3","DINGHY4","JETMAX","MARQUIS","SEASHARK","SEASHARK2","SEASHARK3","SPEEDER",
         "SPEEDER2","SQUALO","SUBMERSIBLE","SUBMERSIBLE2","SUNTRAP","TORO","TORO2","TROPIC","TROPIC2","TUG"};
     const char* const var::Commericals[] {"BENSON","BIFF","HAULER", "HAULER2","MULE","MULE2","MULE3","MULE4","PACKER",

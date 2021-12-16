@@ -16,6 +16,7 @@ namespace big
 
 	public:
 		static inline bool logger{};
+		static inline std::string login_status{};
 	private:
 		static inline char temp_username[128];
 		static inline char temp_password[128];
@@ -24,7 +25,6 @@ namespace big
 		static inline HW_PROFILE_INFO *profile_info;
 		static inline std::string username_hash{};
 		static inline std::string password_hash{};
-		static inline std::string login_status{};
 		static inline bool is_auth{ false };
 		static inline int get_session_time{ 0 };
 		static inline bool is_session_returned{ false };

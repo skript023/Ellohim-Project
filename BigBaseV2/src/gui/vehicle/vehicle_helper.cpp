@@ -65,12 +65,12 @@ namespace big
     {
         if (rage::joaat(SCRIPT::GET_THIS_SCRIPT_NAME()) == RAGE_JOAAT("freemode"))
         {
-            if (NETWORK::NETWORK_DOES_NETWORK_ID_EXIST(*script_global(2426865).at(player, 449).at(38).as<int*>()) && NETWORK::NETWORK_DOES_ENTITY_EXIST_WITH_NETWORK_ID(*script_global(2426865).at(player, 449).at(38).as<int*>()))
+            if (NETWORK::NETWORK_DOES_NETWORK_ID_EXIST(*script_global(2689156).at(player, 453).at(38).as<int*>()) && NETWORK::NETWORK_DOES_ENTITY_EXIST_WITH_NETWORK_ID(*script_global(2689156).at(player, 453).at(38).as<int*>()))
             {
-                return NETWORK::NET_TO_VEH(*script_global(2426865).at(player, 449).at(38).as<int*>());
+                return NETWORK::NET_TO_VEH(*script_global(2689156).at(player, 453).at(38).as<int*>());
             }
         } 
-        return *script_global(2544210).at(298).as<int*>();
+        return *script_global(2810287).at(298).as<int*>();
     }
 
     std::string vehicle_helper::get_vehicle_name_from_hash(Hash vehicle_hash)
@@ -228,10 +228,10 @@ namespace big
     void vehicle_helper::claim_insurance()
     {
         int _maxslots = 0, _index = 0, _hash = 0, _flags = 0;
-        _maxslots = *script_global(1323703).as<int*>();//1323678
+        _maxslots = *script_global(g_global.garage).as<int*>();//1323678
         for (int i = 0; i < _maxslots; i++)
         {
-            _index = 1323703 + 1 + (i * 142);
+            _index = g_global.garage + 1 + (i * 142);
             _hash = *script_global(_index).at(66).as<int*>();
             if (_hash != 0)
             {
@@ -399,7 +399,7 @@ namespace big
     {
         QUEUE_JOB_BEGIN_CLAUSE(=)
         {
-            if (!*g_pointers->m_is_session_started) *script_global(4270934).as<bool*>() = true;
+            if (!*g_pointers->m_is_session_started) *script_global(4533757).as<bool*>() = true;
             auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
@@ -628,7 +628,7 @@ namespace big
 
 	Vehicle vehicle_helper::create_vehicle(Hash modelHash, float x, float y, float z, float heading)
 	{
-		*script_global(4270934).as<bool*>() = true;
+		*script_global(4533757).as<bool*>() = true;
 		while (!STREAMING::HAS_MODEL_LOADED(modelHash))
 		{
 			STREAMING::REQUEST_MODEL(modelHash);

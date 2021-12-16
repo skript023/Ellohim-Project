@@ -58,7 +58,7 @@ namespace big
 		static void mission_lives(bool Activation);
 		static void set_player_waterproof(Player player, bool Activation);
 		static void blind_cops(bool Activation);
-		static void SetPlayerSeatBelt(bool Activation);
+		static void set_player_seatbelt(bool Activation);
 		static void set_player_invincible(Player player, bool Activation);
 		static void reveal_player(bool Activation);
 		static void off_the_radar(bool Activation);

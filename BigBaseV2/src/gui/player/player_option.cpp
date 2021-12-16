@@ -493,7 +493,7 @@ namespace big
             *script_global(262145).at(89).as<int*>() = INT32_MAX;
             *script_global(262145).at(90).as<int*>() = INT32_MAX;
         }
-        else if (!Trigger)
+        else
         {
             *script_global(262145).at(87).as<int*>() = 120000;
             *script_global(262145).at(88).as<int*>() = 300000;
@@ -618,7 +618,7 @@ namespace big
         }
     }
 
-    void player::SetPlayerSeatBelt(bool Activation)
+    void player::set_player_seatbelt(bool Activation)
     {
         if (Activation)
         {
@@ -649,15 +649,15 @@ namespace big
     {
         if (Activation)
         {
-            *script_global(2544210).at(4623).as<int*>() = 1;
-            *script_global(2544210).at(4625).as<int*>() = NETWORK::GET_NETWORK_TIME();
-            *script_global(2544210).at(4622).as<int*>() = 5;
+            *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).as<int*>() = 1;
+            *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).at(2).as<int*>() = NETWORK::GET_NETWORK_TIME();
+            *script_global(g_global.blind_cops).at(g_global.blind_cops_offset-1).as<int*>() = 5;
         }
         else
         {
-            *script_global(2544210).at(4623).as<int*>() = 0;
-            *script_global(2544210).at(4625).as<int*>() = 0;
-            *script_global(2544210).at(4622).as<int*>() = 0;
+            *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).as<int*>() = 0;
+            *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).at(2).as<int*>() = 0;
+            *script_global(g_global.blind_cops).at(g_global.blind_cops_offset-1).as<int*>() = 0;
         }
     }
 
@@ -665,13 +665,13 @@ namespace big
     {
         if (Activation)
         {
-            *script_global(2426865).at(PLAYER::PLAYER_ID(), 449).at(212).as<int*>() = 1;
-            *script_global(2441237).at(71).as<int*>() = NETWORK::GET_NETWORK_TIME();
+            *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(212).as<int*>() = 1;
+            *script_global(g_global.radar_time).at(71).as<int*>() = NETWORK::GET_NETWORK_TIME();
         }
         else
         {
-            *script_global(2426865).at(PLAYER::PLAYER_ID(), 449).at(212).as<int*>() = 0;
-            *script_global(2441237).at(71).as<int*>() = NETWORK::GET_NETWORK_TIME();
+            *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(212).as<int*>() = 0;
+            *script_global(g_global.radar_time).at(71).as<int*>() = NETWORK::GET_NETWORK_TIME();
         }
     }
 

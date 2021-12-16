@@ -151,12 +151,12 @@ namespace big
 		{
 			m_request_control_event = ptr.as<functions::CNetworkRequestEvent>();
 		});//48 8B ? 48 8B ? ? ? 48 83 C4 ? 5F C3 CC E3 ? 89 5C
-		
+		/*
 		main_batch.add("Remove Weapon Event", "48 8B D8 E8 ? ? ? ? 80 7B", [this](memory::handle ptr)
 		{
 			m_remove_weapon = ptr.sub(0x28).as<functions::CRemoveWeaponEvent>();
 		});
-
+		*/
 		main_batch.add("Kick Vote Event", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8D 71 30", [this](memory::handle ptr)
 		{
 			m_kick_vote = ptr.as<functions::CSendKickVoteEvent>();
@@ -225,18 +225,12 @@ namespace big
 		main_batch.add("Player Name Pointer 2", "8B 05 ? ? ? ? 40 B7 01 C1 E8 0C 40 84 C7 74 04 0F BA EB 0F", [this](memory::handle ptr)
 		{
 			m_player_name_2 = ptr.add(2).rip().add(0xBDC).as<decltype(m_player_name_2)>();
-		});//48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83 45206
-
+		});
 		main_batch.add("Player Name Display", "48 8D 05 ? ? ? ? 48 63 CB 48 8B D6 48 69 C9 ? ? ? ? 48 03 C8 E8 ? ? ? ? 84 C0 75 21", [this](memory::handle ptr)
 		{
 			m_player_name_display = ptr.add(3).rip().add(0x14).as<decltype(m_player_name_display)>();
-		});//48 8D ? ? ? ? ? E8 ? ? ? ? 80 25 F3 9C 30 01 0x291
-
-		main_batch.add("Player Name Pointer 4", "48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 83 25 BC C8 8B 01", [this](memory::handle ptr)
-		{
-			m_player_name_4 = ptr.add(3).rip().add(0xD0C).as<char*>();
-		});//8B 05 ? ? ? ? 40 B7 01 C1 E8 0C 40 84 C7 74 04 0F BA EB 0F BDC
-
+		});
+		
 		main_batch.add("Player Rockstar ID", "48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83", [this](memory::handle ptr)
 		{
 			m_player_rid = ptr.add(3).rip().add(8).as<uint64_t*>();
@@ -246,7 +240,7 @@ namespace big
 		{
 			m_player_crew = ptr.add(3).rip().as<CPlayerCrew*>();
 		});
-
+		
 		main_batch.add("Session Weather", "E8 ? ? ? ? EB 08 66 41 0B CD", [this](memory::handle ptr)//48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 30 40 8A E9
 		{
 			m_session_weather = ptr.add(1).rip().as<functions::m_weather_change>();
@@ -256,17 +250,12 @@ namespace big
 		{
 			m_set_lobby_time = ptr.add(1).rip().as<functions::set_lobby_time_t>();
 		});
-
+		
 		main_batch.add("IS DLC PRESENT", "48 89 5C 24 08 57 48 83 EC 20 81 F9", [this](memory::handle ptr)
 		{
 			m_is_dlc_present = ptr.as<PVOID>();
 		});
-		/*
-		main_batch.add("Bit Buffer", "E8 ? ? ? ? 84 C0 74 1C 48 8D 96 ? ? ? ? 44 8D 43 08 48 8B CF E8", [this](memory::handle ptr)
-		{
-			m_read_bitbuf_dword = ptr.as<DWORD*>();
-		});
-		*/
+
 		main_batch.add("Model Spawn Bypass", "48 8B C8 FF 52 30 84 C0 74 05 48", [this](memory::handle ptr)
 		{
 			m_model_spawn_bypass = ptr.add(8).as<PVOID>();
@@ -276,6 +265,7 @@ namespace big
 		{
 			m_request_control_bypass = ptr.add(19).as<PVOID>();
 		});
+
 		main_batch.add("CScriptedGameEvent", "40 53 48 81 EC ? ? ? ? 44 8B 81", [this](memory::handle ptr)
 		{
 			m_script_event = ptr.as<functions::ScriptGameEvent>();//48 89 44 24 ? 0F 95 C3
@@ -335,7 +325,7 @@ namespace big
 		
 		main_batch.add("m_read_bitbuf_dword", "48 89 5c 24 ? 48 89 74 24 ? 57 48 83 ec ? 48 8b d9 33 c9 41 8b f0 8a 43", [this](memory::handle ptr)
 		{
-			m_read_bitbuf_dword = ptr.as<functions::ReadDword>();
+			m_read_bitbuf_dword = ptr.as<functions::ReadDword>(); //E8 ? ? ? ? 84 C0 74 1C 48 8D 96 ? ? ? ? 44 8D 43 08 48 8B CF E8
 		});
 
 		main_batch.add("clone_create", "48 8B C4 66 44 89 48", [this](memory::handle ptr)

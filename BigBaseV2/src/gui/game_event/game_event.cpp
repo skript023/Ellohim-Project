@@ -80,7 +80,7 @@ namespace big
         QUEUE_JOB_BEGIN_CLAUSE(take)
         {
             rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [take] {
-                *script_global(4456448).at(85976).as<int*>() = 32;
+                *script_global(g_global.show_take).as<int*>() = 32;
                 *script_global(g_global.casino_take_indicator).as<int*>() = 1;
                 *script_global(g_global.pasific_standard).as<int*>() = take;
                 script::get_current()->yield(1500ms);
@@ -169,7 +169,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t trans_fail[8] = { TRANSACTION_ERROR, g_local.player, 10000, 0, 0, *script_global(1630816).at(g_selected.player,597).at(508).as<int64_t*>(), *script_global(1658176).at(9).as<int64_t*>(), *script_global(1658176).at(9).as<int64_t*>() };
+            int64_t trans_fail[8] = { TRANSACTION_ERROR, g_local.player, 10000, 0, 0, *script_global(1893548).at(player, 600).at(511).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, trans_fail, 8, 1 << player);
         });
     }
@@ -190,7 +190,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t clear_wanted[3] = { CLEAR_WANTED, g_selected.player, *script_global(1630816).at(g_selected.player, 597).at(508).as<int*>() };
+            int64_t clear_wanted[3] = { CLEAR_WANTED, g_selected.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, clear_wanted, 3, 1 << player);
         });
     }
@@ -269,7 +269,7 @@ namespace big
                 {
                     if (ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, ped, TRUE) && WEAPON::HAS_ENTITY_BEEN_DAMAGED_BY_WEAPON(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 0, 2))
                     {
-                        int64_t bail_event[3] = { 2092565704, g_local.player, *script_global(1630816).at(player, 597).at(508).as<int64_t*>() };
+                        int64_t bail_event[3] = { BAIL_NETWORK, g_local.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
                         SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << player);
                         controller::ShowMessage(fmt::format("~g~Kick Has Been Sent To {}", PLAYER::GET_PLAYER_NAME(player)).c_str(), false);
                     }
@@ -294,7 +294,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t bail_event[3] = { 2092565704, g_local.player, *script_global(1630816).at(player, 597).at(508).as<int64_t*>() };
+            int64_t bail_event[3] = { BAIL_NETWORK, g_local.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << player);
         });
     }
@@ -308,9 +308,9 @@ namespace big
     {
         if (toggle)
         {
-            int64_t args[7] = { -397188359, g_local.player, *script_global(2441237).at(70).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, 1, *script_global(1630816).at(g_selected.player, 597).at(508).as<int*>() };
+            int64_t args[7] = { OFF_RADAR, g_local.player, *script_global(g_global.radar_time).at(70).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, 1, *script_global(1893548).at(g_selected.player, 600).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, 7, 1 << g_selected.player);
-            *script_global(2426865).at(g_selected.player, 449).at(209).as<bool*>() = toggle;
+            *script_global(g_global.radar_toggle).at(g_selected.player, 449).at(209).as<bool*>() = toggle;
         }
     }
 
@@ -318,9 +318,9 @@ namespace big
     {
         if (toggle)
         {
-            int64_t args[7] = { -151720011, g_local.player, 0, *script_global(2544210).at(4625).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, *script_global(1630816).at(g_selected.player, 597).at(508).as<int*>() };
+            int64_t args[7] = { -151720011, g_local.player, 0, *script_global(g_global.blind_cops).at(4625).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, *script_global(1893548).at(g_selected.player, 600).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, 7, 1 << g_selected.player);
-            *script_global(2544210).at(4623).as<bool*>() = toggle;
+            *script_global(g_global.blind_cops).at(4623).as<bool*>() = toggle;
         }
     }
 

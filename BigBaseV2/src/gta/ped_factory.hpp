@@ -109,7 +109,11 @@ static_assert(sizeof(GameSetting) == 0x271, "GameSetting is not properly sized")
 class CPed : public fwEntity
 {
 public:
-	char pad_02A4[2700]; //0x02A4
+	char pad_02A4[4]; //0x02A4
+	void* m_attackers; //0x02A8
+	char pad_02B0[112]; //0x02B0
+	rage::vector3 m_velocity; //0x0320
+	char pad_032C[2564]; //0x032C
 	CVehicle* m_last_vehicle; //0x0D30
 	char pad_0D38[282]; //0x0D38
 	bool m_is_in_vehicle; //0x0E52
@@ -122,12 +126,12 @@ public:
 	CPlayerInfo* m_playerinfo; //0x10C8
 	CPedInventory* m_weapon_inventory; //0x10D0
 	CPedWeaponManager* m_weapon_mgr; //0x10D8
-	char pad_10E0[812]; //0x10E0
-	uint8_t seatbelt; //0x140C
-	char pad_140D[211]; //0x140D
-	float m_armor; //0x14E0
+	char pad_10E0[892]; //0x10E0
+	uint8_t seatbelt; //0x145C
+	char pad_145D[211]; //0x145D
+	float m_armor; //0x1530
 };	//Size: 0x14E4
-static_assert(sizeof(CPed) == 0x14E4, "CPed is not properly sized");
+static_assert(sizeof(CPed) == 0x1534, "CPed is not properly sized");
 #pragma pack(pop)
 
 class CPedFactory

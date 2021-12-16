@@ -11,7 +11,8 @@
 #include "gui.hpp"
 #include "gui/player_list.h"
 #include "gui/helper_function.hpp"
-#include <gui\player_menu.h>
+#include "gui/player_menu.h"
+#include "gui/window/game_window.hpp"
 
     // auto vehicle = *(std::uintptr_t*)(local_ped + 0xD28);
     // auto offset2 = *(std::uintptr_t*)(vehicle + 0x8A8);
@@ -140,10 +141,6 @@ namespace big::features
 		g_local.Transition = TransitionCheck() && *g_pointers->m_is_session_started;
 		g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
 		g_local.transition = TransitionCheck() && *g_pointers->m_is_session_started;
-		if (g_fitur.testing)
-		{
-			VEHICLE::SET_VEHICLE_FIXED(player::get_player_vehicle(PLAYER::PLAYER_PED_ID(), false));
-		}
 		HotkeyAttach();
 		controller::variable_attach();
 		if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
@@ -169,9 +166,8 @@ namespace big::features
 			tick_1 = 0;
 		}
 
-		WEAPON::SET_PED_INFINITE_AMMO_CLIP(PLAYER::PLAYER_PED_ID(), g_settings.options["Infinite Clip"]);
-		
 		//OffTheRadar(OTR);
+		
 		player::set_player_waterproof(g_local.player, g_fitur.waterproof);
 		player::set_player_no_clip(g_player_option.no_clip);
 		player::ghost_organization(g_player_option.ghost_organizations);
@@ -180,7 +176,7 @@ namespace big::features
 		player::ultra_run(g_player_option.ultra_run_bool);
 		player::never_wanted(g_settings.options["Never Wanted"]);
 		player::mission_lives(g_player_option.all_mission_lives);
-		player::SetPlayerSeatBelt(g_settings.options["Seatbelt"]);
+		player::set_player_seatbelt(g_settings.options["Seatbelt"]);
 		player::set_player_invincible(PLAYER::PLAYER_ID(), g_settings.options["Player Godmode"]);
 		player::give_all_heal(g_player_option.send_heal);
 		player::auto_heal(g_settings.options["Auto Heal"]);
@@ -193,19 +189,19 @@ namespace big::features
 		weapon_helper::rapid_fire(g_weapon_option->rapid_shoot);
 		weapon_helper::headshot_all_npc(g_weapon_option->auto_headshot);
 		weapon_helper::revenge(rage::joaat(var::revenge_list[g_item.weapon_hash]), g_item.weapon_hash != 0);
+		WEAPON::SET_PED_INFINITE_AMMO_CLIP(PLAYER::PLAYER_PED_ID(), g_settings.options["Infinite Clip"]);
 		
 		weapon_helper::infinite_ammo(g_settings.options["Infinite Ammo"]);
 		weapon_helper::explosive_ammo(g_fitur.explosive_weapon, player::get_player_ped(g_selected.player));
 		weapon_helper::object_guns(g_weapon_option->object_gun);
 		weapon_helper::removal_gun(g_weapon_option->delete_gun);
 		weapon_helper::ghost_guns(g_weapon_option->ghost_gun);
-
+		
 		weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->explosives_ammo);
 		weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->fire_ammo);
 		weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->super_jump);
 		weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->explosive_fist);
 		
-
 		remote_event::revenge_kick(g_remote_option->revenge_event);
 		remote_event::remote_blind_cops(g_remote_option->bribe_authority);
 		remote_event::remote_off_the_radar(g_remote_option->remote_off_the_radars);
@@ -215,7 +211,7 @@ namespace big::features
 		vehicle_helper::infinite_boosts(g_vehicle_option->infinite_boost);
 		vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
 		vehicle_helper::horn_boosts(g_vehicle_option->horn_boost);
-
+		
 		controller::faster_time_scale(g_misc_option->time_scale);
 		
 		ai::explode_enemies(g_npc_option->explode_ped);
@@ -262,7 +258,8 @@ namespace big::features
 		{
 			TRY_CLAUSE
 			{
-				run_tick();
+				if (rage::joaat(g_game_window->login_status) == RAGE_JOAAT("Success"))
+					run_tick();
 			}
 			EXCEPT_CLAUSE
 			script::get_current()->yield();

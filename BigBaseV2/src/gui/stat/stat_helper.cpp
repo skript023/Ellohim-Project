@@ -763,6 +763,15 @@ namespace big
         return iVar0;
     }
 
+    bool stats::set_packed_bool(int iParam0, bool bParam1, int iParam2)
+    {
+        if (iParam2 == -1)
+        {
+            iParam2 = g_local.character;
+        }
+        STATS::STAT_SET_BOOL_MASKED(iParam0, bParam1, iParam2);
+    }
+
     int stats::packed_bool_stat_mask(int iParam0)
     {
         int iVar0;
@@ -1001,6 +1010,15 @@ namespace big
             bVar0 = STATS::STAT_GET_BOOL_MASKED(iVar1, iVar2, iParam2);
         }
         return bVar0;
+    }
+
+    bool stats::get_packed_bool(int iParam0, int iParam1)
+    {
+        if (iParam1 == -1)
+        {
+            iParam1 = g_local.character;
+        }
+        return STATS::STAT_GET_BOOL_MASKED(iParam0, iParam1);
     }
 
     std::filesystem::path stats::get_stats_config()

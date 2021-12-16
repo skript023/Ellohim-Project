@@ -282,7 +282,7 @@ namespace big
 
 
         g_local.ScriptHost = NETWORK::NETWORK_GET_HOST_OF_SCRIPT("freemode", -1, 0);
-        g_local.character = *script_global(1312763).as<int*>();
+        g_local.character = *script_global(1574907).as<int*>();
         g_local.connected_player = NETWORK::NETWORK_GET_NUM_CONNECTED_PLAYERS();
         g_local.mission = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller"));
         g_local.arcade = rage_helper::find_script_thread(RAGE_JOAAT("gb_casino_heist_planning"));
@@ -294,8 +294,8 @@ namespace big
         g_mission.doomsday_board = rage_helper::find_script_thread(RAGE_JOAAT("gb_gang_ops_planning")) != nullptr;
         g_mission.apartment_board = rage_helper::find_script_thread(RAGE_JOAAT("fmmc_launcher")) != nullptr;
         g_local.script_transition = features::TransitionCheck() && *g_pointers->m_is_session_started;
-        g_global.vision = 1590908 + 1 + g_local.player * 874 + 834 + 9 + 1;
-        g_global.business_index = 1590908 + 1 + (g_local.player * 874) + 267 + 185;
+        g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 834 + 9 + 1;
+        g_global.business_index = g_global.player_stat + 1 + (g_local.player * g_global.player_size) + 267 + 187;
         m_local.blackjack.current_table = 1784 + 1 + (g_local.player * 8) + 4;
         m_local.blackjack.bet_trigger = 1784 + 1 + (g_local.player * 8);
 

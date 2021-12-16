@@ -19,13 +19,13 @@ namespace big
 {
     void apartment::instant_prep()
     {
-        const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+        const auto mpx = std::to_string(g_local.character);
         STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_HEIST_PLANNING_STAGE"), -1, TRUE);
     }
 
     void doomsday::instant_prep()
     {
-        const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+        const auto mpx = std::to_string(g_local.character);
         STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_GANGOPS_FLOW_MISSION_PROG"), -1, TRUE);
     }
 
@@ -33,7 +33,7 @@ namespace big
     {
         g_fiber_pool->queue_job([]
             {
-                const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+                const auto mpx = std::to_string(g_local.character);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3OPT_APPROACH"), 2, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3_LAST_APPROACH"), 3, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3_HARD_APPROACH"), 2, TRUE);
@@ -54,7 +54,7 @@ namespace big
     {
         g_fiber_pool->queue_job([]
             {
-                const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+                const auto mpx = std::to_string(g_local.character);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3OPT_APPROACH"), 1, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3_LAST_APPROACH"), 2, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3_HARD_APPROACH"), 1, TRUE);
@@ -75,7 +75,7 @@ namespace big
     {
         g_fiber_pool->queue_job([]
             {
-                const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+                const auto mpx = std::to_string(g_local.character);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3OPT_APPROACH"), 3, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3_LAST_APPROACH"), 2, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H3_HARD_APPROACH"), 3, TRUE);
@@ -96,7 +96,7 @@ namespace big
     {
         g_fiber_pool->queue_job([]
             {
-                const auto mpx = std::to_string(*script_global(1312763).as<int*>());
+                const auto mpx = std::to_string(g_local.character);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_I"), 0, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_I_SCOPED"), 0, TRUE);
                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_C"), 0, TRUE);

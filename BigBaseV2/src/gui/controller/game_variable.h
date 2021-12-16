@@ -23,14 +23,15 @@ namespace big
 		static const char* const tuner_update[19];
 		static std::string character_stat_hash[7425];
 		static std::string all_stat_hash[401];
-		static const int KickHash[17];
+		static const int KickHash[51];
 		static const char* const PickupHash[112];
 		static const char* const ObjectList[2615];
-		static const char* const AllWeaponHashes[92];
+		static const char* const AllWeaponHashes[96];
 		static const char* const AllComponentHashes[338];
-		static const char* const VechicleList[736];//720
+		static const char* const VechicleList[751];//720
 		static const char* const PedList[671];
-		static const char* const VehicleCategory[30];
+		static const char* const VehicleCategory[31];
+		static const char* const the_contract[15];
 		static const char* const Boat[20];
 		static const char* const Commericals[17];
 		static const char* const Compact[9];

@@ -134,17 +134,9 @@ namespace big
             {
                 //*script_global(2409291).at(8).as<int *>() = 1;
                 g_fiber_pool->queue_job([]
-                    {
-                        if (rage::joaat(SCRIPT::GET_THIS_SCRIPT_NAME()) == RAGE_JOAAT("freemode"))
-                        {
-                            if (NETWORK::NETWORK_DOES_NETWORK_ID_EXIST(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>()) && NETWORK::NETWORK_DOES_ENTITY_EXIST_WITH_NETWORK_ID(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>()))
-                            {
-                                Vehicle vehicle = NETWORK::NET_TO_VEH(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>());
-                                PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle, -1);
-                            }
-                        }
-                        PED::SET_PED_INTO_VEHICLE(g_local.ped, *script_global(2544210).at(298).as<int*>(), -1);
-                    });
+                {
+                    PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
+                });
             }
             ImGui::Separator();
 
@@ -511,9 +503,9 @@ namespace big
                                 //LOG(HACKER) << "Read Packed Int : " << "Stat Hash : " << stats::packed_stat_name(x, -1) << " Mask Index : " << stats::packed_stat_mask(x);
                             break;
                             case 1:
-                                packed_bool_value = stats::get_packed_bool(x, -1, -1);
-                                packed_stat_hash = stats::packed_bool_stat_name(x, -1);
-                                packed_stat_index = stats::packed_bool_stat_mask(x);
+                                packed_bool_value = stats::get_packed_bool(x, -1);
+                                //packed_stat_hash = stats::packed_bool_stat_name(x, -1);
+                                //packed_stat_index = stats::packed_bool_stat_mask(x);
                                 strcpy(bool_string, packed_bool_value ? "TRUE" : "FALSE");
                             break;
                         }

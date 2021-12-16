@@ -13,87 +13,87 @@ namespace big::game_helper
 {
 	inline int func_799(int iParam0)
 	{
-		if (iParam0 >= *script_global(262145).at(15507).as<int*>())
+		if (iParam0 >= *script_global(262145).at(15594).as<int*>())
 		{
-			return (262145 + 15528);
+			return (262145 + 15615);
 		}
-		else if (iParam0 >= *script_global(262145).at(15506).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15593).as<int*>())
 		{
-			return (262145 + 15527);
+			return (262145 + 15614);
 		}
-		else if (iParam0 >= *script_global(262145).at(15505).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15592).as<int*>())
 		{
-			return (262145 + 15526);
+			return (262145 + 15613);
 		}
-		else if (iParam0 >= *script_global(262145).at(15504).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15591).as<int*>())
 		{
-			return (262145 + 15525);
+			return (262145 + 15612);
 		}
-		else if (iParam0 >= *script_global(262145).at(15503).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15590).as<int*>())
 		{
-			return (262145 + 15524);
+			return (262145 + 15611);
 		}
-		else if (iParam0 >= *script_global(262145).at(15502).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15589).as<int*>())
 		{
-			return (262145 + 15523);
+			return (262145 + 15610);
 		}
-		else if (iParam0 >= *script_global(262145).at(15501).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15588).as<int*>())
 		{
-			return (262145 + 15522);
+			return (262145 + 15609);
 		}
-		else if (iParam0 >= *script_global(262145).at(15500).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15587).as<int*>())
 		{
-			return (262145 + 15521);
+			return (262145 + 15608);
 		}
-		else if (iParam0 >= *script_global(262145).at(15499).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15586).as<int*>())
 		{
-			return (262145 + 15520);
+			return (262145 + 15607);
 		}
-		else if (iParam0 >= *script_global(262145).at(15498).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15585).as<int*>())
 		{
-			return (262145 + 15519);
+			return (262145 + 15606);
 		}
-		else if (iParam0 >= *script_global(262145).at(15497).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15584).as<int*>())
 		{
-			return (262145 + 15518);
+			return (262145 + 15605);
 		}
-		else if (iParam0 >= *script_global(262145).at(15496).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15583).as<int*>())
 		{
-			return (262145 + 15517);
+			return (262145 + 15604);
 		}
-		else if (iParam0 >= *script_global(262145).at(15495).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15582).as<int*>())
 		{
-			return (262145 + 15516);
+			return (262145 + 15603);
 		}
-		else if (iParam0 >= *script_global(262145).at(15494).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15581).as<int*>())
 		{
-			return (262145 + 15515);
+			return (262145 + 15602);
 		}
-		else if (iParam0 >= *script_global(262145).at(15493).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15580).as<int*>())
 		{
-			return (262145 + 15514);
+			return (262145 + 15601);
 		}
-		else if (iParam0 >= *script_global(262145).at(15492).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15579).as<int*>())
 		{
-			return (262145 + 15513);
+			return (262145 + 15600);
 		}
-		else if (iParam0 >= *script_global(262145).at(15491).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15578).as<int*>())
 		{
-			return (262145 + 15512);
+			return (262145 + 15599);
 		}
-		else if (iParam0 >= *script_global(262145).at(15490).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15577).as<int*>())
 		{
-			return (262145 + 15511);
+			return (262145 + 15598);
 		}
-		else if (iParam0 >= *script_global(262145).at(15489).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15576).as<int*>())
 		{
-			return (262145 + 15510);
+			return (262145 + 15597);
 		}
-		else if (iParam0 >= *script_global(262145).at(15488).as<int*>())
+		else if (iParam0 >= *script_global(262145).at(15575).as<int*>())
 		{
-			return (262145 + 15509);
+			return (262145 + 15596);
 		}
-		return (262145 + 15508);
+		return (262145 + 15595);
 	}
 
 }

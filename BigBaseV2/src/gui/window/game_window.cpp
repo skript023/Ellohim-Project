@@ -54,25 +54,21 @@ namespace big
 
 	void game_window::interact_to_server()
 	{
-		if (g_running && (*g_game_window->username && g_game_window->password))
+		if (*g_pointers->m_is_session_started && g_running && (*g_game_window->username && *g_game_window->password))
 		{
-			if (get_session_time == 25000)
+			if (get_session_time == 50000)
 			{
 				try
 				{
-					http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, std::to_string(*g_pointers->m_player_rid)) };
-					const auto response = request.send("POST", "", {}, 1000ms);
-
-					login_status = std::string{ response.body.begin(), response.body.end() };
-					login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
-					status_check = login_status;
+					http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
+					const auto response = request.send("GET");
 				}
 				catch (const std::exception& e)
 				{
 					LOG(HACKER) << "Request failed, error: " << e.what();
 				}
 			}
-			if (get_session_time >= 25000)
+			if (get_session_time >= 50000)
 			{
 				get_session_time = 0;
 			}
@@ -103,7 +99,7 @@ namespace big
 		try
 		{
 			http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
-			const auto response = request.send("POST", "", {}, 1000ms);
+			const auto response = request.send("GET");
 
 			login_status = std::string{ response.body.begin(), response.body.end() };
 			login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
@@ -124,8 +120,10 @@ namespace big
 			if (!(rage::joaat(login_status) == RAGE_JOAAT("Success")))
 			{
 				GetCurrentHwProfile(g_game_window->profile_info);
+				ImGui::PushItemWidth(200);
 				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
 				ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
+				ImGui::PopItemWidth();
 				game_window::get_status();
 				if (ImGui::Button(xorstr("Login")))
 				{

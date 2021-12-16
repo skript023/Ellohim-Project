@@ -187,7 +187,7 @@ namespace big::hook_helper
 				return true;
 			}
 			break;
-		case 2092565704:
+		case BAIL_NETWORK:
 			if (g_settings.options["Block Kick"])
 			{
 				strcpy(sender_info, "~g~Blocked Kick Event From ");
@@ -206,28 +206,28 @@ namespace big::hook_helper
 				return true;
 			}
 			break;
-		case 515799090:
+		case -1308840134:
 		case 1767220965:
-		case 1305720168:
-		case -275229102:
-		case -654645351:
-		case 1848973789:
-		case -194543830:
-		case -2063448951:
-		case 797978700:
-		case -176858990:
-		case 1731962870:
-		case 1152266822:
-		case 257478565:
-		case 23010443:
-		case 496476216:
-		case 1455421717:
-		case -419415284:
-		case 1358851648:
-		case -525866785:
-		case -1277389265:
-		case -892744477:
-		case 600486780:
+		case -227800145:
+		case -399817245:
+		case -102469555:
+		case -903578754:
+		case -83272757:
+		case -33103987:
+		case -1055758293:
+		case 1763436095:
+		case -1071325787:
+		case 1890277845:
+		case -1887269275:
+		case 1658337260:
+		case 985284033:
+		case -943413695:
+		case 703680251:
+		case 389634423:
+		case -211216577:
+		case 1836137561:
+		case -737858645:
+		case -1991317864:
 			if (g_settings.options["Block Kick"])
 			{
 				strcpy(sender_info, "~g~Blocked Kick Event From ");
@@ -236,36 +236,36 @@ namespace big::hook_helper
 				strcat(sender_info, std::to_string(EventHash).c_str());
 			}
 			break;
-		case 1463355688: //Kick
-		case 575344561: //Kick Host
-		case -1382676328: //Kick Host
-		case 1256866538: //Kick Sp
-		case -1753084819: //Kick SP
-		case 1119864805: //Kick
-		case -1833002148: //Kick
-		case -1587276086: //Kick
-		case 1954846099: //Kick 1964309656
-		case 1659915470://
-		case -2017818728: // Kick Host
-		case 27785517: // Kick Host
-		case 641157117:
-		case -347755611: // Kick Host
-		case -137439024: // Kick Host
-		case 161038699: // Kick Host
-		case -1813981910:
-		case 202252150:
-		case -1503282114:
-		case 243981125:
-		case -1836118977:
-		case -169685950:
-		case -2071141142:
-		case -149227625:
-		case 1433396036:
-		case 1608876738:
-		case 458875017:
-		case 987018372:
+		case -1970125962: //Kick
+		case 69874647: //Kick Host
+		case 998716537: //Kick Host
+		case 163598572: //Kick Sp
+		case 924535804: //Kick SP
+		case -1767058336: //Kick
+		case 927169576: //Kick
+		case -145306724: //Kick
+		case 614457627: //Kick 1964309656
+		case 1572255940://
+		case -1892343528: // Kick Host
+		case 1494472464: // Kick Host
+		case 1189947075:
+		case 1445703181: // Kick Host
+		case -225522261: // Kick Host
+		case 1481806247: // Kick Host
+		case -1501164935:
+		case 436475575:
+		case 990606644:
+		case 1498409190:
+		case 526046459:
+		case 1902624891:
+		case 844746317:
+		case -330288802:
+		case -581037897:
+		case 2002459655:
+		case -569621836:
+		case -1208585385:
 		case 813647057:
-		case 696123127:
+		case 1757755807:
 			if (g_settings.options["Block Kick"])
 			{
 				strcpy(sender_info, "~g~Blocked Kick Event From ");

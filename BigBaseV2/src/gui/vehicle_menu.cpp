@@ -144,6 +144,9 @@ namespace big
                     case 28:
                         ImGui::ListBox("##Vehicle List", &SelectedVehicle, var::tuner_update, IM_ARRAYSIZE(var::tuner_update));
                         break;
+                    case 29:
+                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, var::the_contract, IM_ARRAYSIZE(var::the_contract));
+                        break;
                     }
                     if (ImGui::Button(xorstr("Spawn Native")))
                     {
@@ -235,6 +238,9 @@ namespace big
                             break;
                         case 28:
                             vehicle_helper::vehicle(var::tuner_update[SelectedVehicle], g_local.ped);
+                            break;
+                        case 29:
+                            vehicle_helper::vehicle(var::the_contract[SelectedVehicle], g_local.ped);
                             break;
                         }
                     }
@@ -330,6 +336,9 @@ namespace big
                         case 28:
                             vehicle_helper::SpawnVehicle(var::tuner_update[SelectedVehicle], FALSE, g_local.player);
                             break;
+                        case 29:
+                            vehicle_helper::SpawnVehicle(var::the_contract[SelectedVehicle], FALSE, g_local.ped);
+                            break;
                         }
                     }
                 break;
@@ -338,10 +347,10 @@ namespace big
                     {
                         if (*g_pointers->m_is_session_started)
                         {
-                            static int max_slots = *script_global(1323703).as<int*>();
+                            static int max_slots = *script_global(g_global.garage).as<int*>();
                             for (int x = 0; x <= max_slots; ++x)
                             {
-                                Hash hash = *script_global(1323703).at(x, 142).at(66).as<uint32_t*>();
+                                Hash hash = *script_global(g_global.garage).at(x, 142).at(66).as<uint32_t*>();
                                 auto names = FindVehicleName(hash);
                                 static const char* local_name;
 
@@ -360,27 +369,19 @@ namespace big
                     {
                         g_fiber_pool->queue_job([]
                         {
-                            *script_global(2544210).at(965).as<int*>() = SelectedPersonal;
-                            *script_global(2544210).at(962).as<bool*>() = true;
+                            *script_global(g_global.call_personal_vehicle).at(965).as<int*>() = SelectedPersonal;
+                            *script_global(g_global.call_personal_vehicle).at(962).as<bool*>() = true;
                             script::get_current()->yield(1500ms);
                             if (g_settings.options["Auto Get-in"])
                             {
-                                if (rage::joaat(SCRIPT::GET_THIS_SCRIPT_NAME()) == RAGE_JOAAT("freemode"))
-                                {
-                                    if (NETWORK::NETWORK_DOES_NETWORK_ID_EXIST(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>()) && NETWORK::NETWORK_DOES_ENTITY_EXIST_WITH_NETWORK_ID(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>()))
-                                    {
-                                        Vehicle vehicle = NETWORK::NET_TO_VEH(*script_global(2426865).at(g_local.player, 449).at(38).as<int*>());
-                                        PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle, -1);
-                                    }
-                                }
-                                PED::SET_PED_INTO_VEHICLE(g_local.ped, *script_global(2544210).at(298).as<int*>(), -1);
+                                PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
                             }
                         });
                     }
                     ImGui::Combo(xorstr("##Change"), &selected_hash, var::VechicleList, IM_ARRAYSIZE(var::VechicleList));
                     if (ImGui::Button(xorstr("Change")))
                     {
-                        *script_global(1323703).at(SelectedPersonal, 142).at(66).as<uint32_t*>() = rage::get_hash_key<uint32_t>(var::VechicleList[selected_hash]);
+                        *script_global(g_global.garage).at(SelectedPersonal, 142).at(66).as<uint32_t*>() = rage::joaat(var::VechicleList[selected_hash]);
                     }
                 break;
                 case 2:
