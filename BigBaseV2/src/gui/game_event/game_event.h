@@ -106,6 +106,7 @@ namespace big
 		static Ped crash_player(Entity target, Vector3 SpawnCoordinates);
 		static void steal_fake_money(Player player, int TotalMoney);
 		static void give_wanted_level(Player player);
+		static void set_bounty(Player player, int amount = 4);
 	public:
 		static inline bool remote_off_the_radars{};
 		static inline bool bribe_authority{};

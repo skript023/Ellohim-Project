@@ -112,6 +112,26 @@ namespace big
         } QUEUE_JOB_END_CLAUSE
     }
 
+    void remote_event::set_bounty(Player player, int amount)
+    {
+        g_fiber_pool->queue_job([=]
+        {
+            int64_t args[22] = {
+            1294995624, // 0
+            PLAYER::PLAYER_ID(), // 1 Player in script self
+            player, // 2 Player in script self
+            0, // 3 unk
+            amount, // 4
+            0, // 5 => never set
+            1, // 6 => always 1
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            *script_global(1921036).at(9).as<int*>(),
+            *script_global(1921036).at(10).as<int*>()
+            };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, 22, 1 << player);
+        });
+    }
+
     void remote_event::give_wanted_level(Player player)
     {
         g_fiber_pool->queue_job([player]

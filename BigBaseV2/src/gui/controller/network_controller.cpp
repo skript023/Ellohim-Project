@@ -27,14 +27,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 1:
             case 6:
             case 11:
             case 16:
-                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(2).as<int*>() = supply;
+                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(2).as<int*>() = supply;
                 break;
             }
         }
@@ -44,14 +44,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 2:
             case 7:
             case 12:
             case 17:
-                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(2).as<int*>() = supply;
+                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(2).as<int*>() = supply;
                 break;
             }
         }
@@ -61,14 +61,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 3:
             case 8:
             case 13:
             case 18:
-                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(2).as<int*>() = supply;
+                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(2).as<int*>() = supply;
                 break;
             }
         }
@@ -78,14 +78,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 4:
             case 9:
             case 14:
             case 19:
-                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(2).as<int*>() = supply;
+                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(2).as<int*>() = supply;
                 break;
             }
         }
@@ -95,14 +95,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 5:
             case 10:
             case 15:
             case 20:
-                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(2).as<int*>() = supply;
+                *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(2).as<int*>() = supply;
                 break;
             }
         }
@@ -112,7 +112,7 @@ namespace big
     {
         if (*g_pointers->m_is_session_started)
         {
-            *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(2).as<int*>() = supply;
+            *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(2).as<int*>() = supply;
         }
     }
 
@@ -120,14 +120,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 1:
             case 6:
             case 11:
             case 16:
-                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(3).as<int*>());
+                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -137,14 +137,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 2:
             case 7:
             case 12:
             case 17:
-                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(3).as<int*>());
+                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -154,14 +154,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 3:
             case 8:
             case 13:
             case 18:
-                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(3).as<int*>());
+                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -171,14 +171,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 4:
             case 9:
             case 14:
             case 19:
-                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(3).as<int*>());
+                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -188,14 +188,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 5:
             case 10:
             case 15:
             case 20:
-                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(3).as<int*>());
+                return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(3).as<int*>());
             }
         }
         return 0.f;
@@ -205,7 +205,7 @@ namespace big
     {
         if (*g_pointers->m_is_session_started)
         {
-            return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(2).as<int*>());
+            return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(2).as<int*>());
         }
         return 0.f;
     }
@@ -214,14 +214,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 1:
             case 6:
             case 11:
             case 16:
-                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(1).as<int*>());
+                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(1).as<int*>());
                 return (product / 20.f) * 100.f;
             }
         }
@@ -232,14 +232,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 2:
             case 7:
             case 12:
             case 17:
-                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(1).as<int*>());
+                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(1).as<int*>());
                 return (product / 80.f) * 100.f;
             }
         }
@@ -250,14 +250,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 3:
             case 8:
             case 13:
             case 18:
-                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(1).as<int*>());
+                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(1).as<int*>());
                 return (product / 10.f) * 100.f;
             }
         }
@@ -268,14 +268,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 4:
             case 9:
             case 14:
             case 19:
-                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(1).as<int*>());
+                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(1).as<int*>());
                 return (product / 40.f) * 100.f;
             }
         }
@@ -286,14 +286,14 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 5:
             case 10:
             case 15:
             case 20:
-                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).at(1).as<int*>());
+                float product = systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).at(1).as<int*>());
                 return (product / 60.f) * 100.f;
             }
         }
@@ -304,7 +304,7 @@ namespace big
     {
         if (*g_pointers->m_is_session_started)
         {
-            return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(1).as<int*>());
+            return systems::int_to_float(*script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(1).as<int*>());
         }
         return 0.f;
     }
@@ -313,7 +313,7 @@ namespace big
     {
         if (*g_pointers->m_is_session_started)
         {
-            auto research_progress = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(12).as<int*>();
+            auto research_progress = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(12).as<int*>();
             auto research_percentages = (systems::int_to_float(research_progress) / 60.f) * 100.f;
             return research_percentages;
         }
@@ -324,7 +324,7 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 1:
@@ -344,7 +344,7 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 2:
@@ -364,7 +364,7 @@ namespace big
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).as<int*>();
             switch (location)
             {
             case 3:
@@ -384,7 +384,7 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 4:
@@ -404,7 +404,7 @@ namespace big
     {
         for (int i = 0; i <= 4; i++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(i, 13).as<int*>();
             switch (location)
             {
             case 5:
@@ -422,7 +422,7 @@ namespace big
 
     const char* network::get_bunker_location(Player player)
     {
-        auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).as<int*>();
+        auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).as<int*>();
 
         switch (location)
         {
@@ -452,18 +452,18 @@ namespace big
 	{
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).as<int*>();
             switch (location)
             {
                 case 1:
                 case 6:
                 case 11:
                 case 16:
-                    int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(2).as<int*>();
-                    int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(1).as<int*>();
+                    int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
+                    int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
                     if (product == 20) message::notification(MOD_NAME, "~bold~~g~Trigger Meth Production Function: Storage full with 20 Products!", "~bold~~g~Ellohim Business Manager");
                     if (supply > 0)
-                        *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(9).as<int*>() = 0;
+                        *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                     else
                         message::notification(MOD_NAME, "~bold~~g~Trigger Meth Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
                 break;
@@ -475,18 +475,18 @@ namespace big
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).as<int*>();
             switch (location)
             {
             case 2:
             case 7:
             case 12:
             case 17:
-                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(2).as<int*>();
-                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
+                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
                 if (product == 80) message::notification(MOD_NAME, "~bold~~g~Trigger Weed Production Function: Storage full with 80 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
-                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
                     message::notification(MOD_NAME, "~bold~~g~Trigger Weed Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
@@ -498,18 +498,18 @@ namespace big
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).as<int*>();
             switch (location)
             {
             case 3:
             case 8:
             case 13:
             case 18:
-                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(2).as<int*>();
-                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
+                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
                 if (product == 10) message::notification(MOD_NAME, "~bold~~g~Trigger Cocaine Production Function: Storage full with 10 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
-                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
                     message::notification(MOD_NAME, "~bold~~g~Trigger Cocaine Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
@@ -521,18 +521,18 @@ namespace big
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).as<int*>();
             switch (location)
             {
             case 4:
             case 9:
             case 14:
             case 19:
-                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(2).as<int*>();
-                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
+                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
                 if (product == 40) message::notification(MOD_NAME, "~bold~~g~Trigger Cash Production Function: Storage full with 40 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
-                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
                     message::notification(MOD_NAME, "~bold~~g~Trigger Cash Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
@@ -544,18 +544,18 @@ namespace big
     {
         for (int a = 0; a <= 4; a++)
         {
-            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).as<int*>();
+            auto location = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).as<int*>();
             switch (location)
             {
             case 5:
             case 10:
             case 15:
             case 20:
-                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(2).as<int*>();
-                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(1).as<int*>();
+                int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
+                int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
                 if (product == 60) message::notification(MOD_NAME, "~bold~~g~Trigger Documents Production Function: Storage full with 60 Products!", "~bold~~g~Ellohim Business Manager");
                 if (supply > 0)
-                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 12).at(9).as<int*>() = 0;
+                    *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
                     message::notification(MOD_NAME, "~bold~~g~Trigger Documents Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
             break;
@@ -565,22 +565,22 @@ namespace big
 
     void network::trigger_bunker_production(Player player)
     {
-        int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(2).as<int*>();
-        int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(1).as<int*>();
+        int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(2).as<int*>();
+        int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(1).as<int*>();
         if (product == 100) message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Production Function: Full Stock!", "~bold~~g~Ellohim Business Manager");
         if (supply > 0)
-            *script_global(g_global.business_index).at(5, 12).at(9).as<int*>() = 0;
+            *script_global(g_global.business_index).at(5, 13).at(9).as<int*>() = 0;
         else
             message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
     }
 
     void network::trigger_bunker_research(Player player)
     {
-        int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(2).as<int*>();
-        int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 12).at(1).as<int*>();
+        int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(2).as<int*>();
+        int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(1).as<int*>();
         if (product == 60) message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Research Function: Research Progress Done!", "~bold~~g~Ellohim Business Manager");
         if (supply > 0)
-            *script_global(g_global.business_index).at(5, 12).at(13).as<int*>() = 0;
+            *script_global(g_global.business_index).at(5, 13).at(13).as<int*>() = 0;
         else
             message::notification(MOD_NAME, "~bold~~g~Trigger Bunker Research Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
     }

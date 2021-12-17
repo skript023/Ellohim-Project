@@ -13,7 +13,7 @@ namespace big
 		static void render_player_business_info(const char* tab_name);
 
 	private:
-        static inline const char* const ScriptEvent[]{ "Teleport To Cayo", "Invite Apartment", "CEO Kick", "CEO Ban", "Rotate Cam","Vehicle Kick", "Clear Wanted", "Kick", "Send Transaction Failed", "Send To Mission", "Give Wanted Level", "Fake Money" };
+        static inline const char* const ScriptEvent[]{ "Teleport To Cayo", "Invite Apartment", "CEO Kick", "CEO Ban", "Rotate Cam","Vehicle Kick", "Clear Wanted", "Kick", "Send Transaction Failed", "Send To Mission", "Give Wanted Level", "Fake Money", "Bounty" };
         static inline const char* const NetworkEvent[]{ "Weapon", "Request Anim Player", "Send Explosion", "Spectate", "Send Shoot", "Repair Vehicle", "Control Vehicle", "Bad Sport" };
         static inline const char* const OtherEvent[]{ "Teleport To Player", "Clone Player", "Teleport All Ped", "Cage Player", "Steal Costume", "Disconnect", "Force Teleport" };
         static inline int SelectedScriptEvent = 0;

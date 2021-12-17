@@ -266,6 +266,15 @@ namespace big::hook_helper
 		case -1208585385:
 		case 813647057:
 		case 1757755807:
+		case 677240627:
+		case 2112408256:
+		case -1386010354:
+		case 962740265:
+		case -368423380:
+		case -290218924:
+		case -614457627:
+		case -1125867895:
+		case 1246667869:
 			if (g_settings.options["Block Kick"])
 			{
 				strcpy(sender_info, "~g~Blocked Kick Event From ");

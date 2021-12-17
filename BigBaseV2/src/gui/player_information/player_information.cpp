@@ -206,6 +206,9 @@ namespace big
                             break;
                         }
                         break;
+                    case 12:
+                        remote_event::set_bounty(g_selected.player);
+                        break;
                     }
                 }
                 break;
