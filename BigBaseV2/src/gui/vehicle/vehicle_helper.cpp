@@ -399,7 +399,7 @@ namespace big
     {
         QUEUE_JOB_BEGIN_CLAUSE(=)
         {
-            if (!*g_pointers->m_is_session_started) *script_global(4533757).as<bool*>() = true;
+            if (!*g_pointers->m_is_session_started) *script_global(2783340).as<bool*>() = true;
             vehicle_helper::allow_unrelease_vehicle(true);
             auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
@@ -663,7 +663,7 @@ namespace big
     {
         QUEUE_JOB_BEGIN_CLAUSE(=)
         {
-            if (!*g_pointers->m_is_session_started) *script_global(4270934).as<bool*>() = true;
+            if (!*g_pointers->m_is_session_started) *script_global(2783340).as<bool*>() = true;
             auto entity = player::get_player_ped(player);
             auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);

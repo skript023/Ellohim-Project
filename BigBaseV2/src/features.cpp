@@ -44,7 +44,7 @@ namespace big::features
 	
 	bool TransitionCheck()
 	{
-        int JoinStatus = *script_global(2426865).at(PLAYER::PLAYER_ID(),443).as<int*>();
+        int JoinStatus = *script_global(2689156).at(PLAYER::PLAYER_ID(),g_global.radar_size).as<int*>();
 		auto CheckScriptTransition = script_helper::is_script_active(RAGE_JOAAT("fm_maintain_transition_players"));
 		auto MainTransition = script_helper::is_script_active(RAGE_JOAAT("maintransition"));
 		auto freemode = script_helper::is_script_active(RAGE_JOAAT("freemode"));
