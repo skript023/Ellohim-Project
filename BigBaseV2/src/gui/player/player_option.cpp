@@ -279,12 +279,12 @@ namespace big
             script::get_current()->yield();
             if (global_exp == total)
             {
-                message::notification(xorstr("Ellohim Private Menu"), "~bold~~g~Your RP no longer need correction", "~bold~~g~Ellohim Recovery");
+                message::notification("~bold~~g~Your RP no longer need correction", "~bold~~g~Ellohim Recovery");
             }
             else if (global_exp != total)
             {
                 STATS::STAT_SET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), total, true);
-                message::notification(xorstr("Ellohim Private Menu"), "~bold~~g~Your RP Has Been Corrected", "~bold~~g~Ellohim Recovery");
+                message::notification("~bold~~g~Your RP Has Been Corrected", "~bold~~g~Ellohim Recovery");
             }
         });
     }
@@ -571,23 +571,14 @@ namespace big
     {
         if (Activation)
         {
-            if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
+            if (auto fm_mission_controller = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
             {
-                rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
-                    if (auto fm_mission_controller = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
-                    {
-                        *script_local(fm_mission_controller, m_local.tc_live).as<int*>() = 9999;
-                    }
-                });
+                *script_local(fm_mission_controller, m_local.tc_live).as<int*>() = 9999;
             }
-            else if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")))
+
+            if (auto mission_controller_2020 = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
             {
-                rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
-                    if (auto mission_controller_2020 = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
-                    {
-                        *script_local(mission_controller_2020, m_local.tc_live_c).as<int*>() = 9999;
-                    }
-                });
+                *script_local(mission_controller_2020, m_local.tc_live_c).as<int*>() = 9999;
             }
         }
         else

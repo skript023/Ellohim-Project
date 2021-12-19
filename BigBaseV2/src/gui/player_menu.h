@@ -21,7 +21,7 @@ namespace big
 		static inline bool inputs_step = false;
 
 		static inline char read_stat_name[255];
-		static inline int read_integer_value;
+		static inline int64_t read_integer_value;
 		static inline float read_float_value;
 		static inline int read_bool_value;
 		static inline char read_string_value[255];

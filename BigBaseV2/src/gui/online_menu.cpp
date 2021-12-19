@@ -299,52 +299,31 @@ namespace big
 
                 if (ImGui::Button(xorstr("Open Vault Door"), ImVec2(200, 0)))
                 {
-                    g_fiber_pool->queue_job([] {
-                        rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
-                            if (auto vault_door = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
-                            {
-                                for (int i = 0; i <= g_local.connected_player; i++)
-                                {
-                                    if (casino_heist::ch_is_hard(i))
-                                        *script_local(vault_door, m_local.vault_door).as<int*>() = 6;
-                                    else
-                                        *script_local(vault_door, m_local.vault_door).as<int*>() = 4;
-                                }
-                            }
-                        });
-                    });
+                    if (auto vault_door = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    {
+                        *script_local(vault_door, m_local.vault_door).as<int*>() = *script_local(vault_door, m_local.vault_door_total).as<int*>();
+                    }
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Doomsday ACT III Hack"), ImVec2(200, 0)))
                 {
-                    rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
-                        if (auto doomsday = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
-                        {
-                            *script_local(doomsday, m_local.doomsday_act_3_hack).as<int*>() = 0;
-                        }
-                    });
+                    if (auto doomsday = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    {
+                        *script_local(doomsday, m_local.doomsday_act_3_hack).as<int*>() = 0;
+                    }
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Instant Hack FP"), ImVec2(200, 0)))
                 {
-                    if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")))
+                    if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                     {
-                        rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
-                            if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
-                            {
-                                *script_local(cayo, m_local.finger_clone).as<int*>() += 1;
-                            }
-                        });
+                        *script_local(cayo, m_local.finger_clone).as<int*>() += 1;
                     }
-                    if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
+
+                    if (auto casino = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
                     {
-                        rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [] {
-                            if (auto casino = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
-                            {
-                                *script_local(casino, m_local.finger_print).as<int*>() += 1;
-                                *script_local(casino, m_local.door_hack).as<int*>() += 1;
-                            }
-                        });
+                        *script_local(casino, m_local.finger_print).as<int*>() += 1;
+                        *script_local(casino, m_local.door_hack).as<int*>() += 1;
                     }
                 }
 
@@ -365,7 +344,7 @@ namespace big
                         {
                             for (int i = 0; i <= 2; i++)
                             {
-                                *script_local(cayo, 28268).at(1).at(i, 2).as<float*>() = systems::int_to_float(*script_local(cayo, 28268).at(1).at(i, 2).at(1).as<int*>());
+                                *script_local(cayo, m_local.safe_hack).at(1).at(i, 2).as<float*>() = systems::int_to_float(*script_local(cayo, m_local.safe_hack).at(1).at(i, 2).at(1).as<int*>());
                             }
                         }
                     });

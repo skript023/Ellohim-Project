@@ -17,6 +17,7 @@
 #include "benchmark.h"
 #include "gui/setting_menu.h"
 #include "gui/controller/http_request.hpp"
+#include "gui/window/game_window.hpp"
 
 namespace big
 {
@@ -41,9 +42,9 @@ namespace big
             {
                 g_fiber_pool->queue_job([]
                 {
-                    *script_global(31622).as<int*>() = 1;
+                    *script_global(g_global.disconnect).as<int*>() = 1;
                     script::get_current()->yield(5000ms);
-                    *script_global(31622).as<int*>() = 0;
+                    *script_global(g_global.disconnect).as<int*>() = 0;
                 });
             }
             ImGui::SameLine();
@@ -58,7 +59,7 @@ namespace big
                 vehicle_helper::vehicle("Krieger", g_local.ped);
                 auto end = std::chrono::high_resolution_clock::now();
                 auto result = std::chrono::duration_cast<nanoseconds>(end - start);
-                message::notification("~bold~~y~Benchmark", fmt::format("~g~finished with a resulting time of: {} nanoseconds",std::to_string(result.count())).c_str(), "~bold~~g~Ellohim Private Menu");
+                message::notification(fmt::format("~g~finished with a resulting time of: {} nanoseconds",std::to_string(result.count())).c_str(), "~bold~~y~Benchmark");
             }
             ImGui::Separator();
             
@@ -669,22 +670,13 @@ namespace big
             ImGui::Separator();
             if (ImGui::Button(xorstr("Unload Mod Menu")))
             {
-                message::notification("~bold~~g~Ellohim Private Menu", "~bold~~g~Menu Unloaded", "~bold~~g~Ellohim Unloader");
+                message::notification("~bold~~g~Menu Unloaded", "~bold~~g~Ellohim Unloader");
                 g_running = false;
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Exit Game")))
             {
-                try
-                {
-                    http::Request request("https://external-view.000webhostapp.com/includes/logout.php");
-                    const auto response = request.send("GET");
-
-                }
-                catch (const std::exception& e)
-                {
-                    LOG(HACKER) << "Request failed, error: " << e.what();
-                }
+                game_window::logout();
                 exit(0);
             }
             ImGui::EndTabItem();

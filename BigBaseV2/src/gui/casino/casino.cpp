@@ -145,7 +145,7 @@ namespace big
             rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
                 if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                 {
-                    *script_local(cayo, m_local.glass_cutter_heat).as<float*>() = 0.0f;
+                    *script_local(cayo, m_local.glass_cutter_heat).as<float*>() = 75.0f;
                 }
             });
         }

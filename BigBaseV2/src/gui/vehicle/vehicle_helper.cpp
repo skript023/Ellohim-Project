@@ -690,7 +690,7 @@ namespace big
                 VEHICLE::SET_VEHICLE_IS_STOLEN(vehicle, FALSE);
             }
 
-            ENTITY::ATTACH_ENTITY_TO_ENTITY(vehicle, entity, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, TRUE, FALSE, 2, TRUE);
+            ENTITY::ATTACH_ENTITY_TO_ENTITY(vehicle, entity, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, FALSE, FALSE, 2, TRUE);
             ENTITY::SET_ENTITY_ALPHA(vehicle, 10, TRUE);
             ENTITY::SET_ENTITY_COLLISION(vehicle, FALSE, FALSE);
             ENTITY::SET_ENTITY_INVINCIBLE(vehicle, TRUE);

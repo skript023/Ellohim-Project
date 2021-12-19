@@ -720,7 +720,7 @@ namespace big
                                                 char message[100];
                                                 strcpy(message, "~g~Crash Has Been Sent to ");
                                                 strcat(message, PLAYER::GET_PLAYER_NAME(g_selected.player));
-                                                message::notification("~bold~~g~Ellohim Private Menu", message, "~bold~~g~Ellohim Event Sender");
+                                                message::notification(message, "~bold~~g~Ellohim Event Sender");
                                             }
                                         }
                                     }
@@ -792,7 +792,7 @@ namespace big
                                     remote_event::bail_player(g_selected.player);
 
                                     auto message = fmt::format("~g~DoS Attack Has Been Sent to {}", player::get_player_ip(g_selected.player));
-                                    message::notification("~bold~~g~Ellohim Private Menu", message.c_str(), "~bold~~g~Ellohim DoS Attack");
+                                    message::notification(message.c_str(), "~bold~~g~Ellohim DoS Attack");
                                 }
                                 break;
                                 }
@@ -903,8 +903,7 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Give Explosive Ammo"), &g_fitur.explosive_weapon);
 
-            bool IsHost = *script_global(1630816).at(g_local.player, 597).at(10).as<bool*>();
-            if (IsHost)
+            if (network::network_is_host(g_local.player))
             {
                 if (ImGui::Button(xorstr("Kick (Host Only)")))
                 {

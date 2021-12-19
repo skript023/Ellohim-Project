@@ -37,11 +37,11 @@ namespace big::hook_helper
 
 				LOG(HACKER) << fmt::format("Blocked Report From {} with stat name {} and hash {} by value {}", sender_name, stat_name, hash, amount);
 
-				message::notification("~bold~~g~Ellohim Private Menu", sender_info.c_str(), "~bold~~g~Ellohim Menu Received Event");
+				message::notification(sender_info.c_str(), "~bold~~g~Ellohim Menu Received Event");
 				if (g_settings.options["Redirect Report"])
 				{
 					std::string redirect_event = fmt::format("~g~Redirect Report To {} with stat name {} and hash {} by value {}", sender_name, stat_name, hash, amount);
-					message::notification("Event Redirect", redirect_event.c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(redirect_event.c_str(), "~bold~~g~Ellohim Menu Redirect");
 					g_pointers->m_increment_event(net_event_struct, receiver, sender);
 					remote_event::bail_player(sender_id);
 				}
@@ -71,12 +71,12 @@ namespace big::hook_helper
 				strcpy(sender_info, "~g~Blocked Invite Event From ");
 				strcat(sender_info, sender_name);
 
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked Invite Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked Invite Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
 					strcpy(sender_info, "~g~Redirect Event To ");
 					strcat(sender_info, sender_name);
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -86,10 +86,10 @@ namespace big::hook_helper
 		case TELEPORT_CAYO: //send cayo
 			if (g_settings.options["Teleport Cayo Perico Block"])
 			{
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked Send To Cayo Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked Send To Cayo Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -99,10 +99,10 @@ namespace big::hook_helper
 		case CEO_KICK: //CEO Kick
 			if (g_settings.options["CEO Kick Block"])
 			{
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked CEO Kick Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked CEO Kick Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -112,10 +112,10 @@ namespace big::hook_helper
 		case CEO_BAN: //CEO Ban
 			if (g_settings.options["CEO Ban Block"])
 			{
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked CEO Ban Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked CEO Ban Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -137,10 +137,10 @@ namespace big::hook_helper
 		case VEHICLE_KICK: //Vehicle Kick
 			if (g_settings.options["Vehicle Kick Block"])
 			{
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked Vehicle Kick Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked Vehicle Kick Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -150,10 +150,10 @@ namespace big::hook_helper
 		case TRANSACTION_ERROR:
 			if (g_settings.options["Transaction Failed Block"])
 			{
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked Transaction failed Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked Transaction failed Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -164,10 +164,10 @@ namespace big::hook_helper
 		case SEND_TO_MISSION_2:
 			if (g_settings.options["Force To Mission Block"])
 			{
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked Force Mission Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked Force Mission Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -177,10 +177,10 @@ namespace big::hook_helper
 		case PHONE_INVITE:
 			if (g_settings.options["Sound Spam"])
 			{
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Blocked Sound Spam Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Blocked Sound Spam Event From {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}", sender_name, EventHash, args_size).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
@@ -194,40 +194,40 @@ namespace big::hook_helper
 				strcat(sender_info, sender_name);
 				strcat(sender_info, " with hash ");
 				strcat(sender_info, std::to_string(EventHash).c_str());
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Block Kick Event From {} SCID {} with Hash {} Args Count {}{}", sender_name, PlayerRID, EventHash, args_size, ip).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Block Kick Event From {} SCID {} with Hash {} Args Count {}{}", sender_name, PlayerRID, EventHash, args_size, ip).c_str(), "~bold~~g~Ellohim Menu Protection");
 				if (g_settings.options["Redirect Event"])
 				{
 					strcpy(sender_info, "~g~Redirect Event To ");
 					strcat(sender_info, sender_name);
-					message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}{}", sender_name, EventHash, args_size, ip).c_str(), "~bold~~g~Ellohim Menu Redirect");
+					message::notification(fmt::format("~g~Redirect Event To {} with Hash {} Args Count {}{}", sender_name, EventHash, args_size, ip).c_str(), "~bold~~g~Ellohim Menu Redirect");
 					//then kick player who report me
 					remote_event::trigger_event(args, args_size, 1 << sender_id);
 				}
 				return true;
 			}
 			break;
-		case -1308840134:
-		case 1767220965:
-		case -227800145:
-		case -399817245:
-		case -102469555:
-		case -903578754:
-		case -83272757:
-		case -33103987:
-		case -1055758293:
-		case 1763436095:
-		case -1071325787:
-		case 1890277845:
-		case -1887269275:
-		case 1658337260:
-		case 985284033:
-		case -943413695:
-		case 703680251:
-		case 389634423:
-		case -211216577:
-		case 1836137561:
-		case -737858645:
-		case -1991317864:
+		case KICK_1:
+		case KICK_2:
+		case KICK_3:
+		case KICK_4:
+		case KICK_5:
+		case KICK_6:
+		case KICK_7:
+		case KICK_8:
+		case KICK_9:
+		case KICK_10:
+		case KICK_11:
+		case KICK_12:
+		case KICK_13:
+		case KICK_14:
+		case KICK_15:
+		case KICK_16:
+		case KICK_17:
+		case KICK_18:
+		case KICK_19:
+		case KICK_20:
+		case KICK_21:
+		case KICK_22:
 			if (g_settings.options["Block Kick"])
 			{
 				strcpy(sender_info, "~g~Blocked Kick Event From ");
@@ -236,45 +236,45 @@ namespace big::hook_helper
 				strcat(sender_info, std::to_string(EventHash).c_str());
 			}
 			break;
-		case -1970125962: //Kick
-		case 69874647: //Kick Host
-		case 998716537: //Kick Host
-		case 163598572: //Kick Sp
-		case 924535804: //Kick SP
-		case -1767058336: //Kick
-		case 927169576: //Kick
-		case -145306724: //Kick
-		case 614457627: //Kick 1964309656
-		case 1572255940://
-		case -1892343528: // Kick Host
-		case 1494472464: // Kick Host
-		case 1189947075:
-		case 1445703181: // Kick Host
-		case -225522261: // Kick Host
-		case 1481806247: // Kick Host
-		case -1501164935:
-		case 436475575:
-		case 990606644:
-		case 1498409190:
-		case 526046459:
-		case 1902624891:
-		case 844746317:
-		case -330288802:
-		case -581037897:
-		case 2002459655:
-		case -569621836:
-		case -1208585385:
-		case 813647057:
-		case 1757755807:
-		case 677240627:
-		case 2112408256:
-		case -1386010354:
-		case 962740265:
-		case -368423380:
-		case -290218924:
-		case -614457627:
-		case -1125867895:
-		case 1246667869:
+		case KICK_23:
+		case KICK_24:
+		case KICK_25:
+		case KICK_26:
+		case KICK_27:
+		case KICK_28:
+		case KICK_29:
+		case KICK_30:
+		case KICK_31:
+		case KICK_32:
+		case KICK_33:
+		case KICK_34:
+		case KICK_35:
+		case KICK_36:
+		case KICK_37:
+		case KICK_38:
+		case KICK_39:
+		case KICK_40:
+		case KICK_41:
+		case KICK_42:
+		case KICK_43:
+		case KICK_44:
+		case KICK_45:
+		case KICK_46:
+		case KICK_47:
+		case KICK_48:
+		case KICK_49:
+		case KICK_50:
+		case KICK_51:
+		case KICK_52:
+		case KICK_53:
+		case KICK_54:
+		case KICK_55:
+		case KICK_56:
+		case KICK_57:
+		case KICK_58:
+		case KICK_59:
+		case KICK_60:
+		case KICK_61:
 			if (g_settings.options["Block Kick"])
 			{
 				strcpy(sender_info, "~g~Blocked Kick Event From ");
@@ -283,7 +283,7 @@ namespace big::hook_helper
 				strcat(sender_info, std::to_string(EventHash).c_str());
 
 				LOG(INFO_TO_FILE) << "ID : " << std::to_string(sender_id) << " USER SENDER : " << sender_name << " USER ID : " << std::to_string(PlayerRID).c_str() << " EVENT HASH : " << std::to_string(EventHash).c_str();
-				message::notification("~bold~~g~Ellohim Private Menu", fmt::format("~g~Block Kick Event From {} SCID {} with Hash {} Args Count {}{}", sender_name, PlayerRID, EventHash, args_size, ip).c_str(), "~bold~~g~Ellohim Menu Protection");
+				message::notification(fmt::format("~g~Block Kick Event From {} SCID {} with Hash {} Args Count {}{}", sender_name, PlayerRID, EventHash, args_size, ip).c_str(), "~bold~~g~Ellohim Menu Protection");
 				
 			}
 			break;

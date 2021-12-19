@@ -155,10 +155,11 @@ namespace big
             auto obj = OBJECT::CREATE_OBJECT(hash_object, pos.x, pos.y, pos.z, TRUE, TRUE, FALSE);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
 
-            ENTITY::ATTACH_ENTITY_TO_ENTITY(obj, entity, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, TRUE, FALSE, 2, TRUE);
             script::get_current()->yield();
             ENTITY::SET_ENTITY_INVINCIBLE(obj, TRUE);
             ENTITY::SET_ENTITY_CAN_BE_DAMAGED(obj, FALSE);
+
+            ENTITY::ATTACH_ENTITY_TO_ENTITY(obj, entity, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, FALSE, FALSE, 2, TRUE);
             STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_object);
         }
         QUEUE_JOB_END_CLAUSE

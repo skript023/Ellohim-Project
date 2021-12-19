@@ -82,11 +82,9 @@ namespace big
 	{
 		try
 		{
-			http::Request request("https://external-view.000webhostapp.com/includes/logout.php");
+			http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_logout.php?username={}&rockstar_id={}", g_game_window->username, *g_pointers->m_player_rid) };
 			const auto response = request.send("GET");
-			memset(g_game_window->username, 0, sizeof(g_game_window->username));
-			memset(g_game_window->password, 0, sizeof(g_game_window->password));
-			status_check.clear();
+			LOG(HACKER) << "Logout Success.";
 		}
 		catch (const std::exception& e)
 		{

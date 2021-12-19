@@ -22,7 +22,7 @@ namespace big
 	class message
 	{
 	public:
-		static void notification(const char* sender, const char* Message, const char* MessageTag);
+		static void notification(const char* Message, const char* MessageTag);
 	};
 
 	inline static ai* g_npc_option{};

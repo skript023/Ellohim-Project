@@ -44,7 +44,7 @@ namespace big
 			}
 
 			if (!ip_diff || !name_diff || !scid_diff)
-				message::notification("~bold~~g~Ellohim Private Menu", "~g~Your Information Has Spoofed", "~bold~~g~Ellohim Spoofer");
+				message::notification("~g~Your Information Has Spoofed", "~bold~~g~Ellohim Spoofer");
 
 			uint8_t spoofed[4];
 			*(uint32_t*)&spoofed = local_player->m_relay_ip;

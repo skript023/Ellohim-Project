@@ -49,7 +49,7 @@ namespace big
 		__except (EXCEPTION_EXECUTE_HANDLER)
 		{
 			buffer->Seek(0);
-			message::notification("~bold~~o~Ellohim Private Menu", "Attempt To Crashing You", "~bold~~g~Ellohim Menu Protection");
+			message::notification("Attempt To Crashing You", "~bold~~g~Ellohim Menu Protection");
 			return false;
 		}
 	}
@@ -90,7 +90,7 @@ namespace big
 				auto player_name = player::get_ped_name_from_hash(netSyncTree->m_sync_tree_node->m_player_model);
 
 				strcat(info, name);
-				message::notification("~bold~~o~Ellohim Private Menu", info, "~bold~~g~Ellohim Menu Protection");
+				message::notification(info, "~bold~~g~Ellohim Menu Protection");
 				LOG(HACKER) << fmt::format("Sender : {} | Ped : {} | Vehicle : {} | Object : {} | Pickup : {} | Player : {} | Type : {} | Object Id : {}", name, ped_name, vehicle_name, object_name, pickup_hash, player_name, netObject->object_type, netObject->object_id);
 				return false;
 			}

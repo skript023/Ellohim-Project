@@ -17,13 +17,14 @@ namespace big
 	class var
 	{
 	public:
+		static const int penthouse_shop[348];
 		static int tbl_business[5][4][1];
 		static std::string character_packed_hash[3499];
 		static std::string all_packed_hash[15];
 		static const char* const tuner_update[19];
 		static std::string character_stat_hash[7425];
 		static std::string all_stat_hash[401];
-		static const int KickHash[51];
+		static const int KickHash[61];
 		static const char* const PickupHash[112];
 		static const char* const ObjectList[2615];
 		static const char* const AllWeaponHashes[96];

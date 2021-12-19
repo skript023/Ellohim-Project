@@ -150,13 +150,13 @@ namespace big
 		main_batch.add("Request Control Event", "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8B EA 0F B7 51 30 48 8B F9 48 8B", [this](memory::handle ptr)
 		{
 			m_request_control_event = ptr.as<functions::CNetworkRequestEvent>();
-		});//48 8B ? 48 8B ? ? ? 48 83 C4 ? 5F C3 CC E3 ? 89 5C
-		/*
-		main_batch.add("Remove Weapon Event", "48 8B D8 E8 ? ? ? ? 80 7B", [this](memory::handle ptr)
-		{
-			m_remove_weapon = ptr.sub(0x28).as<functions::CRemoveWeaponEvent>();
 		});
-		*/
+		
+		main_batch.add("Remove Weapon Event", "48 89 5C 24 ? 57 48 83 EC 20 48 8B D9 E8 ? ? ? ? 0F B7 53 30 48 8B 0D ? ? ? ? 45 33 C0", [this](memory::handle ptr)
+		{
+			m_remove_weapon = ptr.as<functions::CRemoveWeaponEvent>();
+		});
+		
 		main_batch.add("Kick Vote Event", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 8D 71 30", [this](memory::handle ptr)
 		{
 			m_kick_vote = ptr.as<functions::CSendKickVoteEvent>();
@@ -182,10 +182,10 @@ namespace big
 			m_hash_table = ptr.add(3).rip().as<CHashTable**>();
 		});
 
-		main_batch.add("Money In Bunker", "48 8D 05 ? ? ? ? 48 C1 E1 ? 48 03 C8 E8 ? ? ? ? 48 8B 5C", [this](memory::handle ptr)
+		main_batch.add("Money In Business", "48 8D 05 ? ? ? ? 48 C1 E1 ? 48 03 C8 E8 ? ? ? ? 48 8B 5C", [this](memory::handle ptr)
 		{
 			m_money_in_bunker = ptr.add(3).rip().as<BusinessMoney**>();
-		});//48 8B 05 ? ? ? ? 48 8D ? ? 48 8D ? ? ? ? ? FF 50 ? 48 8B rip + 0xA310 .add(48)
+		});
 
 		main_batch.add("Get Model Info", "0F B7 05 ? ? ? ? 45 33 C9 4C 8B DA 66 85 C0 0F 84 ? ? ? ? 44 0F B7 C0 33 D2 8B C1 41 F7 F0 48 8B 05 ? ? ? ? 4C 8B 14 D0 EB 09 41 3B 0A 74 54", [this](memory::handle ptr)
 		{
@@ -217,15 +217,16 @@ namespace big
 			m_player_name_esp = ptr.add(3).rip().add(0x84).as<decltype(m_player_name_esp)>();
 		});
 		
-		main_batch.add("Send Net Info To Lobby", "E8 ? ? ? ? 84 C0 74 26 8B 96", [this](memory::handle ptr)//add(1).rip() E8 ? ? ? ? 84 C0 74 ? 44 8B ? ? ? ? ? ? 48 8D ? ? ? 48 8B ? E8 ? ? ? ? 84 C0 74 ? BF ? ? ? ? 4C 8D ? ? ? ? ? ? 40 8A ? 49 8B ? ? 49 8B ? ? 49 8B ? 5F C3 90 61
+		main_batch.add("Send Net Info To Lobby", "E8 ? ? ? ? 84 C0 74 26 8B 96", [this](memory::handle ptr)
 		{
-			m_send_net_info_to_lobby = ptr.sub(0xC4).as<PVOID>();//E8 ? ? ? ? 84 C0 74 26 8B 96
-		});//"E8 ? ? ? ? 84 C0 74 ? 44 8B ? ? ? ? ? ? 48 8D ? ? ? 48 8B ? E8 ? ? ? ? 84 C0 74 ? BF ? ? ? ? 4C 8D ? ? ? ? ? ? 40 8A ? 49 8B ? ? 49 8B ? ? 49 8B ? 5F C3 CC 1D"
+			m_send_net_info_to_lobby = ptr.sub(0xC4).as<PVOID>();
+		});
 		
 		main_batch.add("Player Name Pointer 2", "8B 05 ? ? ? ? 40 B7 01 C1 E8 0C 40 84 C7 74 04 0F BA EB 0F", [this](memory::handle ptr)
 		{
 			m_player_name_2 = ptr.add(2).rip().add(0xBDC).as<decltype(m_player_name_2)>();
 		});
+
 		main_batch.add("Player Name Display", "48 8D 05 ? ? ? ? 48 63 CB 48 8B D6 48 69 C9 ? ? ? ? 48 03 C8 E8 ? ? ? ? 84 C0 75 21", [this](memory::handle ptr)
 		{
 			m_player_name_display = ptr.add(3).rip().add(0x14).as<decltype(m_player_name_display)>();
@@ -260,7 +261,7 @@ namespace big
 		{
 			m_model_spawn_bypass = ptr.add(8).as<PVOID>();
 		});
-		//E8 ? ? ? ? 84 C0 75 6A 8B CB E8 ? ? ? ? 48 8B ? 48 85
+
 		main_batch.add("Request Control Bypass", "48 89 5C 24 ? 57 48 83 EC 20 8B D9 E8 ? ? ? ? 84 C0", [this](memory::handle ptr)
 		{
 			m_request_control_bypass = ptr.add(19).as<PVOID>();
@@ -275,12 +276,7 @@ namespace big
 		{
 			m_game_build = ptr.sub(17).add(265 + 3).as<char*>();//48 89 44 24 ? 0F 95 C3
 		});
-		/*
-		main_batch.add("BitBuffer", "48 89 01 F6 C2 01 74 05 E8 ? ? ? ? 48 8B C3 48 83 C4 20 5B C3 CC CF", [this](memory::handle ptr)
-		{
-			m_bitbufferclass = ptr.as<rage::datBitBuffer*>();
-		});
-		*/
+		
 		main_batch.add("Error Screen Handler", "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 60 4C 8B F2 48 8B 94 24 ? ? ? ? 33 DB", [this](memory::handle ptr)
 		{
 			m_error_screen = ptr.as<decltype(m_error_screen)>();
@@ -291,7 +287,6 @@ namespace big
 			m_gta_thread_tick = ptr.as<decltype(m_gta_thread_tick)>();
 		});
 
-		// Thread Kill
 		main_batch.add("Freemode Thread Killed", "48 89 5C 24 ? 57 48 83 EC 20 48 83 B9 ? ? ? ? ? 48 8B D9 74 14", [this](memory::handle ptr)
 		{
 			m_gta_thread_kill = ptr.as<decltype(m_gta_thread_kill)>();
@@ -302,7 +297,6 @@ namespace big
 			m_read_bitbuf_array = ptr.as<decltype(m_read_bitbuf_array)>();
 		});
 
-		// Send Event Acknowledge
 		main_batch.add("Send Event Ack", "48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 7A", [this](memory::handle ptr)
 		{
 			m_send_event_ack = ptr.sub(5).as<decltype(m_send_event_ack)>();

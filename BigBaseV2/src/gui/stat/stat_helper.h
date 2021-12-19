@@ -43,15 +43,21 @@ namespace big
 		static std::string get_stat_name_from_hash(Hash hash);
 		static bool is_all_stat(Hash hash);
 		static bool set_packed_int(int iParam0, int iParam1, int iParam2, bool bParam3);
+		static void set_packed_int(int Index, int Value, int Character);
+
 		static int get_packed_int(int iParam0, int iParam1, int iParam2);
+		static int get_packed_int(int index, int character);
+
 		static int packed_stat_name(int iParam0, int iParam1);
 		static int packed_stat_mask(int iParam0);
 		static std::string packed_reversed(uint32_t hash);
 
 		static int packed_bool_stat_mask(int iParam0);
 		static int packed_bool_stat_name(int iParam0, int iParam1);
+
 		static bool get_packed_bool(int iParam0, int iParam1, int iParam2);
 		static bool get_packed_bool(int Index, int Character);
+
 		static bool set_packed_bool(int iParam0, bool bParam1, int iParam2, int iParam3);
 		static void set_packed_bool(int Index, bool Value, int Character);
 

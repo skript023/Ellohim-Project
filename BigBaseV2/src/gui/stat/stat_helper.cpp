@@ -195,6 +195,10 @@ namespace big
         {
             iVar0 = ((iParam0 - 30707) - STATS::_STAT_GET_PACKED_INT_MASK((iParam0 - 30707)) * 8) * 8;
         }
+        else if (iParam0 >= 32475 && iParam0 < 34123)
+        {
+            iVar0 = ((iParam0 - 32475) - STATS::_STAT_GET_PACKED_INT_MASK((iParam0 - 32475)) * 8) * 8;
+        }
         return iVar0;
     }
 
@@ -306,6 +310,10 @@ namespace big
         else if (iParam0 >= 30707 && iParam0 < 31707)
         {
             iVar0 = STATS::_GET_NGSTAT_INT_HASH((iParam0 - 30707), false, true, iParam1, "_TUNERPSTAT_INT");
+        }
+        else if (iParam0 >= 32475 && iParam0 < 34123)
+        {
+            iVar0 = STATS::_GET_NGSTAT_INT_HASH((iParam0 - 32475), false, true, iParam1, "_FIXERPSTAT_INT");
         }
         return iVar0;
     }
@@ -427,6 +435,17 @@ namespace big
             }
         }
         return iVar0;
+    }
+
+    int stats::get_packed_int(int index, int character)
+    {
+        {
+            if (character == -1)
+            {
+                character = rage_helper::get_character();
+            }
+            return STATS::_STAT_GET_MASKED_INT(index, character);
+        }
     }
 
     bool stats::set_packed_int(int iParam0, int iParam1, int iParam2, bool bParam3)
@@ -573,6 +592,19 @@ namespace big
         LOG(HACKER) << "Write Packed Int : " << "Stat Hash : " << iVar0 << " Mask Index : " << iVar1;
         bVar2 = STATS::STAT_SET_MASKED_INT(iVar0, iParam1, iVar1, 8, bParam3);
         return bVar2;
+    }
+
+    void stats::set_packed_int(int Index, int Value, int Character)
+    {
+        if (Character == -1)
+        {
+            Character = rage_helper::get_character();
+        }
+        if (Value < 0)
+        {
+            Value = 255;
+        }
+        STATS::_STAT_SET_MASKED_INT(Index, Value, Character);
     }
 
     bool stats::set_packed_bool(int iParam0, bool bParam1, int iParam2, int iParam3)

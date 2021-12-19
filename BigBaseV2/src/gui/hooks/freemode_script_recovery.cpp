@@ -28,7 +28,7 @@ namespace big
 			if (result == eThreadState::killed && state == eThreadState::running && !freemode_terminated)
 			{
 				LOG(INFO) << "Freemode script crashed, attempting recovery...";
-				message::notification(MOD_NAME, "~bold~~g~Freemode script crashed, attempting recovery...", "~bold~~g~" PRODUCT_NAME "Protection");
+				message::notification("~bold~~g~Freemode script crashed, attempting recovery...", "~bold~~g~" PRODUCT_NAME "Protection");
 				result = eThreadState::running;
 
 				memcpy(thread, struct_backup, sizeof(GtaThread));

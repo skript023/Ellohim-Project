@@ -63,7 +63,7 @@ namespace big
 					{
 						if (g_settings.options["Clear Ped Task Block"])
 						{
-							message::notification("Ellohim Private Menu", sender_info, "~bold~~g~Ellohim Menu Protection");
+							message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
 							g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 
 							return false;
@@ -83,7 +83,7 @@ namespace big
 				strcat(sender_info, source_player->get_name());
 				if (g_settings.options["Remove Weapon Block"])
 				{
-					message::notification("Ellohim Private Menu", sender_info, "~bold~~g~Ellohim Menu Protection");
+					message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
 				}
@@ -106,7 +106,7 @@ namespace big
 					strcpy(msg, "~bold~~g~<C>");
 					strcat(msg, source_player->get_name());
 					strcat(msg, "</C> is spawning cash.");
-					message::notification("Ellohim Private Menu", msg, "~bold~~g~Ellohim Menu Protection");
+					message::notification(msg, "~bold~~g~Ellohim Menu Protection");
 				}
 
 				break;
@@ -119,7 +119,7 @@ namespace big
 				strcpy(msg, "~bold~~g~Detected <C>");
 				strcat(msg, source_player->get_name());
 				strcat(msg, "</C> as cheater.");
-				message::notification("Ellohim Private Menu", msg, "~bold~~g~Ellohim Menu Protection");
+				message::notification(msg, "~bold~~g~Ellohim Menu Protection");
 
 				break;
 			}
@@ -134,7 +134,7 @@ namespace big
 					strcat(sender_info, source_player->get_name());
 					if (player::is_player_driver(g_local.ped))
 					{
-						message::notification("Ellohim Private Menu", sender_info, "~bold~~g~Ellohim Menu Protection");
+						message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
 
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 						return false;
@@ -149,8 +149,9 @@ namespace big
 				buffer->ReadDword(&bitset, MAX_PLAYERS);
 				if (g_settings.options["Kick Vote Block"] && bitset& (1 << target_player->player_id))
 				{
-					message::notification("Ellohim Private Menu", fmt::format("~bold~~g~You Got Voted Kick By {}", source_player->get_name()).c_str(), "~bold~~g~Ellohim Protection");
+					message::notification(fmt::format("~bold~~g~You Got Voted Kick By {}", source_player->get_name()).c_str(), "~bold~~g~Ellohim Protection");
 					LOG(INFO) << fmt::format("~bold~~g~You Got Voted Kick By {}", source_player->get_name());
+					remote_event::bail_player(source_player->player_id);
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
 				}
@@ -175,7 +176,7 @@ namespace big
 				{
 					if (g_settings.options["Explosion Event Block"])
 					{
-						message::notification("Ellohim Private Menu", fmt::format("~bold~~g~Blocked Explosion Event From {}", source_player->get_name()).c_str(), "~bold~~g~Ellohim Menu Protection");
+						message::notification(fmt::format("~bold~~g~Blocked Explosion Event From {}", source_player->get_name()).c_str(), "~bold~~g~Ellohim Menu Protection");
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 						return false;
 					}
@@ -192,7 +193,7 @@ namespace big
 				strcat(sender_info, source_player->get_name());
 				if (g_settings.options["PTFX Event Block"])
 				{
-					message::notification("Ellohim Private Menu", sender_info, "~bold~~g~Ellohim Menu Protection");
+					message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
 				}

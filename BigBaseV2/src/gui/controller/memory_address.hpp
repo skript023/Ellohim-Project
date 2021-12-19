@@ -188,7 +188,7 @@ namespace big
 
 		static constexpr inline uint32_t session_change = 1574587;
 		static constexpr inline uint32_t session_type = 1575005;
-		static constexpr inline uint32_t is_session_private = 2453009 + 744;//2453009.f_744
+		static constexpr inline uint32_t is_session_private = 2714627 + 744;//2453009.f_744
 
 		static constexpr inline uint32_t mc_supplies_delay = 262145 + 18748;
 		static constexpr inline uint32_t bunker_supplies_delay = 262145 + 21348;
@@ -292,28 +292,29 @@ namespace big
 			static constexpr inline uint32_t trigger_wheel = 274 + 45;
 		}lucky_wheel;
 	public:
-		static constexpr inline uint32_t take_casino = 4837 + 2685;//19406
-		static constexpr inline uint32_t take_cayo = 39493 + 1536 + 53;// 31600 + 9482 (41082) 39493.f_1589
+		static constexpr inline uint32_t take_casino = 19422 + 2685;//19406
+		static constexpr inline uint32_t take_cayo = 39782 + 1392 + 53;//39493 + 1536 + 53 //31600 + 9482 (41082) 39493.f_1589
 		static constexpr inline uint32_t take_cayo_2 = 41112;
-		static constexpr inline uint32_t vault_door = 2466 + 7;//9842
-		static constexpr inline uint32_t vault_door_total = 2466 + 37;
+		static constexpr inline uint32_t vault_door = 9846 + 7;//9842
+		static constexpr inline uint32_t vault_door_total = 9846 + 37;
 		static constexpr inline uint32_t tc_live_c = 42837 + 865 + 1;//42692 + 1009 + 1;
-		static constexpr inline uint32_t tc_live = 4864 + 1322 + 1;
-		static constexpr inline uint32_t finger_clone = 24196;
-		static constexpr inline uint32_t finger_print = 7770; //52649 DLC_H3_Fingerprint_Hack_Scene
-		static constexpr inline uint32_t door_hack = 8013; //53711 DLC_H3_Door_Hack_Scene
-		static constexpr inline uint32_t board_hacking_x = 3099 + 26;//11471
-		static constexpr inline uint32_t board_hacking_y = 3099 + 27;
-		static constexpr inline uint32_t board_hacking_requirement = 3099 + 39;
+		static constexpr inline uint32_t tc_live = 25847 + 1322 + 1;
+		static constexpr inline uint32_t finger_clone = 23181;
+		static constexpr inline uint32_t finger_print = 52667; //52649 DLC_H3_Fingerprint_Hack_Scene
+		static constexpr inline uint32_t door_hack = 53729; //53711 DLC_H3_Door_Hack_Scene
+		static constexpr inline uint32_t board_hacking_x = 11485 + 26;//11471
+		static constexpr inline uint32_t board_hacking_y = 11485 + 27;
+		static constexpr inline uint32_t board_hacking_requirement = 11485 + 39;
 		static constexpr inline uint32_t voltage_hack_target = 1797;
 		static constexpr inline uint32_t voltage_hack_current = 1798;
 		static constexpr inline uint32_t glass_cutter_heat = 28273 + 4;
 		static constexpr inline uint32_t underwater_torch_total = 28248;
 		static constexpr inline uint32_t underwater_torch_sound = 28253;
+		static constexpr inline int32_t safe_hack = 28255;
 		static constexpr inline uint32_t set_vault_door_broken = 59295;//59294
 
-		static constexpr inline uint32_t doomsday_act_3_hack = 500 + 4;//1343
-		static constexpr inline uint32_t submarine_computer = 1538;
+		static constexpr inline uint32_t doomsday_act_3_hack = 1347 + 4;//1343
+		static constexpr inline uint32_t submarine_computer = 1542;
 
 		static constexpr inline uint32_t special_cargo_buying = 615;
 		static constexpr inline uint32_t special_cargo_sell = 539;
@@ -337,3 +338,6 @@ namespace big
 //LA(11471 + 26,'fm_mission_controller')
 //LA(11471 + 27,'fm_mission_controller')
 //LA(11471 + 39,'fm_mission_controller')
+/*
+http://jobstreet.co.id/id/job/management-trainee-store-supervisor-penempatan-seluruh-indonesia-3722969?jobid=jobstreet-id-job-3722969&sectionRank=2&token=0~c283643e-11d6-4e4d-b154-f8c4bbc3477&fr=SRP+Job+Listing
+*/
