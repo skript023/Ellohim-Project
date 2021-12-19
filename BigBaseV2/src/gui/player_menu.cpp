@@ -266,24 +266,18 @@ namespace big
                     break;
                 case 4:
                     ImGui::PushItemWidth(70);
-                    ImGui::InputScalar(xorstr("##Year"), ImGuiDataType_U32, &tanggal[0]);
+                    ImGui::InputScalar(xorstr("##Year"), ImGuiDataType_U32, &write_date.year);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Year"));
                     ImGui::SameLine();
-                    ImGui::InputScalar(xorstr("##month"), ImGuiDataType_U32, &tanggal[2]);
+                    ImGui::InputScalar(xorstr("##month"), ImGuiDataType_U32, &write_date.month);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Month"));
                     ImGui::SameLine();
-                    ImGui::InputScalar(xorstr("##day"), ImGuiDataType_U32, &tanggal[4]);
+                    ImGui::InputScalar(xorstr("##day"), ImGuiDataType_U32, &write_date.day);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Day"));
                     ImGui::PopItemWidth();
-                    /*
-                    ImGui::InputScalar("##hour", ImGuiDataType_U32, &tanggal[6]);
-                    ImGui::InputScalar("##minute", ImGuiDataType_U32, &tanggal[8]);
-                    ImGui::InputScalar("##second", ImGuiDataType_U32, &tanggal[10]);
-                    ImGui::InputScalar("##mil", ImGuiDataType_U32, &tanggal[12]);
-                    */
                     break;
                 case 5:
                     ImGui::InputText(xorstr("##Strings"), write_string_value, IM_ARRAYSIZE(write_string_value));
@@ -294,37 +288,34 @@ namespace big
                 {
                     g_fiber_pool->queue_job([]
                     {
-                        const auto chara = std::to_string(g_local.character);
-                        std::string final_stat_to_write = write_stat_name;
-                        std::string found_set_stat = final_stat_to_write.length() >= 3 ? final_stat_to_write.substr(2, 1) : final_stat_to_write;
-                        if (found_set_stat.compare("X") == 0)
-                        {
-                            final_stat_to_write.replace(2, 1, chara);
-                        }
+                        strcpy(write_stat_name, std::regex_replace(write_stat_name, std::regex(R"(\$)"), "").c_str());
+                        strcpy(write_stat_name, std::regex_replace(write_stat_name, std::regex(R"(\MPX)"), "MP" + std::to_string(rage_helper::get_character())).c_str());
+                        strcpy(write_stat_name, std::regex_replace(write_stat_name, std::regex(R"(\MPx)"), "MP" + std::to_string(rage_helper::get_character())).c_str());
+                        const auto stat_hash = rage::joaat(write_stat_name);
 
                         switch (e)
                         {
                         case 0:
-                            STATS::STAT_SET_INT(rage::joaat(final_stat_to_write), write_integer_value, TRUE);
+                            STATS::STAT_SET_INT(stat_hash, write_integer_value, TRUE);
                             break;
 
                         case 1:
-                            STATS::STAT_INCREMENT(rage::joaat(final_stat_to_write), write_increment_value);
+                            STATS::STAT_INCREMENT(stat_hash, write_increment_value);
                             break;
 
                         case 2:
-                            STATS::STAT_SET_BOOL(rage::joaat(final_stat_to_write), write_bool_value, TRUE);
+                            STATS::STAT_SET_BOOL(stat_hash, write_bool_value, TRUE);
                             break;
 
                         case 3:
-                            STATS::STAT_SET_FLOAT(rage::joaat(final_stat_to_write), write_float_value, TRUE);
+                            STATS::STAT_SET_FLOAT(stat_hash, write_float_value, TRUE);
                             break;
 
                         case 4:
-                            STATS::STAT_SET_DATE(rage::joaat(final_stat_to_write), &tanggal[0], 7, TRUE);
+                            STATS::STAT_SET_DATE(stat_hash, &write_date, 7, TRUE);
                             break;
                         case 5:
-                            STATS::STAT_SET_STRING(rage::joaat(final_stat_to_write), write_string_value, TRUE);
+                            STATS::STAT_SET_STRING(stat_hash, write_string_value, TRUE);
                             break;
                         }
                     });
@@ -349,34 +340,32 @@ namespace big
                 switch (r)
                 {
                 case 0:
-                    ImGui::InputScalar(xorstr("##Get Int"), ImGuiDataType_U64, &read_integer_value, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get Int"), ImGuiDataType_S64, &read_integer_value, get_step ? &step_one : NULL, NULL, "%d", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
-
                 case 1:
                     ImGui::InputText(xorstr("##Get Bool"), bool_to_text, IM_ARRAYSIZE(bool_to_text), ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
-
                 case 2:
                     ImGui::InputScalar(xorstr("##Get Float"), ImGuiDataType_Float, &read_float_value, get_step ? &step_one : NULL, NULL, "%f", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Value of the stat"));
                     break;
                 case 3:
-                    ImGui::Text("Year : %d Month : %d Day : %d", read_date[0], read_date[2], read_date[4]);
+                    ImGui::Text("Year : %d Month : %d Day : %d", read_date.year, read_date.month, read_date.day);
                     ImGui::PushItemWidth(70);
-                    ImGui::InputScalar(xorstr("##Get year"), ImGuiDataType_U32, &read_date[0], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get year"), ImGuiDataType_U32, &read_date.year, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Year"));
                     ImGui::SameLine();
-                    ImGui::InputScalar(xorstr("##Get month"), ImGuiDataType_U32, &read_date[2], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get month"), ImGuiDataType_U32, &read_date.month, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Month"));
                     ImGui::SameLine();
-                    ImGui::InputScalar(xorstr("##Get day"), ImGuiDataType_U32, &read_date[4], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
+                    ImGui::InputScalar(xorstr("##Get day"), ImGuiDataType_U32, &read_date.day, get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Day"));
                     ImGui::PopItemWidth();
@@ -392,30 +381,28 @@ namespace big
                 {
                     g_fiber_pool->queue_job([]
                     {
-                        const auto chara = std::to_string(g_local.character);
-                        std::string final_stat_to_read = read_stat_name;
-                        std::string found = final_stat_to_read.length() >= 3 ? final_stat_to_read.substr(2, 1) : final_stat_to_read;
-                        if (found.compare("X") == 0)
-                        {
-                            final_stat_to_read.replace(2, 1, chara);
-                        }
+                        strcpy(read_stat_name, std::regex_replace(read_stat_name, std::regex(R"(\$)"), "").c_str());
+                        strcpy(read_stat_name, std::regex_replace(read_stat_name, std::regex(R"(\MPX)"), "MP" + std::to_string(rage_helper::get_character())).c_str());
+                        strcpy(read_stat_name, std::regex_replace(read_stat_name, std::regex(R"(\MPx)"), "MP" + std::to_string(rage_helper::get_character())).c_str());
+                        const auto stat_hash = rage::joaat(read_stat_name);
+
                         switch (r)
                         {
                         case 0:
-                            STATS::STAT_GET_INT(rage::joaat(final_stat_to_read), &read_integer_value, -1);
+                            STATS::STAT_GET_INT(stat_hash, &read_integer_value, -1);
                             break;
                         case 1:
-                            STATS::STAT_GET_BOOL(rage::joaat(final_stat_to_read), &read_bool_value, -1);
+                            STATS::STAT_GET_BOOL(stat_hash, &read_bool_value, -1);
                             strcpy(bool_to_text, read_bool_value ? "TRUE" : "FALSE");
                             break;
                         case 2:
-                            STATS::STAT_GET_FLOAT(rage::joaat(final_stat_to_read), &read_float_value, -1);
+                            STATS::STAT_GET_FLOAT(stat_hash, &read_float_value, -1);
                             break;
                         case 3:
-                            STATS::STAT_GET_DATE(rage::joaat(final_stat_to_read), &read_date[0], 7, -1);
+                            STATS::STAT_GET_DATE(stat_hash, &read_date, 7, -1);
                             break;
                         case 4:
-                            strcpy(read_string_value, STATS::STAT_GET_STRING(rage::joaat(final_stat_to_read), -1));
+                            strcpy(read_string_value, STATS::STAT_GET_STRING(stat_hash, -1));
                             break;
                         }
                     });

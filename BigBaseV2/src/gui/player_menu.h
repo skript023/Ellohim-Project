@@ -10,8 +10,8 @@ namespace big
 	public:
 		static void render_player_tab(const char* tab_name);
 	private:
-		static inline Any tanggal[12];
-		static inline char write_stat_name[255] = "";
+		static inline Date write_date;
+		static inline char write_stat_name[128];
 		static inline float write_float_value = 0;
 		static inline float write_increment_value = 0;
 		static inline int64_t write_integer_value = 0;
@@ -20,16 +20,15 @@ namespace big
 		static inline bool write_bool_value = true;
 		static inline bool inputs_step = false;
 
-		static inline char read_stat_name[255];
+		static inline char read_stat_name[128];
 		static inline int64_t read_integer_value;
 		static inline float read_float_value;
 		static inline int read_bool_value;
-		static inline char read_string_value[255];
-		static inline Any read_date[12];
+		static inline char read_string_value[128];
+		static inline Date read_date;
 
 		static inline bool get_step = false;
 		static inline char bool_to_text[20];
-		static inline uint64_t Val;
 
 		static inline int write_packed_ints_value = 0;
 		static inline bool write_packed_bools_value = 0;

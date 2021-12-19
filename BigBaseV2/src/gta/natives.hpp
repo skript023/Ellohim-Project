@@ -89,3 +89,20 @@ using Blip = std::int32_t;
 using Camera = Entity;
 using ScrHandle = Entity;
 using Vector3 = rage::scrVector;
+class Date
+{
+public:
+	int year{};
+	char m_padding1[0x4];
+	int month{};
+	char m_padding2[0x4];
+	int day{};
+	char m_padding3[0x4];
+	int hour{};
+	char m_padding4[0x4];
+	int minute{};
+	char m_padding5[0x4];
+	int second{};
+	char m_padding6[0x4];
+	int millisecond{};
+};
