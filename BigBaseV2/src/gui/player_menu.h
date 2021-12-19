@@ -15,7 +15,7 @@ namespace big
 		static inline float write_float_value = 0;
 		static inline float write_increment_value = 0;
 		static inline int64_t write_integer_value = 0;
-		static inline char write_string_value[255];
+		static inline char write_string_value[128];
 		static inline const uint64_t step_one = 100;
 		static inline bool write_bool_value = true;
 		static inline bool inputs_step = false;

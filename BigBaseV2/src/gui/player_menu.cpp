@@ -2565,7 +2565,6 @@ namespace big
                                 for (int i = 27544; i <= 27891; ++i)
                                 {
                                     *script_global(262145).at(i).as<int*>() = var::penthouse_shop[i - 27544];
-                                    LOG(HACKER) << var::penthouse_shop[i - 27544];
                                 }
                                 break;
                             }
