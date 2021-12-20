@@ -1348,7 +1348,7 @@ namespace big
                     case 3:
                         g_fiber_pool->queue_job([]
                         {
-
+                            //Kosong Seperti Hati Ini
                         });
                         break;
                     case 4:
@@ -1361,7 +1361,7 @@ namespace big
                                 script::get_current()->yield();
                                 int mission_time_1 = *script_local(nightclub, m_local.nc_time_remaining).as<int*>();
                                 int mission_time_2 = *script_local(nightclub, m_local.nc_sell).at(22).as<int*>(); //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22));
-                                int mission_time = mission_time_2 - (mission_time_1 - 1000u);
+                                int mission_time = mission_time_2 - (mission_time_1 - 1000);
                                 *script_local(nightclub, m_local.nc_sell).at(22).as<int*>() = mission_time; //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22)) = mission_time;
                             }
                         });

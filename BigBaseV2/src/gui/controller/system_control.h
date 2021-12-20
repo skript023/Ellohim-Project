@@ -20,9 +20,11 @@ namespace big
 		static int hotkey(char ch);
 		static float degree(float degs);
 		static std::string character_filter(const char* str);
-		static bool is_2d_vector_equal(Vector3 a, Vector3 b, float epsilon = FLT_EPSILON);
+		static bool is_2d_vector_equal(rage::vector2 a, rage::vector2 b, float epsilon = FLT_EPSILON);
 		static bool is_3d_vector_equal(Vector3 a, Vector3 b, float epsilon = FLT_EPSILON);
+		static bool is_3d_vector_equal(rage::vector3 a, rage::vector3 b, float epsilon = FLT_EPSILON);
 		static bool is_3d_vector_zero(Vector3 a, float epsilon = FLT_EPSILON);
+		static bool is_3d_vector_zero(rage::vector3 a, float epsilon = FLT_EPSILON);
 		static bool is_not_number(const char* str);
 		static bool has_special_character(const char* str);
 		static bool is_float_equal(float a, float b, float epsilon = FLT_EPSILON);

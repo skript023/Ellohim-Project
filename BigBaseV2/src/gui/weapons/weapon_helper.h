@@ -32,6 +32,8 @@ namespace big
 
 		static void explosive_ammo(bool Activation, Ped Target);
 
+		static Vector3 get_last_impact_coords(Ped Ped);
+
 		static void set_fire_ammo_this_frame(Player player, bool activation);
 		static void set_explosive_ammo_this_frame(Player player, bool activation);
 		static void set_super_jump_this_frame(Player player, bool activation);

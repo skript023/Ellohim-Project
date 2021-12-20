@@ -15,6 +15,7 @@
 #include <gui/player/player_option.h>
 #include "gui/controller/memory_address.hpp"
 #include "gui/controller/network_controller.h"
+#include "gui/controller/system_control.h"
 
 namespace big
 {
@@ -565,17 +566,26 @@ namespace big
         {
             if (player::is_ped_shooting(Target))
             {
-                Vector3 coords;
-                if (WEAPON::GET_PED_LAST_WEAPON_IMPACT_COORD(Target, &coords))
+                auto pos = get_last_impact_coords(Target);
+                if (!systems::is_3d_vector_zero(pos))
                 {
                     *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0xE990;
                     *(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x9090;
-                    FIRE::ADD_OWNED_EXPLOSION(Target, coords.x, coords.y, coords.z, EXPLOSION_TRAIN, 1000.0f, TRUE, FALSE, 1.5f);
+                    FIRE::ADD_OWNED_EXPLOSION(Target, pos.x, pos.y, pos.z, EXPLOSION_TRAIN, 1000.0f, TRUE, FALSE, 1.5f);
                     *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0x850F;
                     *(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x0E74;
                 }
             }
         }
+    }
+
+    Vector3 weapon_helper::get_last_impact_coords(Ped Ped)
+    {
+        if (auto ped = rage_helper::entity_to_pointer<CPed*>(Ped))
+        {
+            return systems::to_scr_vector(ped->m_weapon_mgr->m_last_impact_coords);
+        }
+        return Vector3(0.f, 0.f, 0.f);
     }
 
     void weapon_helper::infinite_ammo(bool Activation)

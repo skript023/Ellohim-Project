@@ -14,6 +14,6 @@ namespace big
 		static void spawn_object(Hash name, Entity entity);
 		static void CreatePickup(const char* pickup, const char* prop, int amount, Entity entity);
 		static void AttacthObject(const char* name, Entity entity);
-
+		static void attach_pickup(const char* pickup, const char* prop, int amount, Entity entity);
 	};
 }

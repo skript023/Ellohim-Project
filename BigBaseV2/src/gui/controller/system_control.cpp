@@ -312,7 +312,7 @@ namespace big
         return str[strspn(str, "0123456789")] != 0;
     }
 
-    bool systems::is_2d_vector_equal(Vector3 a, Vector3 b, float epsilon)
+    bool systems::is_2d_vector_equal(rage::vector2 a, rage::vector2 b, float epsilon)
     {
         return (fabs(a.x - b.x) <= epsilon * std::max(fabs(a.x), fabs(b.x))) && (fabs(a.y - b.y) <= epsilon * std::max(fabs(a.y), fabs(b.y)));
     }
@@ -322,7 +322,17 @@ namespace big
         return (fabs(a.x - b.x) <= epsilon * std::max(fabs(a.x), fabs(b.x))) && (fabs(a.y - b.y) <= epsilon * std::max(fabs(a.y), fabs(b.y))) && (fabs(a.z - b.z) <= epsilon * std::max(fabs(a.z), fabs(b.z)));
     }
 
+    bool systems::is_3d_vector_equal(rage::vector3 a, rage::vector3 b, float epsilon)
+    {
+        return (fabs(a.x - b.x) <= epsilon * std::max(fabs(a.x), fabs(b.x))) && (fabs(a.y - b.y) <= epsilon * std::max(fabs(a.y), fabs(b.y))) && (fabs(a.z - b.z) <= epsilon * std::max(fabs(a.z), fabs(b.z)));
+    }
+
     bool systems::is_3d_vector_zero(Vector3 a, float epsilon)
+    {
+        return (fabs(a.x - 0.0f) <= epsilon * std::max(fabs(a.x), fabs(0.0f))) && (fabs(a.y - 0.0f) <= epsilon * std::max(fabs(a.y), fabs(0.0f))) && (fabs(a.z - 0.0f) <= epsilon * std::max(fabs(a.z), fabs(0.0f)));
+    }
+
+    bool systems::is_3d_vector_zero(rage::vector3 a, float epsilon)
     {
         return (fabs(a.x - 0.0f) <= epsilon * std::max(fabs(a.x), fabs(0.0f))) && (fabs(a.y - 0.0f) <= epsilon * std::max(fabs(a.y), fabs(0.0f))) && (fabs(a.z - 0.0f) <= epsilon * std::max(fabs(a.z), fabs(0.0f)));
     }

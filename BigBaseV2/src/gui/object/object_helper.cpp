@@ -142,6 +142,28 @@ namespace big
         QUEUE_JOB_END_CLAUSE
     }
 
+    void object::attach_pickup(const char* pickup, const char* prop, int amount, Entity entity)
+    {
+        QUEUE_JOB_BEGIN_CLAUSE(pickup, prop, amount, entity)
+        {
+            auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
+            auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
+            auto heading = ENTITY::GET_ENTITY_HEADING(entity);
+
+            pos.z += 1.2f;
+
+            Hash pickup_hash = rage::joaat(pickup);
+            Hash hash_prop = controller::load(prop);
+            auto pickup = OBJECT::CREATE_AMBIENT_PICKUP(pickup_hash, pos.x, pos.y, pos.z, 0, amount, hash_prop, FALSE, TRUE);
+
+            script::get_current()->yield();
+            ENTITY::ATTACH_ENTITY_TO_ENTITY(pickup, entity, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, TRUE, TRUE, FALSE, FALSE, 2, TRUE);
+
+            STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_prop);
+        }
+        QUEUE_JOB_END_CLAUSE
+    }
+
     void object::AttacthObject(const char* name, Entity entity)
     {
         QUEUE_JOB_BEGIN_CLAUSE(name, entity)
