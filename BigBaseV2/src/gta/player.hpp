@@ -216,7 +216,12 @@ public:
 	class CWeaponInfo* m_weapon_info; //0x0020
 	char pad_0028[72]; //0x0028
 	class CWeaponInfo* m_vehicle_weapon_info; //0x0070
+	char pad_0078[0x10]; //0x0078
+	void* m_current_weapon; //0x0088
+	char pad_0090[272]; //0x0090
+	rage::vector3 m_last_impact_coords; //0x01A0
 }; //Size: 0x0028
+static_assert(sizeof(CPedWeaponManager) == 0x1AC, "CPedWeaponManager is not properly sized");
 
 class CWeaponInfoName
 {
