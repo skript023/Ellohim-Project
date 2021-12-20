@@ -46,7 +46,7 @@ namespace big
 			"Redirect Report": true,
 			"Redirect Event": false,
 			"Clear Ped Task Block": true,
-			"Log Player": true,
+			"Log Player": false,
 			"PV Revenge": false,
 			"Crash Protection": true,
 			"Request Control Block": true,
