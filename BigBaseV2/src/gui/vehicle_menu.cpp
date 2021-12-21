@@ -54,6 +54,7 @@ namespace big
             switch (vehicle_menu)
             {
                 case 0:
+                    ImGui::PushItemWidth(250);
                     ImGui::Combo(xorstr("##VehicleCategory"), &selected_category, var::VehicleCategory, IM_ARRAYSIZE(var::VehicleCategory));
                     switch (selected_category)
                     {
@@ -148,6 +149,9 @@ namespace big
                         ImGui::ListBox("##Vehicle List", &SelectedVehicle, var::the_contract, IM_ARRAYSIZE(var::the_contract));
                         break;
                     }
+                    ImGui::PopItemWidth();
+                    ImGui::SameLine();
+                    ImGui::BeginGroup();
                     if (ImGui::Button(xorstr("Spawn Native")))
                     {
                         switch (selected_category)
@@ -341,8 +345,19 @@ namespace big
                             break;
                         }
                     }
+                    ImGui::EndGroup();
                 break;
                 case 1:
+                    ImGui::PushItemWidth(250);
+                    ImGui::Text(xorstr("Vehicle Changer"));
+                    ImGui::Combo(xorstr("##Change"), &selected_hash, var::VechicleList, IM_ARRAYSIZE(var::VechicleList));
+                    ImGui::PopItemWidth();
+                    ImGui::SameLine();
+                    if (ImGui::Button(xorstr("Change")))
+                    {
+                        *script_global(g_global.garage).at(SelectedPersonal, 142).at(66).as<uint32_t*>() = rage::joaat(var::VechicleList[selected_hash]);
+                    }
+                    ImGui::PushItemWidth(250);
                     if (ImGui::ListBoxHeader(xorstr("##Personal Vehicle List")))
                     {
                         if (*g_pointers->m_is_session_started)
@@ -365,28 +380,29 @@ namespace big
                         }
                         ImGui::ListBoxFooter();
                     }
+                    ImGui::PopItemWidth();
+                    ImGui::SameLine();
+                    ImGui::BeginGroup();
                     if (ImGui::Button(xorstr("Call Personal")))
                     {
                         g_fiber_pool->queue_job([]
-                        {
-                            *script_global(g_global.call_personal_vehicle).at(965).as<int*>() = SelectedPersonal;
-                            *script_global(g_global.call_personal_vehicle).at(962).as<bool*>() = true;
-                            script::get_current()->yield(1500ms);
-                            if (g_settings.options["Auto Get-in"])
                             {
-                                PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
-                            }
-                        });
+                                *script_global(g_global.call_personal_vehicle).at(965).as<int*>() = SelectedPersonal;
+                                *script_global(g_global.call_personal_vehicle).at(962).as<bool*>() = true;
+                                script::get_current()->yield(1500ms);
+                                if (g_settings.options["Auto Get-in"])
+                                {
+                                    PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
+                                }
+                            });
                     }
-                    ImGui::Combo(xorstr("##Change"), &selected_hash, var::VechicleList, IM_ARRAYSIZE(var::VechicleList));
-                    if (ImGui::Button(xorstr("Change")))
-                    {
-                        *script_global(g_global.garage).at(SelectedPersonal, 142).at(66).as<uint32_t*>() = rage::joaat(var::VechicleList[selected_hash]);
-                    }
+                    ImGui::EndGroup();
                 break;
                 case 2:
                     static char vehicle_file_name_input[50]{};
+                    ImGui::PushItemWidth(250);
                     ImGui::InputText(xorstr("Vehicle File Name"), vehicle_file_name_input, IM_ARRAYSIZE(vehicle_file_name_input));
+                    ImGui::PopItemWidth();
                     if (ImGui::Button(xorstr("Save Vehicle ##SaveVeh")))
                     {
                         QUEUE_JOB_BEGIN_CLAUSE()

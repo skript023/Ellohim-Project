@@ -8,6 +8,7 @@ namespace big
 	{
 	public:
 		static void session_time_out(const char* url);
+		static const char* get_login_status_from_hash(Hash hash);
 		static void get_status();
 		static void interact_to_server();
 		static void logout();
@@ -16,8 +17,9 @@ namespace big
 
 	public:
 		static inline bool logger{};
-		static inline std::string login_status{};
+		static inline Hash login_status{ 0 };
 	private:
+		static inline std::string get_result{};
 		static inline char temp_username[128];
 		static inline char temp_password[128];
 		static inline char username[128];
@@ -28,7 +30,7 @@ namespace big
 		static inline bool is_auth{ true };
 		static inline int get_session_time{ 0 };
 		static inline bool is_session_returned{ false };
-		static inline std::string status_check{};
+		static inline Hash status_check{ 0 };
 	};
 
 	inline static game_window* g_game_window{};

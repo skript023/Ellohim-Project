@@ -31,9 +31,9 @@ namespace rage
 		char pad_0010[56]; //0x0010
 		uint16_t N000005BF; //0x0048
 		char pad_004A[2]; //0x004A
-		uint32_t m_relay_ip; //0x004C
-		uint32_t m_relay_port; //0x0050
-		uint32_t m_online_ip; //0x0054
+		rage::netAddress  m_relay_ip; //0x004C
+		uint16_t m_relay_port; //0x0050
+		rage::netAddress  m_online_ip; //0x0054
 		uint16_t m_online_port; //0x0058
 		char pad_005A[6]; //0x005A
 		uint32_t m_host_token; //0x0060
@@ -529,16 +529,16 @@ class CPlayerInfo : public rage::fwExtensibleBase
 {
 public:
 	char pad_0020[52]; //0x0020
-	uint32_t m_internal_ip; //0x0054
+	rage::netAddress m_internal_ip; //0x0054
 	uint16_t m_internal_port; //0x0058
 	char pad_005A[2]; //0x005A
-	uint32_t m_relay_ip; //0x005C
+	rage::netAddress m_relay_ip; //0x005C
 	uint16_t m_relay_port; //0x0060
 	char pad_0062[10]; //0x0062
-	uint32_t m_online_ip; //0x006C
+	rage::netAddress m_online_ip; //0x006C
 	uint16_t m_online_port; //0x0070
 	char pad_0072[2]; //0x0072
-	uint32_t m_external_ip; //0x0074
+	rage::netAddress m_external_ip; //0x0074
 	uint16_t m_external_port; //0x0078
 	char pad_007A[22]; //0x007A
 	uint64_t m_rockstar_id; //0x0090

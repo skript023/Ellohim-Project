@@ -22,7 +22,7 @@ namespace big
 {
 	void game_window::session_time_out(const char* url)
 	{
-		if (rage::joaat(login_status) == RAGE_JOAAT("Success") && !is_session_returned)
+		if (login_status == RAGE_JOAAT("Success") && !is_session_returned)
 		{
 			http::Request request{ url };
 			const auto response = request.send("GET");
@@ -30,11 +30,28 @@ namespace big
 		}
 	}
 
+	const char* game_window::get_login_status_from_hash(Hash hash)
+	{
+		if (!get_result.empty())
+		{
+			switch (hash)
+			{
+			case RAGE_JOAAT("Success"):
+				return "Success";
+			case RAGE_JOAAT("Failed"):
+				return "Failed";
+			case RAGE_JOAAT("Unauthorized"):
+				return "Restricted Access";
+			}
+		}
+		return "Request failed, couldn't connect to server";
+	}
+
 	void game_window::get_status()
 	{
-		if (!login_status.empty())
+		if (!get_result.empty())
 		{
-			switch (rage::joaat(status_check))
+			switch (status_check)
 			{
 			case RAGE_JOAAT("Success"):
 				ImGui::TextColored(ImVec4(0.0f, 255.0f, 0.0f, 1.0f), "Success");
@@ -44,6 +61,9 @@ namespace big
 				break;
 			case RAGE_JOAAT("Unauthorized"):
 				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), "You're not Developer");
+				break;
+			case RAGE_JOAAT("Request failed, couldn't connect to server"):
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), "Couldn't Connect to Server");
 				break;
 			default:
 				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), "Couldn't Connect to Server");
@@ -101,14 +121,16 @@ namespace big
 			http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
 			const auto response = request.send("GET");
 
-			login_status = std::string{ response.body.begin(), response.body.end() };
-			login_status.erase(std::remove_if(login_status.begin(), login_status.end(), [](unsigned char x) {return std::isspace(x); }), login_status.end());
-			status_check = login_status;
+			get_result = std::string{ response.body.begin(), response.body.end() };
+			get_result.erase(std::remove_if(get_result.begin(), get_result.end(), [](unsigned char x) {return std::isspace(x); }), get_result.end());
+			status_check = get_result.empty() ? 0 : stoi(get_result);
+			login_status = get_result.empty() ? 0 : stoi(get_result);
 			return true;
 		}
 		catch (const std::exception& e)
 		{
 			LOG(HACKER) << "Request failed, error: " << e.what();
+			status_check = RAGE_JOAAT("Request failed, couldn't connect to server");
 			return false;
 		}
 	}
@@ -117,7 +139,7 @@ namespace big
 	{
 		if (ImGui::Begin(window_name))
 		{
-			if (!(rage::joaat(login_status) == RAGE_JOAAT("Success")))
+			if (!(login_status == RAGE_JOAAT("Success")))
 			{
 				GetCurrentHwProfile(g_game_window->profile_info);
 				ImGui::PushItemWidth(200);
@@ -129,8 +151,7 @@ namespace big
 				{
 					if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
 					{
-						LOG(HACKER) << "Login : " << login_status;
-						status_check.erase();
+						LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
 					}
 				}
 				ImGui::SameLine();
@@ -140,7 +161,7 @@ namespace big
 				}
 			}
 
-			if (rage::joaat(login_status) == RAGE_JOAAT("Success"))
+			if (login_status == RAGE_JOAAT("Success"))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));

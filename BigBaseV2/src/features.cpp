@@ -258,7 +258,7 @@ namespace big::features
 		{
 			TRY_CLAUSE
 			{
-				if (rage::joaat(g_game_window->login_status) == RAGE_JOAAT("Success"))
+				if (g_game_window->login_status == RAGE_JOAAT("Success"))
 					run_tick();
 			}
 			EXCEPT_CLAUSE

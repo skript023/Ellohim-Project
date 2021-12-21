@@ -1457,7 +1457,7 @@ namespace big
                     {
                         auto ip_address = rage_helper::get_local_playerinfo()->m_online_ip;
                         uint8_t out[4];
-                        *(uint32_t*)&out = ip_address;
+                        *(uint32_t*)&out = ip_address.m_raw;
                         g_item.ip_1 = out[3];
                         g_item.ip_2 = out[2];
                         g_item.ip_3 = out[1];
@@ -1466,10 +1466,10 @@ namespace big
                     ImGui::SameLine();
                     if (ImGui::Button(xorstr("Set Random IP##Set Ip")))
                     {
-                        g_item.ip_1 = 180;
-                        g_item.ip_2 = 165;
-                        g_item.ip_3 = 45;
-                        g_item.ip_4 = 145;
+                        g_item.ip_1 = std::rand() % 255;
+                        g_item.ip_2 = std::rand() % 255;
+                        g_item.ip_3 = std::rand() % 255;
+                        g_item.ip_4 = std::rand() % 255;
                     }
                 break;
                 case 3:

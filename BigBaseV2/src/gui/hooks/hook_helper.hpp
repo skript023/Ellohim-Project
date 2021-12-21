@@ -125,12 +125,7 @@ namespace big::hook_helper
 		case ROTATE_CAM: //Rotete Cam
 			if (g_settings.options["Rotate Cam Block"])
 			{
-				/*
-				HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
-				HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("Blocked Rotete Cam");
-				HUD::END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT("CHAR_SOCIAL_CLUB", "CHAR_SOCIAL_CLUB", FALSE, 0, sender_name, "~g~Ellohim Menu Protection");
-				HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(true, true);
-				*/
+				
 				return true;
 			}
 			break;
