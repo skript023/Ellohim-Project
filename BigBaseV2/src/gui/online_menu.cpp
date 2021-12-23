@@ -780,89 +780,74 @@ namespace big
                 {
                 case 0:
                     ImGui::Text(xorstr("Potential Take"));
-                    if (ImGui::BeginCombo(xorstr("##Potential Take"), PotentialTake[SelectedPotentialTake]))
+                    if (ImGui::BeginCombo(xorstr("##Potential Take"), potential_take_list[selected_potential_take]))
                     {
-                        for (int i = 0; i < IM_ARRAYSIZE(PotentialTake); i++)
+                        for (int i = 0; i < IM_ARRAYSIZE(potential_take_list); i++)
                         {
-                            if (ImGui::Selectable(PotentialTake[i], SelectedPotentialTake == i))
-                                SelectedPotentialTake = i;
+                            if (ImGui::Selectable(potential_take_list[i], selected_potential_take == i))
+                                selected_potential_take = i;
                         }
                         ImGui::EndCombo();
                     }
-                    ImGui::InputInt(xorstr("##Value"), &PotentialValue, 1000000, 1000000);
+                    ImGui::InputInt(xorstr("##Value"), &potential_take_value, 1000000, 1000000);
                     if (ImGui::Button(xorstr("Set Value")))
                     {
-                        if (SelectedPotentialTake == 1)//"Diamond"
+                        switch (selected_potential_take)//"Diamond"
                         {
-                            *script_global(g_global.diamond).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 2)//"Gold"
-                        {
-                            *script_global(g_global.gold).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 3)//"Artwork"
-                        {
-                            *script_global(g_global.artwork).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 4)//"Cash"
-                        {
-                            *script_global(g_global.cash).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 5)//"Tequila"
-                        {
-                            *script_global(g_global.tequila).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 6)//"Ruby"
-                        {
-                            *script_global(g_global.ruby).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 7)//"Bearer Bonds"
-                        {
-                            *script_global(g_global.bearer_bond).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 8)//"Pink Diamond"
-                        {
-                            *script_global(g_global.pink_diamond).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 9)//"Madrazo Files"
-                        {
-                            *script_global(g_global.madrazo_file).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 10)//"Saphire Panther"
-                        {
-                            *script_global(g_global.saphire).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 11)//"Fleeca"
-                        {
-                            *script_global(g_global.fleeca).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 12)//"Prison Break"
-                        {
-                            *script_global(g_global.prison_break).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 13)//"Humane Labs"
-                        {
-                            *script_global(g_global.human_lab).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 14)//"A Series"
-                        {
-                            *script_global(g_global.a_series).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 15)//"Pasific Standard"
-                        {
-                            *script_global(g_global.pasific_standard).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 16)//"ACT I"
-                        {
-                            *script_global(g_global.act_1).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 17)//"ACT II"
-                        {
-                            *script_global(g_global.act_2).as<int*>() = PotentialValue;
-                        }
-                        else if (SelectedPotentialTake == 18)//"ACT III"
-                        {
-                            *script_global(g_global.act_3).as<int*>() = PotentialValue;
+                        case 1:
+                            *script_global(g_global.diamond).as<int*>() = potential_take_value;
+                            break;
+                        case 2:
+                            *script_global(g_global.gold).as<int*>() = potential_take_value;
+                            break;
+                        case 3:
+                            *script_global(g_global.artwork).as<int*>() = potential_take_value;
+                            break;
+                        case 4:
+                            *script_global(g_global.cash).as<int*>() = potential_take_value;
+                            break;
+                        case 5:
+                            *script_global(g_global.tequila).as<int*>() = potential_take_value;
+                            break;
+                        case 6:
+                            *script_global(g_global.ruby).as<int*>() = potential_take_value;
+                            break;
+                        case 7:
+                            *script_global(g_global.bearer_bond).as<int*>() = potential_take_value;
+                            break;
+                        case 8:
+                            *script_global(g_global.pink_diamond).as<int*>() = potential_take_value;
+                            break
+                        case 9:
+                            *script_global(g_global.madrazo_file).as<int*>() = potential_take_value;
+                            break;
+                        case 10:
+                            *script_global(g_global.saphire).as<int*>() = potential_take_value;
+                            break;
+                        case 11:
+                            *script_global(g_global.fleeca).as<int*>() = potential_take_value;
+                            break;
+                        case 12:
+                            *script_global(g_global.prison_break).as<int*>() = potential_take_value;
+                            break;
+                        case 13:
+                            *script_global(g_global.human_lab).as<int*>() = potential_take_value;
+                            break;
+                        case 14:
+                            *script_global(g_global.a_series).as<int*>() = potential_take_value;
+                            break;
+                        case 15:
+                            *script_global(g_global.pasific_standard).as<int*>() = potential_take_value;
+                            break;
+                        case 16:
+                            *script_global(g_global.act_1).as<int*>() = potential_take_value;
+                            break;
+                        case 17:
+                            *script_global(g_global.act_2).as<int*>() = potential_take_value;
+                            break;
+                        case 18:
+                            *script_global(g_global.act_3).as<int*>() = potential_take_value;
+                            break;
                         }
                     }
                     ImGui::SameLine();
@@ -907,43 +892,43 @@ namespace big
                     break;
                 case 2:
                     ImGui::Text(xorstr("Cayo Perico Bag"));
-                    if (ImGui::BeginCombo(xorstr("##CayoBags"), Bag[SelectedBags])) // The second parameter is the label previewed before opening the combo.
+                    if (ImGui::BeginCombo(xorstr("##CayoBags"), bag_size[selected_bag_size])) // The second parameter is the label previewed before opening the combo.
                     {
-                        for (int i = 0; i < IM_ARRAYSIZE(Bag); i++)
+                        for (int i = 0; i < IM_ARRAYSIZE(bag_size); i++)
                         {
                             //static bool is_selected = (SelectedHeist == PotentialTake[PotentialTakeTotal]);
-                            if (ImGui::Selectable(Bag[i], SelectedBags == i))
-                                SelectedBags = i;
+                            if (ImGui::Selectable(bag_size[i], selected_bag_size == i))
+                                selected_bag_size = i;
                         }
                         ImGui::EndCombo();
                     }
                     if (ImGui::Button(xorstr("Set Bag")))
                     {
-                        if (SelectedBags == 0)
+                        if (selected_bag_size == 0)
                         {
                             *script_global(g_global.bag_size).as<int*>() = 1800;
                         }
-                        else if (SelectedBags == 1)
+                        else if (selected_bag_size == 1)
                         {
                             *script_global(g_global.bag_size).as<int*>() = 3600;
                         }
-                        else if (SelectedBags == 2)
+                        else if (selected_bag_size == 2)
                         {
                             *script_global(g_global.bag_size).as<int*>() = 5600;
                         }
-                        else if (SelectedBags == 3)
+                        else if (selected_bag_size == 3)
                         {
                             *script_global(g_global.bag_size).as<int*>() = 6400;
                         }
-                        else if (SelectedBags == 4)
+                        else if (selected_bag_size == 4)
                         {
                             *script_global(g_global.bag_size).as<int*>() = 16400;
                         }
-                        else if (SelectedBags == 5)
+                        else if (selected_bag_size == 5)
                         {
                             *script_global(g_global.bag_size).as<int*>() = 26400;
                         }
-                        else if (SelectedBags == 6)
+                        else if (selected_bag_size == 6)
                         {
                             *script_global(g_global.bag_size).as<int*>() = INT32_MAX;
                         }
@@ -1552,9 +1537,7 @@ namespace big
                     }
                 }
                 ImGui::Text(xorstr("Lucky Wheel Prize"));
-                const char* const prize_list[] = { "Select Prize", "1:  2500 RP","2 : $20000","3 : 10000 Chips","4 : Discount","5 : 5000 RP",
-                    "6 : $30000","7 : 15000 Chips","8 : Clothing Item","9 : 7500 RP","10 : 20000 Chips","11 : Mystery Prize",
-                    "12 : Clothing Item","13 : 10000 RP","14 : $40000","15 : 25000 Chips","16 : Clothing Item","17 : 15000 RP","18 : Podium Vehicle" };
+                
                 if (ImGui::Combo("##LuckyWheel", &g_lucky_wheel.selected_prize, prize_list, IM_ARRAYSIZE(prize_list)))
                 {
                     if (auto lucky_wheel = rage_helper::find_script_thread(RAGE_JOAAT("casino_lucky_wheel")))
@@ -1566,7 +1549,7 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Friend List")))
             {
-                if (ImGui::ListBoxHeader("##Friend", ImVec2(210, 400)))
+                if (ImGui::ListBoxHeader(xorstr("##Friend"), ImVec2(210, 400)))
                 {
                     for (int i = 0; i < *g_pointers->m_total_friend; ++i)
                     {
@@ -1581,12 +1564,11 @@ namespace big
                 ImGui::BeginGroup();
                 ImGui::Text("RID : %d", get_friend_id(SelectedFriend));
                 ImGui::Text("Status : %s", get_player_status(SelectedFriend));
-                //ImGui::Text("Address : %s", friend_list->m_rockstar_id);
                 static uint64_t target_rid;
                 ImGui::PushItemWidth(200);
-                ImGui::InputScalar("Put Target RID", ImGuiDataType_U64, &target_rid);
+                ImGui::InputScalar(xorstr("Put Target RID"), ImGuiDataType_U64, &target_rid);
                 ImGui::PopItemWidth();
-                if (ImGui::Button("Set RID Join"))
+                if (ImGui::Button(xorstr("Set RID Join")))
                 {
                     set_rockstar_id(SelectedFriend, target_rid);
                 }
