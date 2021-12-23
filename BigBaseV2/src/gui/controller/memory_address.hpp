@@ -101,26 +101,48 @@ namespace big
 		}ch_hacker;
 
 	public:
-		static constexpr inline uint32_t special_cargo_price_1 = 262145 + 15508; //10000; // 1
-		static constexpr inline uint32_t special_cargo_price_2 = 262145 + 15509; // = 11000; // 2
-		static constexpr inline uint32_t special_cargo_price_3 = 262145 + 15510; // = 12000; // 3
-		static constexpr inline uint32_t special_cargo_price_4 = 262145 + 15511; // = 13000; // 4-5
-		static constexpr inline uint32_t special_cargo_price_5 = 262145 + 15512; // = 13500; // 6-7
-		static constexpr inline uint32_t special_cargo_price_6 = 262145 + 15513; // = 14000; // 8-9
-		static constexpr inline uint32_t special_cargo_price_7 = 262145 + 15514; // = 14500; // 10-14
-		static constexpr inline uint32_t special_cargo_price_8 = 262145 + 15515; // = 15000; // 15-19
-		static constexpr inline uint32_t special_cargo_price_9 = 262145 + 15516; // = 16000; // 25-29
-		static constexpr inline uint32_t special_cargo_price_10 = 262145 + 15517; // = 16500; // 30-34
-		static constexpr inline uint32_t special_cargo_price_11 = 262145 + 15518; // = 17000; // 35-39
-		static constexpr inline uint32_t special_cargo_price_12 = 262145 + 15519; // = 17500; // 40-44
-		static constexpr inline uint32_t special_cargo_price_13 = 262145 + 15520; // = 17750; // 45-49
-		static constexpr inline uint32_t special_cargo_price_14 = 262145 + 15521; // = 18000; // 50-59
-		static constexpr inline uint32_t special_cargo_price_15 = 262145 + 15522; // = 18250; // 60-69
-		static constexpr inline uint32_t special_cargo_price_16 = 262145 + 15523; // = 18500; // 70-79
-		static constexpr inline uint32_t special_cargo_price_17 = 262145 + 15524; // = 18750; // 80-89
-		static constexpr inline uint32_t special_cargo_price_18 = 262145 + 15525; // = 19000; // 90-99
-		static constexpr inline uint32_t special_cargo_price_19 = 262145 + 15526; // = 19500; // 100-110
-		static constexpr inline uint32_t special_cargo_price_20 = 262145 + 15527; // = 20000; // 111
+		static constexpr inline int32_t current_creates_1 = 262145 + 15594;
+		static constexpr inline int32_t current_creates_2 = 262145 + 15593;
+		static constexpr inline int32_t current_creates_3 = 262145 + 15592;
+		static constexpr inline int32_t current_creates_4 = 262145 + 15591;
+		static constexpr inline int32_t current_creates_5 = 262145 + 15590;
+		static constexpr inline int32_t current_creates_6 = 262145 + 15589;
+		static constexpr inline int32_t current_creates_7 = 262145 + 15588;
+		static constexpr inline int32_t current_creates_8 = 262145 + 15587;
+		static constexpr inline int32_t current_creates_9 = 262145 + 15586;
+		static constexpr inline int32_t current_creates_10 = 262145 + 15585;
+		static constexpr inline int32_t current_creates_11 = 262145 + 15584;
+		static constexpr inline int32_t current_creates_12 = 262145 + 15583;
+		static constexpr inline int32_t current_creates_13 = 262145 + 15582;
+		static constexpr inline int32_t current_creates_14 = 262145 + 15581;
+		static constexpr inline int32_t current_creates_15 = 262145 + 15580;
+		static constexpr inline int32_t current_creates_16 = 262145 + 15579;
+		static constexpr inline int32_t current_creates_17 = 262145 + 15578;
+		static constexpr inline int32_t current_creates_18 = 262145 + 15577;
+		static constexpr inline int32_t current_creates_19 = 262145 + 15576;
+		static constexpr inline int32_t current_creates_20 = 262145 + 15575;
+
+		static constexpr inline int32_t tuneable_creates_1 = 262145 + 15615;
+		static constexpr inline int32_t tuneable_creates_2 = 262145 + 15614;
+		static constexpr inline int32_t tuneable_creates_3 = 262145 + 15613;
+		static constexpr inline int32_t tuneable_creates_4 = 262145 + 15612;
+		static constexpr inline int32_t tuneable_creates_5 = 262145 + 15611;
+		static constexpr inline int32_t tuneable_creates_6 = 262145 + 15610;
+		static constexpr inline int32_t tuneable_creates_7 = 262145 + 15609;
+		static constexpr inline int32_t tuneable_creates_8 = 262145 + 15608;
+		static constexpr inline int32_t tuneable_creates_9 = 262145 + 15607;
+		static constexpr inline int32_t tuneable_creates_10 = 262145 + 15606;
+		static constexpr inline int32_t tuneable_creates_11 = 262145 + 15605;
+		static constexpr inline int32_t tuneable_creates_12 = 262145 + 15604;
+		static constexpr inline int32_t tuneable_creates_13 = 262145 + 15603;
+		static constexpr inline int32_t tuneable_creates_14 = 262145 + 15602;
+		static constexpr inline int32_t tuneable_creates_15 = 262145 + 15601;
+		static constexpr inline int32_t tuneable_creates_16 = 262145 + 15600;
+		static constexpr inline int32_t tuneable_creates_17 = 262145 + 15599;
+		static constexpr inline int32_t tuneable_creates_18 = 262145 + 15598;
+		static constexpr inline int32_t tuneable_creates_19 = 262145 + 15597;
+		static constexpr inline int32_t tuneable_creates_20 = 262145 + 15596;
+		static constexpr inline int32_t tuneable_creates_21 = 262145 + 15595;
 
 		static constexpr inline uint32_t level_array = 294328;
 		static constexpr inline uint32_t special_crates = 1946637;

@@ -47,7 +47,7 @@ public:
 };
 static_assert(sizeof(BusinessMoney) == 0x12C);
 
-class FriendList
+class FriendInfo
 {
 public:
 	char pad_0000[128]; //0x0000
@@ -58,21 +58,15 @@ public:
 	int32_t m_friend_status; //0x00C4
 	char pad_00C8[304]; //0x00C8
 	bool m_is_multiplayer; //0x01F8
-	const char* get_friend_name(const int& index) { return (m_name + (0x200LL * index)); }
-	uint64_t get_friend_id(const int& index) { return  *(uint64_t*)((DWORD64)this + 0xB8 + (0x200LL * index)); }
-	void set_rockstar_id(const int& index, uint64_t user_id) { *(uint64_t*)((DWORD64)this + 0xB8 + (0x200LL * index)) = user_id; }
-	int get_friend_status(const int& index) { return *(int*)((DWORD64)this + 0xC4 + (0x200LL * index)); }
-	bool get_friend_multiplayer(const int& index) { return *(bool*)((DWORD64)this + 0x1F8 + (0x200LL * index)); }
-	const char* get_player_status(const int& index)
-	{
-		int status = get_friend_status(index);
-		bool is_multiplayer = get_friend_multiplayer(index);
-		bool is_single_player = status >> 1 & 1;
-		bool is_online = status & 1;
-		return is_multiplayer ? "Multiplayer" : is_single_player ? "Single Player" : is_online ? "Online" : "Offline";
-	}
+	char pad_01F9[7]; //0x01F9
 }; //Size: 0x01F9
-static_assert(sizeof(FriendList) == 0x1F9);
+static_assert(sizeof(FriendInfo) == 0x200);
+
+class FriendList
+{
+public:
+	FriendInfo m_friend_info[128];
+};
 
 class GameSetting
 {

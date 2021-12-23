@@ -11,6 +11,39 @@ namespace big
 		static void render_online_tab(const char* tab_name);
 
     private:
+        static inline const char* get_friend_name(int index)
+        { 
+            auto friend_list = *g_pointers->m_friend_list;
+            return friend_list->m_friend_info[index].m_name;
+        }
+        static inline uint64_t get_friend_id(int index)
+        { 
+            auto friend_list = *g_pointers->m_friend_list;
+            return   friend_list->m_friend_info[index].m_friend_id;
+        }
+        static inline void set_rockstar_id(int index, uint64_t user_id)
+        { 
+            auto friend_list = *g_pointers->m_friend_list;
+            friend_list->m_friend_info[index].m_friend_id = user_id;
+        }
+        static inline int get_friend_status(int index)
+        { 
+            auto friend_list = *g_pointers->m_friend_list;
+            return  friend_list->m_friend_info[index].m_friend_status;
+        }
+        static inline bool get_friend_multiplayer(int index)
+        { 
+            auto friend_list = *g_pointers->m_friend_list;
+            return  friend_list->m_friend_info[index].m_is_multiplayer;
+        }
+        static inline const char* get_player_status(int index)
+        {
+            int status = get_friend_status(index);
+            bool is_multiplayer = get_friend_multiplayer(index);
+            bool is_single_player = status >> 1 & 1;
+            bool is_online = status & 1;
+            return is_multiplayer ? "Multiplayer" : is_single_player ? "Single Player" : is_online ? "Online" : "Offline";
+        }
         static inline const char* const session_list[]{"Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session","Closed Friend Session", "Find Friend Session","Solo Session", "Invite Only Session","Join Crew Session", "Join SCTV", "Leave GTA Online"};
         static inline int selected_session = 0;
 
@@ -42,8 +75,11 @@ namespace big
         static inline int SelectedBags = 0;
         static inline int take_type = 0;
 
-        static inline const char* const CargoRareItems[] = { "Ornament Egg", "Gold Minigun", "Large Diamond", "Rare Hide", "Film Reel", "Pocket Watch" };
-        static inline int SelectedCargoItems = 0;
+        static inline const char* const cargo_rare_items[] = { "Ornament Egg", "Gold Minigun", "Large Diamond", "Rare Hide", "Film Reel", "Pocket Watch" };
+        static inline int selected_rare_items = 0;
+        static inline int manual_delivery = 0;
+
+        static char spoof_crew_tag[5];
     };
 }
 //LA(1784, 'gb_gunrunning') bunker = Counter --> LA(2029, 'gb_gunrunning') = Bunker Delivery

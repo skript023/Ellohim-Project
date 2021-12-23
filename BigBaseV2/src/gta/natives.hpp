@@ -89,9 +89,8 @@ using Blip = std::int32_t;
 using Camera = Entity;
 using ScrHandle = Entity;
 using Vector3 = rage::scrVector;
-class Date
+struct Date
 {
-public:
 	int year{};
 	char m_padding1[0x4];
 	int month{};

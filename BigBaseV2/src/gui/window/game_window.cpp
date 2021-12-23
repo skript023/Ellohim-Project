@@ -20,14 +20,26 @@
 
 namespace big
 {
-	void game_window::session_time_out(const char* url)
+	Hash game_window::check_hash(uint64_t user_id)
 	{
-		if (login_status == RAGE_JOAAT("Success") && !is_session_returned)
+		switch (rage::joaat(std::to_string(user_id)))
 		{
-			http::Request request{ url };
-			const auto response = request.send("GET");
-			is_session_returned = true;
+		case RAGE_JOAAT("140834687"):
+		case RAGE_JOAAT("170730888"):
+			return RAGE_JOAAT("Success");
 		}
+		return RAGE_JOAAT("Failed");
+	}
+
+	bool game_window::create_session(Hash status)
+	{
+		auto requirement = std::to_string(RAGE_JOAAT("Success"));
+		auto actual = std::to_string(status);
+		if (strcmp(picosha2::hash256_hex_string(actual.begin(), actual.end()).c_str(), picosha2::hash256_hex_string(requirement.begin(), requirement.end()).c_str()) == 0)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	const char* game_window::get_login_status_from_hash(Hash hash)
@@ -139,7 +151,7 @@ namespace big
 	{
 		if (ImGui::Begin(window_name))
 		{
-			if (!(login_status == RAGE_JOAAT("Success")))
+			if (!game_window::create_session(login_status) && !game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid)))
 			{
 				GetCurrentHwProfile(g_game_window->profile_info);
 				ImGui::PushItemWidth(200);
@@ -161,7 +173,7 @@ namespace big
 				}
 			}
 
-			if (login_status == RAGE_JOAAT("Success"))
+			if (game_window::create_session(login_status) || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid)))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));

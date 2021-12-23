@@ -8,92 +8,93 @@
 #include "pointers.hpp"
 #include "natives.hpp"
 #include "script_global.hpp"
+#include "gui/controller/memory_address.hpp"
 
 namespace big::game_helper
 {
 	inline int func_799(int iParam0)
 	{
-		if (iParam0 >= *script_global(262145).at(15594).as<int*>())
+		if (iParam0 >= *script_global(g_global.current_creates_1).as<int*>())
 		{
-			return (262145 + 15615);
+			return g_global.tuneable_creates_1;
 		}
-		else if (iParam0 >= *script_global(262145).at(15593).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_2).as<int*>())
 		{
-			return (262145 + 15614);
+			return g_global.tuneable_creates_2;
 		}
-		else if (iParam0 >= *script_global(262145).at(15592).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_3).as<int*>())
 		{
-			return (262145 + 15613);
+			return g_global.tuneable_creates_3;
 		}
-		else if (iParam0 >= *script_global(262145).at(15591).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_4).as<int*>())
 		{
-			return (262145 + 15612);
+			return g_global.tuneable_creates_4;
 		}
-		else if (iParam0 >= *script_global(262145).at(15590).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_5).as<int*>())
 		{
-			return (262145 + 15611);
+			return g_global.tuneable_creates_5;
 		}
-		else if (iParam0 >= *script_global(262145).at(15589).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_6).as<int*>())
 		{
-			return (262145 + 15610);
+			return g_global.tuneable_creates_6;
 		}
-		else if (iParam0 >= *script_global(262145).at(15588).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_7).as<int*>())
 		{
-			return (262145 + 15609);
+			return g_global.tuneable_creates_7;
 		}
-		else if (iParam0 >= *script_global(262145).at(15587).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_8).as<int*>())
 		{
-			return (262145 + 15608);
+			return g_global.tuneable_creates_8;
 		}
-		else if (iParam0 >= *script_global(262145).at(15586).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_9).as<int*>())
 		{
-			return (262145 + 15607);
+			return g_global.tuneable_creates_9;
 		}
-		else if (iParam0 >= *script_global(262145).at(15585).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_10).as<int*>())
 		{
-			return (262145 + 15606);
+			return g_global.tuneable_creates_10;
 		}
-		else if (iParam0 >= *script_global(262145).at(15584).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_11).as<int*>())
 		{
-			return (262145 + 15605);
+			return g_global.tuneable_creates_11;
 		}
-		else if (iParam0 >= *script_global(262145).at(15583).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_12).as<int*>())
 		{
-			return (262145 + 15604);
+			return g_global.tuneable_creates_12;
 		}
-		else if (iParam0 >= *script_global(262145).at(15582).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_13).as<int*>())
 		{
-			return (262145 + 15603);
+			return g_global.tuneable_creates_13;
 		}
-		else if (iParam0 >= *script_global(262145).at(15581).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_14).as<int*>())
 		{
-			return (262145 + 15602);
+			return g_global.tuneable_creates_14;
 		}
-		else if (iParam0 >= *script_global(262145).at(15580).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_15).as<int*>())
 		{
-			return (262145 + 15601);
+			return g_global.tuneable_creates_15;
 		}
-		else if (iParam0 >= *script_global(262145).at(15579).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_16).as<int*>())
 		{
-			return (262145 + 15600);
+			return g_global.tuneable_creates_16;
 		}
-		else if (iParam0 >= *script_global(262145).at(15578).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_17).as<int*>())
 		{
-			return (262145 + 15599);
+			return g_global.tuneable_creates_17;
 		}
-		else if (iParam0 >= *script_global(262145).at(15577).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_18).as<int*>())
 		{
-			return (262145 + 15598);
+			return g_global.tuneable_creates_18;
 		}
-		else if (iParam0 >= *script_global(262145).at(15576).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_19).as<int*>())
 		{
-			return (262145 + 15597);
+			return g_global.tuneable_creates_19;
 		}
-		else if (iParam0 >= *script_global(262145).at(15575).as<int*>())
+		else if (iParam0 >= *script_global(g_global.current_creates_20).as<int*>())
 		{
-			return (262145 + 15596);
+			return g_global.tuneable_creates_20;
 		}
-		return (262145 + 15595);
+		return g_global.tuneable_creates_21;
 	}
 
 }

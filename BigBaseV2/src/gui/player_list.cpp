@@ -56,7 +56,7 @@ namespace big
                 for (int i = 0; i < 32; ++i)
                 {
                     auto num = std::to_string(i);
-                    if (!strcmp(g_misc_option->player_names[i],"**Invalid**") == 0)
+                    if (!strcmp(g_misc_option->player_names[i], "**Invalid**") == 0)
                     {
                         strcpy(players_name, "[");
                         strcat(players_name, num.c_str());

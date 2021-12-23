@@ -953,13 +953,13 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Business")))
             {
-                if (ImGui::BeginCombo(xorstr("Rare Item"), CargoRareItems[SelectedCargoItems])) // The second parameter is the label previewed before opening the combo.
+                if (ImGui::BeginCombo(xorstr("Rare Item"), cargo_rare_items[selected_rare_items])) // The second parameter is the label previewed before opening the combo.
                 {
-                    for (int i = 0; i < IM_ARRAYSIZE(CargoRareItems); i++)
+                    for (int i = 0; i < IM_ARRAYSIZE(cargo_rare_items); i++)
                     {
-                        static bool is_selected = (SelectedCargoItems == i);
-                        if (ImGui::Selectable(CargoRareItems[i], is_selected))
-                            SelectedCargoItems = i;
+                        static bool is_selected = (selected_rare_items == i);
+                        if (ImGui::Selectable(cargo_rare_items[i], is_selected))
+                            selected_rare_items = i;
                         if (is_selected)
                             ImGui::SetItemDefaultFocus(); // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
                     }
@@ -968,7 +968,7 @@ namespace big
 
                 if (ImGui::Button(xorstr("Set Rare Item")))
                 {
-                    switch (SelectedCargoItems)
+                    switch (selected_rare_items)
                     {
                     case 0:
                         *script_global(g_global.special_crates).as<int*>() = 2;
@@ -991,10 +991,10 @@ namespace big
                     }
                 }
                 ImGui::SameLine();
-                static bool RareItemToggle = *script_global(g_global.rare_item).as<bool*>();
-                if (ImGui::Checkbox(xorstr("Toggle Rare Items"), &RareItemToggle))
+                static bool toggle_rare_items = *script_global(g_global.rare_item).as<bool*>();
+                if (ImGui::Checkbox(xorstr("Toggle Rare Items"), &toggle_rare_items))
                 {
-                    if (!RareItemToggle)
+                    if (!toggle_rare_items)
                     {
                         *script_global(g_global.rare_item).as<bool*>() = true;
                     }
@@ -1369,7 +1369,6 @@ namespace big
                     }
                 }
 
-                static int manual_delivery = 0;
                 ImGui::PushItemWidth(100);
                 ImGui::Text(xorstr("Delivery Manual"));
                 ImGui::InputScalar(xorstr("Delivery ##Manual"), ImGuiDataType_S32, &manual_delivery);
@@ -1435,15 +1434,14 @@ namespace big
                 break;
                 case 1:
                     ImGui::Text(xorstr("Crew Tag Spoofer"));
-                    static char CrewTagSpoofer[5];
-                    ImGui::InputText(xorstr("##CrewTag"), CrewTagSpoofer, IM_ARRAYSIZE(CrewTagSpoofer), ImGuiInputTextFlags_CharsUppercase);
+                    ImGui::InputText(xorstr("##CrewTag"), spoof_crew_tag, IM_ARRAYSIZE(spoof_crew_tag), ImGuiInputTextFlags_CharsUppercase);
                     if (ImGui::Button(xorstr("Set Spoof##Set Crew Tag")))
                     {
-                        spoofer::player_crew(CrewTagSpoofer);
+                        spoofer::player_crew(spoof_crew_tag);
                     }
                 break;
                 case 2:
-                    ImGui::Text(xorstr("Crew Tag Spoofer"));
+                    ImGui::Text(xorstr("IP Spoofer"));
                     ImGui::PushItemWidth(100);
                     ImGui::InputScalar(xorstr("##IP 1"), ImGuiDataType_U8, &g_item.ip_1);
                     ImGui::SameLine();
@@ -1457,7 +1455,7 @@ namespace big
                     {
                         auto ip_address = rage_helper::get_local_playerinfo()->m_online_ip;
                         uint8_t out[4];
-                        *(uint32_t*)&out = ip_address.m_raw;
+                        *(uint32_t*)&out = ip_address;
                         g_item.ip_1 = out[3];
                         g_item.ip_2 = out[2];
                         g_item.ip_3 = out[1];
@@ -1568,13 +1566,11 @@ namespace big
             }
             if (ImGui::CollapsingHeader(xorstr("Friend List")))
             {
-                auto friend_list = *g_pointers->m_friend_list;
                 if (ImGui::ListBoxHeader("##Friend", ImVec2(210, 400)))
                 {
                     for (int i = 0; i < *g_pointers->m_total_friend; ++i)
                     {
-                        auto FriendName = friend_list->get_friend_name(i);//(char*)((DWORD64)FriendPTR + 0x80 + 0x200 * i);
-                        if (ImGui::Selectable(FriendName, i == SelectedFriend))
+                        if (ImGui::Selectable(get_friend_name(i), i == SelectedFriend))
                         {
                             SelectedFriend = i;
                         }
@@ -1583,18 +1579,16 @@ namespace big
                 }
                 ImGui::SameLine();
                 ImGui::BeginGroup();
-                auto FriendRID = friend_list->get_friend_id(SelectedFriend);//*(uint64_t*)((DWORD64)FriendPTR + 0xB8 + 0x200 * SelectedFriend);
-                auto FriendStatus = friend_list->get_player_status(SelectedFriend);
-                ImGui::Text("RID : %d", FriendRID);
-                ImGui::Text("Status : %s", FriendStatus);
+                ImGui::Text("RID : %d", get_friend_id(SelectedFriend));
+                ImGui::Text("Status : %s", get_player_status(SelectedFriend));
                 //ImGui::Text("Address : %s", friend_list->m_rockstar_id);
-                static uint64_t TargetRID;
+                static uint64_t target_rid;
                 ImGui::PushItemWidth(200);
-                ImGui::InputScalar("Put Target RID", ImGuiDataType_U64, &TargetRID);
+                ImGui::InputScalar("Put Target RID", ImGuiDataType_U64, &target_rid);
                 ImGui::PopItemWidth();
                 if (ImGui::Button("Set RID Join"))
                 {
-                    friend_list->set_rockstar_id(SelectedFriend, TargetRID);
+                    set_rockstar_id(SelectedFriend, target_rid);
                 }
 
                 ImGui::EndGroup();

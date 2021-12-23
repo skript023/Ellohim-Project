@@ -534,7 +534,6 @@ namespace big
             if (ImGui::CollapsingHeader(xorstr("Stat Loader")))
             {
                 static stats_json::stats_json stat_obj{};
-                static std::string* StatString[250];
                 static bool loaded = false;
                 ImGui::PushItemWidth(150);
                 if (ImGui::InputInt("Stats", &stat_obj.stats, 1, 80))
@@ -558,10 +557,8 @@ namespace big
                     ImGui::RadioButton(fmt::format("BOOL##{}", i + 1).c_str(), &stat_obj.stat_type[i], 1); ImGui::SameLine();
                     ImGui::RadioButton(fmt::format("FLOAT##{}", i + 1).c_str(), &stat_obj.stat_type[i], 2);
                     ImGui::PushItemWidth(450);
-                    StatString[i] = &stat_obj.stat_name[i];
 
-                    if (ImGui::InputText(fmt::format("##name{}", i + 1).c_str(), (char*)StatString[i]->c_str(), StatString[i]->capacity() * 2, ImGuiInputTextFlags_CharsUppercase))
-                        stat_obj.stat_name[i] = (char*)StatString[i]->c_str();
+                    ImGui::InputText(fmt::format("##name{}", i + 1).c_str(), (char*)stat_obj.stat_name[i].c_str(), stat_obj.stat_name[i].capacity() * 2, ImGuiInputTextFlags_CharsUppercase);
 
                     ImGui::PopItemWidth();
                     if (stat_obj.stat_type[i] == 0)
@@ -590,29 +587,27 @@ namespace big
                 {
                     for (int i = 0; i < stat_obj.stats; i++)
                     {
-                        const auto chara = std::to_string(g_local.character);
-                        std::string found_set_stat = stat_obj.stat_name[i].length() >= 3 ? stat_obj.stat_name[i].substr(2, 1) : stat_obj.stat_name[i];
-                        if (found_set_stat.compare("X") == 0)
-                        {
-                            stat_obj.stat_name[i].replace(2, 1, chara);
-                        }
+                        strcpy((char*)stat_obj.stat_name[i].c_str(), std::regex_replace(stat_obj.stat_name[i], std::regex(R"(\$)"), "").c_str());
+                        strcpy((char*)stat_obj.stat_name[i].c_str(), std::regex_replace(stat_obj.stat_name[i], std::regex(R"(\MPX)"), "MP" + std::to_string(rage_helper::get_character())).c_str());
+                        strcpy((char*)stat_obj.stat_name[i].c_str(), std::regex_replace(stat_obj.stat_name[i], std::regex(R"(\MPx)"), "MP" + std::to_string(rage_helper::get_character())).c_str());
+
                         const auto hash = rage::joaat(stat_obj.stat_name[i]);
-                        //LOG(INFO) << "Hash String : " << stat_obj.stat_name[i] << " Hash Number : " << hash;
+
                         g_fiber_pool->queue_job([i, hash]
+                        {
+                            if (stat_obj.stat_type[i] == 0)
                             {
-                                if (stat_obj.stat_type[i] == 0)
-                                {
-                                    STATS::STAT_SET_INT(hash, stat_obj.stat_int_value[i], true);
-                                }
-                                else if (stat_obj.stat_type[i] == 1)
-                                {
-                                    STATS::STAT_SET_BOOL(hash, stat_obj.stat_bool_value[i], true);
-                                }
-                                else if (stat_obj.stat_type[i] == 2)
-                                {
-                                    STATS::STAT_SET_FLOAT(hash, stat_obj.stat_float_value[i], true);
-                                }
-                            });
+                                STATS::STAT_SET_INT(hash, stat_obj.stat_int_value[i], true);
+                            }
+                            else if (stat_obj.stat_type[i] == 1)
+                            {
+                                STATS::STAT_SET_BOOL(hash, stat_obj.stat_bool_value[i], true);
+                            }
+                            else if (stat_obj.stat_type[i] == 2)
+                            {
+                                STATS::STAT_SET_FLOAT(hash, stat_obj.stat_float_value[i], true);
+                            }
+                        });
                     }
                 }
                 ImGui::Separator();

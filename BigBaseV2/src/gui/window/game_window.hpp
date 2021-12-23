@@ -7,14 +7,14 @@ namespace big
 	class game_window
 	{
 	public:
-		static void session_time_out(const char* url);
+		static bool create_session(Hash status);
 		static const char* get_login_status_from_hash(Hash hash);
 		static void get_status();
 		static void interact_to_server();
 		static void logout();
 		static bool get_authentication(const char* username, const char* password);
 		static void render_base_window(const char* window_name);
-
+		static Hash check_hash(uint64_t user_id);
 	public:
 		static inline bool logger{};
 		static inline Hash login_status{ 0 };

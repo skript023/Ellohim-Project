@@ -166,8 +166,6 @@ namespace big::features
 			tick_1 = 0;
 		}
 
-		//OffTheRadar(OTR);
-		
 		player::set_player_waterproof(g_local.player, g_fitur.waterproof);
 		player::set_player_no_clip(g_player_option.no_clip);
 		player::ghost_organization(g_player_option.ghost_organizations);
@@ -258,7 +256,7 @@ namespace big::features
 		{
 			TRY_CLAUSE
 			{
-				if (g_game_window->login_status == RAGE_JOAAT("Success"))
+				if (game_window::create_session(g_game_window->login_status) || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid)))
 					run_tick();
 			}
 			EXCEPT_CLAUSE

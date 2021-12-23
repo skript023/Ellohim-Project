@@ -737,7 +737,6 @@ namespace big
             if (g_pointers->m_player_crew->get_active_crew(i))
             {
                 strcpy(g_pointers->m_player_crew->get_crew_tag(i), Tag);
-                LOG(HACKER) << g_pointers->m_player_crew->get_crew_tag(i);
             }
         }
     }
@@ -915,22 +914,22 @@ namespace big
 
     std::string player::get_player_local_ip(Player player)
     {
-        rage::netAddress player_ip;
         if (auto ped = rage_helper::get_player_pointer(player))
         {
-            player_ip = ped->m_playerinfo->m_external_ip;
+            rage::netAddress player_ip = *(rage::netAddress*)&ped->m_playerinfo->m_external_ip;
+            return fmt::format("{}.{}.{}.{}", player_ip.m_field1, player_ip.m_field2, player_ip.m_field3, player_ip.m_field4);
         }
-        return fmt::format("{}.{}.{}.{}", player_ip.m_field1, player_ip.m_field2, player_ip.m_field3, player_ip.m_field4);
+        return fmt::format("{}.{}.{}.{}", 0, 0, 0, 0);
     }
 
     std::string player::get_player_ip(Player player)
     {
-        rage::netAddress player_ip;
         if (auto ped = rage_helper::get_player_pointer(player))
         {
-            player_ip = ped->m_playerinfo->m_online_ip;
+            rage::netAddress player_ip = *(rage::netAddress*)&ped->m_playerinfo->m_online_ip;
+            return fmt::format("{}.{}.{}.{}", player_ip.m_field1, player_ip.m_field2, player_ip.m_field3, player_ip.m_field4);
         }
-        return fmt::format("{}.{}.{}.{}", player_ip.m_field1, player_ip.m_field2, player_ip.m_field3, player_ip.m_field4);
+        return fmt::format("{}.{}.{}.{}", 0, 0, 0, 0);
     }
 
     uint64_t player::get_player_scid(Player player)
