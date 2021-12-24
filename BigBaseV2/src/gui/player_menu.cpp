@@ -96,16 +96,6 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Revenge Kick"), &g_remote_option->revenge_event);
             ImGui::SameLine(400);
-            bool super_punch = systems::is_float_equal(rage_helper::get_local_playerinfo()->m_super_punch, 1000.0f);
-            if (ImGui::Checkbox(xorstr("Super Punch"), &super_punch))
-            {
-                if (super_punch)
-                    rage_helper::get_local_playerinfo()->m_super_punch = 1000.0f;
-                else if (!super_punch)
-                    rage_helper::get_local_playerinfo()->m_super_punch = 1.0f;
-            }
-
-            ImGui::Separator();
             ImGui::Checkbox(xorstr("No Clip"), &g_player_option.no_clip);
 
             int wanted_level_slider = player::get_player_wanted_level(g_local.player);
@@ -113,9 +103,10 @@ namespace big
             {
                 player::set_player_wanted_level(g_local.player, wanted_level_slider);
             }
-            const float min = 1.0f, max = 10.0f;
+            const float min = 1.0f, max = 100.0f;
             ImGui::SliderScalar(xorstr("Run Speed"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_run_speed, &min, &max);
             ImGui::SliderScalar(xorstr("Swim Speed"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_swim_speed, &min, &max);
+            ImGui::SliderScalar(xorstr("Bullet Batch"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_super_punch, &min, &max);
 
             if (ImGui::Button(xorstr("Heal Player")))
             {
@@ -132,7 +123,6 @@ namespace big
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Get-in to Personal Vehicle")))
             {
-                //*script_global(2409291).at(8).as<int *>() = 1;
                 g_fiber_pool->queue_job([]
                 {
                     PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);

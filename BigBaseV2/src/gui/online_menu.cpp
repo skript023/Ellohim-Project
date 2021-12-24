@@ -817,7 +817,7 @@ namespace big
                             break;
                         case 8:
                             *script_global(g_global.pink_diamond).as<int*>() = potential_take_value;
-                            break
+                            break;
                         case 9:
                             *script_global(g_global.madrazo_file).as<int*>() = potential_take_value;
                             break;
