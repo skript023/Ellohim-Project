@@ -113,6 +113,22 @@ namespace big::features
 
 	}
 	
+	void chrono_loop(std::chrono::high_resolution_clock::duration delay)
+	{
+		static std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
+		if ((std::chrono::high_resolution_clock::now() - start).count() >= delay.count())
+		{
+			if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) && g_heist_option->all_take_heist)
+			{
+				casino_heist::all_heist_take(player_list::CasinoTake);
+			}
+			player::player_health_regeneration(g_settings.options["Fast Regen"]);
+			controller::TimeSpam(g_misc_option->time_spam);
+			systems::auto_click(g_player_option.auto_click);
+			start = std::chrono::high_resolution_clock::now();
+		}
+	}
+
 	void HotkeyAttach()
 	{
 		if (GetAsyncKeyState(g_settings.options["Teleport Waypoint"].get<int>()) & 0x8000)
@@ -129,15 +145,15 @@ namespace big::features
 				PLAYER::CLEAR_PLAYER_WANTED_LEVEL(PLAYER::PLAYER_ID());
 			});
 		}
+		if (GetAsyncKeyState(VK_F4) & 0x8000)
+		{
+			memset(&g_player_option.auto_click, false, 1);
+			LOG(INFO) << g_player_option.auto_click;
+		}
 	}
-	//HW_PROFILE_INFO hwProfileInfo;
-	//GetCurrentHwProfile(&hwProfileInfo);
-	//hwProfileInfo.szHwProfileGuid
+	
 	void run_tick()
 	{
-		static ULONGLONG tick_1 = 0;
-		static ULONGLONG tick_2 = 0;
-		ULONGLONG now = GetTickCount64();
 		g_local.Transition = TransitionCheck() && *g_pointers->m_is_session_started;
 		g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
 		g_local.transition = TransitionCheck() && *g_pointers->m_is_session_started;
@@ -147,25 +163,7 @@ namespace big::features
 		{
 			g_heist_option->all_take_heist = false;
 		}
-
-		tick_2++;
-		if (tick_2 == 50)
-		{
-			if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) && g_heist_option->all_take_heist)
-			{
-				casino_heist::all_heist_take(player_list::CasinoTake);
-			}
-			player::player_health_regeneration(g_settings.options["Fast Regen"]);
-			controller::TimeSpam(g_misc_option->time_spam);
-			tick_2 = 0;
-		}
-		tick_1++;
-		if (tick_1 == 10)
-		{
-			
-			tick_1 = 0;
-		}
-
+		chrono_loop(200ms);
 		player::set_player_waterproof(g_local.player, g_fitur.waterproof);
 		player::set_player_no_clip(g_player_option.no_clip);
 		player::ghost_organization(g_player_option.ghost_organizations);

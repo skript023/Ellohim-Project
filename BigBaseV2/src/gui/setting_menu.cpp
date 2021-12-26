@@ -83,6 +83,8 @@ namespace big
 
                 if (ImGui::Checkbox(xorstr("Logger"), g_settings.options["Logger Window"].get<bool*>()))
                     g_settings.save();
+
+                ImGui::Checkbox(xorstr("Auto-Clicker"), &g_player_option.auto_click);
                 ImGui::Separator();
             }
             if (ImGui::CollapsingHeader(xorstr("Script Monitor")))

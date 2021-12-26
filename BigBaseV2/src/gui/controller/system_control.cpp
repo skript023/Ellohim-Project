@@ -20,6 +20,15 @@
 
 namespace big
 {
+    void systems::auto_click(bool activate)
+    {
+        if (activate)
+        {
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+        }
+    }
+
     void fire::add_owned_explosion(Ped ped, Vector3 pos, int explosionType, float damageScale, bool isAudible, bool isInvinsible, float ShakeCam)
     {
         *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0xE990;
@@ -346,15 +355,12 @@ namespace big
     {
         g_fiber_pool->queue_job([WeatherType]
         {
-            if (*g_pointers->m_is_session_started)
+            if (strcmp(WeatherType, "XMAS") == 0)
             {
-                //g_pointers->m_session_weather(1, WEATHER_ID, 76, 0);
-                MISC::SET_WEATHER_TYPE_NOW_PERSIST(WeatherType);
+                *script_global(262145).at(4723).as<int*>() = 1;
             }
-            else
-            {
-                MISC::SET_WEATHER_TYPE_NOW_PERSIST(WeatherType);
-            }
+            MISC::SET_WEATHER_TYPE_NOW_PERSIST(WeatherType);
+            *script_global(262145).at(4723).as<int*>() = 0;
         });
     }
 

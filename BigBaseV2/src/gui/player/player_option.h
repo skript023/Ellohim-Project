@@ -98,6 +98,7 @@ namespace big
 		static inline bool night_vision{};
 		static inline bool thermal_vision{};
 		static inline bool ghost_organizations{};
+		static inline bool auto_click{ false };
 	private:
 		static inline int request_tick = 0;
 		
