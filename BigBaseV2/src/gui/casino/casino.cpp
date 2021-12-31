@@ -337,7 +337,8 @@ namespace big
                 {
                     auto local1356 = script_local(slots_thread, m_local.slot.jackpot_trigger).at(1);
                     int break_value = *local1356.at(i).as<int*>();
-                    if (break_value != 64) {
+                    if (break_value != 64)
+                    {
                         *local1356.at(i).as<int*>() = 6;
                     }
                 }

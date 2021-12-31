@@ -261,5 +261,10 @@ namespace rage
 
 	class CNetworkObjectMgr : public rage::netObjectMgrBase
 	{
+	public:
+		rage::netObject* find_object_by_id(std::uint16_t object_id, bool can_delete_be_pending)
+		{
+			return big::g_pointers->m_get_network_object(this, object_id, can_delete_be_pending);
+		};
 	};
 }

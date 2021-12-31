@@ -58,7 +58,6 @@ namespace big
 					char sender_info[100];
 					strcpy(sender_info, "~bold~~g~Blocked Clear Ped Task From ");
 					strcat(sender_info, source_player->get_name());
-					LOG(HACKER) << network_id;
 					if (!g_local.is_cutscene_playing && (!(g_local.is_activity_session && rage_helper::get_local_vehicle()->m_model_info->m_model_hash == VEHICLE_PBUS)))
 					{
 						if (g_settings.options["Clear Ped Task Block"])
@@ -170,7 +169,7 @@ namespace big
 				buffer->Seek(149);
 				buffer->ReadDword(&explosion_flags, 32);
 				auto ped_owner_id = -1;
-				if (auto net_obj = g_pointers->m_get_network_object(*g_pointers->m_network_object_manager, explosion_owner, FALSE))
+				if (auto net_obj = (*g_pointers->m_network_object_manager)->find_object_by_id(explosion_owner, FALSE))
 					ped_owner_id = net_obj->owner_id;
 				if ((explosion_flags & 11) && source_player->player_id != ped_owner_id && ped_owner_id != -1)
 				{

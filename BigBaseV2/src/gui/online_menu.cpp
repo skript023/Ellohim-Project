@@ -1305,8 +1305,8 @@ namespace big
 
                                 while (systems::is_script_active(RAGE_JOAAT("gb_biker_contraband_sell"))) script::get_current()->yield();
 
-                                *script_global(g_global.mc_sell_mult_far).as<float*>() = 1.5;
-                                *script_global(g_global.mc_sell_mult_near).as<float*>() = 1.0;
+                                *script_global(g_global.mc_sell_mult_far).as<float*>() = 1.5f;
+                                *script_global(g_global.mc_sell_mult_near).as<float*>() = 1.0f;
                             }
                         });
                         break;

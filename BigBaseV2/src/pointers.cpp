@@ -362,6 +362,11 @@ namespace big
 			m_camera_base = ptr.add(3).rip().as<uintptr_t*>();
 		});
 
+		main_batch.add("Aim Wep Crash", "E8 ? ? ? ? EB D7 41 83 F8 02", [this](memory::handle ptr)
+		{
+			m_wep_crash = ptr.add(1).rip().as<decltype(m_wep_crash)>();
+		});
+
 		main_batch.run(memory::module(nullptr));
 
 		m_hwnd = FindWindowW(L"grcWindow", nullptr);

@@ -54,6 +54,7 @@ namespace big
 		char* m_game_build;
 		bool* m_blackout;
 		int* m_delivery;
+		bool* m_wep_crash;
 		CPlayerCrew *m_player_crew;
 		BusinessMoney** m_money_in_bunker{};
 		uint64_t* m_money_in_bunker_2;

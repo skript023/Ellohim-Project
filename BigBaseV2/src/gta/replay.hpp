@@ -245,6 +245,37 @@ namespace rage
 		}
 	}; //Size: 0x0194
 
+	class CPickupHandle
+	{
+	public:
+		class CPed* m_pickup; //0x0000
+		int32_t m_handle; //0x0008
+		char pad_000C[4]; //0x000C
+	}; //Size: 0x0010
+	static_assert(sizeof(CPedHandle) == 0x10, "CPedHandle is not properly sized");
+
+	class CPickupList
+	{
+	public:
+		class CPickupHandle m_pickups[256]; //0x0000
+	}; //Size: 0x1000
+
+	class CPikcupInterface
+	{
+	public:
+		char pad_0000[256]; //0x0000
+		class CPickupList* m_pickup_list; //0x0100
+		int32_t m_max_pickup; //0x0108
+		char pad_010C[4]; //0x010C
+		int32_t m_cur_pickup; //0x0110
+
+		CPed* get_pickup(const int& index)
+		{
+			if (index < m_cur_pickup)
+				return m_pickup_list->m_pickups[index].m_pickup;
+			return nullptr;
+		}
+	};
 
 	class CReplayInterface
 	{
@@ -252,7 +283,7 @@ namespace rage
 		char pad_0000[16]; //0x0000
 		class CVehicleInterface* m_vehicle_interface; //0x0010
 		class CPedInterface* m_ped_interface; //0x0018
-		char pad_0020[8]; //0x0020
+		class CPickupInterface* m_pickup_interface; //0x0020
 		class CObjectInterface* m_object_interface; //0x0028
 	}; //Size: 0x0030
 }
