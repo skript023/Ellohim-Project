@@ -1858,6 +1858,14 @@ enum ePedType
 	PED_TYPE_ARMY
 };
 
+enum class ePedTask :int32_t
+{
+	TASK_NONE,
+	TASK_FOOT = 1 << 4,
+	TASK_UNK = 1 << 5,
+	TASK_DRIVING = 1 << 6
+};
+
 enum event_hashes : int32_t
 {
 	CEO_BAN = -764524031,

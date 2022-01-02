@@ -122,7 +122,9 @@ public:
 	CPedWeaponManager* m_weapon_mgr; //0x10D8
 	char pad_10E0[892]; //0x10E0
 	uint8_t seatbelt; //0x145C
-	char pad_145D[211]; //0x145D
+	char pad_145D[16]; //0x145D
+	int m_ped_task; //ox146D
+	char pad_1471[191]; //0x1471
 	float m_armor; //0x1530
 };	//Size: 0x14E4
 static_assert(sizeof(CPed) == 0x1534, "CPed is not properly sized");
