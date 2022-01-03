@@ -43,9 +43,9 @@ namespace big
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
 		m_get_label_text("Get Label Text", g_pointers->m_get_label_text, &hooks::get_label_text),
 
-		m_gta_thread_tick_hook("GTT", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
-		m_gta_thread_kill_hook("GTK", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
-		m_error_screen_hook("ES", g_pointers->m_error_screen, &hooks::disable_error_screen),
+		m_gta_thread_tick_hook("Thread Tick", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
+		m_gta_thread_kill_hook("Thread Killed", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
+		m_error_screen_hook("Error Screen", g_pointers->m_error_screen, &hooks::disable_error_screen),
 
 		m_received_event_hook("Received Event", g_pointers->m_received_event, &hooks::received_event),
 

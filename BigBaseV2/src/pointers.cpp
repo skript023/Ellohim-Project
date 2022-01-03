@@ -274,7 +274,7 @@ namespace big
 
 		main_batch.add("Game Build", "48 83 EC 60 48 8D 0D ? ? ? ? E8", [this](memory::handle ptr)
 		{
-			m_game_build = ptr.sub(17).add(265 + 3).as<char*>();//48 89 44 24 ? 0F 95 C3
+			m_game_build = ptr.sub(17).add(265 + 3).as<char*>();
 		});
 		
 		main_batch.add("Error Screen Handler", "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 60 4C 8B F2 48 8B 94 24 ? ? ? ? 33 DB", [this](memory::handle ptr)
@@ -319,7 +319,7 @@ namespace big
 		
 		main_batch.add("m_read_bitbuf_dword", "48 89 5c 24 ? 48 89 74 24 ? 57 48 83 ec ? 48 8b d9 33 c9 41 8b f0 8a 43", [this](memory::handle ptr)
 		{
-			m_read_bitbuf_dword = ptr.as<functions::ReadDword>(); //E8 ? ? ? ? 84 C0 74 1C 48 8D 96 ? ? ? ? 44 8D 43 08 48 8B CF E8
+			m_read_bitbuf_dword = ptr.as<functions::ReadDword>();
 		});
 
 		main_batch.add("clone_create", "48 8B C4 66 44 89 48", [this](memory::handle ptr)
@@ -353,7 +353,7 @@ namespace big
 		});
 
 		main_batch.add("Game Setting Pointer", "44 39 0D ? ? ? ? 74 0C", [this](memory::handle ptr)
-		{//44 39 ? ? ? ? ? 74 ? 44 89 ? ? ? ? ? 40 8A
+		{
 			m_game_setting = ptr.add(3).rip().sub(0x99).as<GameSetting*>();
 		});
 		

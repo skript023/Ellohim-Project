@@ -2,6 +2,7 @@
 #include "common.hpp"
 #include "logger.hpp"
 #include "script.hpp"
+#include "gui/window/game_window.hpp"
 
 namespace big
 {
@@ -15,6 +16,7 @@ namespace big
 			offset = ((DWORD64)exp->ExceptionRecord->ExceptionAddress - (DWORD64)mod);
 			GetModuleFileNameA(mod, buffer, MAX_PATH - 1);
 		}
+		game_window::logout();
 		LOG(FATAL) << "Exception Code: " << HEX_TO_UPPER(exp->ExceptionRecord->ExceptionCode) << " Exception Offset: " << HEX_TO_UPPER(offset) << " Fault Module Name: " << buffer;
 	}
 

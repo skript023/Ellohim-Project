@@ -23,12 +23,18 @@ namespace big
 		{
 			case SCRIPTED_GAME_EVENT:
 			{
+				//Instansiasi Class CScriptedGameEvent
 				auto game_event = CScriptedGameEvent();
+				//Mengambil total argument dari script event
 				buffer->ReadDword(&game_event.m_args_size, 32);
+				//Pengecheckan jumlah argument dalam event lalu mengambil array yang berisikan argument
 				if (game_event.m_args_size <= 0x1AF)
 					buffer->ReadArray(&game_event.m_args, 8 * game_event.m_args_size);
+
+				//Melakukan pengecekan event Hash, apabila event dari para bangsat maka block
 				if (hook_helper::validate_game_event(&game_event, source_player, target_player))
 				{
+					//Block Event Sepeti Kick, CEO Kick, CEO Ban dan semacamnya
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
 				}
@@ -37,15 +43,20 @@ namespace big
 			}
 			case NETWORK_INCREMENT_STAT_EVENT:
 			{
+				//Instansiasi Class
 				auto event_obj = CNetworkIncrementStatEvent();
-				buffer->ReadDword(&event_obj.m_stat, 32);
-				buffer->ReadDword(&event_obj.m_ammount, 32);
-				if (hook_helper::report_status(&event_obj, source_player, target_player))
+				//Mengambil stat report ke dalam class
+				buffer->ReadDword(&event_obj.m_stat, 32); 
+				//mengambil jumlah report yang dikirim para bangsat
+				buffer->ReadDword(&event_obj.m_ammount, 32); 
+				//Melakukan pengecekan stat, apabila stat report maka block
+				if (hook_helper::report_status(&event_obj, source_player, target_player)) //
 				{
+					//Block Report dari pada bangsat
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
 				}
-
+				//Menghapus Buffer dan biarkan event berjalan
 				buffer->Seek(0);
 				break;
 			}
