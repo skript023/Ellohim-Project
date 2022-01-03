@@ -193,20 +193,17 @@ namespace big
                 ImGui::SameLine(400);
                 ImGui::Checkbox(xorstr("Vault Door Gun"), &g_weapon_option->object_gun);
 
-                bool is_burst_on = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch == 300;
-                if (ImGui::Checkbox(xorstr("Burst Ammo"), &is_burst_on))
-                {
-                    weapon_helper::burst_weapon_ammo(is_burst_on);
-                }
-                ImGui::SameLine(200);
                 ImGui::Checkbox(xorstr("No Spread"), &g_fitur.spread_on);
-                ImGui::SameLine(400);
+                ImGui::SameLine(200);
                 ImGui::Checkbox(xorstr("No Recoil"), &g_fitur.recoil_on);
-
+                ImGui::SameLine(400);
                 ImGui::Checkbox(xorstr("Teleport Gun"), &g_fitur.teleport_gun);
 
                 ImGui::PushItemWidth(200);
-                ImGui::SliderInt(xorstr("Burst Ammo"), &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch, 0, 100);
+                if (ImGui::SliderInt(xorstr("Burst Ammo"), &bullet_batch, 0, 100))
+                {
+                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = bullet_batch;
+                }
                 ImGui::SliderFloat(xorstr("Burst Spread"), &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread, 0.f, 2.f);
                 ImGui::PopItemWidth();
 

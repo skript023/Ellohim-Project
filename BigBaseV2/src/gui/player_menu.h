@@ -10,6 +10,7 @@ namespace big
 	public:
 		static void render_player_tab(const char* tab_name);
 	private:
+		static inline int bullet_batch{ 1 };
 		static inline Date write_date;
 		static inline char write_stat_name[128];
 		static inline float write_float_value = 0;

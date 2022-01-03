@@ -18,7 +18,7 @@ namespace big
 		int16_t object_id = _object_id;
 		int16_t object_flag = _object_flag;
 
-		rage::netObject* netObject = g_pointers->m_get_network_object(mgr, object_id, true);
+		rage::netObject* netObject = (mgr)->find_object_by_id(object_id, true);
 		bool owner = netObject != nullptr;
 		bool type = object_type == NetObjEntityType_Submarine || object_type == NetObjEntityType_PickupPlacement || object_type < NetObjEntityType_Automobile || object_type > NetObjEntityType_Train;
 		//if (g_settings.options["Log Player"])
