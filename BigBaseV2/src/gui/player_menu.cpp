@@ -3160,31 +3160,31 @@ namespace big
             {
                 if (ImGui::Button(xorstr("Teleport Waypoint")))
                 {
-                    teleport::teleport_to_marker();
+                    teleport::teleport_to_marker(g_local.player);
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Teleport Objective")))
                 {
-                    teleport::teleport_to_objective();
+                    teleport::teleport_to_objective(g_local.player);
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Teleport Forward")))
                 {
                     g_fiber_pool->queue_job([]
+                    {
+                        Ped player_ped = g_local.ped;
+                        if (PED::IS_PED_IN_ANY_VEHICLE(player_ped, TRUE))
                         {
-                            Ped player_ped = g_local.ped;
-                            if (PED::IS_PED_IN_ANY_VEHICLE(player_ped, TRUE))
-                            {
-                                player_ped = PED::GET_VEHICLE_PED_IS_USING(player_ped);
-                            }
+                            player_ped = PED::GET_VEHICLE_PED_IS_USING(player_ped);
+                        }
 
-                            auto pos = ENTITY::GET_ENTITY_COORDS(player_ped, TRUE);
-                            auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(player_ped);
-                            pos.x += big::player_list::DISTANCE_SPAWN * forward.x;
-                            pos.y += big::player_list::DISTANCE_SPAWN * forward.y;
-                            network::request_control(player_ped);
-                            teleport::teleport_to_coords(player_ped, pos);
-                        });
+                        auto pos = ENTITY::GET_ENTITY_COORDS(player_ped, TRUE);
+                        auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(player_ped);
+                        pos.x += big::player_list::DISTANCE_SPAWN * forward.x;
+                        pos.y += big::player_list::DISTANCE_SPAWN * forward.y;
+                        network::request_control(player_ped);
+                        teleport::teleport_to_coords(player_ped, pos);
+                    });
                 }
 
                 ImGui::Text(xorstr("Other Teleport"));

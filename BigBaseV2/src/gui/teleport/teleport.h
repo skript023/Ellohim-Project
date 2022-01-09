@@ -10,12 +10,12 @@ namespace big
 	public:
 		static Vector3 get_mission_blip();
 		static Vector3 get_blip_marker();
-		static Vector3 GetGroundCoords(Vector3 coords, int tries);
+		static bool load_ground(Vector3& coords);
 
 		static void teleport_to_coords(Entity e, Vector3 coords);
-		static void teleport_to_marker();
-		static void teleport_to_objective();
-		static void teleport_to_player(Player player);
+		static void teleport_to_marker(Player player);
+		static void teleport_to_objective(Player player);
+		static void teleport_to_player(Player source_player, Player target_player);
 		static void teleport_to_player_vehicle(Player player);
 	};
 

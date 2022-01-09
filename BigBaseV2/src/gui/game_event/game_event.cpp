@@ -18,53 +18,55 @@
 
 namespace big
 {
-    Ped remote_event::crash_player(Entity target, Vector3 SpawnCoordinates)
+    void remote_event::crash_player(Entity target, Vector3 target_coords)
     {
-        Ped NewPed;
-        Hash PedHash = rage::joaat("slod_human");
-        auto playerPosition = ENTITY::GET_ENTITY_COORDS(g_local.ped, TRUE);
-        if (MISC::GET_DISTANCE_BETWEEN_COORDS(playerPosition.x, playerPosition.y, playerPosition.z, SpawnCoordinates.x, SpawnCoordinates.y, SpawnCoordinates.z, false) > 300.0f)
+        // Salah Satu Invalid Ped Hash
+        Hash ped_hash = rage::joaat("slod_human");
+        // Membaca coordinate player saat ini
+        auto my_position = ENTITY::GET_ENTITY_COORDS(g_local.ped, TRUE);
+        // Pengecekan antara coordinate pengirim object dengan penerima object
+        if (MISC::GET_DISTANCE_BETWEEN_COORDS(my_position.x, my_position.y, my_position.z, target_coords.x, target_coords.y, target_coords.z, false) > 300.0f)
         {
-            if (STREAMING::IS_MODEL_IN_CDIMAGE(PedHash))
+            // Pengecekan apakah model ada dalam file
+            if (STREAMING::IS_MODEL_IN_CDIMAGE(ped_hash))
             {
-                if (STREAMING::IS_MODEL_VALID(PedHash))
+                // Pengecekan apakah model valid, aneh sih walaupun invalid masih bisa dipanggil
+                if (STREAMING::IS_MODEL_VALID(ped_hash))
                 {
-                    STREAMING::REQUEST_MODEL(PedHash);
-                    while (!STREAMING::HAS_MODEL_LOADED(PedHash))
+                    // Melakukan Request Model harus dalam while loop sampai sukses
+                    STREAMING::REQUEST_MODEL(ped_hash);
+                    while (!STREAMING::HAS_MODEL_LOADED(ped_hash))
                     {
                         script::get_current()->yield();
                     }
 
                     *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
-                    NewPed = PED::CREATE_PED(3, PedHash, SpawnCoordinates.x, SpawnCoordinates.y, SpawnCoordinates.z, 0, TRUE, TRUE);
+                    auto ped = PED::CREATE_PED(3, ped_hash, target_coords.x, target_coords.y, target_coords.z, 0, TRUE, TRUE);
                     *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
                     // Segmentation Fault
                     script::get_current()->yield();
                     if (*g_pointers->m_is_session_started)
                     {
-                        ENTITY::_SET_ENTITY_SOMETHING(NewPed, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
-                        auto networkId = NETWORK::PED_TO_NET(NewPed);
-                        if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(NewPed))
-                            NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
+                        ENTITY::_SET_ENTITY_SOMETHING(ped, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
+                        auto networked = NETWORK::PED_TO_NET(ped);
+                        if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(ped))
+                            NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networked, true);
                     }
-                    ENTITY::ATTACH_ENTITY_TO_ENTITY(NewPed, target, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, TRUE, TRUE, 2, TRUE);
+                    ENTITY::ATTACH_ENTITY_TO_ENTITY(ped, target, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, TRUE, TRUE, 2, TRUE);
 
-                    STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(PedHash);
-                    return NewPed;
+                    STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(ped_hash);
                 }
             }
         }
         else
         {
             controller::ShowMessage("Crash failed because target is near you", false);
-            return -1;
         }
-        return -1;
     }
 
     void remote_event::take_all_cayo(int take)
     {
-        QUEUE_JOB_BEGIN_CLAUSE(take)
+        g_fiber_pool->queue_job([take]
         {
             int64_t cayo_take[] = { TAKE_CAYO, g_local.player, take, 1 };
             for (int i = 0; i <= g_local.connected_player; i++)
@@ -72,28 +74,28 @@ namespace big
                 SCRIPT::TRIGGER_SCRIPT_EVENT(1, cayo_take, 4, 1 << i);
                 script::get_current()->yield();
             }
-        } QUEUE_JOB_END_CLAUSE
+        });
     }
 
     void remote_event::take_all_casino(int take)
     {
-        QUEUE_JOB_BEGIN_CLAUSE(take)
+        g_fiber_pool->queue_job([take]
         {
-            rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [take] {
+            rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller"), [take]
+            {
                 *script_global(g_global.show_take).as<int*>() = 32;
                 *script_global(g_global.casino_take_indicator).as<int*>() = 1;
                 *script_global(g_global.pasific_standard).as<int*>() = take;
-                script::get_current()->yield(1500ms);
                 int64_t casino_take[] = { TAKE_PASIFIC, g_local.player, *script_global(g_global.pasific_standard).as<int*>(), 1, 1, 0, 0, 0 };
                 for (int i = 0; i <= g_local.connected_player; i++)
                 {
                     SCRIPT::TRIGGER_SCRIPT_EVENT(1, casino_take, 8, 1 << i);
                     script::get_current()->yield();
                 }
-                script::get_current()->yield(2000ms);
+                script::get_current()->yield(1000ms);
                 *script_global(g_global.pasific_standard).as<int*>() = 1000000;
             });
-        } QUEUE_JOB_END_CLAUSE
+        });
     }
 
     void remote_event::take_casino_partial(int take)

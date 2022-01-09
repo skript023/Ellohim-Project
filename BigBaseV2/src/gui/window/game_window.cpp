@@ -2,7 +2,6 @@
 #include "gui.hpp"
 #include "pointers.hpp"
 #include "imgui.h"
-#include "gta_util.hpp"
 #include "gui/controller/xostr.h"
 #include "gui/controller/sha256.h"
 #include "gui/controller/http_request.hpp"
@@ -49,9 +48,9 @@ namespace big
 			switch (hash)
 			{
 			case RAGE_JOAAT("Success"):
-				return "Success";
+				return "Successful";
 			case RAGE_JOAAT("Failed"):
-				return "Failed";
+				return "Username or Password Incorrect";
 			case RAGE_JOAAT("Unauthorized"):
 				return "Restricted Access";
 			}
@@ -66,29 +65,30 @@ namespace big
 			switch (status_check)
 			{
 			case RAGE_JOAAT("Success"):
-				ImGui::TextColored(ImVec4(0.0f, 255.0f, 0.0f, 1.0f), "Success");
+				ImGui::TextColored(ImVec4(0.0f, 255.0f, 0.0f, 1.0f), xorstr("Success"));
 				break;
 			case RAGE_JOAAT("Failed"):
-				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), "Failed");
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Failed"));
 				break;
 			case RAGE_JOAAT("Unauthorized"):
-				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), "You're not Developer");
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("You're not Developer"));
 				break;
 			case RAGE_JOAAT("Request failed, couldn't connect to server"):
-				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), "Couldn't Connect to Server");
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Couldn't Connect to Server"));
 				break;
 			default:
-				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), "Couldn't Connect to Server");
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Couldn't Connect to Server"));
 				break;
 			}
 		}
 	}
 
-	void game_window::interact_to_server()
+	void game_window::interact_to_server(std::chrono::high_resolution_clock::duration time)
 	{
+		get_session_time = std::chrono::high_resolution_clock::now();
 		if (*g_pointers->m_is_session_started && is_auth && (*g_game_window->username && *g_game_window->password))
 		{
-			if (get_session_time == 50000)
+			if ((std::chrono::high_resolution_clock::now() - get_session_time).count() >= time.count())
 			{
 				try
 				{
@@ -102,11 +102,6 @@ namespace big
 					is_auth = false;
 				}
 			}
-			if (get_session_time >= 50000)
-			{
-				get_session_time = 0;
-			}
-			get_session_time++;
 		}
 	}
 
@@ -182,8 +177,8 @@ namespace big
 				online_menu::render_online_tab(xorstr("Online"));
 				player_list::render_player_list(xorstr("Player List"));
 				setting_tab::render_setting_tab(xorstr("Setting"));
-				window_log::logger(xorstr("Log"));
-				game_window::interact_to_server();
+				window_log::logger(xorstr("Log Console"));
+				game_window::interact_to_server(240s);
 				ImGui::EndTabBar();
 			}
 		}

@@ -279,6 +279,8 @@ namespace big
 		static constexpr inline int32_t garage = 1585844;
 		static constexpr inline int32_t call_personal_vehicle = 2810287;
 		static constexpr inline int32_t show_take = 4718592 + 87192;
+		static constexpr inline int32_t request_model = 2725260;
+		static constexpr inline int32_t vehicle_id = 2810287 + 6635;
 	} g_global;
 
 	static class constant_local

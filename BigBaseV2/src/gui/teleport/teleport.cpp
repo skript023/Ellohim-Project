@@ -43,31 +43,29 @@ namespace big
         return Vector3(0.0f , 0.0f, 0.0f);
     }
 
-    Vector3 teleport::GetGroundCoords(Vector3 coords, int tries)
+    bool teleport::load_ground(Vector3& coords)
     {
-        float groundZ;
-        if (systems::is_float_equal(coords.z, 20.f))
+        float ground;
+        for (int i = 0; i < 20; ++i)
         {
-            for (int i = 0; i < tries; ++i)
+            for (float z = 0.f; z <= 1000.f; z += 100.f)
             {
-                if (i)
-                {
-                    for (float z = 1000.f; z >= 0.f; z -= 100.f)
-                    {
-                        STREAMING::REQUEST_COLLISION_AT_COORD(coords.x, coords.y, z);
-                        script::get_current()->yield();
-                    }
-                }
+                STREAMING::REQUEST_COLLISION_AT_COORD(coords.x, coords.y, z);
 
-                if (MISC::GET_GROUND_Z_FOR_3D_COORD(coords.x, coords.y, 1000.f, &groundZ, false, true))
-                {
-                    return Vector3(coords.x, coords.y, groundZ + 2.0f);
-                }
                 script::get_current()->yield();
             }
-            return Vector3(coords.x, coords.y, -225.f);
+
+            if (MISC::GET_GROUND_Z_FOR_3D_COORD(coords.x, coords.y, 1000.f, &ground, false, false))
+            {
+                coords.z = ground + 2.f;
+
+                return true;
+            }
+
+            script::get_current()->yield();
         }
-        return Vector3(coords.x, coords.y, coords.z + 2.0f);
+
+        return false;
     }
 
     void teleport::teleport_to_coords(Entity e, Vector3 coords) {
@@ -132,49 +130,63 @@ namespace big
         return zero;
     }
 
-    void teleport::teleport_to_marker()
+    void teleport::teleport_to_marker(Player player)
     {
-        g_fiber_pool->queue_job([] {
+        g_fiber_pool->queue_job([player]
+        {
             auto coords = systems::to_scr_vector(*g_pointers->m_waypoint_coords);//blip::get_blip_coords(Waypoint, WaypointColor);
 
             if (systems::is_3d_vector_zero(coords))
                 return;
 
-            coords = GetGroundCoords(coords, 30);
+            load_ground(coords);
 
-            auto e = g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped;
+            auto e = player::is_player_in_any_vehicle(player) ? player::get_player_vehicle(player, false) : player::get_player_ped(player);
 
-            if (rage_helper::get_local_ped()->m_is_in_vehicle)
+            if (player::is_player_in_any_vehicle(player))
+            {
+                *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
                 network::request_control(e);
+                *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
+            }
 
             teleport_to_coords(e, coords);
         });
     }
 
-    void teleport::teleport_to_objective()
+    void teleport::teleport_to_objective(Player player)
     {
-        g_fiber_pool->queue_job([] {
-            int tick = 0;
+        g_fiber_pool->queue_job([player]
+        {
             Vector3 coords = get_mission_blip();
 
             if (systems::is_3d_vector_zero(coords))
                 return;
 
-            auto e = g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped;
+            auto e = player::is_player_in_any_vehicle(player) ? player::get_player_vehicle(player, false) : player::get_player_ped(player);
 
-            network::request_control(e);
+            if (player::is_player_in_any_vehicle(player))
+            {
+                *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
+                network::request_control(e);
+                *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
+            }
 
             script::get_current()->yield();
             teleport_to_coords(e, coords);
         });
     }
 
-    void teleport::teleport_to_player(Player player)
+    void teleport::teleport_to_player(Player source_player, Player target_player)
     {
-        auto pos = player::get_player_coords(player);
-        auto e = g_local.InVehicle ? player::get_player_vehicle(g_local.player, false) : player::get_player_ped(g_local.player);
+        auto pos = player::get_player_coords(target_player);
+        auto e = player::is_player_in_any_vehicle(source_player) ? player::get_player_vehicle(source_player, false) : player::get_player_ped(source_player);
         if (ENTITY::IS_ENTITY_A_VEHICLE(e))
+        {
+            *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
             network::request_control(e);
+            *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
+        }
         ENTITY::SET_ENTITY_COORDS_NO_OFFSET(e, pos.x, pos.y + 1.5f, pos.z, FALSE, FALSE, FALSE);
     }
 

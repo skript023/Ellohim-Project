@@ -631,7 +631,7 @@ namespace big
                             {
                                 if (!AutoGetIn)
                                 {
-                                    teleport::teleport_to_player(g_selected.player);
+                                    teleport::teleport_to_player(g_local.player, g_selected.player);
                                 }
                                 if (AutoGetIn)
                                 {
@@ -701,63 +701,32 @@ namespace big
                                             auto pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
                                             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
 
-                                            Ped NewPed = remote_event::crash_player(g_selected.ped, pos);
-                                            int tick = 0;
-                                            while (tick < 32)
-                                            {
-                                                script::get_current()->yield();
-                                                tick++;
-                                            }
+                                            remote_event::crash_player(g_selected.ped, pos);
 
-                                            if (ENTITY::DOES_ENTITY_EXIST(NewPed))
-                                            {
-                                                ENTITY::DETACH_ENTITY(NewPed, FALSE, FALSE);
-                                                ENTITY::SET_ENTITY_COORDS_NO_OFFSET(NewPed, -5000.0f, -5000.0f, -100.0f, FALSE, FALSE, TRUE);
-                                                NETWORK::NETWORK_FADE_OUT_ENTITY(NewPed, FALSE, FALSE);
-                                                ENTITY::SET_ENTITY_AS_MISSION_ENTITY(NewPed, FALSE, FALSE);
-                                                ENTITY::DELETE_ENTITY(&NewPed);
-
-                                                char message[100];
-                                                strcpy(message, "~g~Crash Has Been Sent to ");
-                                                strcat(message, PLAYER::GET_PLAYER_NAME(g_selected.player));
-                                                message::notification(message, "~bold~~g~Ellohim Event Sender");
-                                            }
+                                            char message[100];
+                                            strcpy(message, "~g~Crash Has Been Sent to ");
+                                            strcat(message, PLAYER::GET_PLAYER_NAME(g_selected.player));
                                         }
                                     }
                                     if (g_fitur.desktop_all)
                                     {
-                                        Ped NewPed[33]{};
-                                        int done = 0;
                                         for (int i = 0; i <= 32; i++)
                                         {
-                                            Ped AllPlayer = player::get_player_ped(i);
-                                            if (ENTITY::DOES_ENTITY_EXIST(AllPlayer))
+                                            Ped player_ped = player::get_player_ped(i);
+                                            if (ENTITY::DOES_ENTITY_EXIST(player_ped))
                                             {
-                                                if (AllPlayer == g_local.ped) {
+                                                if (player_ped == g_local.ped)
                                                     continue;
-                                                }
 
-                                                if (AllPlayer != g_local.ped) {
-                                                    auto coords = ENTITY::GET_ENTITY_COORDS(AllPlayer, TRUE);
-                                                    NewPed[i] = remote_event::crash_player(AllPlayer, coords);
+                                                if (player_ped != g_local.ped)
+                                                {
+                                                    auto coords = ENTITY::GET_ENTITY_COORDS(player_ped, TRUE);
+                                                    remote_event::crash_player(player_ped, coords);
                                                 }
                                             }
                                             script::get_current()->yield();
                                         }
-
-                                        for (auto ped : NewPed)
-                                        {
-                                            if (ENTITY::DOES_ENTITY_EXIST(ped))
-                                            {
-                                                ENTITY::DETACH_ENTITY(ped, FALSE, FALSE);
-                                                ENTITY::SET_ENTITY_COORDS_NO_OFFSET(ped, -5000.0f, -5000.0f, -100.0f, FALSE, FALSE, TRUE);
-                                                NETWORK::NETWORK_FADE_OUT_ENTITY(ped, FALSE, FALSE);
-                                                ENTITY::SET_ENTITY_AS_MISSION_ENTITY(ped, FALSE, FALSE);
-                                                ENTITY::DELETE_ENTITY(&ped);
-                                            }
-                                            script::get_current()->yield();
-                                        }
-                                        controller::ShowMessage("~g~Crash All End", false);
+                                        controller::ShowMessage("~g~Crash All Done", false);
                                     }
                                     break;
                                 case 1:
@@ -772,22 +741,7 @@ namespace big
                                         auto pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
                                         auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
 
-                                        Ped NewPed = remote_event::crash_player(g_selected.ped, pos);
-                                        int tick = 0;
-                                        while (tick < 32)
-                                        {
-                                            script::get_current()->yield();
-                                            tick++;
-                                        }
-
-                                        if (ENTITY::DOES_ENTITY_EXIST(NewPed))
-                                        {
-                                            ENTITY::DETACH_ENTITY(NewPed, FALSE, FALSE);
-                                            ENTITY::SET_ENTITY_COORDS_NO_OFFSET(NewPed, -5000.0f, -5000.0f, -100.0f, FALSE, FALSE, TRUE);
-                                            NETWORK::NETWORK_FADE_OUT_ENTITY(NewPed, FALSE, FALSE);
-                                            ENTITY::SET_ENTITY_AS_MISSION_ENTITY(NewPed, FALSE, FALSE);
-                                            ENTITY::DELETE_ENTITY(&NewPed);
-                                        }
+                                        remote_event::crash_player(g_selected.ped, pos);
                                     }
                                     remote_event::bail_player(g_selected.player);
 
@@ -812,77 +766,33 @@ namespace big
                                     }
                                     break;
                                 case 1:
-                                    if (PED::IS_PED_IN_ANY_VEHICLE(g_selected.ped, TRUE))
+                                    if (player::is_player_in_any_vehicle(g_selected.player))
                                     {
-                                        Vehicle e = PED::GET_VEHICLE_PED_IS_USING(g_selected.ped);
-
-                                        Vector3 coords = blip::get_blip_coords(Waypoint, WaypointColor);
-
-                                        if (systems::is_3d_vector_zero(coords))
-                                            return;
-
-                                        coords = teleport::GetGroundCoords(coords, 30);
-                                        *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                        network::request_control(e);
-                                        *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-                                        teleport::teleport_to_coords(e, coords);
+                                        teleport::teleport_to_marker(g_selected.player);
                                     }
                                     if (all_player)
                                     {
                                         for (int i = 0; i <= 32; i++)
                                         {
-                                            if (PED::IS_PED_IN_ANY_VEHICLE(player::get_player_ped(i), TRUE))
+                                            if (player::is_player_in_any_vehicle(i))
                                             {
-                                                Vehicle e = PED::GET_VEHICLE_PED_IS_USING(player::get_player_ped(i));
-
-                                                Vector3 coords = blip::get_blip_coords(Waypoint, WaypointColor);
-
-                                                if (systems::is_3d_vector_zero(coords))
-                                                    return;
-
-                                                coords = teleport::GetGroundCoords(coords, 30);
-                                                *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                                network::request_control(e);
-                                                *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-                                                teleport::teleport_to_coords(e, coords);
+                                                teleport::teleport_to_marker(i);
                                             }
                                         }
                                     }
                                     break;
                                 case 2:
-                                    if (PED::IS_PED_IN_ANY_VEHICLE(g_selected.ped, TRUE))
+                                    if (player::is_player_in_any_vehicle(g_selected.player))
                                     {
-                                        Vehicle e = PED::GET_VEHICLE_PED_IS_USING(g_selected.ped);
-
-                                        Vector3 coords = teleport::get_mission_blip();
-
-                                        if (systems::is_3d_vector_zero(coords))
-                                            return;
-
-                                        *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                        network::request_control(e);
-                                        *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-
-                                        teleport::teleport_to_coords(e, coords);
+                                        teleport::teleport_to_objective(g_selected.player);
                                     }
                                     if (all_player)
                                     {
                                         for (int i = 0; i <= 32; i++)
                                         {
-                                            if (PED::IS_PED_IN_ANY_VEHICLE(player::get_player_ped(i), TRUE))
+                                            if (player::is_player_in_any_vehicle(i))
                                             {
-                                                Vehicle e = PED::GET_VEHICLE_PED_IS_USING(player::get_player_ped(i));
-
-                                                Vector3 coords = teleport::get_mission_blip();
-
-                                                if (systems::is_3d_vector_zero(coords))
-                                                    return;
-
-                                                *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                                network::request_control(e);
-                                                *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-
-                                                teleport::teleport_to_coords(e, coords);
+                                                teleport::teleport_to_objective(i);
                                             }
                                         }
                                     }

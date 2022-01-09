@@ -133,11 +133,11 @@ namespace big::features
 	{
 		if (GetAsyncKeyState(g_settings.options["Teleport Waypoint"].get<int>()) & 0x8000)
 		{
-			teleport::teleport_to_marker();
+			teleport::teleport_to_marker(PLAYER::PLAYER_ID());
 		}
 		if (GetAsyncKeyState(g_settings.options["Teleport Objective"].get<int>()) & 0x8000)
 		{
-			teleport::teleport_to_objective();
+			teleport::teleport_to_objective(PLAYER::PLAYER_ID());
 		}
 		if (GetAsyncKeyState(g_settings.options["Clear Wanted Level"].get<int>()) & 0x8000)
 		{

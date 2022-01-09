@@ -481,28 +481,27 @@ namespace big
     {
         QUEUE_JOB_BEGIN_CLAUSE(=)
         {
-            //Vector3 player_coords = { Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0x30, 0x50 }), Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0x30, 0x54 }), Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0x30, 0x58 }) };
             auto ped = player::get_player_ped(player_target);
             Vector3 player_coords = ENTITY::GET_ENTITY_COORDS(ped, TRUE);
             auto heading = rage_helper::get_local_ped()->m_navigation->m_heading;
             player_coords.x = player_coords.x - (heading.y * player_list::DISTANCE_SPAWN);
             player_coords.y = player_coords.y + (heading.x * player_list::DISTANCE_SPAWN);
 
-            *script_global(2463533).at(7).at(0).as<float*>() = player_coords.x;
-            *script_global(2463533).at(7).at(1).as<float*>() = player_coords.y;
-            *script_global(2463533).at(7).at(2).as<float*>() = player_coords.z;
-            *script_global(2463533).at(27).at(66).as<uint32_t*>() = rage::joaat(name);
-            *script_global(2463533).at(27).at(28).as<int*>() = 1;
-            *script_global(2463533).at(27).at(95).as<int*>() = 14;
-            *script_global(2463533).at(27).at(94).as<int*>() = 2;
-            *script_global(2463533).at(27).at(5).as<int*>() = -1;
-            *script_global(2463533).at(27).at(6).as<int*>() = -1;
-            *script_global(2463533).at(5).as<bool*>() = true;
-            *script_global(2463533).at(2).as<bool*>() = true;
-            *script_global(2463533).at(3).as<bool*>() = pegasus;
-            *script_global(2463533).at(27).at(77).as<uint32_t*>() = 4030726305;
+            *script_global(g_global.request_model).at(7).at(0).as<float*>() = player_coords.x;
+            *script_global(g_global.request_model).at(7).at(1).as<float*>() = player_coords.y;
+            *script_global(g_global.request_model).at(7).at(2).as<float*>() = player_coords.z;
+            *script_global(g_global.request_model).at(27).at(66).as<uint32_t*>() = rage::joaat(name);
+            *script_global(g_global.request_model).at(27).at(28).as<int*>() = 1;
+            *script_global(g_global.request_model).at(27).at(95).as<int*>() = 14;
+            *script_global(g_global.request_model).at(27).at(94).as<int*>() = 2;
+            *script_global(g_global.request_model).at(27).at(5).as<int*>() = -1;
+            *script_global(g_global.request_model).at(27).at(6).as<int*>() = -1;
+            *script_global(g_global.request_model).at(5).as<bool*>() = true;
+            *script_global(g_global.request_model).at(2).as<bool*>() = true;
+            *script_global(g_global.request_model).at(3).as<bool*>() = pegasus;
+            *script_global(g_global.request_model).at(27).at(77).as<uint32_t*>() = 4030726305;
             script::get_current()->yield(1s);
-            Vehicle vehicle = *script_global(2544210).at(6610).as<Vehicle*>();
+            Vehicle vehicle = *script_global(g_global.vehicle_id).as<Vehicle*>();
             VEHICLE::_SET_VEHICLE_CAN_BE_LOCKED_ON(vehicle, FALSE, FALSE);
             VEHICLE::_SET_VEHICLE_MAX_SPEED(vehicle, 1.39f * VEHICLE::GET_VEHICLE_ESTIMATED_MAX_SPEED(vehicle));
             VEHICLE::MODIFY_VEHICLE_TOP_SPEED(vehicle, 1.39f);
