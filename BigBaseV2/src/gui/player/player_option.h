@@ -99,6 +99,12 @@ namespace big
 		static inline bool thermal_vision{};
 		static inline bool ghost_organizations{};
 		static inline bool auto_click{ false };
+		static inline bool waterproof{};
+		static inline bool is_ped_visible{};
+		static inline bool is_ped_aggressive{};
+		static inline bool is_ped_bodyguard{};
+		static inline bool is_force_applied{};
+
 	private:
 		static inline int request_tick = 0;
 		
@@ -112,7 +118,8 @@ namespace big
 		static void reset_appearance();
 
 		static void steal_outfit(Player player);
-
+	private:
+		static inline int fam{};
 	};
 	class spoofer
 	{
@@ -122,13 +129,22 @@ namespace big
 		static void player_level(bool Activation, int level);
 		static void player_money(bool activation, int money);
 	public:
+		static inline int rid_spoof{};
+		static inline int spoofer_type{};
+		static inline int stat_spoofer{};
+		static inline int rid_spoof_type{};
+		static inline char spoofed_name[20];
 		static inline bool money_spoofer{};
 		static inline bool level_spoofer{};
 		static inline bool crew_spoofer{};
 
 		static inline int spoofed_level{};
 		static inline int spoofed_money{};
-
+		static inline int rid{};
+		static inline uint8_t ip_1{};
+		static inline uint8_t ip_2{};
+		static inline uint8_t ip_3{};
+		static inline uint8_t ip_4{};
 
 	};
 

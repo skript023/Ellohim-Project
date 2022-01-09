@@ -8,7 +8,6 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "gui/controller/ScriptController.h"
-#include <gui/player_list.h>
 #include <gta/Weapons.h>
 #include <gui/weapons/weapon_helper.h>
 #include <gui/controller/game_variable.h>
@@ -430,8 +429,8 @@ namespace big
                 auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
                 auto heading = ENTITY::GET_ENTITY_ROTATION(entity, 2);
 
-                pos.x += player_list::DISTANCE_SPAWN * forward.x;
-                pos.y += player_list::DISTANCE_SPAWN * forward.y;
+                pos.x += DISTANCE_SPAWN * forward.x;
+                pos.y += DISTANCE_SPAWN * forward.y;
 
                 Hash hash_object = controller::load("prop_bank_vaultdoor");
                 MISC::GET_MODEL_DIMENSIONS(hash_object, &dim1, &dim2);

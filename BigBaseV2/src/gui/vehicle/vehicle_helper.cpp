@@ -4,7 +4,6 @@
 #include "gta_util.hpp"
 #include "gta/net_object_mgr.hpp"
 #include "script_global.hpp"
-#include "gui/player_list.h"
 #include "gui/controller/ScriptController.h"
 #include "gui/controller/system_control.h"
 #include "gui/controller/game_variable.h"
@@ -405,8 +404,8 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            pos.x += player_list::DISTANCE_SPAWN * forward.x;
-            pos.y += player_list::DISTANCE_SPAWN * forward.y;
+            pos.x += DISTANCE_SPAWN * forward.x;
+            pos.y += DISTANCE_SPAWN * forward.y;
             
             Hash hash_vehicle = controller::load(name);//load(name);
 
@@ -484,8 +483,8 @@ namespace big
             auto ped = player::get_player_ped(player_target);
             Vector3 player_coords = ENTITY::GET_ENTITY_COORDS(ped, TRUE);
             auto heading = rage_helper::get_local_ped()->m_navigation->m_heading;
-            player_coords.x = player_coords.x - (heading.y * player_list::DISTANCE_SPAWN);
-            player_coords.y = player_coords.y + (heading.x * player_list::DISTANCE_SPAWN);
+            player_coords.x = player_coords.x - (heading.y * DISTANCE_SPAWN);
+            player_coords.y = player_coords.y + (heading.x * DISTANCE_SPAWN);
 
             *script_global(g_global.request_model).at(7).at(0).as<float*>() = player_coords.x;
             *script_global(g_global.request_model).at(7).at(1).as<float*>() = player_coords.y;
@@ -668,8 +667,8 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            pos.x += player_list::DISTANCE_SPAWN * forward.x;
-            pos.y += player_list::DISTANCE_SPAWN * forward.y;
+            pos.x += DISTANCE_SPAWN * forward.x;
+            pos.y += DISTANCE_SPAWN * forward.y;
 
             Hash hash_vehicle = controller::load(vehicle_name);//load(name);
 

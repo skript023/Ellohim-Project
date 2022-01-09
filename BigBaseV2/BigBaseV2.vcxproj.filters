@@ -270,24 +270,6 @@
     <ClInclude Include="src\gui\player_information\player_information.h">
       <Filter>gui\player_information</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\online_menu.h">
-      <Filter>gui\game_tabbar</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\player_list.h">
-      <Filter>gui\game_tabbar</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\player_menu.h">
-      <Filter>gui\game_tabbar</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\setting_menu.h">
-      <Filter>gui\game_tabbar</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\vehicle_customize.h">
-      <Filter>gui\game_tabbar</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\vehicle_menu.h">
-      <Filter>gui\game_tabbar</Filter>
-    </ClInclude>
     <ClInclude Include="src\gui\controller\http_request.hpp">
       <Filter>gui\controller</Filter>
     </ClInclude>
@@ -305,6 +287,24 @@
     </ClInclude>
     <ClInclude Include="src\gui\window\window_logger.hpp">
       <Filter>gui\window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\game_tabbar\online_menu.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\game_tabbar\player_list.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\game_tabbar\player_menu.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\game_tabbar\setting_menu.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\game_tabbar\vehicle_customize.h">
+      <Filter>gui\game_tabbar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\game_tabbar\vehicle_menu.h">
+      <Filter>gui\game_tabbar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -388,24 +388,6 @@
     <ClCompile Include="src\gui\player_information\player_information.cpp">
       <Filter>gui\player_information</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\online_menu.cpp">
-      <Filter>gui\game_tabbar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\player_list.cpp">
-      <Filter>gui\game_tabbar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\player_menu.cpp">
-      <Filter>gui\game_tabbar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\setting_menu.cpp">
-      <Filter>gui\game_tabbar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\vehicle_customize.cpp">
-      <Filter>gui\game_tabbar</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gui\vehicle_menu.cpp">
-      <Filter>gui\game_tabbar</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\hooks\send_net_info_to_lobby.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
@@ -421,9 +403,6 @@
     <ClCompile Include="src\gui\hooks\disable_error_screen.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\custom_text\get_label_text.cpp">
-      <Filter>gui\hooks</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\hooks\received_event.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
@@ -435,6 +414,27 @@
     </ClCompile>
     <ClCompile Include="src\gui\window\window_logger.cpp">
       <Filter>gui\window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\get_label_text.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\game_tabbar\online_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\game_tabbar\player_list.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\game_tabbar\player_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\game_tabbar\setting_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\game_tabbar\vehicle_customize.cpp">
+      <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\game_tabbar\vehicle_menu.cpp">
+      <Filter>gui\game_tabbar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

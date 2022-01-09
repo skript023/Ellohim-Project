@@ -9,9 +9,9 @@
 #include "script_local.hpp"
 #include "hooking.hpp"
 #include "gui.hpp"
-#include "gui/player_list.h"
+#include "gui/game_tabbar/player_list.h"
 #include "gui/helper_function.hpp"
-#include "gui/player_menu.h"
+#include "gui/game_tabbar/player_menu.h"
 #include "gui/window/game_window.hpp"
 
     // auto vehicle = *(std::uintptr_t*)(local_ped + 0xD28);
@@ -120,7 +120,7 @@ namespace big::features
 		{
 			if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) && g_heist_option->all_take_heist)
 			{
-				casino_heist::all_heist_take(player_list::CasinoTake);
+				casino_heist::all_heist_take(g_variable->casino_take);
 			}
 			player::player_health_regeneration(g_settings.options["Fast Regen"]);
 			controller::TimeSpam(g_misc_option->time_spam);
@@ -164,7 +164,7 @@ namespace big::features
 			g_heist_option->all_take_heist = false;
 		}
 		chrono_loop(200ms);
-		player::set_player_waterproof(g_local.player, g_fitur.waterproof);
+		player::set_player_waterproof(g_local.player, g_player_option.waterproof);
 		player::set_player_no_clip(g_player_option.no_clip);
 		player::ghost_organization(g_player_option.ghost_organizations);
 		player::reveal_player(g_player_option.reveal_players);
@@ -179,16 +179,16 @@ namespace big::features
 		player::set_player_no_collision(g_player_option.pass_through_wall);
 		player::no_idle_kick(g_settings.options["No Idle Kick"]);
 		
-		weapon_helper::teleport_gun(g_fitur.teleport_gun);
-		weapon_helper::no_spread(g_fitur.spread_on);
-		weapon_helper::no_recoil(g_fitur.recoil_on);
+		weapon_helper::teleport_gun(g_weapon_option->teleport_gun_bool);
+		weapon_helper::no_spread(g_weapon_option->spread_on);
+		weapon_helper::no_recoil(g_weapon_option->recoil_on);
 		weapon_helper::rapid_fire(g_weapon_option->rapid_shoot);
 		weapon_helper::headshot_all_npc(g_weapon_option->auto_headshot);
-		weapon_helper::revenge(rage::joaat(var::revenge_list[g_item.weapon_hash]), g_item.weapon_hash != 0);
+		weapon_helper::revenge(rage::joaat(var::revenge_list[g_weapon_option->weapon_hash]), g_weapon_option->weapon_hash != 0);
 		WEAPON::SET_PED_INFINITE_AMMO_CLIP(PLAYER::PLAYER_PED_ID(), g_settings.options["Infinite Clip"]);
 		
 		weapon_helper::infinite_ammo(g_settings.options["Infinite Ammo"]);
-		weapon_helper::explosive_ammo(g_fitur.explosive_weapon, player::get_player_ped(g_selected.player));
+		weapon_helper::explosive_ammo(g_weapon_option->explosive_weapon, player::get_player_ped(g_selected.player));
 		weapon_helper::object_guns(g_weapon_option->object_gun);
 		weapon_helper::removal_gun(g_weapon_option->delete_gun);
 		weapon_helper::ghost_guns(g_weapon_option->ghost_gun);
@@ -228,15 +228,15 @@ namespace big::features
 		
 		WhenMenuLoaded();
 
-		*script_global(g_global.lester_cut).as<int*>() = g_fitur.remove_lester_cut ? 0 : 5;
+		*script_global(g_global.lester_cut).as<int*>() = g_heist_option->remove_lester_cut ? 0 : 5;
 
 		spoofer::player_level(g_spoofer_option->level_spoofer, g_spoofer_option->spoofed_level);
 		spoofer::player_money(g_spoofer_option->money_spoofer, g_spoofer_option->spoofed_money);
 		cayo_perico::set_heat_to_zero(g_heist_option->zero_heat);
 
-		if (g_item.rid != 0)
+		if (g_spoofer_option->rid != 0)
 		{
-			spoofer::player_scid(var::DataPlayerRID[g_item.rid]);
+			spoofer::player_scid(var::DataPlayerRID[g_spoofer_option->rid]);
 		}
 
 		if (g_gui.m_opened) 

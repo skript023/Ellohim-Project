@@ -40,7 +40,7 @@ namespace big
 		static inline bool infinite_ammo{};
 		static inline bool infinite_boost{};
 		static inline bool horn_boost{};
-
+		static inline int selected_vehicle{};
 	};
 
 	static class vehicle_helper_variable

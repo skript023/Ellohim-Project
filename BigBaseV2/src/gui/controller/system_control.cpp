@@ -8,7 +8,6 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "ScriptController.h"
-#include "gui/player_list.h"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"

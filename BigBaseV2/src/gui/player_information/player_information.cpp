@@ -14,7 +14,7 @@
 #include "misc/cpp/imgui_stdlib.h"
 #include "gui/helper_function.hpp"
 #include "player_information.h"
-#include "gui/player_list.h"
+#include "gui/game_tabbar/player_list.h"
 
 namespace big
 {
@@ -603,14 +603,14 @@ namespace big
                 }
                 if (SelectedOtherEvent == 5)
                 {
-                    ImGui::RadioButton(xorstr("Force Quit"), &g_fitur.disconnect_type, 0);
+                    ImGui::RadioButton(xorstr("Force Quit"), &g_remote_option->disconnect_type, 0);
                     ImGui::SameLine();
-                    ImGui::RadioButton(xorstr("Network Error"), &g_fitur.disconnect_type, 1);
+                    ImGui::RadioButton(xorstr("Network Error"), &g_remote_option->disconnect_type, 1);
                     ImGui::SameLine();
-                    ImGui::RadioButton(xorstr("DoS Attack"), &g_fitur.disconnect_type, 2);
+                    ImGui::RadioButton(xorstr("DoS Attack"), &g_remote_option->disconnect_type, 2);
 
-                    if (g_fitur.disconnect_type == 0)
-                        ImGui::Checkbox(xorstr("Force Quit All?"), &g_fitur.desktop_all);
+                    if (g_remote_option->disconnect_type == 0)
+                        ImGui::Checkbox(xorstr("Force Quit All?"), &g_remote_option->desktop_all);
                 }
                 if (SelectedOtherEvent == 6)
                 {
@@ -691,10 +691,10 @@ namespace big
                                 outfit::steal_outfit(g_selected.player);
                                 break;
                             case 5:
-                                switch (g_fitur.disconnect_type)
+                                switch (g_remote_option->disconnect_type)
                                 {
                                 case 0:
-                                    if (!g_fitur.desktop_all)
+                                    if (!g_remote_option->desktop_all)
                                     {
                                         if (ENTITY::DOES_ENTITY_EXIST(g_selected.ped))
                                         {
@@ -708,7 +708,7 @@ namespace big
                                             strcat(message, PLAYER::GET_PLAYER_NAME(g_selected.player));
                                         }
                                     }
-                                    if (g_fitur.desktop_all)
+                                    if (g_remote_option->desktop_all)
                                     {
                                         for (int i = 0; i <= 32; i++)
                                         {
@@ -811,7 +811,7 @@ namespace big
 
             ImGui::Checkbox(xorstr("Remote Bribe"), &g_remote_option->bribe_authority);
             ImGui::SameLine(200);
-            ImGui::Checkbox(xorstr("Give Explosive Ammo"), &g_fitur.explosive_weapon);
+            ImGui::Checkbox(xorstr("Give Explosive Ammo"), &g_weapon_option->explosive_weapon);
 
             if (network::network_is_host(g_local.player))
             {
@@ -980,7 +980,7 @@ namespace big
                                 };
                             });
                     }
-                    ImGui::Checkbox("Apply Force", &player_list::ApplyForce);
+                    ImGui::Checkbox("Apply Force", &g_player_option.is_force_applied);
                     ImGui::EndMenu();
                 }
                 ImGui::PopID();
@@ -1012,11 +1012,11 @@ namespace big
                     ImGui::Checkbox(xorstr("Godmode"), &g_toggle.godmode);
 
                     ImGui::PushItemWidth(250);
-                    ImGui::Combo(xorstr("##ListVeh"), &player_list::SelectedVehicle, var::VechicleList, IM_ARRAYSIZE(var::VechicleList)); // The second parameter is the label previewed before opening the combo.
+                    ImGui::Combo(xorstr("##ListVeh"), &g_vehicle_option->selected_vehicle, var::VechicleList, IM_ARRAYSIZE(var::VechicleList)); // The second parameter is the label previewed before opening the combo.
                     ImGui::PopItemWidth();
                     if (ImGui::Button(xorstr("Spawn Native")))
                     {
-                        vehicle_helper::vehicle(var::VechicleList[player_list::SelectedVehicle], g_selected.ped);
+                        vehicle_helper::vehicle(var::VechicleList[g_vehicle_option->selected_vehicle], g_selected.ped);
                     }
                     ImGui::SameLine();
                     if (ImGui::Checkbox(xorstr("Maxed Out"), g_settings.options["Full Upgrade Bool"].get<bool*>()))
@@ -1153,10 +1153,10 @@ namespace big
                             }
                         } QUEUE_JOB_END_CLAUSE
                     }
-                    ImGui::Checkbox(xorstr("Invisible Ped"), &player_list::IsVisible);
+                    ImGui::Checkbox(xorstr("Invisible Ped"), &g_player_option.is_ped_visible);
                     ImGui::SameLine();
-                    ImGui::Checkbox(xorstr("Aggresive Ped"), &player_list::AggressivePed);
-                    ImGui::Checkbox(xorstr("Body Guard"), &player_list::AsBodyGuard);
+                    ImGui::Checkbox(xorstr("Aggresive Ped"), &g_player_option.is_ped_aggressive);
+                    ImGui::Checkbox(xorstr("Body Guard"), &g_player_option.is_ped_bodyguard);
 
                     ImGui::EndMenu();
                 }

@@ -111,7 +111,8 @@ namespace big
 		static inline bool remote_off_the_radars{};
 		static inline bool bribe_authority{};
 		static inline bool revenge_event{};
-
+		static inline int disconnect_type{};
+		static inline bool desktop_all{};
 	};
 
 	class script_tester

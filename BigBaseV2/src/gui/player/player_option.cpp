@@ -8,7 +8,6 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "gui/controller/ScriptController.h"
-#include "gui/player_list.h"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "gui/player/player_option.h"
@@ -772,44 +771,44 @@ namespace big
         if (controller::cstrcmp(family, "HATS") || controller::cstrcmp(family, "GLASSES") || controller::cstrcmp(family, "EARS") || controller::cstrcmp(family, "WATCH") || controller::cstrcmp(family, "BRACELET"))
         {
             if (controller::cstrcmp(family, "HATS"))
-                big::player_list::fam = 0;
+                fam = 0;
             else if (controller::cstrcmp(family, "GLASSES"))
-                big::player_list::fam = 1;
+                fam = 1;
             else if (controller::cstrcmp(family, "EARS"))
-                big::player_list::fam = 2;
+                fam = 2;
             else  if (controller::cstrcmp(family, "WATCH"))
-                big::player_list::fam = 6;
+                fam = 6;
             else if (controller::cstrcmp(family, "BRACELET"))
-                big::player_list::fam = 7;
-            PED::SET_PED_PROP_INDEX(PLAYER::PLAYER_PED_ID(), big::player_list::fam, model - 1, texture, 1);
+                fam = 7;
+            PED::SET_PED_PROP_INDEX(PLAYER::PLAYER_PED_ID(), fam, model - 1, texture, 1);
         }
         else
         {
             if (controller::cstrcmp(family, "FACE"))
-                big::player_list::fam = 0;
+                fam = 0;
             else if (controller::cstrcmp(family, "MASK"))
-                big::player_list::fam = 1;
+                fam = 1;
             else if (controller::cstrcmp(family, "HAIR"))
-                big::player_list::fam = 2;
+                fam = 2;
             else if (controller::cstrcmp(family, "JACKET"))
-                big::player_list::fam = 3;
+                fam = 3;
             else if (controller::cstrcmp(family, "LEGS"))
-                big::player_list::fam = 4;
+                fam = 4;
             else if (controller::cstrcmp(family, "BACK"))
-                big::player_list::fam = 5;
+                fam = 5;
             else if (controller::cstrcmp(family, "SHOES"))
-                big::player_list::fam = 6;
+                fam = 6;
             else if (controller::cstrcmp(family, "ACCESSORY"))
-                big::player_list::fam = 7;
+                fam = 7;
             else if (controller::cstrcmp(family, "UNDERSHIRT"))
-                big::player_list::fam = 8;
+                fam = 8;
             else if (controller::cstrcmp(family, "KEVLAR"))
-                big::player_list::fam = 9;
+                fam = 9;
             else if (controller::cstrcmp(family, "BADGE"))
-                big::player_list::fam = 10;
+                fam = 10;
             else if (controller::cstrcmp(family, "TORSO2"))
-                big::player_list::fam = 11;
-            PED::SET_PED_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID(), big::player_list::fam, model, texture, 0);
+                fam = 11;
+            PED::SET_PED_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID(), fam, model, texture, 0);
         }
     }
 

@@ -23,35 +23,11 @@
 
 namespace big
 {
-	static class content
+	class variable
 	{
 	public:
-		static inline int weapon_hash{};
-		static inline int rid{};
-		static inline uint8_t ip_1{};
-		static inline uint8_t ip_2{};
-		static inline uint8_t ip_3{};
-		static inline uint8_t ip_4{};
-	} g_item;
-
-	static class fitur
-	{
-	public:
-		static inline bool explosive_weapon = false;
-		static inline int spoofer{};
-		static inline int rid_type{};
-		static inline int rid_spoof{};
-		static inline int stat_spoofer{};
-		static inline bool spread_on{};
-		static inline bool recoil_on{};
-		static inline bool teleport_gun{};
-		static inline bool remove_lester_cut{};
-		static inline bool desktop_all{};
-		static inline int disconnect_type{};
-		static inline bool waterproof{};
-		static inline bool testing{};
-	}g_fitur;
-
+		static inline int casino_take{};
+	};
 	static class hook_variable
 	{
 	public:
@@ -60,4 +36,7 @@ namespace big
 		static inline int32_t sync_type;
 		static inline int32_t sync_flag;
 	}g_hook_variable;
+
+	static variable* g_variable{};
+
 }

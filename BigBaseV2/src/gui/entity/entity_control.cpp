@@ -8,7 +8,6 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "gui/controller/ScriptController.h"
-#include "gui/player_list.h"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "gui/player/player_option.h"
@@ -113,15 +112,15 @@ namespace big
                     }
                     //ENTITY::ATTACH_ENTITY_TO_ENTITY(NewPed, g_selected.ped, SKEL_Spine0, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, FALSE, FALSE, FALSE, TRUE, 2, TRUE);
 
-                    if (big::player_list::IsVisible)
+                    if (g_player_option.is_ped_visible)
                     {
                         ENTITY::SET_ENTITY_VISIBLE(NewPed, FALSE, FALSE);
                     }
-                    else if (!big::player_list::IsVisible)
+                    else if (!g_player_option.is_ped_visible)
                     {
                         ENTITY::SET_ENTITY_VISIBLE(NewPed, TRUE, FALSE);
                     }
-                    if (big::player_list::AggressivePed)
+                    if (g_player_option.is_ped_aggressive)
                     {
                         PED::SET_PED_CAN_SWITCH_WEAPON(NewPed, true);
                         WEAPON::GIVE_DELAYED_WEAPON_TO_PED(NewPed, RAGE_JOAAT("WEAPON_MINIGUN"), 9999, TRUE);
@@ -130,7 +129,7 @@ namespace big
                         TASK::TASK_COMBAT_PED(NewPed, PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(g_selected.player), 0, 1);
                         PED::SET_PED_AS_COP(NewPed, TRUE);
                     }
-                    if (big::player_list::AsBodyGuard)
+                    if (g_player_option.is_ped_bodyguard)
                     {
                         Ped selectedplayer = PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(g_selected.player);
                         int my_group = PLAYER::GET_PLAYER_GROUP(selectedplayer);

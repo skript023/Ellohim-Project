@@ -44,6 +44,8 @@ namespace big
 		static inline bool send_heal{};
 		static inline bool all_take_heist{};
 		static inline bool zero_heat{};
+		static inline bool remove_lester_cut{};
+		static inline int casino_take{};
 	};
 
 	class casino_slot

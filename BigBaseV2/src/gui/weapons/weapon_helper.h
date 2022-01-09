@@ -49,7 +49,11 @@ namespace big
 		static inline bool auto_headshot{};
 		static inline bool object_gun{};
 		static inline bool ghost_gun{};
-
+		static inline bool teleport_gun_bool{};
+		static inline bool spread_on{};
+		static inline bool recoil_on{};
+		static inline int weapon_hash{};
+		static inline bool explosive_weapon{};
 	};
 
 	static class weapon_spread_attributes

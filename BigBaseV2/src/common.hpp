@@ -58,6 +58,8 @@
 
 #define PRODUCT_NAME "Ellohim"
 
+#define DISTANCE_SPAWN 10
+
 namespace big
 {
 	using namespace std::chrono_literals;

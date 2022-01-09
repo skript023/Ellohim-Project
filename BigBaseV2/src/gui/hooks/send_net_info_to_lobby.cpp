@@ -1,6 +1,5 @@
 #include "hooking.hpp"
 #include "gta_util.hpp"
-#include "gui/player_list.h"
 #include "gui/helper_function.hpp"
 
 namespace big
@@ -10,7 +9,7 @@ namespace big
 		rage::netAddress ip_address = *(rage::netAddress*)&rage_helper::get_local_playerinfo()->m_online_ip;
 		auto ip = fmt::format("IP : {}.{}.{}.{}", ip_address.m_field1, ip_address.m_field2, ip_address.m_field3, ip_address.m_field4);
 
-		uint8_t in[4] = { g_item.ip_4, g_item.ip_3, g_item.ip_3, g_item.ip_1 };
+		uint8_t in[4] = { g_spoofer_option->ip_4, g_spoofer_option->ip_3, g_spoofer_option->ip_3, g_spoofer_option->ip_1 };
 
 		auto name = std::string(local_player->m_name);
 		std::string name_real = g_pointers->m_real_name;
@@ -18,8 +17,9 @@ namespace big
 		
 		if (scid_real == local_player->m_rockstar_id)//
 		{
-			std::string spoof_name = player_list::NameSpoofer;
-			uint64_t spoof_scid = var::DataPlayerRID[g_fitur.rid_spoof];
+			std::string spoof_name;
+			strcmp((char*)spoof_name.c_str(), g_spoofer_option->spoofed_name);
+			uint64_t spoof_scid = var::DataPlayerRID[g_spoofer_option->rid_spoof];
 			uint32_t spoof_ip = *(uint32_t*)&in;
 			bool name_diff = !spoof_name.empty() && spoof_name != name;
 			bool scid_diff = spoof_scid != 0 && spoof_scid != local_player->m_rockstar_id;

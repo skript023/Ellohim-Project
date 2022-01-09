@@ -8,7 +8,6 @@
 #include "script_global.hpp"
 #include "features.hpp"
 #include "gui/controller/ScriptController.h"
-#include "gui/player_list.h"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "crossmap.hpp"
@@ -16,6 +15,7 @@
 #include "object.h"
 #include "gta/net_object_mgr.hpp"
 #include "gui/sync_hash.hpp"
+#include <gui\player\player_option.h>
 
 namespace big
 {
@@ -52,8 +52,8 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            pos.x += big::player_list::DISTANCE_SPAWN * forward.x;
-            pos.y += big::player_list::DISTANCE_SPAWN * forward.y;
+            pos.x += DISTANCE_SPAWN * forward.x;
+            pos.y += DISTANCE_SPAWN * forward.y;
 
             MISC::GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, pos.z, &pos.z, FALSE, FALSE);
 
@@ -71,7 +71,7 @@ namespace big
                     NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
             }
             ENTITY::SET_ENTITY_COLLISION(obj, TRUE, TRUE);
-            if (big::player_list::ApplyForce)
+            if (g_player_option.is_force_applied)
             {
                 ENTITY::APPLY_FORCE_TO_ENTITY(obj, 1, 150.0f, 180.0f, 200.0f, 20.0f, 20.0f, 50.0f, 0, FALSE, TRUE, TRUE, FALSE, TRUE);
             }
@@ -91,8 +91,8 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            pos.x += big::player_list::DISTANCE_SPAWN * forward.x;
-            pos.y += big::player_list::DISTANCE_SPAWN * forward.y;
+            pos.x += DISTANCE_SPAWN * forward.x;
+            pos.y += DISTANCE_SPAWN * forward.y;
 
             MISC::GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, pos.z, &pos.z, FALSE, FALSE);
 
@@ -110,7 +110,7 @@ namespace big
                     NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
             }
             ENTITY::SET_ENTITY_COLLISION(obj, TRUE, TRUE);
-            if (big::player_list::ApplyForce)
+            if (g_player_option.is_force_applied)
             {
                 ENTITY::APPLY_FORCE_TO_ENTITY(obj, 1, 150.0f, 180.0f, 200.0f, 20.0f, 20.0f, 50.0f, 0, FALSE, TRUE, TRUE, FALSE, TRUE);
             }

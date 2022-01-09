@@ -9,12 +9,12 @@
 #include "gta_util.hpp"
 
 //Gui Tab Renderer
-#include "gui/player_list.h"
-#include "gui/vehicle_menu.h"
-#include "gui/setting_menu.h"
-#include "gui/online_menu.h"
-#include "gui/player_menu.h"
-#include "gui/vehicle_customize.h"
+#include "gui/game_tabbar/player_list.h"
+#include "gui/game_tabbar/vehicle_menu.h"
+#include "gui/game_tabbar/setting_menu.h"
+#include "gui/game_tabbar/online_menu.h"
+#include "gui/game_tabbar/player_menu.h"
+#include "gui/game_tabbar/vehicle_customize.h"
 #include "gui/window/window_logger.hpp"
 
 namespace big
