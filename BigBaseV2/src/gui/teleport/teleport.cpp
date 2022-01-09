@@ -45,23 +45,48 @@ namespace big
     bool teleport::load_ground(Vector3& coords)
     {
         float ground;
-        for (int i = 0; i < 20; ++i)
+        if (!first_attempt)
         {
-            for (float z = 0.f; z <= 1000.f; z += 100.f)
+            for (int i = 0; i < 20; ++i)
             {
-                STREAMING::REQUEST_COLLISION_AT_COORD(coords.x, coords.y, z);
+                for (float z = 0.f; z <= 1000.f; z += 100.f)
+                {
+                    STREAMING::REQUEST_COLLISION_AT_COORD(coords.x, coords.y, z);
+
+                    script::get_current()->yield();
+                }
+
+                if (MISC::GET_GROUND_Z_FOR_3D_COORD(coords.x, coords.y, 1000.f, &ground, false, false))
+                {
+                    coords.z = ground + 2.f;
+
+                    return true;
+                }
 
                 script::get_current()->yield();
             }
-
-            if (MISC::GET_GROUND_Z_FOR_3D_COORD(coords.x, coords.y, 1000.f, &ground, false, false))
+            first_attempt = true;
+        }
+        else if (first_attempt)
+        {
+            for (int i = 0; i < 10; ++i)
             {
-                coords.z = ground + 2.f;
+                for (float z = 0.f; z <= 1000.f; z += 100.f)
+                {
+                    STREAMING::REQUEST_COLLISION_AT_COORD(coords.x, coords.y, z);
 
-                return true;
+                    script::get_current()->yield();
+                }
+
+                if (MISC::GET_GROUND_Z_FOR_3D_COORD(coords.x, coords.y, 1000.f, &ground, false, false))
+                {
+                    coords.z = ground + 2.f;
+
+                    return true;
+                }
+
+                script::get_current()->yield();
             }
-
-            script::get_current()->yield();
         }
 
         return false;
@@ -140,7 +165,7 @@ namespace big
 
             load_ground(coords);
 
-            auto e = player::is_player_in_any_vehicle(player) ? player::get_player_vehicle(player, false) : player::get_player_ped(player);
+            auto e = player::is_player_in_any_vehicle(player) ? player::get_player_vehicle(player::get_player_ped(player), true) : player::get_player_ped(player);
 
             if (player::is_player_in_any_vehicle(player))
             {
@@ -162,7 +187,7 @@ namespace big
             if (systems::is_3d_vector_zero(coords))
                 return;
 
-            auto e = player::is_player_in_any_vehicle(player) ? player::get_player_vehicle(player, false) : player::get_player_ped(player);
+            auto e = player::is_player_in_any_vehicle(player) ? player::get_player_vehicle(player::get_player_ped(player), true) : player::get_player_ped(player);
 
             if (player::is_player_in_any_vehicle(player))
             {
@@ -179,7 +204,7 @@ namespace big
     void teleport::teleport_to_player(Player source_player, Player target_player)
     {
         auto pos = player::get_player_coords(target_player);
-        auto e = player::is_player_in_any_vehicle(source_player) ? player::get_player_vehicle(source_player, false) : player::get_player_ped(source_player);
+        auto e = player::is_player_in_any_vehicle(source_player) ? player::get_player_vehicle(player::get_player_ped(source_player), false) : player::get_player_ped(source_player);
         if (ENTITY::IS_ENTITY_A_VEHICLE(e))
         {
             *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;

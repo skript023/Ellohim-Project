@@ -17,6 +17,8 @@ namespace big
 		static void teleport_to_objective(Player player);
 		static void teleport_to_player(Player source_player, Player target_player);
 		static void teleport_to_player_vehicle(Player player);
+	private:
+		static inline bool first_attempt{ false };
 	};
 
 	class blip

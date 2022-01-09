@@ -46,7 +46,7 @@ namespace big
                         if (ImGui::Selectable(players_name, i == g_selected.player))
                         {
                             g_selected.player = i;
-                            g_misc_option->http_response_tick = 0;
+                            g_misc_option->trigger_player_info_from_ip = (std::chrono::high_resolution_clock::now().time_since_epoch().count() + g_misc_option->http_response_tick.time_since_epoch().count()) >= std::chrono::milliseconds(400ms).count();
                         }
                     }
                 }

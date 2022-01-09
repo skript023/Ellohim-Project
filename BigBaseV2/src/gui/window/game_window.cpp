@@ -101,6 +101,7 @@ namespace big
 					LOG(HACKER) << "Request failed, error: " << e.what();
 					is_auth = false;
 				}
+				get_session_time = std::chrono::high_resolution_clock::now();
 			}
 		}
 	}

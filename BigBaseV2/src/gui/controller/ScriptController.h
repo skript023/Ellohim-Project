@@ -44,7 +44,8 @@ namespace big
 		static inline std::string region{ "Unidentified" };
 		static inline bool proxy{ false };
 		static inline nlohmann::json http_result{};
-		static inline int http_response_tick = 0;
+		static inline bool trigger_player_info_from_ip{};
+		static inline std::chrono::steady_clock::time_point http_response_tick;
 		static inline const char* player_names[32];
 	};
 	static class player_info
@@ -61,9 +62,6 @@ namespace big
 			static inline Hash StreetNameHash{};
 			static inline Hash CrossingRoadHash{};
 	}g_info;
-
-	extern bool isSpectatingMe(Player player);
-	
 	extern void Notification(const char* Meesage);
 
 	inline static controller* g_misc_option{};

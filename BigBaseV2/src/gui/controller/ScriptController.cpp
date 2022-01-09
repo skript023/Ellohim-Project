@@ -21,25 +21,26 @@ namespace big
 {
     bool ScriptStatus;
 
-    std::vector<uint64_t> GetPlayerNetworkHandle(Player player) {
+    std::vector<uint64_t> get_player_network_handle(Player player) {
         const int size = 13;
         uint64_t* buffer = std::make_unique<uint64_t[]>(size).get();
         NETWORK::NETWORK_HANDLE_FROM_PLAYER(player, reinterpret_cast<int*>(buffer), 13);
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++)
+        {
             LOG(INFO) << "network handle: " << i << " : " << buffer[i];
         }
         std::vector<uint64_t> result(buffer, buffer + sizeof(buffer));
         return result;
     }
     
-    bool isSpectatingMe(Player player)
+    bool is_player_spectating(Player player)
     {
-        const int HandleSize = 76;
-        int Networkhandle[76];
-        NETWORK::NETWORK_HANDLE_FROM_PLAYER(player, &Networkhandle[0], HandleSize);
-        if (NETWORK::NETWORK_IS_HANDLE_VALID(&Networkhandle[0], HandleSize))
+        const int handle_size = 76;
+        int network_handle[handle_size];
+        NETWORK::NETWORK_HANDLE_FROM_PLAYER(player, &network_handle[0], handle_size);
+        if (NETWORK::NETWORK_IS_HANDLE_VALID(&network_handle[0], handle_size))
         {
-            return NETWORK::NETWORK_IS_ACTIVITY_SPECTATOR_FROM_HANDLE(&Networkhandle[0]);
+            return NETWORK::NETWORK_IS_ACTIVITY_SPECTATOR_FROM_HANDLE(&network_handle[0]);
         }
         return false;
     }
@@ -77,18 +78,18 @@ namespace big
 
     void controller::ptfx_asset_load(const char* name)
     {
-        STREAMING::REQUEST_NAMED_PTFX_ASSET(name);
         while (!STREAMING::HAS_NAMED_PTFX_ASSET_LOADED(name))
         {
+            STREAMING::REQUEST_NAMED_PTFX_ASSET(name);
             script::get_current()->yield();
         }
     }
 
     const char* controller::load_anim(const char* anim)
     {
-        STREAMING::REQUEST_ANIM_DICT(anim);
         while (!STREAMING::HAS_ANIM_DICT_LOADED(anim))
         {
+            STREAMING::REQUEST_ANIM_DICT(anim);
             script::get_current()->yield();
         }
         return anim;
@@ -114,7 +115,6 @@ namespace big
             if (*g_pointers->m_is_session_started)
             {
                 NETWORK::NETWORK_OVERRIDE_CLOCK_TIME(hour, min, CLOCK::GET_CLOCK_SECONDS());
-                //g_pointers->m_set_lobby_time(1, 0);
             }
             else
             {
@@ -132,7 +132,6 @@ namespace big
                 NETWORK::NETWORK_OVERRIDE_CLOCK_TIME(12, CLOCK::GET_CLOCK_MINUTES(), CLOCK::GET_CLOCK_SECONDS());
                 script::get_current()->yield(1s);
                 NETWORK::NETWORK_OVERRIDE_CLOCK_TIME(0, CLOCK::GET_CLOCK_MINUTES(), CLOCK::GET_CLOCK_SECONDS());
-                //g_pointers->m_set_lobby_time(1, 0);
             }
             else
             {
@@ -235,12 +234,14 @@ namespace big
 
     void controller::get_player_info_from_ip(Player player)
     {
-        if (http_response_tick == 10)
+        http_response_tick = std::chrono::high_resolution_clock::now();
+        if ((std::chrono::high_resolution_clock::now() - http_response_tick).count() >= std::chrono::milliseconds(500ms).count() || trigger_player_info_from_ip)
         {
             try
             {
                 if (!strcmp(player::get_player_ip(player).c_str(), "0.0.0.0") == 0)
                 {
+                    trigger_player_info_from_ip = false;
                     http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(player)) };
 
                     // send a get request
@@ -258,11 +259,8 @@ namespace big
             {
                 LOG(HACKER) << "Request failed, error: " << e.what();
             }
+            http_response_tick = std::chrono::high_resolution_clock::now();
         }
-
-        if (http_response_tick >= 500)
-            http_response_tick = 0;
-        http_response_tick++;
     }
 
     void controller::variable_attach()
@@ -307,7 +305,6 @@ namespace big
         g_info.player_armour = PED::GET_PED_ARMOUR(g_selected.ped);
         g_info.player_max_armour = PLAYER::GET_PLAYER_MAX_ARMOUR(g_selected.player);
         g_info.PlayerPosition = ENTITY::GET_ENTITY_COORDS(g_selected.ped, FALSE);
-        g_info.isSpectating = isSpectatingMe(g_selected.player);
         g_info.PlayerZone = HUD::_GET_LABEL_TEXT(ZONE::GET_NAME_OF_ZONE(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z));
         PATHFIND::GET_STREET_NAME_AT_COORD(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z, &g_info.StreetNameHash, &g_info.CrossingRoadHash);
         g_info.PlayerStreet = HUD::GET_STREET_NAME_FROM_HASH_KEY(g_info.StreetNameHash);
