@@ -28,7 +28,7 @@ namespace big
 		static inline std::string username_hash{};
 		static inline std::string password_hash{};
 		static inline bool is_auth{ true };
-		static std::chrono::steady_clock::time_point get_session_time;
+		static inline std::chrono::steady_clock::time_point get_session_time;
 		static inline bool is_session_returned{ false };
 		static inline Hash status_check{ 0 };
 	};
