@@ -2,6 +2,9 @@
 A mod menu base for Grand Theft Auto V.
 Strictly for educational purposes.
 
+##Note
+* Fmtlib must be changed to C++ 20 Standard
+
 ## Features
 * ImGui–based user interface
 * Unloading at runtime
@@ -19,7 +22,6 @@ To build BigBaseV2 you need:
 To set up the build environment, run the following commands in a terminal:
 ```dos
 git clone https://github.com/skript023/Ellohim-Project.git --recurse-submodules
-cd BigBaseV2-fix
 GenerateProjects.bat
 ```
 Now, you will be able to open the solution, and simply build it in Visual Studio.
