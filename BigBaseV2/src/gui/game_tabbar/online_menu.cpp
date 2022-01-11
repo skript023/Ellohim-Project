@@ -100,7 +100,7 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Time Spam"), &g_misc_option->time_spam);
             ImGui::SameLine(400);
-            ImGui::Checkbox(xorstr("NPC HeadShot"), &g_weapon_option->auto_headshot);
+            ImGui::Checkbox(xorstr("NPC HeadShot"), &g_weapon_option.auto_headshot);
 
             if (ImGui::Button(xorstr("Load North Yankton"), ImVec2(200, 0)))
             {
@@ -171,23 +171,23 @@ namespace big
             {
                 g_fiber_pool->queue_job([] {
                     int flags = *script_global(g_global.drone).as<int*>();
-                    flags = Memory::Set_Bit(flags, 2);
-                    flags = Memory::Set_Bit(flags, 22);
-                    flags = Memory::Set_Bit(flags, 23);
-                    flags = Memory::Set_Bit(flags, 24);
+                    flags = memory_util::set_bit(flags, 2);
+                    flags = memory_util::set_bit(flags, 22);
+                    flags = memory_util::set_bit(flags, 23);
+                    flags = memory_util::set_bit(flags, 24);
                     *script_global(g_global.drone).as<int*>() = flags;
                     script::get_current()->yield(200ms);
                     flags = *script_global(g_global.drone).as<int*>();
-                    flags = Memory::Clear_Bit(flags, 2);
-                    flags = Memory::Clear_Bit(flags, 22);
-                    flags = Memory::Clear_Bit(flags, 23);
+                    flags = memory_util::clear_bit(flags, 2);
+                    flags = memory_util::clear_bit(flags, 22);
+                    flags = memory_util::clear_bit(flags, 23);
                     *script_global(g_global.drone).as<int*>() = flags;
                     });
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Remove Insurance"), ImVec2(200, 0)))
             {
-                vehicle_helper::claim_insurance();
+                vehicle_helper::claim_insurance_for_all_vehicle();
             }
 
             ImGui::PushItemWidth(250.f);
@@ -212,7 +212,7 @@ namespace big
                     break;
                 }
             }
-            ImGui::Combo(xorstr("Revenger"), &g_weapon_option->weapon_hash, var::revenge_list, IM_ARRAYSIZE(var::revenge_list));
+            ImGui::Combo(xorstr("Revenger"), &g_weapon_option.weapon_hash, game_variable::revenge_list, IM_ARRAYSIZE(game_variable::revenge_list));
             ImGui::PopItemWidth();
             //ImGui::MenuItem("Menu item", "CTRL+M");
             if (ImGui::CollapsingHeader(xorstr("Misc")))
@@ -320,7 +320,7 @@ namespace big
                         *script_local(cayo, m_local.finger_clone).as<int*>() += 1;
                     }
 
-                    if (auto casino = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    if (auto casino = rage_helper::find_script_thread(RAGE_JOAAT("fm_missifon_controller")))
                     {
                         *script_local(casino, m_local.finger_print).as<int*>() += 1;
                         *script_local(casino, m_local.door_hack).as<int*>() += 1;
@@ -1502,7 +1502,7 @@ namespace big
                 {
                 case 0:
                     ImGui::Text(xorstr("Instant RID Spoof"));
-                    if (ImGui::Combo(xorstr("##InstantRIDSpoof"), &g_spoofer_option->rid, var::DataPlayer, IM_ARRAYSIZE(var::DataPlayer)))
+                    if (ImGui::Combo(xorstr("##InstantRIDSpoof"), &g_spoofer_option->rid, game_variable::player_data_list, IM_ARRAYSIZE(game_variable::player_data_list)))
                     {
                         if (g_spoofer_option->rid == 0)
                             rage_helper::get_local_playerinfo()->m_rockstar_id = *g_pointers->m_player_rid;
@@ -1510,7 +1510,7 @@ namespace big
                     break;
                 case 1:
                     ImGui::Text(xorstr("Network RID Spoof"));
-                    ImGui::Combo(xorstr("##InstantRIDSpoof"), &g_spoofer_option->rid_spoof, var::DataPlayer, IM_ARRAYSIZE(var::DataPlayer));
+                    ImGui::Combo(xorstr("##InstantRIDSpoof"), &g_spoofer_option->rid_spoof, game_variable::player_data_list, IM_ARRAYSIZE(game_variable::player_data_list));
                     break;
                 }
             }

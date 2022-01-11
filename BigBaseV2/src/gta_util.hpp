@@ -129,71 +129,107 @@ namespace big::rage_helper
 	}
 }
 
-namespace big::Memory
+namespace big
 {
-	inline uintptr_t get_multilayer_pointer(uintptr_t base_address, std::vector<DWORD> offsets)
+	class memory_util
 	{
-		uintptr_t ptr = *(uintptr_t*)(base_address);
-		if (!ptr) {
-
-			return NULL;
-		}
-		auto level = offsets.size();
-
-		for (auto i = 0; i < level; i++)
+	public:
+		static inline uintptr_t get_multilayer_pointer(uintptr_t base_address, std::vector<DWORD> offsets)
 		{
-			if (i == level - 1)
-			{
-				ptr += offsets[i];
-				if (!ptr) return NULL;
-				return ptr;
+			uintptr_t ptr = *(uintptr_t*)(base_address);
+			if (!ptr) {
+
+				return NULL;
 			}
-			else
+			auto level = offsets.size();
+
+			for (auto i = 0; i < level; i++)
 			{
-				ptr = *(uint64_t*)(ptr + offsets[i]);
-				if (!ptr) return NULL;
+				if (i == level - 1)
+				{
+					ptr += offsets[i];
+					if (!ptr) return NULL;
+					return ptr;
+				}
+				else
+				{
+					ptr = *(uint64_t*)(ptr + offsets[i]);
+					if (!ptr) return NULL;
+				}
 			}
+
+			return ptr;
 		}
 
-		return ptr;
-	}
+		template <typename T>
+		static inline T get_value(uintptr_t BaseAddress, std::vector<DWORD> offsets)
+		{
 
-	template <typename T>
-	inline T get_value(uintptr_t BaseAddress, std::vector<DWORD> offsets)
-	{
+			uintptr_t Addr = get_multilayer_pointer(BaseAddress, offsets);
+			if (Addr == NULL) {
+				return NULL;
+			}
 
-		uintptr_t Addr = get_multilayer_pointer(BaseAddress, offsets);
-		if (Addr == NULL) {
-			return NULL;
+			return *((T*)Addr);
 		}
 
-		return *((T*)Addr);
-	}
+		template <typename T>
+		static inline void set_value(uintptr_t BaseAddress, std::vector<DWORD> offsets, T value)
+		{
+			uintptr_t Addr = get_multilayer_pointer(BaseAddress, offsets);
+			if (Addr == NULL) {
+				return;
+			}
 
-	template <typename T>
-	inline void set_value(uintptr_t BaseAddress, std::vector<DWORD> offsets, T value)
-	{
-		uintptr_t Addr = get_multilayer_pointer(BaseAddress, offsets);
-		if (Addr == NULL) {
-			return;
+			*reinterpret_cast<T*>(Addr) = value;
 		}
 
-		*reinterpret_cast<T*>(Addr) = value;
-	}
+		static inline bool is_bit_set(int _value, int _bit)
+		{
+			if ((_value >> _bit) & 1LL) return true;
+			return false;
+		}
 
-	inline bool Is_Bit_Set(int _value, int _bit)
-	{
-		if ((_value >> _bit) & 1LL) return true;
-		return false;
-	}
+		static inline int set_bit(int _value, int _bit)
+		{
+			return _value |= 1LL << _bit;
+		}
 
-	inline int Set_Bit(int _value, int _bit)
-	{
-		return _value |= 1LL << _bit;
-	}
+		static inline int clear_bit(int _value, int _bit)
+		{
+			return _value &= ~(1LL << _bit);
+		}
 
-	inline int Clear_Bit(int _value, int _bit)
-	{
-		return _value &= ~(1LL << _bit);
-	}
+		static inline bool is_bit_set(int* addr, int _bit)
+		{
+			if ((*addr >> _bit) & 1LL) return true;
+			return false;
+		}
+
+		static inline int set_bit(int* addr, int _bit)
+		{
+			return *addr |= 1LL << _bit;
+		}
+
+		static inline int clear_bit(int* addr, int _bit)
+		{
+			return *addr &= ~(1LL << _bit);
+		}
+
+		static inline bool has_flag(int* addr, int flag)
+		{
+			if ((*addr & flag) == flag) return true;
+			return false;
+		}
+
+		static inline int set_flag(int* addr, int flag)
+		{
+			return *addr = flag;
+		}
+
+		static inline int clear_flag(int* addr, int flag)
+		{
+			return *addr &= ~(flag);
+		}
+	};
 }

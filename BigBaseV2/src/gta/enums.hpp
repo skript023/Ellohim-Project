@@ -1866,6 +1866,29 @@ enum class ePedTask :int32_t
 	TASK_DRIVING = 1 << 6
 };
 
+/*
+Bounty = 1294995624,
+CeoBan = -764524031,
+CeoKick = 248967238,
+CeoMoney = 1890277845,
+ClearWantedLevel = -91354030,
+FakeDeposit = 677240627,
+ForceMission = 2020588206,
+GtaBanner = 1572255940,
+PersonalVehicleDestroyed = 802133775,
+RemoteOffradar = -391633760,
+RotateCam = 801199324,
+SendToCutscene = 1068259786,
+SendToIsland = -621279188,
+SoundSpam = 1132878564,
+Spectate = -1113591308,
+Teleport = 603406648,
+TransactionError = -1704141512,
+VehicleKick = 578856274,
+InfiniteLoading = -545396442,
+RemoteOTR = 1722873242
+*/
+
 enum event_hashes : int32_t
 {
 	CEO_BAN = -764524031,
@@ -1891,7 +1914,7 @@ enum event_hashes : int32_t
 	FAKE_STEAL = -2106994199,
 	TAKE_PASIFIC = -1684231978,
 	TAKE_CASINO = -1713379749,
-	TAKE_CAYO = -1264900797,//1073952270
+	TAKE_CAYO = -870807855, //-1264900797,//1073952270
 	BAIL_NETWORK = 1228916411,
 
 	KICK_1 = -1308840134,
@@ -1963,4 +1986,16 @@ enum turn_light : int32_t
 	Left,
 	Right,
 	Duo
+};
+
+enum InsuranceFlag
+{
+	TRIGGER_SPAWN_TOGGLE = 1 << 0,
+	DESTROYED = 1 << 1,
+	HAS_INSURANCE = 1 << 2,
+	UNK0 = 1 << 3,
+	IMPOUNDED = 1 << 6,
+	UNK1 = 1 << 10,
+	SPAWN_AT_MORS_MUTUAL = 1 << 11,
+	UNK3 = 1 << 16
 };

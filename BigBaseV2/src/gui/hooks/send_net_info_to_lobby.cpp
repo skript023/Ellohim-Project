@@ -19,7 +19,7 @@ namespace big
 		{
 			std::string spoof_name;
 			strcmp((char*)spoof_name.c_str(), g_spoofer_option->spoofed_name);
-			uint64_t spoof_scid = var::DataPlayerRID[g_spoofer_option->rid_spoof];
+			uint64_t spoof_scid = game_variable::player_rid_list[g_spoofer_option->rid_spoof];
 			uint32_t spoof_ip = *(uint32_t*)&in;
 			bool name_diff = !spoof_name.empty() && spoof_name != name;
 			bool scid_diff = spoof_scid != 0 && spoof_scid != local_player->m_rockstar_id;

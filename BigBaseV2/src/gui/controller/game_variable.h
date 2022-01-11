@@ -14,24 +14,24 @@ namespace big
 		uint64_t s;
 		uint64_t ms;
 	};
-	class var
+
+	class game_variable
 	{
 	public:
 		static const int penthouse_shop[348];
-		static int tbl_business[5][4][1];
 		static std::string character_packed_hash[3499];
 		static std::string all_packed_hash[15];
 		static const char* const tuner_update[19];
 		static std::string character_stat_hash[7425];
 		static std::string all_stat_hash[401];
-		static const int KickHash[61];
-		static const char* const PickupHash[112];
-		static const char* const ObjectList[2615];
-		static const char* const AllWeaponHashes[96];
-		static const char* const AllComponentHashes[338];
-		static const char* const VechicleList[751];//720
-		static const char* const PedList[671];
-		static const char* const VehicleCategory[31];
+		static const int kick_hash_list[61];
+		static const char* const pickup_hash_list[112];
+		static const char* const object_hash_list[2615];
+		static const char* const weapon_hash_list[96];
+		static const char* const weapon_component_list[338];
+		static const char* const vehicle_hash_list[751];//720
+		static const char* const ped_hash_list[671];
+		static const char* const vehicle_category_list[31];
 		static const char* const the_contract[15];
 		static const char* const Boat[20];
 		static const char* const Commericals[17];
@@ -61,17 +61,17 @@ namespace big
 		static const char* const Casino2[20];
 		static const char* const SummerUpdate[15];
 		static const char* const CayoPerico[21];
-		static const char* const ExplosionList[36];
-		static const char* const DataPlayer[66];
-		static const uint64_t DataPlayerRID[66];
-		static const char* const ShootWeapon[7];
-		static const char* const TeleportList[7];
-		static const char* const Treasure_Hunt[3];
-		static const char* const CasinoHeistCoords[16];
-		static const char* const CayoPericoHeistCoords[18];
-		static const char* const PlayingCard[55];
-		static const char* const NavyRevolver[10];
-		static const char* const MovieProp[6];
+		static const char* const explosion_list[36];
+		static const char* const player_data_list[66];
+		static const uint64_t player_rid_list[66];
+		static const char* const shoot_troll_list[7];
+		static const char* const teleport_list[7];
+		static const char* const treasure_hunt_list[3];
+		static const char* const casino_coords_list[16];
+		static const char* const cayo_perico_coords_list[18];
+		static const char* const playing_card_list[55];
+		static const char* const navy_revolver_list[10];
+		static const char* const movie_prop_list[6];
 		static const char* const ListFlag[8];
 		static const char* const revenge_list[93];
 		static std::map<int, std::string> List_Vehicle_Flags_1;
@@ -81,8 +81,10 @@ namespace big
 		static std::map<int, std::string> List_Vehicle_Flags_5;
 		static std::map<int, std::string> List_Vehicle_Flags_6;
 		static std::map<int, std::string> List_Vehicle_Flags_7;
-		static const char* const ImpactList[75];
+		static const char* const impact_list[75];
 		static Hash weapon_shotgun[8];
+		static const char* const apartment_list[117];
+		static const int apartment_id[117];
 	private:
 	};
 	static class local_data

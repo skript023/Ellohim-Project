@@ -55,11 +55,6 @@ namespace big::features
         return false;
     }
 
-	bool IsPlayerInsideVehicle()
-	{
-		return Memory::get_value<bool>(g_ptr.WorldPTR, {0x8, 0xE52}); //*(bool*)((DWORD64)WorldPTR->m_local_ped + 0xE52);
-	}
-
 	Vector3 GetCoordsInfrontOfCam(float distance)
 	{
 		Vector3 GameplayCamRot = CAM::GET_GAMEPLAY_CAM_ROT(2);
@@ -179,24 +174,24 @@ namespace big::features
 		player::set_player_no_collision(g_player_option.pass_through_wall);
 		player::no_idle_kick(g_settings.options["No Idle Kick"]);
 		
-		weapon_helper::teleport_gun(g_weapon_option->teleport_gun_bool);
-		weapon_helper::no_spread(g_weapon_option->spread_on);
-		weapon_helper::no_recoil(g_weapon_option->recoil_on);
-		weapon_helper::rapid_fire(g_weapon_option->rapid_shoot);
-		weapon_helper::headshot_all_npc(g_weapon_option->auto_headshot);
-		weapon_helper::revenge(rage::joaat(var::revenge_list[g_weapon_option->weapon_hash]), g_weapon_option->weapon_hash != 0);
+		weapon_helper::teleport_gun(g_weapon_option.teleport_gun_bool);
+		weapon_helper::no_spread(g_weapon_option.spread_on);
+		weapon_helper::no_recoil(g_weapon_option.recoil_on);
+		weapon_helper::rapid_fire(g_weapon_option.rapid_shoot);
+		weapon_helper::headshot_all_npc(g_weapon_option.auto_headshot);
+		weapon_helper::revenge(rage::joaat(game_variable::revenge_list[g_weapon_option.weapon_hash]), g_weapon_option.weapon_hash != 0);
 		WEAPON::SET_PED_INFINITE_AMMO_CLIP(PLAYER::PLAYER_PED_ID(), g_settings.options["Infinite Clip"]);
 		
 		weapon_helper::infinite_ammo(g_settings.options["Infinite Ammo"]);
-		weapon_helper::explosive_ammo(g_weapon_option->explosive_weapon, player::get_player_ped(g_selected.player));
-		weapon_helper::object_guns(g_weapon_option->object_gun);
-		weapon_helper::removal_gun(g_weapon_option->delete_gun);
-		weapon_helper::ghost_guns(g_weapon_option->ghost_gun);
+		weapon_helper::explosive_ammo(g_weapon_option.explosive_weapon, player::get_player_ped(g_selected.player));
+		weapon_helper::object_guns(g_weapon_option.object_gun);
+		weapon_helper::removal_gun(g_weapon_option.delete_gun);
+		weapon_helper::ghost_guns(g_weapon_option.ghost_gun);
 		
-		weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->explosives_ammo);
-		weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->fire_ammo);
-		weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->super_jump);
-		weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), g_weapon_option->explosive_fist);
+		weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosives_ammo);
+		weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.fire_ammo);
+		weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.super_jump);
+		weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosive_fist);
 		
 		remote_event::revenge_kick(g_remote_option->revenge_event);
 		remote_event::remote_blind_cops(g_remote_option->bribe_authority);
@@ -236,7 +231,7 @@ namespace big::features
 
 		if (g_spoofer_option->rid != 0)
 		{
-			spoofer::player_scid(var::DataPlayerRID[g_spoofer_option->rid]);
+			spoofer::player_scid(game_variable::player_rid_list[g_spoofer_option->rid]);
 		}
 
 		if (g_gui.m_opened) 

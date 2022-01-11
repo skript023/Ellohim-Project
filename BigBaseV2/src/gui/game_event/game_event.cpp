@@ -199,7 +199,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-                for (int64_t KickEvent : var::KickHash)
+                for (int64_t KickEvent : game_variable::kick_hash_list)
                 {
                     int64_t kick[2] = { KickEvent, g_local.player };
                     SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick, 2, 1 << player);
@@ -252,11 +252,11 @@ namespace big
         });
     }
 
-    void remote_event::force_invite_apartment(Player player)
+    void remote_event::force_invite_apartment(Player player, int apartment_id)
     {
-        g_fiber_pool->queue_job([player]
+        g_fiber_pool->queue_job([player, apartment_id]
         {
-            int64_t invite_apartment[9] = { TELEPORT_APARTMENT, g_local.player, 1, -1, 1, 12728, 0, 1, 0 };//uint64_t args[9] = { 1097312011 , player, 1, -1, 1, 12728, 0, 1, 0 };
+            int64_t invite_apartment[9] = { TELEPORT_APARTMENT, g_local.player, 0, -1, 1, apartment_id, 0, 0, 0 };// 12728 uint64_t args[9] = { 1097312011 , player, 1, -1, 1, 12728, 0, 1, 0 };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, invite_apartment, 9, 1 << player);//uint64_t soundspam[4] = { 1097312011, player, 0, 0 }; sound spam
         });
     }

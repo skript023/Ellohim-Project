@@ -24,6 +24,9 @@ namespace big
 
 		static void vehicle_godmode(bool Activation);
 		static void anti_grief_vehicle(bool Activation);
+		static bool check_vehicle_insurance(int vehicle_index);
+		static int get_current_personal_vehicle_index();
+		static void claim_insurance_for_all_vehicle();
 		static void claim_insurance();
 		static void set_vehicle_flag(int Flag, uint32_t flagBit);
 		static void clear_vehicle_flag(int Flag, uint32_t flagBit);

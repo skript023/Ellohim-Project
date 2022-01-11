@@ -92,7 +92,7 @@ namespace big
 		static void bail_player(Player player);
 		static void revenge_kick(bool Activation);
 		static void teleport_player_to_cayo(Player player);
-		static void force_invite_apartment(Player player);
+		static void force_invite_apartment(Player player, int apartment_id);
 		static void ceo_kick(Player player);
 		static void ceo_ban(Player player);
 		static void rotate_cam(Player player);

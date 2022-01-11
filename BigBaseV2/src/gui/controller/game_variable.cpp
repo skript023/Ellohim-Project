@@ -4,48 +4,16 @@
 
 namespace big
 {
-    int var::tbl_business[5][4][1] = {
-        {
-            {1},
-            {6},
-            {11},
-            {16}
-        },
-        {
-            {2},
-            {7},
-            {12},
-            {17}
-        },
-        {
-            {3},
-            {8},
-            {13},
-            {18}
-        },
-        {
-            {4},
-            {9},
-            {14},
-            {19}
-        },
-        {
-            {5},
-            {10},
-            {15},
-            {20}
-        }
-    };
-    const char* const player_clothing::female_hair [] { "Close Shave", "Short Hair","Layered Bob","Pigtails","Ponytail","Braided Mohawk","Braids","Bob","Faux Hawk","French Twist Chestnut",
+    const char* const player_clothing::female_hair[]{ "Close Shave", "Short Hair","Layered Bob","Pigtails","Ponytail","Braided Mohawk","Braids","Bob","Faux Hawk","French Twist Chestnut",
         "Long Bob Chestnut","Loose Tied Chestnut", "Pixie Chestnut","Shaved Bangs Chestnut","Top Knot Chestnut","Wavy Bob Chestnut","Pin Up Girl Chestnut",
-        "Messy Bun Chestnut", "Flapper Bob Chestnut", "Tight Bun Black", "Twisted Bob Chestnut", "Big Bangs Chestnut", "Braided Top Knot Chestnut", "Mullet Chestnut", 
-        "Visor","Pinched Cornrows", "Leaf Cornrows", "Zig Zag Cornrows", "Pigtail Bangs", "Wave Braids", "Coil Braids", "Rolled Quiff", "Loose Swept Back", 
-        "Undercut Swept Back", "Undercut Swept Side", "Spiked Mohawk", "Bandana and Braid", "Skinbyrd", "Layered Mod", "Short", "Layered Bob", "Pigtails", "Ponytail", 
-        "Braided Mohawk", "Braids", "Bob", "Faux Hawk", "French Twist", "Long Bob", "Loose Tied", "Pixie", "Shaved Bangs", "Top Knot", "Wavy Bob", "Messy Bun Chestnut", 
-        "Pin Up Girl Chestnut", "Tight Bun Black", "Twisted Bob Chestnut", "Flapper Bob Chestnut", "Big Bangs Chestnut", "Braided Top Knot Chestnut", "Mullet Chestnut", 
-        "Pinched Cornrows", "Leaf Cornrows", "Zig Zag Cornrows", "Pigtail Bangs", "Wave Braids", "Coil Braids", "Coil Braids", "Loose Swept Back", "Undercut Swept Back", 
-        "Undercut Swept Side", "Spiked Mohawk", "Bandana and Braid", "Layered Mod", "Skinbyrd", "Neat Bun", "Short Bob", "Impotent Rage", "Afro" }; 
-    const char* const player_clothing::kevlar[]{"None", "armor_grey_1","armor_grey_2","armor_grey_3","armor_grey_4","armor_grey_5","armor_grey_6","armor_grey_7","armor_grey_8","armor_grey_9","armor_grey_10","armor_grey_11","armor_grey_12","armor_grey_13", "None","None","None","green_armor_1","green_armor_2", "name_tag_1","name_tag_2","name_tag_3"};
+        "Messy Bun Chestnut", "Flapper Bob Chestnut", "Tight Bun Black", "Twisted Bob Chestnut", "Big Bangs Chestnut", "Braided Top Knot Chestnut", "Mullet Chestnut",
+        "Visor","Pinched Cornrows", "Leaf Cornrows", "Zig Zag Cornrows", "Pigtail Bangs", "Wave Braids", "Coil Braids", "Rolled Quiff", "Loose Swept Back",
+        "Undercut Swept Back", "Undercut Swept Side", "Spiked Mohawk", "Bandana and Braid", "Skinbyrd", "Layered Mod", "Short", "Layered Bob", "Pigtails", "Ponytail",
+        "Braided Mohawk", "Braids", "Bob", "Faux Hawk", "French Twist", "Long Bob", "Loose Tied", "Pixie", "Shaved Bangs", "Top Knot", "Wavy Bob", "Messy Bun Chestnut",
+        "Pin Up Girl Chestnut", "Tight Bun Black", "Twisted Bob Chestnut", "Flapper Bob Chestnut", "Big Bangs Chestnut", "Braided Top Knot Chestnut", "Mullet Chestnut",
+        "Pinched Cornrows", "Leaf Cornrows", "Zig Zag Cornrows", "Pigtail Bangs", "Wave Braids", "Coil Braids", "Coil Braids", "Loose Swept Back", "Undercut Swept Back",
+        "Undercut Swept Side", "Spiked Mohawk", "Bandana and Braid", "Layered Mod", "Skinbyrd", "Neat Bun", "Short Bob", "Impotent Rage", "Afro" };
+    const char* const player_clothing::kevlar[]{ "None", "armor_grey_1","armor_grey_2","armor_grey_3","armor_grey_4","armor_grey_5","armor_grey_6","armor_grey_7","armor_grey_8","armor_grey_9","armor_grey_10","armor_grey_11","armor_grey_12","armor_grey_13", "None","None","None","green_armor_1","green_armor_2", "name_tag_1","name_tag_2","name_tag_3" };
     const char* const player_clothing::mask[]{ "None", "Pink Pig","Silver Skull","Pogo","White Hockey","Tan Ape","Green Carnival","Green Monster","White Santa",
     "Reindeer Mask","Snowman Mask","White Mysterious","Bronze Masquerade","Cupid","Bullet Hockey","Skull Hockey","Metal Warrior","Gray Cat","Red Fox",
     "Brown Owl","Gray Racoon","Brown Bear","Brown Bison","Black Bull","Brown Eagle","Pink Vulture","Grey Wolf","Flight Cap","Black Combat Mask","Black Skeletal",
@@ -303,7 +271,7 @@ namespace big
         "NULL",
         "NULL",
     };
-    const char* const player_clothing::female_shoes[]{ 
+    const char* const player_clothing::female_shoes[]{
         "Charcoal Platforms",
         "White Two-Tone Backside",
         "Sheepskin Winter Boots",
@@ -813,7 +781,7 @@ namespace big
         "NULL",
         "Mono Leather Bomber",
     };
-    const char* const player_clothing::female_torsos[]{ 
+    const char* const player_clothing::female_torsos[]{
         "NULL",
         "NULL",
         "NULL",
@@ -1519,7 +1487,7 @@ namespace big
         "Frontier Hat",
         "Sprunk Forwards Cap",
 
-};
+    };
     const char* const player_clothing::female_watches[]{
         "None",
         "NULL",
@@ -1552,7 +1520,7 @@ namespace big
         "Silver SASS Bracelet",
         "Blue Bangles (L)",
     };
-    const char* const player_clothing::parachute[]{"None","parachute_1","parachute_2","parachute_3","parachute_4","parachute_5","parachute_6","parachute_7","parachute_8",
+    const char* const player_clothing::parachute[]{ "None","parachute_1","parachute_2","parachute_3","parachute_4","parachute_5","parachute_6","parachute_7","parachute_8",
         "None", "parachute_america_10","parachute_america_11","parachute_america_12","parachute_america_13","parachute_america_14","parachute_america_15",
         "parachute_america_16","parachute_america_17","parachute_america_18", "parachute_9", "None", "parachute_findland_21","parachute_findland_22","parachute_findland_23",
         "parachute_findland_24","parachute_findland_25","parachute_findland_26","parachute_findland_27","parachute_findland_28","parachute_findland_29",
@@ -1566,7 +1534,7 @@ namespace big
         "camo_bag_1", "camo_bag_2", "None", "None", "parachute_sprunk_89","parachute_sprunk_90","parachute_sprunk_91","parachute_sprunk_92","parachute_sprunk_93",
         "parachute_sprunk_94","parachute_sprunk_95","parachute_sprunk_96","parachute_sprunk_97","parachute_sprunk_98","parachute_sprunk_99",
     };
-    
+
     const char* const player_clothing::male_acc[]{
         "No Tie",
         "Silver Chain",
@@ -1965,7 +1933,7 @@ namespace big
         "NULL",
         "NULL",
     };
-    const char* const player_clothing::male_tops[]{ 
+    const char* const player_clothing::male_tops[]{
         "Crew T-Shirt",
         "White V Neck",
         "NULL",
@@ -2349,7 +2317,7 @@ namespace big
         "NULL",
         "Mono Leather Bomber",
     };
-    const char* const player_clothing::male_torsos[]{ 
+    const char* const player_clothing::male_torsos[]{
         "NULL",
         "NULL",
         "NULL",
@@ -3096,7 +3064,7 @@ namespace big
         "Blue Bangles (L)",
     };
 
-    const int var::KickHash[] {
+    const int game_variable::kick_hash_list[]{
         KICK_1,
         KICK_2,
         KICK_3,
@@ -3159,7 +3127,7 @@ namespace big
         KICK_60,
         KICK_61,
     };
-    const char* const var::revenge_list[] {
+    const char* const game_variable::revenge_list[]{
         "Disable",
         "WEAPON_ADVANCEDRIFLE",
         "WEAPON_APPISTOL",
@@ -3253,7 +3221,7 @@ namespace big
         "WEAPON_MILITARYRIFLE",
         "WEAPON_COMBATSHOTGUN",
         "WEAPON_GADGETPISTOL" };
-    const char* const var::PickupHash[] { "PICKUP_WEAPON_ADVANCEDRIFLE","PICKUP_WEAPON_APPISTOL","PICKUP_WEAPON_ASSAULTRIFLE",
+    const char* const game_variable::pickup_hash_list[]{ "PICKUP_WEAPON_ADVANCEDRIFLE","PICKUP_WEAPON_APPISTOL","PICKUP_WEAPON_ASSAULTRIFLE",
                     "PICKUP_WEAPON_ASSAULTRIFLE_MK2","PICKUP_WEAPON_ASSAULTSHOTGUN","PICKUP_WEAPON_ASSAULTSMG","PICKUP_WEAPON_BALL","PICKUP_WEAPON_BAT",
                     "PICKUP_WEAPON_BATTLEAXE","PICKUP_WEAPON_BOTTLE","PICKUP_WEAPON_BULLPUPRIFLE","PICKUP_WEAPON_BULLPUPRIFLE_MK2","PICKUP_WEAPON_BULLPUPSHOTGUN",
                     "PICKUP_WEAPON_BZGAS","PICKUP_WEAPON_CARBINERIFLE","PICKUP_WEAPON_CARBINERIFLE_MK2","PICKUP_WEAPON_COMBATMG","PICKUP_WEAPON_COMBATMG_MK2",
@@ -3276,7 +3244,7 @@ namespace big
                     "PICKUP_VEHICLE_WEAPON_SAWNOFF","PICKUP_VEHICLE_WEAPON_GRENADE","PICKUP_VEHICLE_WEAPON_MOLOTOV","PICKUP_VEHICLE_WEAPON_SMOKEGRENADE",
                     "PICKUP_VEHICLE_WEAPON_STICKYBOMB","PICKUP_VEHICLE_HEALTH_STANDARD","PICKUP_VEHICLE_ARMOUR_STANDARD","PICKUP_CUSTOM_SCRIPT","PICKUP_VEHICLE_CUSTOM_SCRIPT"
     };
-    const char* const var::ObjectList[] {
+    const char* const game_variable::object_hash_list[]{
         "prop_poly_bag_01",
         "prop_poly_bag_money",
         "prop_cash_pile_01",
@@ -5893,7 +5861,7 @@ namespace big
         "prop_skunk_bush_01",
         "prop_skylight_01",
     };
-    const char* const var::AllWeaponHashes[] {
+    const char* const game_variable::weapon_hash_list[]{
         "WEAPON_ADVANCEDRIFLE",
         "WEAPON_APPISTOL",
         "WEAPON_ASSAULTRIFLE",
@@ -5991,7 +5959,7 @@ namespace big
         "WEAPON_EMPLAUNCHER",
         "WEAPON_STUNGUN_MP"
     };
-    const char* const var::AllComponentHashes[] {
+    const char* const game_variable::weapon_component_list[]{
         "COMPONENT_ADVANCEDRIFLE_CLIP_01",
         "COMPONENT_ADVANCEDRIFLE_CLIP_02",
         "COMPONENT_ADVANCEDRIFLE_VARMOD_LUXE",
@@ -6341,7 +6309,7 @@ namespace big
         "COMPONENT_MILITARYRIFLE_CLIP_01",
         "COMPONENT_MILITARYRIFLE_CLIP_02",
         "COMPONENT_MILITARYRIFLE_SIGHT_01" };
-    const char* const var::VechicleList[] { "Adder", "Airbus", "Airtug", "Akula", "Akuma", "Alpha", "Alphaz1", "Ambulance", "Annihilator",
+    const char* const game_variable::vehicle_hash_list[]{ "Adder", "Airbus", "Airtug", "Akula", "Akuma", "Alpha", "Alphaz1", "Ambulance", "Annihilator",
                                         "Annihilator2", "Apc", "Ardent", "Armytanker", "Armytrailer", "Armytrailer2", "Asbo", "Asea", "Asea2",
                                         "Asterope", "Astron", "Autarch", "Avarus", "Avenger", "Avenger2", "Avisa", "Bagger", "Baletrailer", "Baller",
                                         "Baller2", "Baller3", "Baller4", "Baller5", "Baller6", "Baller7", "Banshee", "Banshee2", "Barracks", "Barracks2",
@@ -6350,7 +6318,7 @@ namespace big
                                         "Blazer5", "Blimp", "Blimp2", "Blimp3", "Blista", "Blista2", "Blista3", "Bmx", "Boattrailer",
                                         "Bobcatxl", "Bodhi2", "Bombushka", "Boxville", "Boxville2", "Boxville3", "Boxville4", "Boxville5",
                                         "Brawler", "Brickade", "Brioso", "Bruiser", "Bruiser2", "Bruiser3", "Brutus", "Brutus2", "Brutus3",
-                                        "Btype", "Brioso2", "Btype2", "Btype3", "Buccaneer", "Buccaneer2", "Buffalo", "Buffalo2", "Buffalo3", "Buffalo4", 
+                                        "Btype", "Brioso2", "Btype2", "Btype3", "Buccaneer", "Buccaneer2", "Buffalo", "Buffalo2", "Buffalo3", "Buffalo4",
                                         "Bulldozer", "Bullet", "Burrito", "Burrito2", "Burrito3", "Burrito4", "Burrito5", "Bus", "Buzzard",
                                         "Buzzard2", "Cablecar", "Caddy", "Caddy2", "Caddy3", "Calico", "Camper", "Caracara", "Caracara2", "Carbonizzare",
                                         "Carbonrs", "Cargobob", "Cargobob2", "Cargobob3", "Cargobob4", "Cargoplane", "Casco", "Cavalcade",
@@ -6422,7 +6390,7 @@ namespace big
                                         "Windsor", "Windsor2", "Winky", "Wolfsbane", "Xa21", "Xls", "Xls2", "Yosemite", "Yosemite2",
                                         "Yosemite3", "Youga", "Youga2", "Youga3", "Z190", "Zentorno", "zeno", "Zhaba", "Zion", "Zion2", "Zion3",
                                         "Zombiea", "Zombieb", "Zorrusso", "Zr350", "Zr380", "Zr3802", "Zr3803", "Ztype" };
-    const char* const var::PedList[] {
+    const char* const game_variable::ped_hash_list[]{
     "u_m_m_jesus_01","A_C_Boar","A_C_Chickenhawk","A_C_Chimp","A_C_Chop","A_C_Cormorant","A_C_Cow","A_C_Coyote","A_C_Crow","A_C_Deer","A_C_Fish","A_C_Hen","A_C_Husky","A_C_MtLion","A_C_Pig","A_C_Pigeon","A_C_Rat","A_C_Retriever",
     "A_C_Rhesus","A_C_Rottweiler","A_C_Seagull","A_C_SharkTiger","A_C_shepherd","A_F_M_Beach_01","A_F_M_BevHills_01","A_F_M_BevHills_02","A_F_M_BodyBuild_01","A_F_M_Business_02","A_F_M_Downtown_01","A_F_M_EastSA_01",
     "A_F_M_EastSA_02","A_F_M_FatBla_01","A_F_M_FatCult_01","A_F_M_FatWhite_01","A_F_M_KTown_01","A_F_M_KTown_02","A_F_M_ProlHost_01","A_F_M_Salton_01","A_F_M_SkidRow_01","A_F_M_SouCentMC_01","A_F_M_SouCent_01","A_F_M_SouCent_02",
@@ -6476,66 +6444,66 @@ namespace big
     "U_M_Y_ImpoRage","U_M_Y_Justin","U_M_Y_Mani","U_M_Y_MilitaryBum","U_M_Y_Paparazzi","U_M_Y_Party_01","U_M_Y_Pogo_01","U_M_Y_Prisoner_01","U_M_Y_ProlDriver_01","U_M_Y_RSRanger_01","U_M_Y_SBike","U_M_Y_StagGrm_01","U_M_Y_Tattoo_01",
     "U_M_Y_Zombie_01",
     };
-    const char* const var::VehicleCategory[] { "Super","Sport","Sport Classic","Summer Update","Sedans","Service","SUVs","Planes",
+    const char* const game_variable::vehicle_category_list[]{ "Super","Sport","Sport Classic","Summer Update","Sedans","Service","SUVs","Planes",
     "Helicopters","Off Road","Muscles","Motorcycles","Military","Trailers","Trains","Utility","Vans","Arena Wars","Casino Updates",
     "Casino Heist","Emergency","Industrial","Coupes","Compacts","Boats","Bikes","Commericals","Cayo Perico","Tuner Update", "The Contract Update", "Personal Vehicle" };
-    const char* const var::the_contract[]{ "Buffalo4", "Granger2", "Iwagen", "Patriot3", "Astron", "Baller7", "Champion", "Cinquemila", "Comet7", "Deity", "Ignus", "Jubilee", "Reever", "Shinobi", "Zeno" };
-    
-    const char* const var::Boat[] {"DINGHY","DINGHY2","DINGHY3","DINGHY4","JETMAX","MARQUIS","SEASHARK","SEASHARK2","SEASHARK3","SPEEDER",
-        "SPEEDER2","SQUALO","SUBMERSIBLE","SUBMERSIBLE2","SUNTRAP","TORO","TORO2","TROPIC","TROPIC2","TUG"};
-    const char* const var::Commericals[] {"BENSON","BIFF","HAULER", "HAULER2","MULE","MULE2","MULE3","MULE4","PACKER",
-        "PHANTOM","PHANTOM2", "PHANTOM3","POUNDER","POUNDER2","STOCKADE","STOCKADE3","TERBYTE"};
-    const char* const var::Compact[] { "BLISTA","BRIOSO","DILETTANTE","DILETTANTE2","ISSI2","ISSI3","PANTO","PRAIRIE","RHAPSODY" };
-    const char* const var::Coupes[] { "COGCABRIO","EXEMPLAR","F620","FELON","FELON2","JACKAL","ORACLE","ORACLE2","SENTINEL","SENTINEL2",
-        "WINDSOR","WINDSOR2","ZION","ZION2"};
-    const char* const var::Bikes[] { "BMX","CRUISER","FIXTER","SCORCHER","TRIBIKE","TRIBIKE2","TRIBIKE3"};
-    const char* const var::Emergency[] { "AMBULANCE","FBI","FBI2","FIRETRUK","LGUARD","PBUS","POLICE","POLICE2","POLICE3","POLICE4",
+    const char* const game_variable::the_contract[]{ "Buffalo4", "Granger2", "Iwagen", "Patriot3", "Astron", "Baller7", "Champion", "Cinquemila", "Comet7", "Deity", "Ignus", "Jubilee", "Reever", "Shinobi", "Zeno" };
+
+    const char* const game_variable::Boat[]{ "DINGHY","DINGHY2","DINGHY3","DINGHY4","JETMAX","MARQUIS","SEASHARK","SEASHARK2","SEASHARK3","SPEEDER",
+        "SPEEDER2","SQUALO","SUBMERSIBLE","SUBMERSIBLE2","SUNTRAP","TORO","TORO2","TROPIC","TROPIC2","TUG" };
+    const char* const game_variable::Commericals[]{ "BENSON","BIFF","HAULER", "HAULER2","MULE","MULE2","MULE3","MULE4","PACKER",
+        "PHANTOM","PHANTOM2", "PHANTOM3","POUNDER","POUNDER2","STOCKADE","STOCKADE3","TERBYTE" };
+    const char* const game_variable::Compact[]{ "BLISTA","BRIOSO","DILETTANTE","DILETTANTE2","ISSI2","ISSI3","PANTO","PRAIRIE","RHAPSODY" };
+    const char* const game_variable::Coupes[]{ "COGCABRIO","EXEMPLAR","F620","FELON","FELON2","JACKAL","ORACLE","ORACLE2","SENTINEL","SENTINEL2",
+        "WINDSOR","WINDSOR2","ZION","ZION2" };
+    const char* const game_variable::Bikes[]{ "BMX","CRUISER","FIXTER","SCORCHER","TRIBIKE","TRIBIKE2","TRIBIKE3" };
+    const char* const game_variable::Emergency[]{ "AMBULANCE","FBI","FBI2","FIRETRUK","LGUARD","PBUS","POLICE","POLICE2","POLICE3","POLICE4",
         "POLICEB","POLMAV","POLICEOLD1","POLICEOLD2","POLICET","PRANGER","PREDATOR","RIOT","RIOT2","SHERIFF","SHERIFF2" };
-    const char* const var::Helicopter[] { "AKULA", "ANNIHILATOR", "BUZZARD","BUZZARD2", "CARGOBOB", "CARGOBOB2", "CARGOBOB3", "CARGOBOB4",
+    const char* const game_variable::Helicopter[]{ "AKULA", "ANNIHILATOR", "BUZZARD","BUZZARD2", "CARGOBOB", "CARGOBOB2", "CARGOBOB3", "CARGOBOB4",
         "FROGGER","FROGGER2", "HAVOK","HUNTER", "MAVERICK","SAVAGE","SKYLIFT","SUPERVOLITO","SUPERVOLITO2","SWIFT","SWIFT2",
         "VALKYRIE","VALKYRIE2","VOLATUS" };
-    const char* const var::Industrial[] { "BULLDOZER","CUTTER","DUMP","FLATBED","GUARDIAN","HANDLER","MIXER", "MIXER2","RUBBLE","TIPTRUCK",
+    const char* const game_variable::Industrial[]{ "BULLDOZER","CUTTER","DUMP","FLATBED","GUARDIAN","HANDLER","MIXER", "MIXER2","RUBBLE","TIPTRUCK",
         "TIPTRUCK2" };
-    const char* const var::Military[] { "APC","BARRACKS","BARRACKS2","BARRACKS3","BARRAGE","CHERNOBOG","CRUSADER","HALFTRACK","KHANJALI",
+    const char* const game_variable::Military[]{ "APC","BARRACKS","BARRACKS2","BARRACKS3","BARRAGE","CHERNOBOG","CRUSADER","HALFTRACK","KHANJALI",
         "RHINO", "THRUSTER","TRAILERSMALL2" };
-    const char* const var::Motorcycle[] { "AKUMA","AVARUS","BAGGER","BATI","BATI2", "BF400","CARBONRS", "CHIMERA","CLIFFHANGER","DAEMON",
+    const char* const game_variable::Motorcycle[]{ "AKUMA","AVARUS","BAGGER","BATI","BATI2", "BF400","CARBONRS", "CHIMERA","CLIFFHANGER","DAEMON",
         "DAEMON2","DEFILER","DIABLOUS","DIABLOUS2","DOUBLE","ENDURO","ESSKEY","FAGGIO","FAGGIO2","FAGGIO3","FCR","FCR2","GARGOYLE",
         "HAKUCHOU","HAKUCHOU2","HEXER", "INNOVATION","LECTRO","MANCHEZ","NEMESIS","NIGHTBLADE","OPPRESSOR","OPPRESSOR2","PCJ","RATBIKE",
         "RUFFIAN","SANCHEZ2","SANCTUS","SHOTARO","SOVEREIGN","THRUST","VADER","VINDICATOR","VORTEX","WOLFSBANE","ZOMBIEA","ZOMBIEB" };
-    const char* const var::Muscle[] { "BLADE","BUCCANEER","BUCCANEER2","CHINO","CHINO2","COQUETTE3","DOMINATOR", "DOMINATOR2", "DOMINATOR3",
+    const char* const game_variable::Muscle[]{ "BLADE","BUCCANEER","BUCCANEER2","CHINO","CHINO2","COQUETTE3","DOMINATOR", "DOMINATOR2", "DOMINATOR3",
         "DUKES","DUKES2","ELLIE","FACTION","FACTION2","FACTION3","GAUNTLET","GAUNTLET2","HERMES","HOTKNIFE","LURCHER","MOONBEAM",
         "MOONBEAM2","NIGHTSHADE","PHOENIX","PICADOR","RATLOADER","RATLOADER2","RUINER","RUINER2","RUINER3","SABREGT","SABREGT2",
         "SLAMVAN","SLAMVAN2","SLAMVAN3","STALION","STALION2","TAMPA","TAMPA3","VIGERO","VIRGO","VIRGO2","VIRGO3","VOODOO","VOODOO2","YOSEMITE" };
-    const char* const var::OffRoad [] { "BFINJECTION","BIFTA","BLAZER","BLAZER2","BLAZER3","BLAZER4","BLAZER5","BODHI2","BRAWLER","DLOADER","DUBSTA3",
+    const char* const game_variable::OffRoad[]{ "BFINJECTION","BIFTA","BLAZER","BLAZER2","BLAZER3","BLAZER4","BLAZER5","BODHI2","BRAWLER","DLOADER","DUBSTA3",
         "DUNE","DUNE2","DUNE3","DUNE4","DUNE5", "FREECRAWLER","INSURGENT","INSURGENT2","INSURGENT3","KALAHARI","KAMACHO","MARSHALL",
         "MESA3","MONSTER","MENACER","NIGHTSHARK","RANCHERXL","RANCHERXL2","REBEL","REBEL2","RIATA","SANDKING","SANDKING2","TECHNICAL",
         "TECHNICAL2","TECHNICAL3","TROPHYTRUCK","TROPHYTRUCK2" };
-    const char* const var::Plane[] { "ALPHAZ1","AVENGER","BESRA","BLIMP","BLIMP2","BLIMP3","BOMBUSHKA","CARGOPLANE","CUBAN800","DODO",
+    const char* const game_variable::Plane[]{ "ALPHAZ1","AVENGER","BESRA","BLIMP","BLIMP2","BLIMP3","BOMBUSHKA","CARGOPLANE","CUBAN800","DODO",
     "DUSTER","HOWARD","HYDRA","JET","LAZER","LUXOR","LUXOR2","MAMMATUS","MICROLIGHT","MILJET","MOGUL","MOLOTOK","NIMBUS","NOKOTA","PYRO",
     "ROGUE","SEABREEZE","SHAMAL","STARLING","STRIKEFORCE","STUNT","TITAN","TULA","VELUM","VELUM2","VESTRA","VOLATOL" };
-    const char* const var::SUV[] { "BALLER","BALLER2","BALLER3","BALLER4","BALLER5","BALLER6","BJXL","CAVALCADE","CAVALCADE2","CONTENDER",
+    const char* const game_variable::SUV[]{ "BALLER","BALLER2","BALLER3","BALLER4","BALLER5","BALLER6","BJXL","CAVALCADE","CAVALCADE2","CONTENDER",
     "DUBSTA","DUBSTA2","FQ2","GRANGER","GRESLEY","HABANERO","HUNTLEY","LANDSTALKER","MESA","MESA2","PATRIOT","PATRIOT2","RADI","ROCOTO",
     "SEMINOLE","SERRANO","XLS","XLS2" };
-    const char* const var::Sedan[] { "ASEA","ASEA2","ASTEROPE","CHEBUREK","COG55","COG552","COGNOSCENTI","COGNOSCENTI2","EMPEROR","EMPEROR2",
+    const char* const game_variable::Sedan[]{ "ASEA","ASEA2","ASTEROPE","CHEBUREK","COG55","COG552","COGNOSCENTI","COGNOSCENTI2","EMPEROR","EMPEROR2",
     "EMPEROR3","FUGITIVE","GLENDALE","INGOT","INTRUDER","LIMO2","PREMIER","PRIMO","PRIMO2","REGINA","ROMERO","SCHAFTER2","SCHAFTER5",
     "SCHAFTER6","STAFFORD","STANIER","STRATUM","STRETCH","SUPERD","SURGE","TAILGATER","WARRENER","WASHINGTON" };
-    const char* const var::Service[] { "AIRBUS","BRICKADE","BUS","COACH","PBUS2","RALLYTRUCK","RENTALBUS","TAXI","TOURBUS","TRASH","TRASH2","WASTELANDER" };
-    const char* const var::Sport[] { "ALPHA","BANSHEE","BESTIAGTS","BLISTA2","BLISTA3","BUFFALO","BUFFALO2","BUFFALO3","CARBONIZZARE",
+    const char* const game_variable::Service[]{ "AIRBUS","BRICKADE","BUS","COACH","PBUS2","RALLYTRUCK","RENTALBUS","TAXI","TOURBUS","TRASH","TRASH2","WASTELANDER" };
+    const char* const game_variable::Sport[]{ "ALPHA","BANSHEE","BESTIAGTS","BLISTA2","BLISTA3","BUFFALO","BUFFALO2","BUFFALO3","CARBONIZZARE",
     "COMET2","COMET3","COMET4","COMET5","COQUETTE","ELEGY","ELEGY2","FELTZER2","FLASHGT","FUROREGT","FUSILADE","FUTO","GB200","HOTRING",
     "JESTER","JESTER2","JESTER3","KHAMELION","KURUMA","KURUMA2","LYNX2","MASSACRO","MASSACRO2","NEON","NINEF","NINEF2","OMNIS","PARIAH",
     "PENUMBRA","RAIDEN","RAPIDGT","RAPIDGT2","RAPTOR","REVOLTER","RUSTON","SCHAFTER3","SCHAFTER4","SCHWARZER","SENTINEL3","SEVEN70","SPECTER",
     "SPECTER2","STREITER","SULTAN","SURANO","TAMPA2","TROPOS","VERLIERER2" };
-    const char* const var::SportClassic[] { "ARDENT","BTYPE","BTYPE2","BTYPE3","CASCO","CHEETAH2","COQUETTE2","DELUXO","FAGALOA","FELTZER3",
+    const char* const game_variable::SportClassic[]{ "ARDENT","BTYPE","BTYPE2","BTYPE3","CASCO","CHEETAH2","COQUETTE2","DELUXO","FAGALOA","FELTZER3",
     "GT500","HUSTLER","INFERNUS2","JB700","MAMBA","MANANA","MICHELLI","MONROE","PEYOTE","PIGALLE","RAPIDGT3","RETINUE","SAVESTRA",
     "STINGER","STINGERGT","STROMBERG","SWINGER","TORERO","TORNADO","TORNADO2","TORNADO3","TORNADO4","TORNADO5","TORNADO6","TURISMO2",
     "VISERIS","Z190","ZTYPE" };
-    const char* const var::Super[] { "ADDER","AUTARCH","BANSHEE2","BULLET","CHEETAH","CYCLONE","ENTITYXF","ENTITY2","FMJ","GP1","INFERNUS",
+    const char* const game_variable::Super[]{ "ADDER","AUTARCH","BANSHEE2","BULLET","CHEETAH","CYCLONE","ENTITYXF","ENTITY2","FMJ","GP1","INFERNUS",
     "ITALIGTB","ITALIGTB2","LE7B","NERO","NERO2","OSIRIS","PENETRATOR","PFISTER811","PROTOTIPO","REAPER","SC1","SCRAMJET","SHEAVA","SULTANRS",
     "T20","TAIPAN","TEMPESTA","TEZERACT","TURISMOR","TYRANT","TYRUS","VACCA","VAGNER","VIGILANTE","VISIONE","VOLTIC","VOLTIC2","XA21",
     "ZENTORNO" };
-    const char* const var::Trailer[] { "ARMYTANKER","ARMYTRAILER2","BALETRAILER","BOATTRAILER","CABLECAR","DOCKTRAILER","GRAINTRAILER",
+    const char* const game_variable::Trailer[]{ "ARMYTANKER","ARMYTRAILER2","BALETRAILER","BOATTRAILER","CABLECAR","DOCKTRAILER","GRAINTRAILER",
     "PROPTRAILER","RAKETRAILER","TR2","TR3","TR4","TRFLAT","TVTRAILER","TANKER","TANKER2","TRAILERLOGS","TRAILERSMALL","TRAILERS","TRAILERS2","TRAILERS3" };
-    const char* const var::Train[] {
+    const char* const game_variable::Train[]{
         "FREIGHT",
         "FREIGHTCAR",
         "FREIGHTCONT1",
@@ -6543,7 +6511,7 @@ namespace big
         "FREIGHTGRAIN",
         "TANKERCAR"
     };
-    const char* const var::Utility[] {
+    const char* const game_variable::Utility[]{
         "AIRTUG",
         "CADDY",
         "CADDY2",
@@ -6565,7 +6533,7 @@ namespace big
         "UTILLITRUCK2",
         "UTILLITRUCK3"
     };
-    const char* const var::Van[] {
+    const char* const game_variable::Van[]{
         "BISON",
 "BISON2",
 "BISON3",
@@ -6601,7 +6569,7 @@ namespace big
 "YOUGA",
 "YOUGA2"
     };
-    const char* const var::ArenaWar[] {
+    const char* const game_variable::ArenaWar[]{
         "BRUISER",
 "BRUISER2",
 "BRUISER3",
@@ -6648,7 +6616,7 @@ namespace big
 "ZR3802",
 "ZR3803"
     };
-    const char* const var::Casino1[] {
+    const char* const game_variable::Casino1[]{
         "CARACARA2",
         "DRAFTER",
         "DYNASTY",
@@ -6672,7 +6640,7 @@ namespace big
         "ZION3",
         "ZORRUSSO"
     };
-    const char* const var::Casino2[] {
+    const char* const game_variable::Casino2[]{
         "ABSO",
         "EVERON",
         "FORMULA",
@@ -6694,7 +6662,7 @@ namespace big
         "YOSEMITE2",
         "ZHABA"
     };
-    const char* const var::SummerUpdate[] {
+    const char* const game_variable::SummerUpdate[]{
         "CLUB",
         "COQUETTE4",
         "DUKES3",
@@ -6711,7 +6679,7 @@ namespace big
         "YOSEMITE3",
         "YOUGA3"
     };
-    const char* const var::CayoPerico[] {
+    const char* const game_variable::CayoPerico[]{
         "ALKONOST",
         "WINKY",
         "Annihilator2",
@@ -6734,16 +6702,16 @@ namespace big
         "SEASPARROW3",
         "KOSATKA"
     };
-    const char* const var::tuner_update[]{ "Comet6", "Cypher", "Euros", "Growler", "Jester4", "Tailgater2", "Vectre", "Zr350", "Calico", "Dominator7", "Dominator8", "Futo2", "Previon", "Remus", "Rt3000", "Sultan3", "Warrener2", "Freightcar2", "Warrener" };
-    
-    const char* const var::ExplosionList[]{ "EXPLOSION_GRENADE","EXPLOSION_GRENADELAUNCHER","EXPLOSION_STICKYBOMB","EXPLOSION_MOLOTOV","EXPLOSION_ROCKET",
+    const char* const game_variable::tuner_update[]{ "Comet6", "Cypher", "Euros", "Growler", "Jester4", "Tailgater2", "Vectre", "Zr350", "Calico", "Dominator7", "Dominator8", "Futo2", "Previon", "Remus", "Rt3000", "Sultan3", "Warrener2", "Freightcar2", "Warrener" };
+
+    const char* const game_variable::explosion_list[]{ "EXPLOSION_GRENADE","EXPLOSION_GRENADELAUNCHER","EXPLOSION_STICKYBOMB","EXPLOSION_MOLOTOV","EXPLOSION_ROCKET",
             "EXPLOSION_TANKSHELL","EXPLOSION_HI_OCTANE","EXPLOSION_CAR","EXPLOSION_PLANE","EXPLOSION_PETROL_PUMP","EXPLOSION_BIKE","EXPLOSION_DIR_STEAM",
             "EXPLOSION_DIR_FLAME","EXPLOSION_DIR_WATER_HYDRANT","EXPLOSION_DIR_GAS_CANISTER","EXPLOSION_BOAT","EXPLOSION_SHIP_DESTROY", "EXPLOSION_TRUCK",
             "EXPLOSION_BULLET","EXPLOSION_SMOKEGRENADELAUNCHER","EXPLOSION_SMOKEGRENADE", "EXPLOSION_BZGAS","EXPLOSION_FLARE","EXPLOSION_GAS_CANISTER",
             "EXPLOSION_EXTINGUISHER","EXPLOSION_PROGRAMMABLEAR","EXPLOSION_TRAIN","EXPLOSION_BARREL","EXPLOSION_PROPANE","EXPLOSION_BLIMP",
             "EXPLOSION_DIR_FLAME_EXPLODE","EXPLOSION_TANKER","EXPLOSION_PLANE_ROCKET","EXPLOSION_VEHICLE_BULLET", "EXPLOSION_GAS_TANK",
             "EXPLOSION_BIRD_CRAP" };
-    const char* const  var::ImpactList[]{ "Default","Grenade","Grenade Launcher","Sticky Bomb","Molotov","Rocket","Tank Bullet","Fire","Car","Plane","Fire Long","Motorcycle",
+    const char* const  game_variable::impact_list[]{ "Default","Grenade","Grenade Launcher","Sticky Bomb","Molotov","Rocket","Tank Bullet","Fire","Car","Plane","Fire Long","Motorcycle",
     "DIR_STEAM","DIR_FLAME","DIR_WATER_HYDRANT","DIR_GAS_CANISTER","Boat","SHIP_DESTROY","Truck","Bullet","Smoke Launcher","Smoke Grenade","BZ Gas","Flare","Gas Smoke","Extinguisher",
     "PROGRAMMABLEAR","Train","Barrel","Propane","Blimp","DIR_FLAME_EXPLODE","Tanker","Plane Rocket","Vehicle Bullet","Fuel Pump","Bird Poop","Railgun","Blimp 2","Firework","Snowball",
     "Proximity Mine","Valkyrie Cannon","Yacht Defense","Pipe Bomb","Vehicle Mine","Mk2 Explosive","APC Bullet","Airplane Cluster","Airplane Gas","Airplane Incendiary", "Airplane Bomb",
@@ -6751,7 +6719,7 @@ namespace big
     "Mk2 Explosive Shotgun","Oppressor Mk2 Missile","Kinetic Mortar","Kinetic Mine","EMP Mine","Spike Mine","Slick Mine","Tar Mine","SCRIPT_DRONE","Up-n-Atomizer","Buried Mine",
     "Scripted Missile","Normsl Explosive"
     };
-    const char* const var::DataPlayer[]{ "Disable Spoof", "festizum", "Synchweizher","YonataSP","Dea_Fi","swegley","Leakess","AMWARSS",
+    const char* const game_variable::player_data_list[]{ "Disable Spoof", "festizum", "Synchweizher","YonataSP","Dea_Fi","swegley","Leakess","AMWARSS",
                 "b0t0lpecah","Ayam_Sayur_Kecap","SoraYuta","Reinbozz","Wirangga987","Kinderjoy77","benjo_12","MrPandA_Chan","Mrc-Nata",
                 "suzugamori27","Animon2","MichroLaserX10","PapaCabut","fadlan23","Venom2zero","TMF3WannaCry","peuyeah","devin","Dave_lim2805",
                 "avtrrr","bidipbidip","HOSKREEH","Gymnasty9810","keripotter","Gia_Yoka","LittleMira","IrvanMacon","DutaTakDeAkhlak ",
@@ -6759,26 +6727,26 @@ namespace big
                 "DevonNoLimit","aqilnafal29","oXxX00XxXo","Lupa","-Zill-[CODE]","adreanbeta","Lucasng_RS","AceOfSpadesTR2","Cloin-smiss[CODE]",
                 "Raptor-KP","Cl0utfather_","OmGaban","AnjayMabar","KFC_TP_Delivery","ranggaaryoko","GamingNoBanned","RioChan22",
                 "paman_fred","MAHATO","Tanapon","Catchy22" };
-    const uint64_t var::DataPlayerRID[]{ g_original.rid, 174124075, 158451613, 134757642,118756001,171225995,177107411,52232807,176651480,17495234,
+    const uint64_t game_variable::player_rid_list[]{ g_original.rid, 174124075, 158451613, 134757642,118756001,171225995,177107411,52232807,176651480,17495234,
                 123260984,124684044,118889452,172651939,147137408,143643867,147980514,155419627,150572443,140605373,159148187,100451566,
                 159147087,146496695,110368197,159318285,180247973,142512023,164581202,162655526,156422602,158227943,170252865,181011600,
                 152831517,162525610,156422602,160132903,156350140,135888882,85572123,178348899,184335063,179673804,149710162,117859114,
                 172919320,159063872,174798177,160015232,164452633,162292162,145964647,161347480,167765293,146604599,162650999,171311605,
                 176541246,174402390,155331185,135394913,171489492,15832879,139867806,144539536, };//97118502
-    const char* const var::ShootWeapon[] {"WEAPON_ADVANCEDRIFLE", "WEAPON_STUNGUN", "WEAPON_RPG", "WEAPON_RAILGUN", "WEAPON_RAYPISTOL", "WEAPON_RAYCARBINE", "WEAPON_RAYMINIGUN"};
-    const char* const var::TeleportList[] { "Select Teleport", "Casino Heist", "Cayo Perico Heist", "Treasure Hunt", "Navy Revolver", "Movie Prop", "Playing Card" };
-    const char* const var::CasinoHeistCoords[] { "Enter Staff", "Waste Disposal", "Exit Staff", "Daily Vault", "Mantrap", "Heli Heist", "Inside Vault", "Outide vault", "Disguis Exit", "Hack 1", "Hack 2", "Hack 3", "Hack 4", "Hack 5", "Hack 6", "Hack 7" };
-    const char* const var::CayoPericoHeistCoords[] { "Office", "Werehouse", "Main Door", "Grapple Wall", "Grapple Wall 2", "Drainage", "Main Door Exit", "Escape", "Main Doc Loot 1", "Main Doc Loot 2", "Main Doc Loot 3", "Loot 4", "Loot 5", "Loot 6", "Loot 7", "Loot 8", "Loot 9", "Loot 10" };
-    const char* const var::NavyRevolver[] { "Navy Revolver Clue #1 ","Navy Revolver Clue #2 ","Navy Revolver Clue #3 ","Navy Revolver Clue #4 ","Navy Revolver Clue #5.1 ","Navy Revolver Clue #5.2 ","Navy Revolver Clue #5.3 ","Navy Revolver Clue #5.4 ","Navy Revolver Clue #5.5 ","Slasher Encounter " };
-    const char* const var::MovieProp[] { "Movie Prop 1","Movie Prop 2","Movie Prop 3","Movie Prop 4","Movie Prop 5","Movie Prop 6" };
-    const char* const var::PlayingCard[] { "Card 1 ","Card 2 ","Card 3 ","Card 4 ","Card 5 ","Card 6 ","Card 7 ","Card 8 ","Card 9 ","Card 10 ",
+    const char* const game_variable::shoot_troll_list[]{ "WEAPON_ADVANCEDRIFLE", "WEAPON_STUNGUN", "WEAPON_RPG", "WEAPON_RAILGUN", "WEAPON_RAYPISTOL", "WEAPON_RAYCARBINE", "WEAPON_RAYMINIGUN" };
+    const char* const game_variable::teleport_list[]{ "Select Teleport", "Casino Heist", "Cayo Perico Heist", "Treasure Hunt", "Navy Revolver", "Movie Prop", "Playing Card" };
+    const char* const game_variable::casino_coords_list[]{ "Enter Staff", "Waste Disposal", "Exit Staff", "Daily Vault", "Mantrap", "Heli Heist", "Inside Vault", "Outide vault", "Disguis Exit", "Hack 1", "Hack 2", "Hack 3", "Hack 4", "Hack 5", "Hack 6", "Hack 7" };
+    const char* const game_variable::cayo_perico_coords_list[]{ "Office", "Werehouse", "Main Door", "Grapple Wall", "Grapple Wall 2", "Drainage", "Main Door Exit", "Escape", "Main Doc Loot 1", "Main Doc Loot 2", "Main Doc Loot 3", "Loot 4", "Loot 5", "Loot 6", "Loot 7", "Loot 8", "Loot 9", "Loot 10" };
+    const char* const game_variable::navy_revolver_list[]{ "Navy Revolver Clue #1 ","Navy Revolver Clue #2 ","Navy Revolver Clue #3 ","Navy Revolver Clue #4 ","Navy Revolver Clue #5.1 ","Navy Revolver Clue #5.2 ","Navy Revolver Clue #5.3 ","Navy Revolver Clue #5.4 ","Navy Revolver Clue #5.5 ","Slasher Encounter " };
+    const char* const game_variable::movie_prop_list[]{ "Movie Prop 1","Movie Prop 2","Movie Prop 3","Movie Prop 4","Movie Prop 5","Movie Prop 6" };
+    const char* const game_variable::playing_card_list[]{ "Card 1 ","Card 2 ","Card 3 ","Card 4 ","Card 5 ","Card 6 ","Card 7 ","Card 8 ","Card 9 ","Card 10 ",
     "Card 11 ","Card 12 ","Card 13 ","Card 14 ","Card 15 ","Card 16 ","Card 17 ","Card 18 ","Card 19 ","Card 20 ","Card 21 ","Card 22 ","Card 23 ","Card 24 ",
     "Card 25 ","Card 26 ","Card 27 ","Card 28 ","Card 29 ","Card 30 ","Card 31 ","Card 32 ","Card 33 ","Card 34 ","Card 35 ","Card 36 ","Card 37 ",
     "Card 38 ","Card 39 ","Card 40 ","Card 41 ","Card 42 ","Card 43 ","Card 43 FIX","Card 44 ","Card 45 ","Card 46 ","Card 47 ","Card 48 ","Card 49 ","Card 50 ",
     "Card 51 ","Card 52 ","Card 53 ","Card 54 " };
-    const char* const var::Treasure_Hunt[] { "Treasure Hunt - Location 1", "Treasure Hunt - Location 2", "Treasure Hunt - Location 3" };
-    const char* const var::ListFlag[8] { "Select Flag", "List_Vehicle_Flags_1","List_Vehicle_Flags_2", "List_Vehicle_Flags_3", "List_Vehicle_Flags_4", "List_Vehicle_Flags_5", "List_Vehicle_Flags_6", "List_Vehicle_Flags_7" };
-    std::map<int, std::string> var::List_Vehicle_Flags_1 {
+    const char* const game_variable::treasure_hunt_list[]{ "Treasure Hunt - Location 1", "Treasure Hunt - Location 2", "Treasure Hunt - Location 3" };
+    const char* const game_variable::ListFlag[8]{ "Select Flag", "List_Vehicle_Flags_1","List_Vehicle_Flags_2", "List_Vehicle_Flags_3", "List_Vehicle_Flags_4", "List_Vehicle_Flags_5", "List_Vehicle_Flags_6", "List_Vehicle_Flags_7" };
+    std::map<int, std::string> game_variable::List_Vehicle_Flags_1{
         {0,"FLAG_SMALL_WORKER"},
         {1,"FLAG_BIG"},
         {2,"FLAG_NO_BOOT"},
@@ -6812,7 +6780,7 @@ namespace big
         {30,"FLAG_GEN_NAVMESH"},
         {31,"FLAG_LAW_ENFORCEMENT"}
     };
-    std::map<int, std::string> var::List_Vehicle_Flags_2 {
+    std::map<int, std::string> game_variable::List_Vehicle_Flags_2{
         {0,"FLAG_EMERGENCY_SERVICE"},
         {1,"FLAG_DRIVER_NO_DRIVE_BY"},
         {2,"FLAG_NO_RESPRAY"},
@@ -6846,7 +6814,7 @@ namespace big
         {30,"FLAG_ATTACH_TRAILER_ON_HIGHWAY"},
         {31,"FLAG_ATTACH_TRAILER_IN_CITY"}
     };
-    std::map<int, std::string> var::List_Vehicle_Flags_3 {
+    std::map<int, std::string> game_variable::List_Vehicle_Flags_3{
         {0,"FLAG_HAS_NO_ROOF"},
         {1,"FLAG_0xFC6563DB"},
         {2,"FLAG_RECESSED_HEADLIGHT_CORONAS"},
@@ -6880,7 +6848,7 @@ namespace big
         {30,"FLAG_FORCE_ENABLE_CHASSIS_COLLISION"},
         {31,"FLAG_CANNOT_BE_PICKUP_BY_CARGOBOB"}
     };
-    std::map<int, std::string> var::List_Vehicle_Flags_4{
+    std::map<int, std::string> game_variable::List_Vehicle_Flags_4{
         {0,"FLAG_CAN_HAVE_NEONS"},
         {1,"FLAG_HAS_INTERIOR_EXTRAS"},
         {2,"FLAG_HAS_TURRET_SEAT_ON_VEHICLE"},
@@ -6914,7 +6882,7 @@ namespace big
         {30,"FLAG_HAS_ROCKET_BOOST"},
         {31,"FLAG_RAMMING_SCOOP"}
     };
-    std::map<int, std::string> var::List_Vehicle_Flags_5{
+    std::map<int, std::string> game_variable::List_Vehicle_Flags_5{
         {0,"FLAG_HAS_PARACHUTE"},
         {1,"FLAG_RAMP"},
         {2,"FLAG_HAS_EXTRA_SHUFFLE_SEAT_ON_VEHICLE"},
@@ -6948,7 +6916,7 @@ namespace big
         {30,"FLAG_DONT_CRASH_ABANDONED_NEAR_GROUND"},
         {31,"FLAG_USE_INTERIOR_RED_LIGHT"}
     };
-    std::map<int, std::string> var::List_Vehicle_Flags_6{
+    std::map<int, std::string> game_variable::List_Vehicle_Flags_6{
         {0,"FLAG_HAS_HELI_STRAFE_MODE"},
         {1,"FLAG_HAS_VERTICAL_ROCKET_BOOST"},
         {2,"FLAG_CREATE_WEAPON_MANAGER_ON_SPAWN"},
@@ -6982,7 +6950,7 @@ namespace big
         {30,"FLAG_DISABLE_DEFORMATION"},
         {31,"0xC1971ED9"}
     };
-    std::map<int, std::string> var::List_Vehicle_Flags_7{
+    std::map<int, std::string> game_variable::List_Vehicle_Flags_7{
         {0,"FLAG_USE_RESTRICTED_DRIVEBY_HEIGHT_MID_ONLY"},
         {1,"0xE5391C19"},
         {2,"FLAG_SPOILER_MOD_DOESNT_INCREASE_GRIP"},
@@ -7016,8 +6984,8 @@ namespace big
         {30,""},
         {31,""}
     };
-    Hash var::weapon_shotgun[] = { WEAPON_ASSAULTSHOTGUN, WEAPON_BULLPUPSHOTGUN , WEAPON_HEAVYSHOTGUN, WEAPON_PUMPSHOTGUN, WEAPON_PUMPSHOTGUN_MK2, WEAPON_SAWNOFFSHOTGUN, WEAPON_COMBATSHOTGUN, WEAPON_COMBATSHOTGUN };
-    std::string var::character_stat_hash[] = {
+    Hash game_variable::weapon_shotgun[] = { WEAPON_ASSAULTSHOTGUN, WEAPON_BULLPUPSHOTGUN , WEAPON_HEAVYSHOTGUN, WEAPON_PUMPSHOTGUN, WEAPON_PUMPSHOTGUN_MK2, WEAPON_SAWNOFFSHOTGUN, WEAPON_COMBATSHOTGUN, WEAPON_COMBATSHOTGUN };
+    std::string game_variable::character_stat_hash[] = {
         "SUCCESSFUL_COUNTERS",
         "FIRES_EXTINGUISHED",
         "FIRES_STARTED",
@@ -14444,7 +14412,7 @@ namespace big
         "CC_REP_TM_SB_GMDY",
         "CC_REP_TM_SB_POSIX"
     };
-    std::string var::all_stat_hash[]{
+    std::string game_variable::all_stat_hash[]{
         "PVC_BANK_BALANCE",
         "EVC_BANK_BALANCE",
         "PVC_BALANCE",
@@ -14847,8 +14815,8 @@ namespace big
         "MPPLY_RCTTCOMPLETEDWEEK",
         "MPPLY_RCTTDONESTATINIT"
     };
-    std::string var::all_packed_hash[]{ "MP_PSTAT_BOOL0","MP_PSTAT_BOOL1","MP_PSTAT_BOOL2","MP_PSTAT_INT0","MP_PSTAT_INT1","MP_PSTAT_INT2","MP_TUPSTAT_INT0","MP_TUPSTAT_INT1","MP_TUPSTAT_INT2","MP_TUPSTAT_INT3","MP_TUPSTAT_BOOL0","MP_NGPSTAT_INT0","MP_NGPSTAT_BOOL0","MP_NGDLCPSTAT_INT0","MP_NGDLCPSTAT_BOOL0" };
-    std::string var::character_packed_hash[]{ "PSTAT_BOOL0","PSTAT_BOOL1","PSTAT_BOOL2","PSTAT_INT0","PSTAT_INT1","PSTAT_INT2","PSTAT_INT3","PSTAT_INT4","PSTAT_INT5","PSTAT_INT6",
+    std::string game_variable::all_packed_hash[]{ "MP_PSTAT_BOOL0","MP_PSTAT_BOOL1","MP_PSTAT_BOOL2","MP_PSTAT_INT0","MP_PSTAT_INT1","MP_PSTAT_INT2","MP_TUPSTAT_INT0","MP_TUPSTAT_INT1","MP_TUPSTAT_INT2","MP_TUPSTAT_INT3","MP_TUPSTAT_BOOL0","MP_NGPSTAT_INT0","MP_NGPSTAT_BOOL0","MP_NGDLCPSTAT_INT0","MP_NGDLCPSTAT_BOOL0" };
+    std::string game_variable::character_packed_hash[]{ "PSTAT_BOOL0","PSTAT_BOOL1","PSTAT_BOOL2","PSTAT_INT0","PSTAT_INT1","PSTAT_INT2","PSTAT_INT3","PSTAT_INT4","PSTAT_INT5","PSTAT_INT6",
         "PSTAT_INT7","PSTAT_INT8","PSTAT_INT9","PSTAT_INT10","PSTAT_INT11","PSTAT_INT12","PSTAT_INT13","PSTAT_INT14","TUPSTAT_INT0","TUPSTAT_INT1","TUPSTAT_INT2","TUPSTAT_INT3",
         "TUPSTAT_BOOL0","NGPSTAT_INT0","NGPSTAT_INT1","NGPSTAT_INT2","NGPSTAT_INT3","NGPSTAT_INT4","NGPSTAT_INT5","NGPSTAT_INT6","NGPSTAT_INT7","NGPSTAT_BOOL0","NGPSTAT_BOOL1",
         "TUPSTAT_INT4","TUPSTAT_INT5","TUPSTAT_INT6","TUPSTAT_INT7","TUPSTAT_INT8","TUPSTAT_INT9","TUPSTAT_INT10","TUPSTAT_INT11","TUPSTAT_INT12","TUPSTAT_INT13","TUPSTAT_INT14",
@@ -14970,7 +14938,27 @@ namespace big
         "CASINOHSTPSTAT_INT74","CASINOHSTPSTAT_INT75","CASINOHSTPSTAT_INT76","CASINOHSTPSTAT_INT77","CASINOHSTPSTAT_INT78","CASINOHSTPSTAT_INT79","CASINOHSTPSTAT_INT80","CASINOHSTPSTAT_INT81","CASINOHSTPSTAT_INT82","CASINOHSTPSTAT_INT83","CASINOHSTPSTAT_INT84","CASINOHSTPSTAT_INT85","CASINOHSTPSTAT_INT86","CASINOHSTPSTAT_INT87","CASINOHSTPSTAT_INT88","CASINOHSTPSTAT_INT89","CASINOHSTPSTAT_INT90","CASINOHSTPSTAT_INT91","CASINOHSTPSTAT_INT92","CASINOHSTPSTAT_INT93","CASINOHSTPSTAT_INT94","CASINOHSTPSTAT_INT95","CASINOHSTPSTAT_INT96","CASINOHSTPSTAT_INT97","CASINOHSTPSTAT_INT98","CASINOHSTPSTAT_INT99","CASINOHSTPSTAT_INT100","CASINOHSTPSTAT_INT101","CASINOHSTPSTAT_INT102","CASINOHSTPSTAT_INT103","CASINOHSTPSTAT_INT104","CASINOHSTPSTAT_BOOL0","CASINOHSTPSTAT_BOOL1","CASINOHSTPSTAT_BOOL2","CASINOHSTPSTAT_BOOL3","CASINOHSTPSTAT_BOOL4","HEIST3TATTOOSTAT_BOOL0","HEIST3TATTOOSTAT_BOOL1","SU20PSTAT_INT0","SU20PSTAT_INT1","SU20PSTAT_INT2","SU20PSTAT_INT3","SU20PSTAT_INT4","SU20PSTAT_INT5","SU20PSTAT_INT6","SU20PSTAT_INT7","SU20PSTAT_INT8","SU20PSTAT_INT9","SU20PSTAT_INT10","SU20PSTAT_INT11","SU20PSTAT_INT12","SU20PSTAT_INT13","SU20PSTAT_INT14","SU20PSTAT_INT15","SU20PSTAT_INT16","SU20PSTAT_INT17","SU20PSTAT_INT18","SU20PSTAT_INT19","SU20PSTAT_INT20","SU20PSTAT_INT21","SU20PSTAT_INT22","SU20PSTAT_INT23","SU20PSTAT_INT24","SU20PSTAT_INT25","SU20PSTAT_INT26","SU20PSTAT_INT27","SU20PSTAT_INT28","SU20PSTAT_INT29","SU20PSTAT_INT30","SU20PSTAT_INT31","SU20PSTAT_INT32","SU20PSTAT_INT33","SU20PSTAT_INT34","SU20PSTAT_INT35","SU20PSTAT_INT36","SU20PSTAT_INT37","SU20PSTAT_INT38","SU20PSTAT_INT39","SU20PSTAT_INT40","SU20PSTAT_INT41","SU20PSTAT_INT42","SU20PSTAT_INT43","SU20PSTAT_INT44","SU20PSTAT_INT45","SU20PSTAT_INT46","SU20PSTAT_INT47","SU20PSTAT_INT48","SU20PSTAT_INT49","SU20PSTAT_INT50","SU20PSTAT_INT51","SU20PSTAT_INT52","SU20PSTAT_INT53","SU20PSTAT_INT54","SU20PSTAT_INT55","SU20PSTAT_INT56","SU20PSTAT_INT57","SU20PSTAT_INT58","SU20PSTAT_INT59","SU20PSTAT_INT60","SU20PSTAT_INT61","SU20PSTAT_INT62","SU20PSTAT_INT63","SU20PSTAT_INT64","SU20PSTAT_INT65","SU20PSTAT_INT66","SU20PSTAT_INT67","SU20PSTAT_INT68","SU20PSTAT_INT69","SU20PSTAT_INT70","SU20PSTAT_INT71","SU20PSTAT_INT72","SU20PSTAT_INT73","SU20PSTAT_INT74","SU20PSTAT_INT75","SU20PSTAT_INT76","SU20PSTAT_INT77","SU20PSTAT_INT78","SU20PSTAT_INT79","SU20PSTAT_INT80","SU20PSTAT_INT81","SU20PSTAT_INT82","SU20PSTAT_INT83","SU20PSTAT_INT84","SU20PSTAT_INT85","SU20PSTAT_INT86","SU20PSTAT_INT87","SU20PSTAT_INT88","SU20PSTAT_INT89","SU20PSTAT_INT90","SU20PSTAT_INT91","SU20PSTAT_INT92","SU20PSTAT_INT93","SU20PSTAT_INT94","SU20PSTAT_INT95","SU20PSTAT_INT96","SU20PSTAT_INT97","SU20PSTAT_INT98","SU20PSTAT_INT99","SU20PSTAT_INT100","SU20PSTAT_INT101","SU20PSTAT_INT102","SU20PSTAT_INT103","SU20PSTAT_INT104","SU20PSTAT_INT105","SU20PSTAT_INT106","SU20PSTAT_INT107","SU20PSTAT_INT108","SU20PSTAT_INT109","SU20PSTAT_INT110","SU20PSTAT_INT111","SU20PSTAT_INT112","SU20PSTAT_INT113","SU20PSTAT_INT114","SU20PSTAT_INT115","SU20PSTAT_INT116","SU20PSTAT_INT117","SU20PSTAT_INT118","SU20PSTAT_INT119","SU20PSTAT_INT120","SU20PSTAT_INT121","SU20PSTAT_INT122","SU20PSTAT_INT123","SU20PSTAT_INT124","SU20PSTAT_INT125","SU20PSTAT_INT126","SU20PSTAT_INT127","SU20PSTAT_INT128","SU20PSTAT_INT129","SU20PSTAT_INT130","SU20PSTAT_INT131","SU20PSTAT_INT132","SU20PSTAT_INT133","SU20PSTAT_INT134","SU20PSTAT_INT135","SU20PSTAT_INT136","SU20PSTAT_INT137","SU20PSTAT_INT138","SU20PSTAT_INT139","SU20PSTAT_INT140","SU20PSTAT_INT141","SU20PSTAT_INT142","SU20PSTAT_INT143","SU20PSTAT_INT144","SU20PSTAT_INT145","SU20PSTAT_INT146","SU20PSTAT_INT147","SU20PSTAT_INT148","SU20PSTAT_INT149","SU20PSTAT_INT150","SU20PSTAT_INT151","SU20PSTAT_INT152","SU20PSTAT_INT153","SU20PSTAT_INT154","SU20PSTAT_INT155","SU20PSTAT_INT156","SU20PSTAT_INT157","SU20PSTAT_INT158","SU20PSTAT_INT159","SU20PSTAT_INT160","SU20PSTAT_INT161","SU20PSTAT_INT162","SU20PSTAT_INT163","SU20PSTAT_INT164","SU20PSTAT_INT165","SU20PSTAT_INT166","SU20PSTAT_INT167","SU20PSTAT_INT168","SU20PSTAT_INT169","SU20PSTAT_INT170","SU20PSTAT_INT171","SU20PSTAT_INT172","SU20PSTAT_INT173","SU20PSTAT_INT174","SU20PSTAT_INT175","SU20PSTAT_INT176","SU20PSTAT_INT177","SU20PSTAT_INT178","SU20PSTAT_INT179","SU20PSTAT_INT180","SU20PSTAT_INT181","SU20PSTAT_INT182","SU20PSTAT_INT183","SU20PSTAT_INT184","SU20PSTAT_INT185","SU20PSTAT_INT186","SU20PSTAT_INT187","SU20PSTAT_INT188","SU20PSTAT_INT189","SU20PSTAT_INT190","SU20PSTAT_INT191","SU20PSTAT_INT192","SU20PSTAT_INT193","SU20PSTAT_INT194","SU20PSTAT_INT195","SU20PSTAT_INT196","SU20PSTAT_INT197","SU20PSTAT_INT198","SU20PSTAT_INT199","SU20PSTAT_INT200","SU20PSTAT_INT201","SU20PSTAT_INT202","SU20PSTAT_INT203","SU20PSTAT_INT204","SU20PSTAT_INT205","SU20PSTAT_INT206","SU20PSTAT_INT207","SU20PSTAT_INT208","SU20PSTAT_INT209","SU20PSTAT_INT210","SU20PSTAT_INT211","SU20PSTAT_INT212","SU20PSTAT_INT213","SU20PSTAT_INT214","SU20PSTAT_INT215","SU20PSTAT_INT216","SU20PSTAT_INT217","SU20PSTAT_BOOL0","SU20PSTAT_BOOL1","SU20TATTOOSTAT_BOOL0","SU20TATTOOSTAT_BOOL1","HISLANDPSTAT_INT0","HISLANDPSTAT_INT1","HISLANDPSTAT_INT2","HISLANDPSTAT_INT3","HISLANDPSTAT_BOOL0","HISLANDPSTAT_BOOL1","HISLANDPSTAT_BOOL2","TUNERPSTAT_BOOL0","TUNERPSTAT_BOOL1","TUNERPSTAT_INT0","TUNERPSTAT_INT1","TUNERPSTAT_INT2","TUNERPSTAT_INT3","TUNERPSTAT_INT4","TUNERPSTAT_INT5","TUNERPSTAT_INT6","TUNERPSTAT_INT7","TUNERPSTAT_INT8","TUNERPSTAT_INT9","TUNERPSTAT_INT10","TUNERPSTAT_INT11","TUNERPSTAT_INT12","TUNERPSTAT_INT13","TUNERPSTAT_INT14","TUNERPSTAT_INT15","TUNERPSTAT_INT16","TUNERPSTAT_INT17","TUNERPSTAT_INT18","TUNERPSTAT_INT19","TUNERPSTAT_INT20","TUNERPSTAT_INT21","TUNERPSTAT_INT22","TUNERPSTAT_INT23","TUNERPSTAT_INT24","TUNERPSTAT_INT25","TUNERPSTAT_INT26","TUNERPSTAT_INT27","TUNERPSTAT_INT28","TUNERPSTAT_INT29","TUNERPSTAT_INT30","TUNERPSTAT_INT31","TUNERPSTAT_INT32","TUNERPSTAT_INT33","TUNERPSTAT_INT34","TUNERPSTAT_INT35","TUNERPSTAT_INT36","TUNERPSTAT_INT37","TUNERPSTAT_INT38","TUNERPSTAT_INT39","TUNERPSTAT_INT40","TUNERPSTAT_INT41","TUNERPSTAT_INT42","TUNERPSTAT_INT43","TUNERPSTAT_INT44","TUNERPSTAT_INT45","TUNERPSTAT_INT46","TUNERPSTAT_INT47","TUNERPSTAT_INT48","TUNERPSTAT_INT49","TUNERPSTAT_INT50",
         "TUNERPSTAT_INT51","TUNERPSTAT_INT52","TUNERPSTAT_INT53","TUNERPSTAT_INT54","TUNERPSTAT_INT55","TUNERPSTAT_INT56","TUNERPSTAT_INT57","TUNERPSTAT_INT58","TUNERPSTAT_INT59","TUNERPSTAT_INT60","TUNERPSTAT_INT61","TUNERPSTAT_INT62","TUNERPSTAT_INT63","TUNERPSTAT_INT64","TUNERPSTAT_INT65","TUNERPSTAT_INT66","TUNERPSTAT_INT67","TUNERPSTAT_INT68","TUNERPSTAT_INT69","TUNERPSTAT_INT70","TUNERPSTAT_INT71","TUNERPSTAT_INT72","TUNERPSTAT_INT73","TUNERPSTAT_INT74","TUNERPSTAT_INT75","TUNERPSTAT_INT76","TUNERPSTAT_INT77","TUNERPSTAT_INT78","TUNERPSTAT_INT79","TUNERPSTAT_INT80","TUNERPSTAT_INT81","TUNERPSTAT_INT82","TUNERPSTAT_INT83","TUNERPSTAT_INT84","TUNERPSTAT_INT85","TUNERPSTAT_INT86","TUNERPSTAT_INT87","TUNERPSTAT_INT88","TUNERPSTAT_INT89","TUNERPSTAT_INT90","TUNERPSTAT_INT91","TUNERPSTAT_INT92","TUNERPSTAT_INT93","TUNERPSTAT_INT94","TUNERPSTAT_INT95","TUNERPSTAT_INT96","TUNERPSTAT_INT97","TUNERPSTAT_INT98","TUNERPSTAT_INT99","TUNERPSTAT_INT100","TUNERPSTAT_INT101","TUNERPSTAT_INT102","TUNERPSTAT_INT103",
         "TUNERPSTAT_INT104","TUNERPSTAT_INT105","TUNERPSTAT_INT106","TUNERPSTAT_INT107","TUNERPSTAT_INT108","TUNERPSTAT_INT109","TUNERPSTAT_INT110","TUNERPSTAT_INT111","TUNERPSTAT_INT112","TUNERPSTAT_INT113","TUNERPSTAT_INT114","TUNERPSTAT_INT115","TUNERPSTAT_INT116","TUNERPSTAT_INT117","TUNERPSTAT_INT118","TUNERPSTAT_INT119","TUNERPSTAT_INT120","TUNERPSTAT_INT121","TUNERPSTAT_INT122","TUNERPSTAT_INT123","TUNERPSTAT_INT124","TUNERPSTAT_BOOL2",
-        "TUNERPSTAT_BOOL3","TUNERPSTAT_BOOL4","TUNERPSTAT_BOOL5","TUNERPSTAT_BOOL6","TUNERPSTAT_BOOL7","TUNERPSTAT_BOOL8", 
+        "TUNERPSTAT_BOOL3","TUNERPSTAT_BOOL4","TUNERPSTAT_BOOL5","TUNERPSTAT_BOOL6","TUNERPSTAT_BOOL7","TUNERPSTAT_BOOL8",
         "FIXERPSTAT_BOOL0", "FIXERPSTAT_BOOL1", "FIXERPSTAT_INT0", "FIXERPSTAT_INT1", "FIXERPSTAT_INT2", "FIXERPSTAT_INT3", "FIXERPSTAT_INT4", "FIXERPSTAT_INT5", "FIXERPSTAT_INT6", "FIXERPSTAT_INT7", "FIXERPSTAT_INT8", "FIXERPSTAT_INT9", "FIXERPSTAT_INT10", "FIXERPSTAT_INT11", "FIXERPSTAT_INT12", "FIXERPSTAT_INT13", "FIXERPSTAT_INT14", "FIXERPSTAT_INT15", "FIXERPSTAT_INT16", "FIXERPSTAT_INT17", "FIXERPSTAT_INT18", "FIXERPSTAT_INT19", "FIXERPSTAT_INT20", "FIXERPSTAT_INT21", "FIXERPSTAT_INT22", "FIXERPSTAT_INT23", "FIXERPSTAT_INT24", "FIXERPSTAT_INT25", "FIXERPSTAT_INT26", "FIXERPSTAT_INT27", "FIXERPSTAT_INT28", "FIXERPSTAT_INT29", "FIXERPSTAT_INT30", "FIXERPSTAT_INT31", "FIXERPSTAT_INT32", "FIXERPSTAT_INT33", "FIXERPSTAT_INT34", "FIXERPSTAT_INT35", "FIXERPSTAT_INT36", "FIXERPSTAT_INT37", "FIXERPSTAT_INT38", "FIXERPSTAT_INT39", "FIXERPSTAT_INT40", "FIXERPSTAT_INT41", "FIXERPSTAT_INT42", "FIXERPSTAT_INT43", "FIXERPSTAT_INT44", "FIXERPSTAT_INT45", "FIXERPSTAT_INT46", "FIXERPSTAT_INT47", "FIXERPSTAT_INT48", "FIXERPSTAT_INT49", "FIXERPSTAT_INT50", "FIXERPSTAT_INT51", "FIXERPSTAT_INT52", "FIXERPSTAT_INT53", "FIXERPSTAT_INT54", "FIXERPSTAT_INT55", "FIXERPSTAT_INT56", "FIXERPSTAT_INT57", "FIXERPSTAT_INT58", "FIXERPSTAT_INT59", "FIXERPSTAT_INT60", "FIXERPSTAT_INT61", "FIXERPSTAT_INT62", "FIXERPSTAT_INT63", "FIXERPSTAT_INT64", "FIXERPSTAT_INT65", "FIXERPSTAT_INT66", "FIXERPSTAT_INT67", "FIXERPSTAT_INT68", "FIXERPSTAT_INT69", "FIXERPSTAT_INT70", "FIXERPSTAT_INT71", "FIXERPSTAT_INT72", "FIXERPSTAT_INT73", "FIXERPSTAT_INT74", "FIXERPSTAT_INT75", "FIXERPSTAT_INT76", "FIXERPSTAT_INT77", "FIXERPSTAT_INT78", "FIXERPSTAT_INT79", "FIXERPSTAT_INT80", "FIXERPSTAT_INT81", "FIXERPSTAT_INT82", "FIXERPSTAT_INT83", "FIXERPSTAT_INT84", "FIXERPSTAT_INT85", "FIXERPSTAT_INT86", "FIXERPSTAT_INT87", "FIXERPSTAT_INT88", "FIXERPSTAT_INT89", "FIXERPSTAT_INT90", "FIXERPSTAT_INT91", "FIXERPSTAT_INT92", "FIXERPSTAT_INT93", "FIXERPSTAT_INT94", "FIXERPSTAT_INT95", "FIXERPSTAT_INT96", "FIXERPSTAT_INT97", "FIXERPSTAT_INT98", "FIXERPSTAT_INT99", "FIXERPSTAT_INT100", "FIXERPSTAT_INT101", "FIXERPSTAT_INT102", "FIXERPSTAT_INT103", "FIXERPSTAT_INT104", "FIXERPSTAT_INT105", "FIXERPSTAT_INT106", "FIXERPSTAT_INT107", "FIXERPSTAT_INT108", "FIXERPSTAT_INT109", "FIXERPSTAT_INT110", "FIXERPSTAT_INT111", "FIXERPSTAT_INT112", "FIXERPSTAT_INT113", "FIXERPSTAT_INT114", "FIXERPSTAT_INT115", "FIXERPSTAT_INT116", "FIXERPSTAT_INT117", "FIXERPSTAT_INT118", "FIXERPSTAT_INT119", "FIXERPSTAT_INT120", "FIXERPSTAT_INT121", "FIXERPSTAT_INT122", "FIXERPSTAT_INT123", "FIXERPSTAT_INT124", "FIXERPSTAT_INT125", "FIXERPSTAT_INT126", "FIXERPSTAT_INT127", "FIXERPSTAT_INT128", "FIXERPSTAT_INT129", "FIXERPSTAT_INT130", "FIXERPSTAT_INT131", "FIXERPSTAT_INT132", "FIXERPSTAT_INT133", "FIXERPSTAT_INT134", "FIXERPSTAT_INT135", "FIXERPSTAT_INT136", "FIXERPSTAT_INT137", "FIXERPSTAT_INT138", "FIXERPSTAT_INT139", "FIXERPSTAT_INT140", "FIXERPSTAT_INT141", "FIXERPSTAT_INT142", "FIXERPSTAT_INT143", "FIXERPSTAT_INT144", "FIXERPSTAT_INT145", "FIXERPSTAT_INT146", "FIXERPSTAT_INT147", "FIXERPSTAT_INT148", "FIXERPSTAT_INT149", "FIXERPSTAT_INT150", "FIXERPSTAT_INT151", "FIXERPSTAT_INT152", "FIXERPSTAT_INT153", "FIXERPSTAT_INT154", "FIXERPSTAT_INT155", "FIXERPSTAT_INT156", "FIXERPSTAT_INT157", "FIXERPSTAT_INT158", "FIXERPSTAT_INT159", "FIXERPSTAT_INT160", "FIXERPSTAT_INT161", "FIXERPSTAT_INT162", "FIXERPSTAT_INT163", "FIXERPSTAT_INT164", "FIXERPSTAT_INT165", "FIXERPSTAT_INT166", "FIXERPSTAT_INT167", "FIXERPSTAT_INT168", "FIXERPSTAT_INT169", "FIXERPSTAT_INT170", "FIXERPSTAT_INT171", "FIXERPSTAT_INT172", "FIXERPSTAT_INT173", "FIXERPSTAT_INT174", "FIXERPSTAT_INT175", "FIXERPSTAT_INT176", "FIXERPSTAT_INT177", "FIXERPSTAT_INT178", "FIXERPSTAT_INT179", "FIXERPSTAT_INT180", "FIXERPSTAT_INT181", "FIXERPSTAT_INT182", "FIXERPSTAT_INT183", "FIXERPSTAT_INT184", "FIXERPSTAT_INT185", "FIXERPSTAT_INT186", "FIXERPSTAT_INT187", "FIXERPSTAT_INT188", "FIXERPSTAT_INT189", "FIXERPSTAT_INT190", "FIXERPSTAT_INT191", "FIXERPSTAT_INT192", "FIXERPSTAT_INT193", "FIXERPSTAT_INT194", "FIXERPSTAT_INT195", "FIXERPSTAT_INT196", "FIXERPSTAT_INT197", "FIXERPSTAT_INT198", "FIXERPSTAT_INT199", "FIXERPSTAT_INT200", "FIXERPSTAT_INT201", "FIXERPSTAT_INT202", "FIXERPSTAT_INT203", "FIXERPSTAT_INT204", "FIXERPSTAT_INT205", "FIXERTATTOOSTAT_BOOL0" };
-    const int var::penthouse_shop[]{ 100000 ,5000 ,1000 ,200 ,10000 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,2500 ,2500 ,2500 ,2500 ,2500 ,2500 ,25500 ,26500 ,24500 ,26000 ,23500 ,22500 ,27800 ,28500 ,29500 ,29500 ,28500 ,28500 ,28500 ,28500 ,28500 ,28500 ,28500 ,28500 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,4100 ,4100 ,22500 ,0 ,34000 ,34000 ,31000 ,32500 ,35000 ,35000 ,31500 ,31500 ,31500 ,31500 ,30000 ,30000 ,30000 ,30000 ,25500 ,25500 ,25500 ,25500 ,82000 ,115000 ,3500 ,3500 ,3500 ,3500 ,8700 ,9300 ,29000 ,29000 ,29000 ,29000 ,29000 ,15500 ,15500 ,15500 ,15500 ,15500 ,25600 ,5700 ,0 ,27000 ,19700 ,43500 ,43500 ,9400 ,9500 ,9000 ,72500 ,4200 ,4200 ,18400 ,58000 ,11200 ,11200 ,11200 ,11200 ,2400 ,2400 ,2400 ,3750 ,2750 ,8650 ,8650 ,8650 ,25600 ,22500 ,18200 ,18200 ,11500 ,6850 ,5750 ,5950 ,8100 ,8100 ,8100 ,8100 ,4750 ,4850 ,2750 ,3150 ,6800 ,5500 ,5500 ,750 ,750 ,750 ,25000 ,1200 ,2400 ,27500 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,12000 ,29500 ,41500 ,41500 ,41500 ,41500 ,24500 ,12000 ,12000 ,12000 ,40000 ,18500 ,18500 ,18500 ,18500 ,17400 ,68000 ,28300 ,52500 ,52500 ,28000 ,17500 ,17500 ,17500 ,11000 ,24600 ,24600 ,28500 ,28500 ,24500 ,24500 ,24500 ,24500 ,86000 ,9400 ,8700 ,6400 ,42500 ,45000 ,26500 ,26500 ,26500 ,18500 ,19500 ,18000 ,28000 ,25000 ,14500 ,14500 ,14500 ,14500 ,7800 ,24500 ,25000 ,24500 ,24000 ,23500 ,15700 ,16700 ,24000 ,23500 ,25000 ,30000 ,27800 ,5600 ,5600 ,5600 ,5600 ,3450 ,7300 ,24500 ,24500 ,24500 ,24500 ,24500 ,24500 ,24500 ,24500 ,25500 ,25500 ,25500 ,25500 ,25500 ,20500 ,5600 ,5600 ,5600 ,5600 ,18400 ,18400 ,18400 ,17600 ,26000 ,31000 ,4800 ,4800 ,35500 ,35500 ,41000 ,35000 ,30000 ,24000 ,25600 ,71000 ,95000 ,95000 ,95000 ,95000 ,24500 ,23500 ,24500 ,23500 ,24500 ,23500 ,18400 ,18400 ,18400 ,18400 ,600 ,600 ,600 ,450 ,450 ,450 ,1500 ,1500 ,340 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,16500 ,16500 ,70500 ,12500 ,75000 ,14600 ,5000 ,15000 ,15000 ,15000 ,95000 ,95000 ,0 ,0 ,0 ,0 ,0 ,0 ,24500 ,24500 ,22500 ,22500 ,22500 ,22500 ,22500 ,22500 ,13200 ,15000 ,3500 ,3500 ,2750 ,13400 ,13400 ,27500 ,76000 ,76000 ,76000 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,37500 ,3400 ,3400 ,3400 ,45000 ,45000 ,45000 ,45000 ,45000 ,45000 ,45000 ,45000 ,24500 ,24500 ,24500 };
+    const int game_variable::penthouse_shop[]{ 100000 ,5000 ,1000 ,200 ,10000 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,20500 ,2500 ,2500 ,2500 ,2500 ,2500 ,2500 ,25500 ,26500 ,24500 ,26000 ,23500 ,22500 ,27800 ,28500 ,29500 ,29500 ,28500 ,28500 ,28500 ,28500 ,28500 ,28500 ,28500 ,28500 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,4100 ,4100 ,22500 ,0 ,34000 ,34000 ,31000 ,32500 ,35000 ,35000 ,31500 ,31500 ,31500 ,31500 ,30000 ,30000 ,30000 ,30000 ,25500 ,25500 ,25500 ,25500 ,82000 ,115000 ,3500 ,3500 ,3500 ,3500 ,8700 ,9300 ,29000 ,29000 ,29000 ,29000 ,29000 ,15500 ,15500 ,15500 ,15500 ,15500 ,25600 ,5700 ,0 ,27000 ,19700 ,43500 ,43500 ,9400 ,9500 ,9000 ,72500 ,4200 ,4200 ,18400 ,58000 ,11200 ,11200 ,11200 ,11200 ,2400 ,2400 ,2400 ,3750 ,2750 ,8650 ,8650 ,8650 ,25600 ,22500 ,18200 ,18200 ,11500 ,6850 ,5750 ,5950 ,8100 ,8100 ,8100 ,8100 ,4750 ,4850 ,2750 ,3150 ,6800 ,5500 ,5500 ,750 ,750 ,750 ,25000 ,1200 ,2400 ,27500 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,7800 ,12000 ,29500 ,41500 ,41500 ,41500 ,41500 ,24500 ,12000 ,12000 ,12000 ,40000 ,18500 ,18500 ,18500 ,18500 ,17400 ,68000 ,28300 ,52500 ,52500 ,28000 ,17500 ,17500 ,17500 ,11000 ,24600 ,24600 ,28500 ,28500 ,24500 ,24500 ,24500 ,24500 ,86000 ,9400 ,8700 ,6400 ,42500 ,45000 ,26500 ,26500 ,26500 ,18500 ,19500 ,18000 ,28000 ,25000 ,14500 ,14500 ,14500 ,14500 ,7800 ,24500 ,25000 ,24500 ,24000 ,23500 ,15700 ,16700 ,24000 ,23500 ,25000 ,30000 ,27800 ,5600 ,5600 ,5600 ,5600 ,3450 ,7300 ,24500 ,24500 ,24500 ,24500 ,24500 ,24500 ,24500 ,24500 ,25500 ,25500 ,25500 ,25500 ,25500 ,20500 ,5600 ,5600 ,5600 ,5600 ,18400 ,18400 ,18400 ,17600 ,26000 ,31000 ,4800 ,4800 ,35500 ,35500 ,41000 ,35000 ,30000 ,24000 ,25600 ,71000 ,95000 ,95000 ,95000 ,95000 ,24500 ,23500 ,24500 ,23500 ,24500 ,23500 ,18400 ,18400 ,18400 ,18400 ,600 ,600 ,600 ,450 ,450 ,450 ,1500 ,1500 ,340 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,16500 ,16500 ,70500 ,12500 ,75000 ,14600 ,5000 ,15000 ,15000 ,15000 ,95000 ,95000 ,0 ,0 ,0 ,0 ,0 ,0 ,24500 ,24500 ,22500 ,22500 ,22500 ,22500 ,22500 ,22500 ,13200 ,15000 ,3500 ,3500 ,2750 ,13400 ,13400 ,27500 ,76000 ,76000 ,76000 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,17500 ,37500 ,3400 ,3400 ,3400 ,45000 ,45000 ,45000 ,45000 ,45000 ,45000 ,45000 ,45000 ,24500 ,24500 ,24500 };
+    const char* const game_variable::apartment_list[]{ "Infinite Loading", "Eclipse Towers, Apt 31","Eclipse Towers, Apt 9","Eclipse Towers, Apt 40","Eclipse Towers, Apt 5","3 Alta St, Apt 10","3 Alta St, Apt 57",
+    "Del Perro Heights, Apt 20","1162 Power St, Apt 3","0605 Spanish Ave, Apt 1","0604 Las Lagunas Blvd, Apt 4","0184 Milton Rd, Apt 13","The Royale, Apt 19","0504 S Mo Milton Dr","0115 Bay City Ave, Apt 45","0325 South Rockford Dr","Dream Tower, Apt 15","2143 Las Lagunas Blvd, Apt 9",
+    "1561 San Vitas St, Apt 2","0112 S Rockford Dr, Apt 13","2057 Vespucci Blvd, Apt 1","0069 Cougar Ave, Apt 19","1237 Prosperity St, Apt 21","1115 Blvd Del Perro, Apt 18","0120 Murrieta Heights","Unit 14 Popular St","Unit 2 Popular St","331 Supply St","Unit 1 Olympic Fwy",
+    "0754 Roy Lowenstein Blvd","12 Little Bighorn Ave","Unit 124 Popular St","0552 Roy Lowenstein Blvd","0432 Davis Ave","Del Perro Heights, Apt 7","Weazel Plaza, Apt 101","Weazel Plaza, Apt 70",
+    "Weazel Plaza, Apt 26","4 Integrity Way, Apt 30","4 Integrity Way, Apt 35","Richards Majestic, Apt 4","Richards Majestic, Apt 51","Tinsel Towers, Apt 45","Tinsel Towers, Apt 29",
+    "142 Paleto Blvd","1 Strawberry Ave","1932 Grapeseed Ave","1920 Senora Way","2000 Great Ocean Highway","197 Route 68","870 Route 68 Approach","1200 Route 68","8754 Route 68",
+    "1905 Davis Ave","1623 South Shambles St","4531 Dry Dock St","1337 Exceptionalists Way","Unit 76 Greenwich Parkway","Garage Innocence Blvd","634 Blvd Del Perro","0897 Mirror Park Blvd","Eclipse Towers, Apt 3",
+    "Del Perro Heights, Apt 4","Richards Majestic, Apt 2","Tinsel Towers, Apt 42","4 Integrity Way, Apt 28","4 Hangman Ave","12 Sustancia Rd","4584 Procopio Dr","4401 Procopio Dr",
+    "0232 Paleto Blvd","140 Zancudo Ave","1893 Grapeseed Ave","3655 Wild Oats Drive","2044 North Conker Avenue","2868 Hillcrest Avenue","2862 Hillcrest Avenue","3677 Whispymound Drive","2117 Milton Road",
+    "2866 Hillcrest Avenue","2874 Hillcrest Avenue","2113 Mad Wayne Thunder Drive","2045 North Conker Avenue","Eclipse Towers, Penthouse Suite 1","Eclipse Towers, Penthouse Suite 2","Eclipse Towers, Penthouse Suite 3","Private Yacht",
+    "Lombank West","Maze Bank West","Arcadius Business Center","Maze Bank Tower","Rancho Clubhouse","Del Perro Beach Clubhouse","Pillbox Hill Clubhouse","Great Chaparral Clubhouse","Paleto Bay Clubhouse",
+    "Sandy Shores Clubhouse","La Mesa Clubhouse","Downtown Vinewood Clubhouse","Hawick Clubhouse","Grapeseed Clubhouse","Paleto Bay Clubhouse","Vespucci Beach Clubhouse","Office Garage 1",
+    "Office Garage 2","Office Garage 3","Office Garage 1","Office Garage 2","Office Garage 3","Office Garage 1","Office Garage 2","Office Garage 3","Office Garage 1","Office Garage 2","Office Garage 3",
+    "Warehouse","Casino Penthouse Garage" };
+    const int game_variable::apartment_id[]{ 12728,3949,3950,3951,3952,3953,3954,3955,3966,3967,3968,3969,3970,3971,3972,3973,3974,3975,3976,3977,3978,
+    3979,3980,3981,3982,3983,3984,3985,3986,3987,3988,3989,3990,3991,3956,3957,3958,3959,3960,3961,3962,3963,3964,3965,3992,
+    3993,3994,3995,3996,3997,3998,3999,4000,4001,4002,4003,4004,4005,4006,4007,4008,6495,6496,6497,6498,6499,7716,7717,
+    7718,7719,7720,7721,7722,12731,12732,12733,12734,12735,12736,12737,12738,12739,12740,12728,12729,12730,27000000,
+    15310,15311,15312,15313,17393,17395,17391,17400,17397,17399,17392,17390,17389,17398,17396,17394,19057,18950,18951,
+    19057,18950,18951,19057,18950,18951,19057,18950,18951,3000000,25837 };
 };

@@ -90,5 +90,5 @@ namespace big
 		static constexpr inline float mg = 0.8000000119f;
 	} weapon_recoil;
 
-	inline static weapon_helper *g_weapon_option{};
+	inline static weapon_helper g_weapon_option{};
 }

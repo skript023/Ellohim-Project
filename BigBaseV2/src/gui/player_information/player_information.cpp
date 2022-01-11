@@ -154,6 +154,13 @@ namespace big
                     ImGui::RadioButton(xorstr("Steal"), &type, 2);
                     ImGui::Separator();
                 }
+                if (SelectedScriptEvent == 1)
+                {
+                    ImGui::PushItemWidth(250.f);
+                    ImGui::Combo("Apartment Location", &selected_apartment, game_variable::apartment_list, IM_ARRAYSIZE(game_variable::apartment_list));
+                    ImGui::PopItemWidth();
+                    ImGui::Checkbox("All Player?", &is_all_player);
+                }
 
                 if (ImGui::Button(xorstr("Send Event")))
                 {
@@ -163,7 +170,15 @@ namespace big
                         remote_event::teleport_player_to_cayo(g_selected.player);
                         break;
                     case 1:
-                        remote_event::force_invite_apartment(g_selected.player);
+                        if (!is_all_player)
+                        {
+                            remote_event::force_invite_apartment(g_selected.player, game_variable::apartment_id[selected_apartment]);
+                        }
+                        else if (is_all_player)
+                        {
+                            for (int i = 0; i <= g_local.connected_player; i++)
+                                remote_event::force_invite_apartment(i, game_variable::apartment_id[selected_apartment]);
+                        }
                         break;
                     case 2:
                         remote_event::ceo_kick(g_selected.player);
@@ -230,7 +245,7 @@ namespace big
                 {
                     ImGui::PushItemWidth(250);
                     if (!AirStrike)
-                        ImGui::Combo(xorstr("Select Shoot Type"), &SelectedShoot, var::ShootWeapon, IM_ARRAYSIZE(var::ShootWeapon));
+                        ImGui::Combo(xorstr("Select Shoot Type"), &SelectedShoot, game_variable::shoot_troll_list, IM_ARRAYSIZE(game_variable::shoot_troll_list));
                     ImGui::Checkbox(xorstr("Air Strike"), &AirStrike);
                     ImGui::Separator();
                     ImGui::PopItemWidth();
@@ -240,8 +255,7 @@ namespace big
                     ImGui::PushItemWidth(250);
                     if (ExplosiveMode == 0)
                     {
-                        ImGui::Combo(xorstr("Select Explosion Type"), &SelectedExplosion, var::ExplosionList, IM_ARRAYSIZE(var::ExplosionList));
-                        //ImGui::Combo("Blame Player", &SelectedBlame, features::PlayerNames, IM_ARRAYSIZE(features::PlayerNames));
+                        ImGui::Combo(xorstr("Select Explosion Type"), &SelectedExplosion, game_variable::explosion_list, IM_ARRAYSIZE(game_variable::explosion_list));
                         if (ImGui::BeginCombo(xorstr("Blame Player"), g_misc_option->player_names[SelectedBlame]))
                         {
                             for (int i = 0; i < 32; ++i)
@@ -305,12 +319,12 @@ namespace big
                             {
                             case 0:
                                 int MaxAmmo;
-                                for (auto WeaponList : var::AllWeaponHashes)
+                                for (auto WeaponList : game_variable::weapon_hash_list)
                                 {
                                     if (!WEAPON::HAS_PED_GOT_WEAPON(g_selected.ped, rage::joaat(WeaponList), FALSE))
                                     {
                                         script::get_current()->yield();
-                                        for (auto ComponentHashes : var::AllComponentHashes)
+                                        for (auto ComponentHashes : game_variable::weapon_component_list)
                                         {
                                             WEAPON::GIVE_WEAPON_COMPONENT_TO_PED(g_selected.ped, rage::joaat(WeaponList), rage::joaat(ComponentHashes));
                                         }
@@ -319,7 +333,7 @@ namespace big
                                 }
                                 break;
                             case 1:
-                                for (auto name : var::AllWeaponHashes)
+                                for (auto name : game_variable::weapon_hash_list)
                                 {
                                     auto ent = g_selected.ped;
                                     if (ENTITY::DOES_ENTITY_EXIST(ent) && !ENTITY::IS_ENTITY_DEAD(ent, FALSE))
@@ -330,7 +344,7 @@ namespace big
                                 }
                                 break;
                             case 2:
-                                for (auto name : var::AllWeaponHashes)
+                                for (auto name : game_variable::weapon_hash_list)
                                 {
                                     auto ent = g_selected.ped;
                                     if (ENTITY::DOES_ENTITY_EXIST(ent) && !ENTITY::IS_ENTITY_DEAD(ent, FALSE))
@@ -402,14 +416,14 @@ namespace big
                         {
                             if (!AirStrike)
                             {
-                                Ped owner = rage::joaat(var::ShootWeapon[SelectedShoot]) == rage::joaat("WEAPON_STUNGUN") ? PLAYER::PLAYER_PED_ID() : 0;
-                                int damage = rage::joaat(var::ShootWeapon[SelectedShoot]) == rage::joaat("WEAPON_STUNGUN") ? 0 : 250;
+                                Ped owner = rage::joaat(game_variable::shoot_troll_list[SelectedShoot]) == rage::joaat("WEAPON_STUNGUN") ? PLAYER::PLAYER_PED_ID() : 0;
+                                int damage = rage::joaat(game_variable::shoot_troll_list[SelectedShoot]) == rage::joaat("WEAPON_STUNGUN") ? 0 : 250;
                                 auto Coords = ENTITY::GET_ENTITY_COORDS(g_selected.ped, true);
                                 Coords.y += 2;
                                 Coords.x += 2;
-                                MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(Coords.x + 2, Coords.y + 2, Coords.z, Coords.x, Coords.y, Coords.z, damage, true, rage::joaat(var::ShootWeapon[SelectedShoot]), owner, true, true, 1000); //VEHICLE_WEAPON_SPACE_ROCKET
-                                MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(Coords.x + 2, Coords.y + 2, Coords.z, Coords.x, Coords.y, Coords.z, damage, false, rage::joaat(var::ShootWeapon[SelectedShoot]), owner, true, true, 1000);
-                                MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(Coords.x + 2, Coords.y + 2, Coords.z, Coords.x, Coords.y, Coords.z, damage, false, rage::joaat(var::ShootWeapon[SelectedShoot]), owner, true, true, 1000);
+                                MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(Coords.x + 2, Coords.y + 2, Coords.z, Coords.x, Coords.y, Coords.z, damage, true, rage::joaat(game_variable::shoot_troll_list[SelectedShoot]), owner, true, true, 1000); //VEHICLE_WEAPON_SPACE_ROCKET
+                                MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(Coords.x + 2, Coords.y + 2, Coords.z, Coords.x, Coords.y, Coords.z, damage, false, rage::joaat(game_variable::shoot_troll_list[SelectedShoot]), owner, true, true, 1000);
+                                MISC::SHOOT_SINGLE_BULLET_BETWEEN_COORDS(Coords.x + 2, Coords.y + 2, Coords.z, Coords.x, Coords.y, Coords.z, damage, false, rage::joaat(game_variable::shoot_troll_list[SelectedShoot]), owner, true, true, 1000);
                             }
                             if (AirStrike)
                             {
@@ -811,7 +825,7 @@ namespace big
 
             ImGui::Checkbox(xorstr("Remote Bribe"), &g_remote_option->bribe_authority);
             ImGui::SameLine(200);
-            ImGui::Checkbox(xorstr("Give Explosive Ammo"), &g_weapon_option->explosive_weapon);
+            ImGui::Checkbox(xorstr("Give Explosive Ammo"), &g_weapon_option.explosive_weapon);
 
             if (network::network_is_host(g_local.player))
             {
@@ -881,16 +895,16 @@ namespace big
                         object::AttacthObject(ObjHash, g_selected.ped);
                     }
                     ImGui::PushItemWidth(250);
-                    ImGui::Combo("##ListObject", &g_selected_object, var::ObjectList, IM_ARRAYSIZE(var::ObjectList));
+                    ImGui::Combo("##ListObject", &g_selected_object, game_variable::object_hash_list, IM_ARRAYSIZE(game_variable::object_hash_list));
                     ImGui::PopItemWidth();
                     if (ImGui::Button("Spawn"))
                     {
-                        object::spawn_object(var::ObjectList[g_selected_object], g_selected.ped);
+                        object::spawn_object(game_variable::object_hash_list[g_selected_object], g_selected.ped);
                     }
                     ImGui::SameLine();
                     if (ImGui::Button("Attach"))
                     {
-                        object::AttacthObject(var::ObjectList[g_selected_object], g_selected.ped);
+                        object::AttacthObject(game_variable::object_hash_list[g_selected_object], g_selected.ped);
                     }
                     if (ImGui::Button("Semi-Godmode"))
                     {
@@ -1012,11 +1026,11 @@ namespace big
                     ImGui::Checkbox(xorstr("Godmode"), &g_toggle.godmode);
 
                     ImGui::PushItemWidth(250);
-                    ImGui::Combo(xorstr("##ListVeh"), &g_vehicle_option->selected_vehicle, var::VechicleList, IM_ARRAYSIZE(var::VechicleList)); // The second parameter is the label previewed before opening the combo.
+                    ImGui::Combo(xorstr("##ListVeh"), &g_vehicle_option->selected_vehicle, game_variable::vehicle_hash_list, IM_ARRAYSIZE(game_variable::vehicle_hash_list)); // The second parameter is the label previewed before opening the combo.
                     ImGui::PopItemWidth();
                     if (ImGui::Button(xorstr("Spawn Native")))
                     {
-                        vehicle_helper::vehicle(var::VechicleList[g_vehicle_option->selected_vehicle], g_selected.ped);
+                        vehicle_helper::vehicle(game_variable::vehicle_hash_list[g_vehicle_option->selected_vehicle], g_selected.ped);
                     }
                     ImGui::SameLine();
                     if (ImGui::Checkbox(xorstr("Maxed Out"), g_settings.options["Full Upgrade Bool"].get<bool*>()))
@@ -1108,18 +1122,18 @@ namespace big
                         ped::attach_ped(rage::joaat(PedHash), g_selected.ped);
                     }
                     ImGui::PushItemWidth(250);
-                    ImGui::Combo(xorstr("##PedList"), &SelectedPed, var::PedList, IM_ARRAYSIZE(var::PedList));
+                    ImGui::Combo(xorstr("##PedList"), &SelectedPed, game_variable::ped_hash_list, IM_ARRAYSIZE(game_variable::ped_hash_list));
                     ImGui::PopItemWidth();
                     if (ImGui::Button(xorstr("Spawn Ped")))
                     {
                         g_fiber_pool->queue_job([] {
                             auto coords = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
-                            ped::create_ped(rage::joaat(var::PedList[SelectedPed]), coords, 3, TRUE);
+                            ped::create_ped(rage::joaat(game_variable::ped_hash_list[SelectedPed]), coords, 3, TRUE);
                             });
                     }
                     if (ImGui::Button(xorstr("Attach Ped")))
                     {
-                        ped::attach_ped(rage::joaat(var::PedList[SelectedPed]), g_selected.ped);
+                        ped::attach_ped(rage::joaat(game_variable::ped_hash_list[SelectedPed]), g_selected.ped);
                     }
                     if (ImGui::Button(xorstr("Detach Ped")))
                     {
@@ -1169,11 +1183,11 @@ namespace big
                 {
                     static int selected_pickup = 0;
                     static int selected_object = 0;
-                    ImGui::Combo(xorstr("##PickupHash"), &selected_pickup, var::PickupHash, IM_ARRAYSIZE(var::PickupHash));
-                    ImGui::Combo(xorstr("##PropList"), &selected_object, var::ObjectList, IM_ARRAYSIZE(var::ObjectList));
+                    ImGui::Combo(xorstr("##PickupHash"), &selected_pickup, game_variable::pickup_hash_list, IM_ARRAYSIZE(game_variable::pickup_hash_list));
+                    ImGui::Combo(xorstr("##PropList"), &selected_object, game_variable::object_hash_list, IM_ARRAYSIZE(game_variable::object_hash_list));
                     if (ImGui::Button(xorstr("Send Pickup")))
                     {
-                        object::CreatePickup(var::PickupHash[selected_pickup], var::ObjectList[selected_object], 9999, g_selected.ped);
+                        object::CreatePickup(game_variable::pickup_hash_list[selected_pickup], game_variable::pickup_hash_list[selected_object], 9999, g_selected.ped);
                     }
                     ImGui::EndMenu();
                 }

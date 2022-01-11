@@ -19,6 +19,8 @@ namespace big
         static inline int SelectedScriptEvent = 0;
         static inline int SelectedNetworkEvent = 0;
         static inline int SelectedOtherEvent = 0;
+        static inline int selected_apartment = 0;
+        static inline bool is_all_player = false;
 
         static inline int SelectedShoot = 0;
         static inline int MoneyValue = 0;

@@ -87,7 +87,7 @@ namespace big
     std::string vehicle_helper::get_vehicle_name_from_hash(Hash vehicle_hash)
     {
         std::string sVar0 = std::to_string(vehicle_hash);
-        for (auto vehicle : var::VechicleList)
+        for (auto vehicle : game_variable::vehicle_hash_list)
         {
             if (rage::joaat(vehicle) == vehicle_hash)
             {
@@ -107,7 +107,7 @@ namespace big
                 script::get_current()->yield();
                 auto VehicleHash = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_model_hash;
                 auto Flag = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4; //*(uint32_t*)((DWORD64)VehicleInfo + 0x588);
-                auto BoostLevel = rage_helper::get_local_vehicle()->m_vehicle_boost;//Memory::get_value<float>(g_ptr.WorldPTR, { 0x8, 0xD30, 0x320 });//*(float*)((DWORD64)VehiclePTR + 0x320);
+                auto BoostLevel = rage_helper::get_local_vehicle()->m_vehicle_boost;//memory_util::get_value<float>(g_ptr.WorldPTR, { 0x8, 0xD30, 0x320 });//*(float*)((DWORD64)VehiclePTR + 0x320);
 
                 if (VehicleHash == RAGE_JOAAT("Oppressor2") && BoostLevel < 0.99f && GetKeyState(0x58) & 0x8000)
                 {
@@ -125,7 +125,7 @@ namespace big
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
                 }
-                else if (Flag == 1107558400 || Memory::Is_Bit_Set(Flag, 30) && BoostLevel < 1.24f && GetKeyState(0x45) & 0x8000)
+                else if (Flag == 1107558400 || memory_util::is_bit_set(Flag, 30) && BoostLevel < 1.24f && GetKeyState(0x45) & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
                 }
@@ -224,6 +224,43 @@ namespace big
         }
     }
 
+    void despawn_personal_vehicle(int vehicle_index)
+    {
+        memory_util::clear_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(),TRIGGER_SPAWN_TOGGLE | SPAWN_AT_MORS_MUTUAL);
+    }
+
+    bool vehicle_helper::check_vehicle_insurance(int vehicle_index)
+    {
+        bool has_vehicle_insurance = false;
+        int vehicle_hash = *script_global(g_global.garage).at(vehicle_index, 142).at(66).as<int*>();
+        if (vehicle_hash != 0)
+        {
+            has_vehicle_insurance = memory_util::has_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(), DESTROYED | HAS_INSURANCE);
+            if (has_vehicle_insurance)
+            {
+                memory_util::clear_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(), DESTROYED | IMPOUNDED | UNK3);
+
+                memory_util::set_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(), UNK0 | SPAWN_AT_MORS_MUTUAL);
+                controller::ShowMessage("Insurance Done", false);
+            }
+        }
+        return has_vehicle_insurance;
+    }
+
+    int vehicle_helper::get_current_personal_vehicle_index()
+    {
+        return *script_global(2359296).at(0, 5559).at(675).at(2).as<int*>();
+    }
+
+    void vehicle_helper::claim_insurance_for_all_vehicle()
+    {
+        int maxslots = *script_global(g_global.garage).as<int*>();
+        for (int i = 0; i < maxslots; i++)
+        {
+            check_vehicle_insurance(i);
+        }
+    }
+
     void vehicle_helper::claim_insurance()
     {
         int _maxslots = 0, _index = 0, _hash = 0, _flags = 0;
@@ -237,9 +274,9 @@ namespace big
                 _flags = *script_global(_index).at(103).as<int*>();
                 if (_flags != 0)
                 {
-                    _flags = Memory::Clear_Bit(_flags, 1); // Vehicle destroyed : "Your Personal Vehicle has been destroyed. You can call Mors Mutual Insurance to make a claim"
-                    _flags = Memory::Clear_Bit(_flags, 7); // Insurance Claim open or in process
-                    _flags = Memory::Clear_Bit(_flags, 16); // Vehicle outside the Garage and no Insurance or a Insurance Claim(is open or in process)
+                    _flags = memory_util::clear_bit(_flags, 1); // Vehicle destroyed : "Your Personal Vehicle has been destroyed. You can call Mors Mutual Insurance to make a claim"
+                    _flags = memory_util::clear_bit(_flags, 7); // Insurance Claim open or in process
+                    _flags = memory_util::clear_bit(_flags, 16); // Vehicle outside the Garage and no Insurance or a Insurance Claim(is open or in process)
                     *script_global(_index).at(103).as<int*>() = _flags;
                 }
             }
@@ -255,49 +292,49 @@ namespace big
                 case 1:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1;
-                    uint32_t bit_set = Memory::Set_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1 = bit_set;
                     break;
                 }
                 case 2:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2;
-                    uint32_t bit_set = Memory::Set_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2 = bit_set;
                     break;
                 }
                 case 3:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3;
-                    uint32_t bit_set = Memory::Set_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3 = bit_set;
                     break;
                 }
                 case 4:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4;
-                    uint32_t bit_set = Memory::Set_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4 = bit_set;
                     break;
                 }
                 case 5:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5;
-                    uint32_t bit_set = Memory::Set_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5 = bit_set;
                     break;
                 }
                 case 6:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6;
-                    uint32_t bit_set = Memory::Set_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6 = bit_set;
                     break;
                 }
                 case 7:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7;
-                    uint32_t bit_set = Memory::Set_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7 = bit_set;
                     break;
                 }
@@ -314,49 +351,49 @@ namespace big
                 case 1:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1;
-                    uint32_t bit_set = Memory::Clear_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1 = bit_set;
                     break;
                 }
                 case 2:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2;
-                    uint32_t bit_set = Memory::Clear_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2 = bit_set;
                     break;
                 }
                 case 3:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3;
-                    uint32_t bit_set = Memory::Clear_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3 = bit_set;
                     break;
                 }
                 case 4:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4;
-                    uint32_t bit_set = Memory::Clear_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4 = bit_set;
                     break;
                 }
                 case 5:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5;
-                    uint32_t bit_set = Memory::Clear_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5 = bit_set;
                     break;
                 }
                 case 6:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6;
-                    uint32_t bit_set = Memory::Clear_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6 = bit_set;
                     break;
                 }
                 case 7:
                 {
                     auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7;
-                    uint32_t bit_set = Memory::Clear_Bit(set_bit, flagBit);
+                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
                     rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7 = bit_set;
                     break;
                 }

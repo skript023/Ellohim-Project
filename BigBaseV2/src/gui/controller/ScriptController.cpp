@@ -298,7 +298,6 @@ namespace big
         m_local.blackjack.bet_trigger = 1788 + 1 + (g_local.player * 8);
 
         g_ptr.WorldPTR = (uintptr_t)g_pointers->m_ped_factory;
-        g_original.rid = *g_pointers->m_player_rid;
 
         g_info.player_health = ENTITY::GET_ENTITY_HEALTH(g_selected.ped);
         g_info.player_max_health = ENTITY::GET_ENTITY_MAX_HEALTH(g_selected.ped);

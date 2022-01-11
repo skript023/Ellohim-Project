@@ -406,9 +406,6 @@
     <ClCompile Include="src\gui\hooks\received_event.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\controller\game_variable.cpp">
-      <Filter>gui\controller</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\window\game_window.cpp">
       <Filter>gui\window</Filter>
     </ClCompile>
@@ -435,6 +432,9 @@
     </ClCompile>
     <ClCompile Include="src\gui\game_tabbar\vehicle_menu.cpp">
       <Filter>gui\game_tabbar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\controller\game_variable.cpp">
+      <Filter>gui\controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

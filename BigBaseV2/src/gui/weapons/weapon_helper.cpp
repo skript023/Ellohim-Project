@@ -406,9 +406,9 @@ namespace big
 
     bool weapon_helper::is_model_shotgun(Hash hash)
     {
-        for (int i = 0; i <= arraysize(var::weapon_shotgun); i++)
+        for (int i = 0; i <= arraysize(game_variable::weapon_shotgun); i++)
         {
-            if (hash == var::weapon_shotgun[i]) return true;
+            if (hash == game_variable::weapon_shotgun[i]) return true;
         }
         return false;
     }
@@ -591,7 +591,7 @@ namespace big
     {
         if (Activation)
         {
-            for (auto WeaponHashes : var::AllWeaponHashes)
+            for (auto WeaponHashes : game_variable::weapon_hash_list)
             {
                 if (WEAPON::IS_WEAPON_VALID(rage::joaat(WeaponHashes)))
                 {
@@ -601,7 +601,7 @@ namespace big
         }
         else
         {
-            for (auto WeaponHashes : var::AllWeaponHashes)
+            for (auto WeaponHashes : game_variable::weapon_hash_list)
             {
                 if (WEAPON::IS_WEAPON_VALID(rage::joaat(WeaponHashes)))
                 {

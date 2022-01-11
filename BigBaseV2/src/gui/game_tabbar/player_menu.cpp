@@ -47,7 +47,7 @@ namespace big
             if (ImGui::Checkbox(xorstr("Never Wanted"), g_settings.options["Never Wanted"].get<bool*>()))
                 g_settings.save();
             ImGui::SameLine(200);
-            ImGui::Checkbox(xorstr("Super Jump"), &g_weapon_option->super_jump);
+            ImGui::Checkbox(xorstr("Super Jump"), &g_weapon_option.super_jump);
             ImGui::SameLine(400);
             bool no_ragdol = rage_helper::get_local_ped()->m_ragdoll == 0x01;
             if (ImGui::Checkbox(xorstr("No Ragdoll"), &no_ragdol))
@@ -136,12 +136,12 @@ namespace big
                 {
                     g_fiber_pool->queue_job([] {
                         int MaxAmmo;
-                        for (auto WeaponList : var::AllWeaponHashes)
+                        for (auto WeaponList : game_variable::weapon_hash_list)
                         {
                             if (!WEAPON::HAS_PED_GOT_WEAPON(PLAYER::PLAYER_PED_ID(), rage::joaat(WeaponList), FALSE))
                             {
                                 WEAPON::GIVE_DELAYED_WEAPON_TO_PED(PLAYER::PLAYER_PED_ID(), rage::joaat(WeaponList), (WEAPON::GET_MAX_AMMO(PLAYER::PLAYER_PED_ID(), rage::joaat(WeaponList), &MaxAmmo) == TRUE) ? MaxAmmo : 9999, FALSE);
-                                for (auto ComponentHashes : var::AllComponentHashes)
+                                for (auto ComponentHashes : game_variable::weapon_component_list)
                                 {
                                     WEAPON::SET_PED_WEAPON_TINT_INDEX(PLAYER::PLAYER_PED_ID(), WEAPON_MILITARYRIFLE, 3);
                                     WEAPON::SET_PED_WEAPON_TINT_INDEX(PLAYER::PLAYER_PED_ID(), WEAPON_MINIGUN, 3);
@@ -158,7 +158,7 @@ namespace big
                 {
                     g_fiber_pool->queue_job([]
                     {
-                        for each (auto Weapon in var::AllWeaponHashes)
+                        for each (auto Weapon in game_variable::weapon_hash_list)
                         {
                             int max_ammo;
                             if (WEAPON::IS_WEAPON_VALID(rage::joaat(Weapon)))
@@ -179,25 +179,25 @@ namespace big
                 if (ImGui::Checkbox(xorstr("Infinite Ammo"), g_settings.options["Infinite Ammo"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(400);
-                ImGui::Checkbox(xorstr("Explosive Ammo"), &g_weapon_option->explosives_ammo);
+                ImGui::Checkbox(xorstr("Explosive Ammo"), &g_weapon_option.explosives_ammo);
 
-                ImGui::Checkbox(xorstr("Flame Ammo"), &g_weapon_option->fire_ammo);
+                ImGui::Checkbox(xorstr("Flame Ammo"), &g_weapon_option.fire_ammo);
                 ImGui::SameLine(200);
-                ImGui::Checkbox(xorstr("Explosive Fist"), &g_weapon_option->explosive_fist);
+                ImGui::Checkbox(xorstr("Explosive Fist"), &g_weapon_option.explosive_fist);
                 ImGui::SameLine(400);
-                ImGui::Checkbox(xorstr("Delete Gun"), &g_weapon_option->delete_gun);
+                ImGui::Checkbox(xorstr("Delete Gun"), &g_weapon_option.delete_gun);
 
-                ImGui::Checkbox(xorstr("Rapid Fire"), &g_weapon_option->rapid_shoot);
+                ImGui::Checkbox(xorstr("Rapid Fire"), &g_weapon_option.rapid_shoot);
                 ImGui::SameLine(200);
-                ImGui::Checkbox(xorstr("Ghost Gun"), &g_weapon_option->ghost_gun);
+                ImGui::Checkbox(xorstr("Ghost Gun"), &g_weapon_option.ghost_gun);
                 ImGui::SameLine(400);
-                ImGui::Checkbox(xorstr("Vault Door Gun"), &g_weapon_option->object_gun);
+                ImGui::Checkbox(xorstr("Vault Door Gun"), &g_weapon_option.object_gun);
 
-                ImGui::Checkbox(xorstr("No Spread"), &g_weapon_option->spread_on);
+                ImGui::Checkbox(xorstr("No Spread"), &g_weapon_option.spread_on);
                 ImGui::SameLine(200);
-                ImGui::Checkbox(xorstr("No Recoil"), &g_weapon_option->recoil_on);
+                ImGui::Checkbox(xorstr("No Recoil"), &g_weapon_option.recoil_on);
                 ImGui::SameLine(400);
-                ImGui::Checkbox(xorstr("Teleport Gun"), &g_weapon_option->teleport_gun_bool);
+                ImGui::Checkbox(xorstr("Teleport Gun"), &g_weapon_option.teleport_gun_bool);
 
                 ImGui::PushItemWidth(200);
                 if (ImGui::SliderInt(xorstr("Burst Ammo"), &bullet_batch, 0, 100))
@@ -209,7 +209,7 @@ namespace big
 
                 ImGui::Text(xorstr("Weapon Custom Explosion"));
                 static int impact_type = 0;
-                if (ImGui::Combo(xorstr("##WeaponImpact"), &impact_type, var::ImpactList, IM_ARRAYSIZE(var::ImpactList)))
+                if (ImGui::Combo(xorstr("##WeaponImpact"), &impact_type, game_variable::impact_list, IM_ARRAYSIZE(game_variable::impact_list)))
                 {
                     rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_impact_type = impact_type == 0 ? 3 : 5;
                     rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_impact_explosion_type = impact_type - 1;
@@ -2551,7 +2551,7 @@ namespace big
                             {
                                 for (int i = 27544; i <= 27891; ++i)
                                 {
-                                    *script_global(262145).at(i).as<int*>() = var::penthouse_shop[i - 27544];
+                                    *script_global(262145).at(i).as<int*>() = game_variable::penthouse_shop[i - 27544];
                                 }
                                 break;
                             }
@@ -3444,12 +3444,12 @@ namespace big
                 switch (teleport_type)
                 {
                     case 0:
-                        ImGui::Combo(xorstr("##TeleportType"), &SelectedType, var::TeleportList, IM_ARRAYSIZE(var::TeleportList));
+                        ImGui::Combo(xorstr("##TeleportType"), &SelectedType, game_variable::teleport_list, IM_ARRAYSIZE(game_variable::teleport_list));
                         switch (SelectedType)
                         {
                         case 1:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox(xorstr("##CasinoHeist"), &selected_teleport, var::CasinoHeistCoords, IM_ARRAYSIZE(var::CasinoHeistCoords));
+                            ImGui::ListBox(xorstr("##CasinoHeist"), &selected_teleport, game_variable::casino_coords_list, IM_ARRAYSIZE(game_variable::casino_coords_list));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
                             if (ImGui::Button(xorstr("Goto Coords")))
@@ -3514,7 +3514,7 @@ namespace big
                             break;
                         case 2:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox(xorstr("##CasinoHeist"), &selected_teleport, var::CayoPericoHeistCoords, IM_ARRAYSIZE(var::CayoPericoHeistCoords));
+                            ImGui::ListBox(xorstr("##CasinoHeist"), &selected_teleport, game_variable::cayo_perico_coords_list, IM_ARRAYSIZE(game_variable::cayo_perico_coords_list));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
                             if (ImGui::Button(xorstr("Goto Coords")))
@@ -3585,7 +3585,7 @@ namespace big
                             break;
                         case 3:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox(xorstr("##Treasure"), &selected_teleport, var::Treasure_Hunt, IM_ARRAYSIZE(var::Treasure_Hunt));
+                            ImGui::ListBox(xorstr("##Treasure"), &selected_teleport, game_variable::treasure_hunt_list, IM_ARRAYSIZE(game_variable::treasure_hunt_list));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
                             if (ImGui::Button(xorstr("Goto Coords")))
@@ -3611,7 +3611,7 @@ namespace big
                             break;
                         case 4:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox(xorstr("##NavyRevolver"), &selected_teleport, var::NavyRevolver, IM_ARRAYSIZE(var::NavyRevolver));
+                            ImGui::ListBox(xorstr("##NavyRevolver"), &selected_teleport, game_variable::navy_revolver_list, IM_ARRAYSIZE(game_variable::navy_revolver_list));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
                             if (ImGui::Button(xorstr("Goto Coords")))
@@ -3659,7 +3659,7 @@ namespace big
                             break;
                         case 5:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox(xorstr("##MovieProp"), &selected_teleport, var::MovieProp, IM_ARRAYSIZE(var::MovieProp));
+                            ImGui::ListBox(xorstr("##MovieProp"), &selected_teleport, game_variable::movie_prop_list, IM_ARRAYSIZE(game_variable::movie_prop_list));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
                             if (ImGui::Button(xorstr("Goto Coords")))
@@ -3694,7 +3694,7 @@ namespace big
                             break;
                         case 6:
                             ImGui::PushItemWidth(210);
-                            ImGui::ListBox(xorstr("##PlayingCard"), &selected_teleport, var::PlayingCard, IM_ARRAYSIZE(var::PlayingCard));
+                            ImGui::ListBox(xorstr("##PlayingCard"), &selected_teleport, game_variable::playing_card_list, IM_ARRAYSIZE(game_variable::playing_card_list));
                             ImGui::PopItemWidth();
                             ImGui::SameLine();
                             if (ImGui::Button(xorstr("Goto Coords")))
@@ -3963,15 +3963,15 @@ namespace big
                         STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(model);
                     } QUEUE_JOB_END_CLAUSE
                 }
-                static int SelectedModel = 0;
-                ImGui::Combo(xorstr("##ModelList"), &SelectedModel, var::PedList, IM_ARRAYSIZE(var::PedList));
+                static int selected_ped = 0;
+                ImGui::Combo(xorstr("##ModelList"), &selected_ped, game_variable::ped_hash_list, IM_ARRAYSIZE(game_variable::ped_hash_list));
                 if (ImGui::Button(xorstr("Set Model")))
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
-                        Hash model = controller::load(var::PedList[SelectedModel]);
+                        Hash model = controller::load(game_variable::ped_hash_list[selected_ped]);
                         PLAYER::SET_PLAYER_MODEL(PLAYER::PLAYER_ID(), model);
-                        if (rage::joaat(var::PedList[SelectedModel]) == rage::joaat("MP_F_FREEMODE_01"))
+                        if (rage::joaat(game_variable::ped_hash_list[selected_ped]) == rage::joaat("MP_F_FREEMODE_01"))
                         {
                             PED::SET_PED_HEAD_BLEND_DATA(g_local.ped, 21, 45, 21, 45, 21, 45, 0.0f, 1.0f, 1.0f, 1);
                         }

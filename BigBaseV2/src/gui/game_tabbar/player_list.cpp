@@ -23,13 +23,13 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            ImGui::TextColored(ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f }, "Total Player : %d", g_local.connected_player);
-            if (ImGui::ListBoxHeader(xorstr("##empty"), ImVec2(230, 400)))
+            ImGui::TextColored(g_local.connected_player <= 30 && g_local.connected_player > 20 ? ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f } : g_local.connected_player <= 20 && g_local.connected_player > 10 ? ImVec4{ 225.0f , 225.0f, 0.0f, 1.0f } : ImVec4{ 0.0f , 255.0f, 0.0f, 1.0f }, "Total Player : %d", g_local.connected_player);
+            if (ImGui::ListBoxHeader(xorstr("##PlayerList"), ImVec2(230, 400)))
             {
                 for (int i = 0; i < 32; ++i)
                 {
                     auto num = std::to_string(i);
-                    if (!strcmp(g_misc_option->player_names[i], "**Invalid**") == 0)
+                    if (strcmp(g_misc_option->player_names[i], "**Invalid**") != 0)
                     {
                         strcpy(players_name, "[");
                         strcat(players_name, num.c_str());
@@ -46,7 +46,7 @@ namespace big
                         if (ImGui::Selectable(players_name, i == g_selected.player))
                         {
                             g_selected.player = i;
-                            g_misc_option->trigger_player_info_from_ip = (std::chrono::high_resolution_clock::now().time_since_epoch().count() + g_misc_option->http_response_tick.time_since_epoch().count()) >= std::chrono::milliseconds(400ms).count();
+                            g_misc_option->trigger_player_info_from_ip = (std::chrono::high_resolution_clock::now().time_since_epoch().count() + g_misc_option->http_response_tick.time_since_epoch().count()) >= std::chrono::milliseconds(300ms).count();
                         }
                     }
                 }

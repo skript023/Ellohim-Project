@@ -366,7 +366,9 @@ public:
 	uint32_t m_damage_flags; //0x012C
 	char pad_0130[12]; //0x0130
 	uint32_t m_ai_handling_hash; //0x013C
-	char pad_0140[2144]; //0x0140
+	char pad_0140[504]; //0x0140
+	float m_flying_acceleration; //0x338
+	char pad_033C[1636]; //0x33C
 	int32_t m_weapon_1; //0x09A0
 	int32_t m_weapon_2; //0x09A4
 	int32_t m_weapon_3; //0x09A8

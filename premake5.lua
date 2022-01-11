@@ -1,4 +1,4 @@
-workspace "BigBaseV2"
+workspace "Ellohim"
   architecture "x64"
   startproject "BigBaseV2"
 

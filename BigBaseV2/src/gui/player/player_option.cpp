@@ -338,7 +338,7 @@ namespace big
     std::string player::get_ped_name_from_hash(Hash hash)
     {
         std::string sVar0 = std::to_string(hash);
-        for (auto ped : var::PedList)
+        for (auto ped : game_variable::ped_hash_list)
         {
             if (rage::reverse_joaat(ped, hash))
             {

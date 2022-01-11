@@ -16,7 +16,7 @@ namespace big
 			{
 				return "none";
 			}
-			for (auto vehicle : var::VechicleList)
+			for (auto vehicle : game_variable::vehicle_hash_list)
 			{
 				if (hash == rage::joaat(vehicle))
 				{
@@ -32,7 +32,7 @@ namespace big
 			for (int i = 0; i <= max_slots; i++)
 			{
 				uint32_t hash = *script_global(1323678).at(i, 141).at(66).as<uint32_t*>();
-				PersonalName[i] = FindVehicleName(hash);;
+				PersonalName[i] = FindVehicleName(hash);
 			}
 		}
 

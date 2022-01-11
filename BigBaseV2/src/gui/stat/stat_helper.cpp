@@ -20,7 +20,7 @@ namespace big
         std::string sVar0 = "Invalid";
         if (!is_all_stat_packed(hash))
         {
-            for (auto char_stat : var::character_packed_hash)
+            for (auto char_stat : game_variable::character_packed_hash)
             {
                 auto first = "MP0_" + char_stat;
                 auto second = "MP1_" + char_stat;
@@ -33,7 +33,7 @@ namespace big
         }
         else
         {
-            for (auto all_stat : var::all_packed_hash)
+            for (auto all_stat : game_variable::all_packed_hash)
             {
                 if (rage::joaat(all_stat) == hash)
                     sVar0 = rage::joaat_to_string(all_stat.c_str(), hash);
@@ -47,7 +47,7 @@ namespace big
         std::string sVar0 = "Invalid";
         if (!is_all_stat(hash))
         {
-            for (auto char_stat : var::character_stat_hash)
+            for (auto char_stat : game_variable::character_stat_hash)
             {
                 auto first = "MP0_" + char_stat;
                 auto second = "MP1_" + char_stat;
@@ -60,7 +60,7 @@ namespace big
         }
         else
         {
-            for (auto all_stat : var::all_stat_hash)
+            for (auto all_stat : game_variable::all_stat_hash)
             {
                 if (rage::joaat(all_stat) == hash)
                     sVar0 = rage::joaat_to_string(all_stat.c_str(), hash);
@@ -71,7 +71,7 @@ namespace big
 
     bool stats::is_all_stat_packed(Hash hash)
     {
-        for (auto all_stat : var::all_packed_hash)
+        for (auto all_stat : game_variable::all_packed_hash)
         {
             if (rage::joaat(all_stat) == hash)
                 return true;
@@ -81,7 +81,7 @@ namespace big
 
     bool stats::is_all_stat(Hash hash)
     {
-        for (auto all_stat : var::all_stat_hash)
+        for (auto all_stat : game_variable::all_stat_hash)
         {
             if (rage::joaat(all_stat) == hash)
                 return true;
