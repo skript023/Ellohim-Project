@@ -362,7 +362,7 @@ namespace big
                     {
                         if (*g_pointers->m_is_session_started)
                         {
-                            static int max_slots = *script_global(g_global.garage).as<int*>();
+                            int max_slots = *script_global(g_global.garage).as<int*>();
                             for (int x = 0; x <= max_slots; ++x)
                             {
                                 Hash hash = *script_global(g_global.garage).at(x, 142).at(66).as<uint32_t*>();
@@ -385,25 +385,7 @@ namespace big
                     ImGui::BeginGroup();
                     if (ImGui::Button(xorstr("Call Personal")))
                     {
-                        g_fiber_pool->queue_job([]
-                            {
-                                vehicle_helper::check_vehicle_insurance(SelectedPersonal);
-                                script::get_current()->yield(100ms);
-                                //*script_global(g_global.call_personal_vehicle).at(965).as<int*>() = SelectedPersonal;
-                                //*script_global(g_global.call_personal_vehicle).at(962).as<bool*>() = true;
-                                *script_global(g_global.call_personal_vehicle).at(911).as<int*>() = 1;
-                                *script_global(g_global.call_personal_vehicle).at(961).as<int*>() = 0;
-                                *script_global(g_global.call_personal_vehicle).at(958).as<int*>() = SelectedPersonal;
-                                script::get_current()->yield(1500ms);
-
-                                if (auto freemode_thread = rage_helper::find_script_thread(RAGE_JOAAT("freemode")))
-                                    *script_local(freemode_thread, 17437).at(176).as<int*>() = 0; // spawn vehicle instantly
-
-                                if (g_settings.options["Auto Get-in"])
-                                {
-                                    PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
-                                }
-                            });
+                        vehicle_helper::call_personal_vehicle(SelectedPersonal);
                     }
                     ImGui::EndGroup();
                 break;

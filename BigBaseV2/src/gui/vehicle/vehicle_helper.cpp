@@ -11,6 +11,7 @@
 #include "gui/player/player_option.h"
 #include "gui/controller/network_controller.h"
 #include "gui/game_event/game_event.h"
+#include <script_local.hpp>
 
 namespace big
 {
@@ -224,7 +225,37 @@ namespace big
         }
     }
 
-    void despawn_personal_vehicle(int vehicle_index)
+    void vehicle_helper::call_personal_vehicle(int vehicle_index)
+    {
+        g_fiber_pool->queue_job([vehicle_index]
+        {
+            /*
+            despawn_personal_vehicle(get_current_personal_vehicle_index());
+            vehicle_helper::check_vehicle_insurance(vehicle_index);
+            script::get_current()->yield(100ms);
+            *script_global(g_global.call_personal_vehicle).at(911).as<int*>() = 1;
+            *script_global(g_global.call_personal_vehicle).at(961).as<int*>() = 0;
+            *script_global(g_global.call_personal_vehicle).at(958).as<int*>() = vehicle_index;
+
+            script::get_current()->yield(100ms);
+
+            if (auto freemode_thread = rage_helper::find_script_thread(RAGE_JOAAT("freemode")))
+                *script_local(freemode_thread, 17437).at(176).as<int*>() = 0; // spawn vehicle instantly
+            */
+
+            *script_global(g_global.call_personal_vehicle).at(965).as<int*>() = vehicle_index;
+            *script_global(g_global.call_personal_vehicle).at(962).as<bool*>() = true;
+            
+            script::get_current()->yield(1500ms);
+
+            if (g_settings.options["Auto Get-in"])
+            {
+                PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
+            }
+        });
+    }
+
+    void vehicle_helper::despawn_personal_vehicle(int vehicle_index)
     {
         memory_util::clear_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(),TRIGGER_SPAWN_TOGGLE | SPAWN_AT_MORS_MUTUAL);
     }

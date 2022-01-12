@@ -55,11 +55,9 @@ namespace big
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Benchmark")))
             {
-                auto start = std::chrono::high_resolution_clock::now();
+                auto benchmarking = benchmark("Vehicle Spawn");
                 vehicle_helper::vehicle("Krieger", g_local.ped);
-                auto end = std::chrono::high_resolution_clock::now();
-                auto result = std::chrono::duration_cast<nanoseconds>(end - start);
-                message::notification(fmt::format("~g~finished with a resulting time of: {} nanoseconds",std::to_string(result.count())).c_str(), "~bold~~y~Benchmark");
+                message::notification(fmt::format("~g~finished with a resulting time of: {} nanoseconds", benchmarking.get_runtime()).c_str(), "~bold~~y~Benchmark");
             }
             ImGui::Separator();
             
