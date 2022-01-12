@@ -362,18 +362,15 @@ namespace big
                     {
                         if (*g_pointers->m_is_session_started)
                         {
-                            int max_slots = *script_global(g_global.garage).as<int*>();
-                            for (int x = 0; x <= max_slots; ++x)
+                            for (int i = 0; i <= get_max_slots(); ++i)
                             {
-                                Hash hash = *script_global(g_global.garage).at(x, 142).at(66).as<uint32_t*>();
-                                auto names = FindVehicleName(hash);
-                                static const char* local_name;
+                                auto names = get_personal_vehicle(i);
 
-                                if (!controller::cstrcmp(names, "none"))
+                                if (strcmp(names, "Not Found") != 0)
                                 {
-                                    if (ImGui::Selectable((names), x == SelectedPersonal))
+                                    if (ImGui::Selectable((names), i == SelectedPersonal))
                                     {
-                                        SelectedPersonal = x;
+                                        SelectedPersonal = i;
                                     }
                                 }
                             }

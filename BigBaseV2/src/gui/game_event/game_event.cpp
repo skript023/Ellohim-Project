@@ -151,8 +151,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player, TotalMoney]
         {
-            int64_t steal_money[4] = { FAKE_MONEY, g_local.player, FAKE_STEAL, TotalMoney };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, steal_money, 9, 1 << g_selected.player);
+            int64_t fake_steal_money_args[4] = { FAKE_MONEY, g_local.player, FAKE_STEAL, TotalMoney };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, fake_steal_money_args, 9, 1 << g_selected.player);
         });
     }
 
@@ -160,8 +160,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player, TotalMoney]
         {
-            int64_t remove_money[4] = { FAKE_MONEY, g_local.player, FAKE_REMOVE, TotalMoney };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, remove_money, 9, 1 << g_selected.player);
+            int64_t fake_remove_money_args[4] = { FAKE_MONEY, g_local.player, FAKE_REMOVE, TotalMoney };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, fake_remove_money_args, 9, 1 << g_selected.player);
         });
     }
 
@@ -169,8 +169,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player, TotalMoney]
         {
-            int64_t banked_money[4] = { FAKE_MONEY, g_local.player, FAKE_BANKED, TotalMoney };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, banked_money, 9, 1 << g_selected.player);
+            int64_t fake_banked_money_args[4] = { FAKE_MONEY, g_local.player, FAKE_BANKED, TotalMoney };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, fake_banked_money_args, 9, 1 << g_selected.player);
         });
     }
 
@@ -178,11 +178,11 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t send_to_mission_1[9] = { SEND_TO_MISSION_1, g_local.player, 0, 0, 0, -1, 1, 1, 0 };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, send_to_mission_1, 9, 1 << player);
+            int64_t send_to_mission_args_1[9] = { SEND_TO_MISSION_1, g_local.player, 0, 0, 0, -1, 1, 1, 0 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, send_to_mission_args_1, 9, 1 << player);
 
-            int64_t send_to_mission_2[9] = { SEND_TO_MISSION_2, g_local.player, 0, 0, 0, -1, 1, 1, 0 };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, send_to_mission_2, 9, 1 << player);
+            int64_t send_to_mission_args_2[9] = { SEND_TO_MISSION_2, g_local.player, 0, 0, 0, -1, 1, 1, 0 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, send_to_mission_args_2, 9, 1 << player);
         });
     }
 
@@ -190,8 +190,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t trans_fail[8] = { TRANSACTION_ERROR, g_local.player, 10000, 0, 0, *script_global(1893548).at(player, 600).at(511).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>() };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, trans_fail, 8, 1 << player);
+            int64_t transaction_fail_args[8] = { TRANSACTION_ERROR, g_local.player, 10000, 0, 0, *script_global(1893548).at(player, 600).at(511).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>() };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, transaction_fail_args, 8, 1 << player);
         });
     }
 
@@ -199,11 +199,11 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-                for (int64_t KickEvent : game_variable::kick_hash_list)
-                {
-                    int64_t kick[2] = { KickEvent, g_local.player };
-                    SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick, 2, 1 << player);
-                }
+            for (int64_t kick_hash : game_variable::kick_hash_list)
+            {
+                int64_t kick_args[2] = { kick_hash, g_local.player };
+                SCRIPT::TRIGGER_SCRIPT_EVENT(1, kick_args, 2, 1 << player);
+            }
         });
     }
 
@@ -211,8 +211,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t clear_wanted[3] = { CLEAR_WANTED, g_selected.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, clear_wanted, 3, 1 << player);
+            int64_t clear_wanted_args[3] = { CLEAR_WANTED, g_selected.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, clear_wanted_args, 3, 1 << player);
         });
     }
 
@@ -220,8 +220,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t vehicle_kick[2] = { VEHICLE_KICK, g_local.player };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, vehicle_kick, 2, 1 << player);
+            int64_t vehicle_kick_args[2] = { VEHICLE_KICK, g_local.player };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, vehicle_kick_args, 2, 1 << player);
         });
     }
 
@@ -229,8 +229,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t rotate_cam[3] = { ROTATE_CAM, g_local.player, -1952943290 };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, rotate_cam, 3, 1 << player);
+            int64_t rotate_cam_args[3] = { ROTATE_CAM, g_local.player, -1952943290 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, rotate_cam_args, 3, 1 << player);
         });
     }
 
@@ -238,8 +238,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t ceo_ban[4] = { CEO_BAN , g_local.player, 1, 5 };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, ceo_ban, 4, 1 << player);
+            int64_t ceo_ban_args[4] = { CEO_BAN , g_local.player, 1, 5 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, ceo_ban_args, 4, 1 << player);
         });
     }
 
@@ -247,8 +247,8 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t ceo_kick[4] = { CEO_KICK , g_local.player, 1, 5 };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, ceo_kick, 4, 1 << player);
+            int64_t ceo_kick_args[4] = { CEO_KICK , g_local.player, 1, 5 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, ceo_kick_args, 4, 1 << player);
         });
     }
 
@@ -256,17 +256,17 @@ namespace big
     {
         g_fiber_pool->queue_job([player, apartment_id]
         {
-            int64_t invite_apartment[9] = { TELEPORT_APARTMENT, g_local.player, 0, -1, 1, apartment_id, 0, 0, 0 };// 12728 uint64_t args[9] = { 1097312011 , player, 1, -1, 1, 12728, 0, 1, 0 };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, invite_apartment, 9, 1 << player);//uint64_t soundspam[4] = { 1097312011, player, 0, 0 }; sound spam
+            int64_t invite_apartment_args[9] = { TELEPORT_APARTMENT, g_local.player, 0, -1, 1, apartment_id, 0, 0, 0 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, invite_apartment_args, 9, 1 << player);
         });
     }
-
+    // 12728 uint64_t args[9] = { 1097312011 , player, 1, -1, 1, 12728, 0, 1, 0 }; uint64_t soundspam[4] = { 1097312011, player, 0, 0 }; sound spam
     void remote_event::teleport_player_to_cayo(Player player)
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t send_to_cayo[2] = { TELEPORT_CAYO , g_local.player };
-            SCRIPT::TRIGGER_SCRIPT_EVENT(1, send_to_cayo, 2, 1 << player);
+            int64_t force_teleport_to_island_args[2] = { TELEPORT_CAYO , g_local.player };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, force_teleport_to_island_args, 2, 1 << player);
         });
     }
 

@@ -106,27 +106,27 @@ namespace big
             if (g_local.InVehicle)
             {
                 script::get_current()->yield();
-                auto VehicleHash = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_model_hash;
-                auto Flag = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4; //*(uint32_t*)((DWORD64)VehicleInfo + 0x588);
-                auto BoostLevel = rage_helper::get_local_vehicle()->m_vehicle_boost;//memory_util::get_value<float>(g_ptr.WorldPTR, { 0x8, 0xD30, 0x320 });//*(float*)((DWORD64)VehiclePTR + 0x320);
+                auto vehicle_hash = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_model_hash;
+                auto vehicle_flag = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4;
+                auto boost_level = rage_helper::get_local_vehicle()->m_vehicle_boost;
 
-                if (VehicleHash == RAGE_JOAAT("Oppressor2") && BoostLevel < 0.99f && GetKeyState(0x58) & 0x8000)
+                if (vehicle_hash == RAGE_JOAAT("Oppressor2") && boost_level < 0.99f && GetKeyState(0x58) & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.00f;
                 }
-                else if (VehicleHash == RAGE_JOAAT("Scramjet") && BoostLevel < 2.24f && GetKeyState(0x58) & 0x8000)
+                else if (vehicle_hash == RAGE_JOAAT("Scramjet") && boost_level < 2.24f && GetKeyState(0x58) & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 2.25f;
                 }
-                else if (VehicleHash == RAGE_JOAAT("Toreador") && BoostLevel < 0.99f && GetKeyState(0x45) & 0x8000)
+                else if (vehicle_hash == RAGE_JOAAT("Toreador") && boost_level < 0.99f && GetKeyState(0x45) & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.00f;
                 }
-                else if (VehicleHash == RAGE_JOAAT("Voltic2") || VehicleHash == RAGE_JOAAT("Oppressor") || VehicleHash == RAGE_JOAAT("Vigilante") && GetKeyState(0x45) && BoostLevel < 1.24f)
+                else if (vehicle_hash == RAGE_JOAAT("Voltic2") || vehicle_hash == RAGE_JOAAT("Oppressor") || vehicle_hash == RAGE_JOAAT("Vigilante") && GetKeyState(0x45) && boost_level < 1.24f)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
                 }
-                else if (Flag == 1107558400 || memory_util::is_bit_set(Flag, 30) && BoostLevel < 1.24f && GetKeyState(0x45) & 0x8000)
+                else if (vehicle_flag == 1107558400 || memory_util::is_bit_set(vehicle_flag, 30) && boost_level < 1.24f && GetKeyState(0x45) & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
                 }

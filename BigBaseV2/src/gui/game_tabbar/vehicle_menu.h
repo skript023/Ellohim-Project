@@ -10,11 +10,11 @@ namespace big
 	public:
 		static void render_vehicle_tab(const char* tab_name);
 	private:
-		static inline const char* FindVehicleName(Hash hash)
+		static inline const char* find_vehicle_name(Hash hash)
 		{
-			if (!hash || hash == 0)
+			if (hash == 0)
 			{
-				return "none";
+				return "Not Found";
 			}
 			for (auto vehicle : game_variable::vehicle_hash_list)
 			{
@@ -23,17 +23,18 @@ namespace big
 					return vehicle;
 				}
 			}
-			return "none";
+			return "Not Found";
 		}
-		static inline const char* PersonalName[191];
-		static inline void GetVehicleSlots()
+
+		static inline const char* get_personal_vehicle(int vehicle_index)
 		{
-			int max_slots = *script_global(1323678).as<int*>();
-			for (int i = 0; i <= max_slots; i++)
-			{
-				uint32_t hash = *script_global(1323678).at(i, 141).at(66).as<uint32_t*>();
-				PersonalName[i] = FindVehicleName(hash);
-			}
+			auto hash = *script_global(g_global.garage).at(vehicle_index, 142).at(66).as<uint32_t*>();
+			return find_vehicle_name(hash);
+		}
+
+		static inline int get_max_slots()
+		{
+			return *script_global(g_global.garage).as<int*>();
 		}
 
 		static inline int selected_category = 0;
