@@ -239,7 +239,7 @@ namespace big
         {
             try
             {
-                if (!strcmp(player::get_player_ip(player).c_str(), "0.0.0.0") == 0)
+                if (strcmp(player::get_player_ip(player).c_str(), "0.0.0.0") != 0)
                 {
                     trigger_player_info_from_ip = false;
                     http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(player)) };

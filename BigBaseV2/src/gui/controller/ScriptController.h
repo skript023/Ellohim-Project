@@ -62,13 +62,6 @@ namespace big
 			static inline Hash StreetNameHash{};
 			static inline Hash CrossingRoadHash{};
 	}g_info;
-	extern void Notification(const char* Meesage);
 
 	inline static controller* g_misc_option{};
 }
-/*
-ImGui::InputScalar("##Get hour", ImGuiDataType_U32, &date[6], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
-ImGui::InputScalar("##Get minute", ImGuiDataType_U32, &date[8], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
-ImGui::InputScalar("##Get second", ImGuiDataType_U32, &date[10], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
-ImGui::InputScalar("##Get mili", ImGuiDataType_U32, &date[12], get_step ? &step_one : NULL, NULL, "%u", ImGuiInputTextFlags_ReadOnly);
-*/

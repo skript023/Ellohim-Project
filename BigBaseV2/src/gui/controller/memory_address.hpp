@@ -246,6 +246,8 @@ namespace big
 		static constexpr inline uint32_t special_cargo_buying_cooldown = 262145 + 15360;//153204142
 		static constexpr inline uint32_t special_cargo_selling_time = 262145 + 15374;//389090185
 		static inline uint32_t business_index{};
+		static constexpr inline uint32_t contract_mission_cooldown = 262145 + 31329;//389090185
+
 
 		static constexpr inline uint32_t nc_trigger_product = 2783654;
 
