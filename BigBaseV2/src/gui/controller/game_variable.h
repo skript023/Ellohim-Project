@@ -83,7 +83,7 @@ namespace big
 		static std::map<int, std::string> List_Vehicle_Flags_7;
 		static const char* const impact_list[75];
 		static Hash weapon_shotgun[8];
-		static const char* const apartment_list[117];
+		static const char* const apartment_list[115];
 		static const int apartment_id[117];
 	private:
 	};

@@ -256,7 +256,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player, apartment_id]
         {
-            int64_t invite_apartment_args[9] = { TELEPORT_APARTMENT, g_local.player, 0, -1, 1, apartment_id, 0, 0, 0 };
+            int64_t invite_apartment_args[9] = { TELEPORT_APARTMENT, g_local.player, 1, -1, 1, apartment_id, 0, 1, 0 };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, invite_apartment_args, 9, 1 << player);
         });
     }

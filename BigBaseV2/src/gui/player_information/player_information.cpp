@@ -157,7 +157,8 @@ namespace big
                 if (SelectedScriptEvent == 1)
                 {
                     ImGui::PushItemWidth(250.f);
-                    ImGui::Combo("Apartment Location", &selected_apartment, game_variable::apartment_list, IM_ARRAYSIZE(game_variable::apartment_list));
+                    ImGui::Text("Choose Apartment Location");
+                    ImGui::Combo("##Apartment Location", &selected_apartment, game_variable::apartment_list, IM_ARRAYSIZE(game_variable::apartment_list));
                     ImGui::PopItemWidth();
                     ImGui::Checkbox("All Player?", &is_all_player);
                 }
@@ -172,12 +173,18 @@ namespace big
                     case 1:
                         if (!is_all_player)
                         {
-                            remote_event::force_invite_apartment(g_selected.player, game_variable::apartment_id[selected_apartment]);
+                            remote_event::force_invite_apartment(g_selected.player, selected_apartment);//game_variable::apartment_id[selected_apartment]
                         }
                         else if (is_all_player)
                         {
                             for (int i = 0; i <= g_local.connected_player; i++)
-                                remote_event::force_invite_apartment(i, game_variable::apartment_id[selected_apartment]);
+                            {
+                                if (i == g_local.player) 
+                                    continue;
+
+                                if (i != g_local.player)
+                                    remote_event::force_invite_apartment(i, selected_apartment);
+                            }
                         }
                         break;
                     case 2:

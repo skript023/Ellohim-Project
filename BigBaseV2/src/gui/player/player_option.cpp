@@ -17,7 +17,7 @@
 #include "gui/controller/system_control.h"
 #include "gta/net_object_mgr.hpp"
 #include "gui/weapons/weapon_helper.h"
-#include "gui/vehicle/vehicle_helper.hpp"
+#include "gui/vehicle/vehicle_helper.h"
 #include "gui/artificial_intelligence/artificial_intelligence.h"
 #include "gui/controller/http_request.hpp"
 #include "gui/controller/xostr.h"
