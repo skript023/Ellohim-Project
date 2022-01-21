@@ -173,11 +173,11 @@ namespace big
                     case 1:
                         if (!is_all_player)
                         {
-                            remote_event::force_invite_apartment(g_selected.player, selected_apartment);//game_variable::apartment_id[selected_apartment]
+                            remote_event::force_invite_apartment(g_selected.player, selected_apartment);
                         }
                         else if (is_all_player)
                         {
-                            for (int i = 0; i <= g_local.connected_player; i++)
+                            for (int i = 0; i <= 32; i++)
                             {
                                 if (i == g_local.player) 
                                     continue;

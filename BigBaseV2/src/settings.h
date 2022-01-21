@@ -57,6 +57,7 @@ namespace big
 			"PTFX Event Block": true,
 			"Disable Censor": true,
 			"Logger Window": false,
+			"Vehicle Light Control": true,
 			"script monitor sorted": false
 		})"_json;
 

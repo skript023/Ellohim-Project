@@ -10,6 +10,7 @@ namespace big
 	class vehicle_helper
 	{
 	public:
+		static void set_turn_lamp(bool activate);
 		static void allow_unrelease_vehicle(bool activate);
 		static void set_vehicle_collision(Player player, bool activation);
 		static void set_vehicle_turn_light(Vehicle vehicle, int TurnLight);
@@ -46,6 +47,7 @@ namespace big
 		static inline bool infinite_boost{};
 		static inline bool horn_boost{};
 		static inline int selected_vehicle{};
+		static inline bool turn_lamp{};
 	};
 
 	static class vehicle_helper_variable

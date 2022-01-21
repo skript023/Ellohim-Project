@@ -1048,4 +1048,9 @@ namespace big
     {
         return *script_global(g_global.radar_toggle).at(player, 443).at(209).as<bool*>();
     }
+
+    Ped player::player_ped_id()
+    {
+        return rage_helper::pointer_to_entity(rage_helper::get_local_ped());
+    }
 }

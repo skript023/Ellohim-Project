@@ -494,7 +494,10 @@ namespace big
             if (ImGui::Checkbox(xorstr("PV Revenge"), g_settings.options["PV Revenge"].get<bool*>()))
                 g_settings.save();
             ImGui::Checkbox(xorstr("Infinite Boost On Key"), &g_vehicle_option->infinite_boost);
+            ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Infinite Vehicle Ammo"), &g_vehicle_option->infinite_ammo);
+            ImGui::SameLine(400);
+            ImGui::Checkbox(xorstr("Activate Turn Lamp"), &g_vehicle_option->turn_lamp);
             ImGui::Separator();
 
             if (ImGui::Button(xorstr("Repair Vehicle")))

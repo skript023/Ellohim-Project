@@ -15,6 +15,38 @@
 
 namespace big
 {
+    void vehicle_helper::set_turn_lamp(bool activate)
+    {
+        if (activate)
+        {
+            if ((GetAsyncKeyState('J') & 0x1))
+            {
+                if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0))
+                    memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0);
+                else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0))
+                    memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0);
+            }
+            if ((GetAsyncKeyState('K') & 0x1))
+            {
+                if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
+                    memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
+                else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
+                    memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
+            }
+            if ((GetAsyncKeyState('L') & 0x1))
+            {
+                if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
+                    memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
+                else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
+                    memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
+            }
+        }
+        else
+        {
+            rage_helper::get_local_ped()->m_last_vehicle->m_turn_light = 0;
+        }
+    }
+
     void vehicle_helper::allow_unrelease_vehicle(bool activate)
     {
         *script_global(262145).at(31474).as<bool*>() = activate;
@@ -316,7 +348,7 @@ namespace big
 
     void vehicle_helper::set_vehicle_flag(int Flag, uint32_t flagBit)
     {
-        if (g_local.InVehicle)
+        if (player::is_player_in_any_vehicle(g_local.player))
         {
             switch (Flag)
             {

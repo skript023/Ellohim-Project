@@ -31,6 +31,7 @@ namespace big
 		static void global_exp_correction();
 		static bool get_player_infinite_ammo(Player player);
 		static bool is_player_out_of_radar(Player player);
+		static Ped player_ped_id();
 		static bool get_player_infinite_clip(Player player);
 		static bool is_player_in_any_vehicle(Player player);
 		static bool does_player_exist(Player player);

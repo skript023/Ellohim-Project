@@ -202,6 +202,7 @@ namespace big::features
 		vehicle_helper::infinite_boosts(g_vehicle_option->infinite_boost);
 		vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
 		vehicle_helper::horn_boosts(g_vehicle_option->horn_boost);
+		vehicle_helper::set_turn_lamp(g_settings.options["Vehicle Light Control"]);
 		
 		controller::faster_time_scale(g_misc_option->time_scale);
 		

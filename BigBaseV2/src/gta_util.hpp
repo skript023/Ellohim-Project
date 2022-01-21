@@ -206,14 +206,14 @@ namespace big
 			return false;
 		}
 
-		static inline int set_bit(int* addr, int _bit)
+		static inline void set_bit(int* addr, int _bit)
 		{
-			return *addr |= 1LL << _bit;
+			*addr |= 1LL << _bit;
 		}
 
-		static inline int clear_bit(int* addr, int _bit)
+		static inline void clear_bit(int* addr, int _bit)
 		{
-			return *addr &= ~(1LL << _bit);
+			*addr &= ~(1LL << _bit);
 		}
 
 		static inline bool has_flag(int* addr, int flag)
@@ -233,3 +233,4 @@ namespace big
 		}
 	};
 }
+//https://www.xnxx.com/video-12ierjc4/my_classmate_fucks_moms_eng_sub_more_movies_at_myjavengsubtitle.blogspot.com_
