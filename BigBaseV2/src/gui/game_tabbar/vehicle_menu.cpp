@@ -497,7 +497,9 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Infinite Vehicle Ammo"), &g_vehicle_option->infinite_ammo);
             ImGui::SameLine(400);
-            ImGui::Checkbox(xorstr("Activate Turn Lamp"), &g_vehicle_option->turn_lamp);
+            if (ImGui::Checkbox(xorstr("Activate Turn Lamp"), g_settings.options["Vehicle Light Control"].get<bool*>()))
+                g_settings.save();
+
             ImGui::Separator();
 
             if (ImGui::Button(xorstr("Repair Vehicle")))
@@ -508,21 +510,21 @@ namespace big
             if (ImGui::Button(xorstr("Get-in Closest Vehicle")))
             {
                 g_fiber_pool->queue_job([]
+                {
+                    rage::CVehicleInterface* vehicle_interface = g_pointers->m_replay_interface->m_vehicle_interface;
+                    for (int i = 0; i < vehicle_interface->m_max_vehicles; i++)
                     {
-                        rage::CVehicleInterface* vehicle_interface = g_pointers->m_replay_interface->m_vehicle_interface;
-                        for (int i = 0; i < vehicle_interface->m_max_vehicles; i++)
-                        {
-                            auto* vehicle_ptr = vehicle_interface->get_vehicle(i);
-                            if (vehicle_ptr == nullptr)
-                                continue;
+                        auto* vehicle_ptr = vehicle_interface->get_vehicle(i);
+                        if (vehicle_ptr == nullptr)
+                            continue;
 
-                            Vehicle vehicle = g_pointers->m_ptr_to_handle(vehicle_ptr);
-                            if (vehicle == 0)
-                                break;
+                        Vehicle vehicle = g_pointers->m_ptr_to_handle(vehicle_ptr);
+                        if (vehicle == 0)
+                            break;
 
-                            PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle, -1);
-                        }
-                    });
+                        PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle, -1);
+                    }
+                });
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Set Ownership of Vehicle")))

@@ -19,31 +19,37 @@ namespace big
     {
         if (activate)
         {
-            if ((GetAsyncKeyState('J') & 0x1))
+            if (player::is_player_in_any_vehicle(g_local.player))
             {
-                if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0))
-                    memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0);
-                else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0))
-                    memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0);
-            }
-            if ((GetAsyncKeyState('K') & 0x1))
-            {
-                if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
-                    memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
-                else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
-                    memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
-            }
-            if ((GetAsyncKeyState('L') & 0x1))
-            {
-                if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
-                    memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
-                else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
-                    memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
+                if ((GetAsyncKeyState('J') & 0x1))
+                {
+                    if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0))
+                        memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0);
+                    else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0))
+                        memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 0);
+                }
+                if ((GetAsyncKeyState('K') & 0x1))
+                {
+                    if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
+                        memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
+                    else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
+                        memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
+                }
+                if ((GetAsyncKeyState('L') & 0x1))
+                {
+                    if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
+                        memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
+                    else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
+                        memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
+                }
             }
         }
         else
         {
-            rage_helper::get_local_ped()->m_last_vehicle->m_turn_light = 0;
+            if (player::is_player_in_any_vehicle(g_local.player))
+            {
+                rage_helper::get_local_ped()->m_last_vehicle->m_turn_light = 0;
+            }
         }
     }
 
@@ -135,36 +141,32 @@ namespace big
         if (Activation)
         {
 
-            if (g_local.InVehicle)
+            if (player::is_player_in_any_vehicle(g_local.player))
             {
                 script::get_current()->yield();
                 auto vehicle_hash = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_model_hash;
                 auto vehicle_flag = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4;
                 auto boost_level = rage_helper::get_local_vehicle()->m_vehicle_boost;
 
-                if (vehicle_hash == RAGE_JOAAT("Oppressor2") && boost_level < 0.99f && GetKeyState(0x58) & 0x8000)
+                if (vehicle_hash == RAGE_JOAAT("Oppressor2") && boost_level < 0.99f && GetKeyState('X') & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.00f;
                 }
-                else if (vehicle_hash == RAGE_JOAAT("Scramjet") && boost_level < 2.24f && GetKeyState(0x58) & 0x8000)
+                else if (vehicle_hash == RAGE_JOAAT("Scramjet") && boost_level < 2.24f && GetKeyState('X') & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 2.25f;
                 }
-                else if (vehicle_hash == RAGE_JOAAT("Toreador") && boost_level < 0.99f && GetKeyState(0x45) & 0x8000)
+                else if (vehicle_hash == RAGE_JOAAT("Toreador") && boost_level < 0.99f && GetKeyState('E') & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.00f;
                 }
-                else if (vehicle_hash == RAGE_JOAAT("Voltic2") || vehicle_hash == RAGE_JOAAT("Oppressor") || vehicle_hash == RAGE_JOAAT("Vigilante") && GetKeyState(0x45) && boost_level < 1.24f)
+                else if (vehicle_hash == RAGE_JOAAT("Voltic2") || vehicle_hash == RAGE_JOAAT("Oppressor") || vehicle_hash == RAGE_JOAAT("Vigilante") && GetKeyState('E') && boost_level < 1.24f)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
                 }
-                else if (vehicle_flag == 1107558400 || memory_util::is_bit_set(vehicle_flag, 30) && boost_level < 1.24f && GetKeyState(0x45) & 0x8000)
+                else if (vehicle_flag == 1107558400 || memory_util::is_bit_set(vehicle_flag, 30) && boost_level < 1.24f && GetKeyState('E') & 0x8000)
                 {
                     rage_helper::get_local_vehicle()->m_vehicle_boost = 1.25f;
-                }
-                else
-                {
-                    return;
                 }
             }
         }

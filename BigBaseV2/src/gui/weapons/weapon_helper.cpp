@@ -565,14 +565,17 @@ namespace big
         {
             if (player::is_ped_shooting(Target))
             {
-                auto pos = get_last_impact_coords(Target);
-                if (!systems::is_3d_vector_zero(pos))
+                Vector3 pos;
+                if (get_last_impact_coords(Target, &pos))
                 {
-                    *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0xE990;
-                    *(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x9090;
-                    FIRE::ADD_OWNED_EXPLOSION(Target, pos.x, pos.y, pos.z, EXPLOSION_TRAIN, 1000.0f, TRUE, FALSE, 1.5f);
-                    *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0x850F;
-                    *(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x0E74;
+                    if (!systems::is_3d_vector_zero(pos))
+                    {
+                        *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0xE990;
+                        *(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x9090;
+                        FIRE::ADD_OWNED_EXPLOSION(Target, pos.x, pos.y, pos.z, EXPLOSION_TRAIN, 1000.0f, TRUE, FALSE, 1.5f);
+                        *(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0x850F;
+                        *(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x0E74;
+                    }
                 }
             }
         }
@@ -584,28 +587,53 @@ namespace big
         {
             return systems::to_scr_vector(ped->m_weapon_mgr->m_last_impact_coords);
         }
+
         return Vector3(0.f, 0.f, 0.f);
+    }
+
+    bool weapon_helper::get_last_impact_coords(Ped ped, Vector3 *coords)
+    {
+        if (auto local_ped = rage_helper::entity_to_pointer<CPed*>(ped))
+        {
+            *coords = systems::to_scr_vector(local_ped->m_weapon_mgr->m_last_impact_coords);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    bool weapon_helper::get_last_aimed_coords(Ped ped, Vector3* coords)
+    {
+        if (auto local_ped = rage_helper::entity_to_pointer<CPed*>(ped))
+        {
+            *coords = systems::to_scr_vector(local_ped->m_playerinfo->m_last_aimed_coords);
+
+            return true;
+        }
+
+        return false;
     }
 
     void weapon_helper::infinite_ammo(bool Activation)
     {
         if (Activation)
         {
-            for (auto WeaponHashes : game_variable::weapon_hash_list)
+            for (auto weapon : game_variable::weapon_hash_list)
             {
-                if (WEAPON::IS_WEAPON_VALID(rage::joaat(WeaponHashes)))
+                if (WEAPON::IS_WEAPON_VALID(rage::joaat(weapon)))
                 {
-                    WEAPON::SET_PED_INFINITE_AMMO(PLAYER::PLAYER_PED_ID(), TRUE, rage::joaat(WeaponHashes));
+                    WEAPON::SET_PED_INFINITE_AMMO(PLAYER::PLAYER_PED_ID(), true, rage::joaat(weapon));
                 }
             }
         }
         else
         {
-            for (auto WeaponHashes : game_variable::weapon_hash_list)
+            for (auto weapon : game_variable::weapon_hash_list)
             {
-                if (WEAPON::IS_WEAPON_VALID(rage::joaat(WeaponHashes)))
+                if (WEAPON::IS_WEAPON_VALID(rage::joaat(weapon)))
                 {
-                    WEAPON::SET_PED_INFINITE_AMMO(PLAYER::PLAYER_PED_ID(), FALSE, rage::joaat(WeaponHashes));
+                    WEAPON::SET_PED_INFINITE_AMMO(PLAYER::PLAYER_PED_ID(), false, rage::joaat(weapon));
                 }
             }
         }

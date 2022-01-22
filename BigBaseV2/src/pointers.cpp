@@ -367,6 +367,16 @@ namespace big
 			m_wep_crash = ptr.add(1).rip().as<decltype(m_wep_crash)>();
 		});
 
+		main_batch.add("Sky Colour Blue", "48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8B", [this](memory::handle ptr)
+		{
+			m_sky_blue = ptr.add(3).rip().add(0xB8).as<decltype(m_sky_blue)>();
+		});
+
+		main_batch.add("Sky Colour Red", "F3 0F 10 05 ? ? ? ? BE ? ? ? ? 0F C6 F6 00 0F 59 CE 0F C6 C0 00 0F 59 C8 0F 58 8B", [this](memory::handle ptr)
+		{
+			m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
+		});
+
 		main_batch.run(memory::module(nullptr));
 
 		m_hwnd = FindWindowW(L"grcWindow", nullptr);

@@ -55,6 +55,8 @@ namespace big
 		bool* m_blackout;
 		int* m_delivery;
 		bool* m_wep_crash;
+		float* m_sky_blue;
+		float* m_sky_red;
 		CPlayerCrew *m_player_crew;
 		BusinessMoney** m_money_in_bunker{};
 		uint64_t* m_money_in_bunker_2;
