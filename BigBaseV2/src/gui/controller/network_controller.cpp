@@ -18,6 +18,19 @@
 
 namespace big
 {
+    void network::remove_orbital_cannon_cooldown(bool activate)
+    {
+        auto cooldown = *script_global(262145).at(22852).as<int*>();
+        if (activate && cooldown != 0)
+        {
+            *script_global(262145).at(22852).as<int*>() = 0;
+        }
+        else
+        {
+            *script_global(262145).at(22852).as<int*>() = 2880000;
+        }
+    }
+
     bool network::network_is_host(Player player)
     {
         return *script_global(1893548).at(player, 600).at(10).as<bool*>();

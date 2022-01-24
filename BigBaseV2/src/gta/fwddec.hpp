@@ -84,3 +84,4 @@ class BusinessMoney;
 class CPlayerCrew;
 class CHashTable;
 class CPedHashTable;
+class UnknownPlayer;

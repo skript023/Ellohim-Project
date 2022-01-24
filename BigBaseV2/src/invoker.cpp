@@ -18,8 +18,7 @@ namespace big
 	{
 		for (const rage::scrNativeMapping& mapping : g_crossmap)
 		{
-			rage::scrNativeHandler handler = g_pointers->m_get_native_handler(
-				g_pointers->m_native_registration_table, mapping.second);
+			rage::scrNativeHandler handler = g_pointers->m_get_native_handler(g_pointers->m_native_registration_table, mapping.second);
 
 			m_handler_cache.emplace(mapping.first, handler);
 		}

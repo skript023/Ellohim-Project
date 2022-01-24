@@ -624,13 +624,24 @@ namespace big
     {
         if (auto player_ped = rage_helper::get_player_pointer(player))
         {
-            if (Activation && !player_ped->is_water_proof())
+            if (Activation && !systems::is_float_equal(player_ped->m_navigation->m_ph_arche->m_water_collision, 0.0f))
             {
-                player_ped->enable_water_proof();// = 0x1000000;
+                player_ped->m_navigation->m_ph_arche->m_water_collision = 0;// = 0x1000000;
             }
-            else if (!Activation && player_ped->is_water_proof())
+            else if (!Activation && systems::is_float_equal(player_ped->m_navigation->m_ph_arche->m_water_collision, 0.0f))
             {
-                player_ped->disable_water_proof();// = 0x4194316;
+                player_ped->m_navigation->m_ph_arche->m_water_collision = 1.f;// = 0x4194316;
+            }
+        }
+    }
+
+    void player::set_player_infinite_oxygen(Player player, bool activation)
+    {
+        if (activation)
+        {
+            if (auto player_ped = rage_helper::get_player_pointer(player))
+            {
+                player_ped->m_unk_player->m_oxygen = 0.f;
             }
         }
     }

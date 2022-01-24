@@ -530,6 +530,14 @@ public:
 }; //Size: 0x1CEC
 static_assert(sizeof(CVehicle) == 0x1CEC);
 
+class UnknownPlayer
+{
+public:
+	char pad_0000[0x278]; //0x0000
+	float m_oxygen; //0x00278
+};
+static_assert(sizeof(UnknownPlayer) == 0x27C);
+
 class CPlayerInfo : public rage::fwExtensibleBase
 {
 public:

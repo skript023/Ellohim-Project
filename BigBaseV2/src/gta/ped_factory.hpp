@@ -116,7 +116,8 @@ public:
 	char pad_10B9[3]; //0x10B9
 	int8_t m_decal_index; //0x10BC
 	int8_t m_decal_info; //0x10BD
-	char pad_10BE[10]; //0x10BE
+	char pad_10BE[2]; //0x10BE
+	UnknownPlayer* m_unk_player; //0x10C0
 	CPlayerInfo* m_playerinfo; //0x10C8
 	CPedInventory* m_weapon_inventory; //0x10D0
 	CPedWeaponManager* m_weapon_mgr; //0x10D8

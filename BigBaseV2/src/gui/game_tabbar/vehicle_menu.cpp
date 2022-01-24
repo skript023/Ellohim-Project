@@ -21,25 +21,29 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            static char NamaMobil[255] = "";
-            static int total_ped = 0;
-            ImGui::InputText(xorstr("##Kosong"), NamaMobil, IM_ARRAYSIZE(NamaMobil), ImGuiInputTextFlags_CharsUppercase);
+            ImGui::InputText(xorstr("##Kosong"), nama_mobil, IM_ARRAYSIZE(nama_mobil), ImGuiInputTextFlags_CharsUppercase);
             ImGui::PushItemWidth(100.f);
             ImGui::InputScalar(xorstr("##Num"), ImGuiDataType_S32, &total_ped);
             ImGui::PopItemWidth();
             if (ImGui::Button(xorstr("Native")))
             {
-                vehicle_helper::vehicle(NamaMobil, g_local.ped);
+                vehicle_helper::vehicle(nama_mobil, g_local.ped);
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("External")))
             {
-                vehicle_helper::SpawnVehicle(NamaMobil, FALSE, g_local.player);
+                vehicle_helper::SpawnVehicle(nama_mobil, FALSE, g_local.player);
+            }
+            ImGui::SameLine();
+            if (ImGui::Button(xorstr("External")))
+            {
+                int vehicle_index = vehicle_helper::get_vehicle_index_from_hash(rage::joaat(nama_mobil));
+                vehicle_helper::call_personal_vehicle(vehicle_index);
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Convoy")))
             {
-                ai::Convoy(NamaMobil, total_ped);
+                ai::Convoy(nama_mobil, total_ped);
             }
             ImGui::Separator();
             static int vehicle_menu = 0;

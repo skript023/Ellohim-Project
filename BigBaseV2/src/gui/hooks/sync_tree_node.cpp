@@ -19,6 +19,7 @@ namespace big
 		int16_t object_flag = _object_flag;
 
 		rage::netObject* netObject = (mgr)->find_object_by_id(object_id, true);
+		//auto ped = (netObject)->GetSyncTree()->m_sync_tree_node->m_ped_model;
 		bool owner = netObject != nullptr;
 		bool type = object_type == NetObjEntityType_Submarine || object_type == NetObjEntityType_PickupPlacement || object_type < NetObjEntityType_Automobile || object_type > NetObjEntityType_Train;
 		//if (g_settings.options["Log Player"])
@@ -44,7 +45,8 @@ namespace big
 
 		__try
 		{
-			return g_hooking->m_sync_read_buffer_hook.get_original<functions::sync_read_t>()(netSyncTree, sync_type, g_hook_variable.sync_flag, buffer, netLogStub);
+			auto test = g_hooking->m_sync_read_buffer_hook.get_original<functions::sync_read_t>()(netSyncTree, sync_type, g_hook_variable.sync_flag, buffer, netLogStub);
+			return test;
 		}
 		__except (EXCEPTION_EXECUTE_HANDLER)
 		{

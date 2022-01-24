@@ -58,6 +58,7 @@ namespace big
 		static void set_player_wanted_level(Player player, int Wantedlevel);
 		static void mission_lives(bool Activation);
 		static void set_player_waterproof(Player player, bool Activation);
+		static void set_player_infinite_oxygen(Player player, bool activation);
 		static void blind_cops(bool Activation);
 		static void set_player_seatbelt(bool Activation);
 		static void set_player_invincible(Player player, bool Activation);
@@ -105,7 +106,7 @@ namespace big
 		static inline bool is_ped_aggressive{};
 		static inline bool is_ped_bodyguard{};
 		static inline bool is_force_applied{};
-
+		static inline bool is_infinite_oxygen{};
 	private:
 		static inline int request_tick = 0;
 		

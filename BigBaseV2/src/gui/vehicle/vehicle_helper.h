@@ -10,6 +10,7 @@ namespace big
 	class vehicle_helper
 	{
 	public:
+		static void set_vehicle_waterproof(Player player, bool activation);
 		static void set_turn_lamp(bool activate);
 		static void allow_unrelease_vehicle(bool activate);
 		static void set_vehicle_collision(Player player, bool activation);
@@ -27,6 +28,7 @@ namespace big
 		static void anti_grief_vehicle(bool Activation);
 		static void call_personal_vehicle(int vehicle_index);
 		static void despawn_personal_vehicle(int vehicle_index);
+		static int get_vehicle_index_from_hash(Hash vehicle_hash);
 		static bool check_vehicle_insurance(int vehicle_index);
 		static int get_current_personal_vehicle_index();
 		static void claim_insurance_for_all_vehicle();

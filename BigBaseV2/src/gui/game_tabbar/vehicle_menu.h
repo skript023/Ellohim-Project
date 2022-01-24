@@ -37,6 +37,8 @@ namespace big
 			return *script_global(g_global.garage).as<int*>();
 		}
 
+		static char nama_mobil[32];
+		static int total_ped = 0;
 		static inline int selected_category = 0;
 		static inline int SelectedVehicle = 0;
 		static inline int SelectedPersonal{};

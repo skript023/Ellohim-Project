@@ -15,6 +15,24 @@
 
 namespace big
 {
+    void vehicle_helper::set_vehicle_waterproof(Vehicle vehicle, bool activation)
+    {
+        if (auto ped_vehicle = rage_helper::entity_to_pointer<CVehicle*>(vehicle))
+        {
+            if (player::is_player_in_any_vehicle(vehicle))
+            {
+                if (activation && !systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 0.0f))
+                {
+                    ped_vehicle->m_navigation->m_ph_arche->m_water_collision = 0;
+                }
+                else if (!activation && systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 0.0f))
+                {
+                    ped_vehicle->m_navigation->m_ph_arche->m_water_collision = 1.f;
+                }
+            }
+        }
+    }
+
     void vehicle_helper::set_turn_lamp(bool activate)
     {
         if (activate)
@@ -125,7 +143,7 @@ namespace big
 
     std::string vehicle_helper::get_vehicle_name_from_hash(Hash vehicle_hash)
     {
-        std::string sVar0 = std::to_string(vehicle_hash);
+        std::string sVar0 = std::to_string(vehicle_hash) + " Not Found";
         for (auto vehicle : game_variable::vehicle_hash_list)
         {
             if (rage::joaat(vehicle) == vehicle_hash)
@@ -292,6 +310,19 @@ namespace big
     void vehicle_helper::despawn_personal_vehicle(int vehicle_index)
     {
         memory_util::clear_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(),TRIGGER_SPAWN_TOGGLE | SPAWN_AT_MORS_MUTUAL);
+    }
+
+    int vehicle_helper::get_vehicle_index_from_hash(Hash vehicle_hash)
+    {
+        int maxslots = *script_global(g_global.garage).as<int*>();
+        for (int i = 0; i < maxslots; i++)
+        {
+            if (vehicle_hash == *script_global(g_global.garage).at(i, 142).at(66).as<int*>())
+            {
+                return i;
+            }
+        }
+        return 0;
     }
 
     bool vehicle_helper::check_vehicle_insurance(int vehicle_index)

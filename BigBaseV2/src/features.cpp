@@ -173,6 +173,7 @@ namespace big::features
 		player::auto_heal(g_settings.options["Auto Heal"]);
 		player::set_player_no_collision(g_player_option.pass_through_wall);
 		player::no_idle_kick(g_settings.options["No Idle Kick"]);
+		player::set_player_infinite_oxygen(PLAYER::PLAYER_ID(), g_player_option.is_infinite_oxygen);
 		
 		weapon_helper::teleport_gun(g_weapon_option.teleport_gun_bool);
 		weapon_helper::no_spread(g_weapon_option.spread_on);
@@ -203,6 +204,7 @@ namespace big::features
 		vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
 		vehicle_helper::horn_boosts(g_vehicle_option->horn_boost);
 		vehicle_helper::set_turn_lamp(g_settings.options["Vehicle Light Control"]);
+		vehicle_helper::set_vehicle_waterproof(player::get_player_vehicle(player::player_ped_id(), false), true);
 		
 		controller::faster_time_scale(g_misc_option->time_scale);
 		
