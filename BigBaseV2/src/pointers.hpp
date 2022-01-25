@@ -92,6 +92,13 @@ namespace big
 		functions::get_network_object_t m_get_network_object{};
 		functions::sync_can_apply_t m_sync_can_apply{};
 		functions::sync_read_t m_sync_read{};
+		functions::clone_sync_t m_clone_sync{};
+		functions::clone_remove_t m_clone_remove{};
+		functions::clone_pack_t m_clone_pack{};
+		functions::clone_sync_ack_t m_clone_sync_ack{};
+		functions::clone_create_ack_t m_clone_create_ack{};
+		functions::clone_remove_ack_t m_clone_remove_ack{};
+
 
 		functions::GetNetGamePlayer m_get_net_game_player{};
 		

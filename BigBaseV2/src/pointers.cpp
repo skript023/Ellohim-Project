@@ -342,6 +342,36 @@ namespace big
 			m_sync_read = ptr.sub(0xF).as<functions::sync_read_t>();
 		});
 
+		main_batch.add("clone_sync", "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1", [this](memory::handle ptr)
+		{
+			m_clone_sync = ptr.as<decltype(m_clone_sync)>();
+		});
+
+		main_batch.add("m_clone_pack", "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F9 48 8B CA 49 8B E9", [this](memory::handle ptr)
+		{
+			m_clone_pack = ptr.as<decltype(m_clone_pack)>();
+		});
+
+		main_batch.add("clone_create_ack", "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8", [this](memory::handle ptr)
+		{
+			m_clone_create_ack = ptr.as<decltype(m_clone_create_ack)>();
+		});
+
+		main_batch.add("clone_sync_ack", "48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b e2", [this](memory::handle ptr)
+		{
+			m_clone_sync_ack = ptr.as<decltype(m_clone_sync_ack)>();
+		});
+
+		main_batch.add("clone_remove_ack", "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8", [this](memory::handle ptr)
+		{
+			m_clone_remove_ack = ptr.as<decltype(m_clone_remove_ack)>();
+		});
+
+		main_batch.add("clone_remove", "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 4d 8b e0 48 8d 50", [this](memory::handle ptr)
+		{
+			m_clone_remove = ptr.as<decltype(m_clone_remove)>();
+		});
+
 		main_batch.add("g_objectMgr", "48 8B 0D ? ? ? ? 45 33 C0 E8 ? ? ? ? 33 FF 4C 8B F0", [this](memory::handle ptr)
 		{
 			m_network_object_manager = ptr.add(3).rip().as<rage::CNetworkObjectMgr**>();
