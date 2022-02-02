@@ -25,8 +25,8 @@ namespace big::functions
 	using ScriptGameEvent = bool(*)(CScriptedGameEvent* NetEventStruct, CNetGamePlayer* sender);
 	using PTFXEvent = bool(*)(int64_t thisptr, CNetGamePlayer* sender, CNetGamePlayer* receiver);
 
-	using ReadDword = bool(*)(rage::datBitBuffer* ptr, uint32_t* integer, int bits);
-	using read_bitbuf_array = bool(rage::datBitBuffer* buffer, PVOID read, int bits, int);
+	using ReadDword = bool(__fastcall*)(rage::datBitBuffer* ptr, uint32_t* integer, int bits);
+	using read_bitbuf_array = bool(__fastcall*)(rage::datBitBuffer* buffer, PVOID read, int bits, int);
 
 	using clone_create_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, int32_t object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
 	using sync_can_apply_t = bool (*)(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
@@ -37,19 +37,70 @@ namespace big::functions
 	using clone_pack_t = void (*) (rage::CNetworkObjectMgr* mgr, rage::netObject* netObject, CNetGamePlayer* src, rage::datBitBuffer* buffer);
 	using clone_sync_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, rage::datBitBuffer* buffer, int32_t unk, int32_t timestamp);
 	using clone_remove_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_id, int32_t unk);
+    using joined_player_t = void (*)(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
+    using left_player_t = void (*)(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 
-	using get_network_object_t = rage::netObject* (*) (rage::CNetworkObjectMgr* mgr, int16_t id, bool is_true);
+	using get_network_object_t = rage::netObject* (__fastcall*) (rage::CNetworkObjectMgr* mgr, int16_t id, bool is_true);
 	using GetModelInfo = int64_t(*)(unsigned int model_hash, DWORD* a2);
 	using SendNetInfoToLobby = bool(*)(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 	using GetNetGamePlayer = CNetGamePlayer*(__fastcall*)(Player player);
 
 	using error_screen = void(char* entryHeader, char* entryLine1, int instructionalKey, char* entryLine2, BOOL p4, Any p5, Any* p6, Any* p7, BOOL background);
-	using gta_thread_tick = __int64(GtaThread* a1, unsigned int a2);
-	using gta_thread_kill = __int64(GtaThread* a1);
-	using send_event_ack = void(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, int event_index, int event_handled_bitset);
-	using report_cash_spawn = bool(__int64 creport_cash_spawn_event, CNetGamePlayer* source_player);
-	using report_myself_event_sender = void(__int64 a1, unsigned int a2, unsigned int a3, unsigned int a4);
-	using GetLabelText = const char* (void* unk, const char* label);
-	using received_event = bool(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size, rage::datBitBuffer* bit_buffer);
+	using gta_thread_tick = __int64(*)(GtaThread* a1, unsigned int a2);
+	using gta_thread_kill = __int64(*)(GtaThread* a1);
+	using send_event_ack = void(*)(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, int event_index, int event_handled_bitset);
+	using report_cash_spawn = bool(*)(__int64 creport_cash_spawn_event, CNetGamePlayer* source_player);
+	using report_myself_event_sender = void(*)(__int64 a1, unsigned int a2, unsigned int a3, unsigned int a4);
+	using GetLabelText = const char* (*)(void* unk, const char* label);
+	using received_event = bool(*)(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size, rage::datBitBuffer* bit_buffer);
 }
 
+/*
+    h4_prop_bush_buddleia_low_01
+    h4_prop_bush_ear_aa
+    h4_prop_bush_ear_ab
+    h4_prop_bush_fern_low_01
+    h4_prop_bush_fern_tall_cc
+    h4_prop_bush_mang_ad
+    h4_prop_bush_mang_low_aa
+    h4_prop_bush_mang_low_ab
+    h4_prop_bush_seagrape_low_01
+    h4_prop_grass_med_01
+    h4_prop_grass_tropical_lush_01
+    h4_prop_grass_wiregrass_01
+    h4_prop_weed_groundcover_01
+    proc_desert_sage_01
+    proc_dry_plants_01
+    proc_drygrasses01
+    proc_drygrasses01b
+    proc_drygrassfronds01
+    proc_forest_ivy_01
+    proc_grassdandelion01
+    proc_grasses01b
+    proc_grassplantmix_01
+    proc_grassplantmix_02
+    proc_indian_pbrush_01
+    proc_leafybush_01
+    proc_leafyplant_01
+    proc_lizardtail_01
+    proc_lupins_01
+    proc_meadowmix_01
+    proc_meadowpoppy_01
+    proc_sml_reeds_01
+    proc_sml_reeds_01b
+    proc_sml_reeds_01c
+    proc_stones_02
+    proc_stones_03
+    proc_stones_04
+    prop_grass_001_a
+    prop_grass_ca
+    prop_grass_da
+    prop_grass_dry_02
+    prop_grass_dry_03
+    prop_saplin_001_b
+    prop_saplin_001_c
+    prop_saplin_002_b
+    prop_saplin_002_c
+    prop_small_bushyba
+    urbandrygrass_01
+*/

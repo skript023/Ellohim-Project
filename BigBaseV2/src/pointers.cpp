@@ -407,6 +407,22 @@ namespace big
 			m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
 		});
 
+		main_batch.add("PHJ", "48 8B CA 48 8B F2 FF 50 18 4C 8D 05", [this](memory::handle ptr)
+		{
+			m_player_has_joined = ptr.sub(0x26).as<decltype(m_player_has_joined)>();
+		});
+
+		// Player Has Left
+		main_batch.add("PHL", "4C 8B F1 48 8B CA 48 8B EA FF 50 18 4C 8D 05", [this](memory::handle ptr)
+		{
+			m_player_has_left = ptr.sub(0x26).as<decltype(m_player_has_left)>();
+		});
+
+		main_batch.add("Aim Status", "48 8D 0D ? ? ? ? 48 63 C3 3B 14 81 0F 84 ? ? ? ? 41 B8 ? ? ? ? 8B CB", [this](memory::handle ptr)
+		{
+			m_player_aim = ptr.add(3).rip().add(12).as<decltype(m_player_aim)>();
+		});
+
 		main_batch.run(memory::module(nullptr));
 
 		m_hwnd = FindWindowW(L"grcWindow", nullptr);

@@ -42,6 +42,8 @@ namespace big
 		
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
 		m_get_label_text("Get Label Text", g_pointers->m_get_label_text, &hooks::get_label_text),
+		m_player_has_joined_hook("Player Joined Hook", g_pointers->m_player_has_joined, &hooks::player_join),
+		m_player_has_left_hook("Player Left Hook", g_pointers->m_player_has_left, &hooks::player_leave),
 
 		m_gta_thread_tick_hook("Thread Tick", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
 		m_gta_thread_kill_hook("Thread Killed", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
@@ -76,10 +78,12 @@ namespace big
 		m_swapchain_hook.enable();
 		m_og_wndproc = reinterpret_cast<WNDPROC>(SetWindowLongPtrW(g_pointers->m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&hooks::wndproc)));
 		m_set_cursor_pos_hook.enable();
-		m_get_label_text.enable();
 		m_send_net_info_to_lobby_hook.enable();
 		m_censor_chat_text_hook.enable();
-		
+		m_get_label_text.enable();
+
+		m_player_has_joined_hook.enable();
+		m_player_has_left_hook.enable();
 		m_received_event_hook.enable();
 
 		m_clone_create_hook.enable();
@@ -105,7 +109,9 @@ namespace big
 		m_send_net_info_to_lobby_hook.disable();
 		m_censor_chat_text_hook.disable();
 		m_get_label_text.disable();
-		
+
+		m_player_has_joined_hook.disable();
+		m_player_has_left_hook.disable();
 		m_received_event_hook.disable();
 
 		m_clone_create_hook.disable();

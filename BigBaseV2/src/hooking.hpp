@@ -15,6 +15,8 @@ namespace big
 		static bool send_net_info_to_lobby(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 		static int censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text);
 		static const char* get_label_text(void* unk, const char* label);
+		static void player_join(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
+		static void player_leave(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 		
 		static bool received_event(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, uint16_t event_id, int event_index, int event_handled_bitset, int64_t bit_buffer_size, rage::datBitBuffer* buffer);
 
@@ -63,6 +65,8 @@ namespace big
 		detour_hook m_run_script_threads_hook;
 		detour_hook m_convert_thread_to_fiber_hook;
 		detour_hook m_get_label_text;
+		detour_hook m_player_has_joined_hook;
+		detour_hook m_player_has_left_hook;
 		
 		detour_hook m_send_net_info_to_lobby_hook;
 		detour_hook m_censor_chat_text_hook;

@@ -84,6 +84,14 @@ namespace big
 
                 ImGui::Checkbox(xorstr("Auto-Clicker"), &g_player_option.auto_click);
                 ImGui::Separator();
+                ImGui::Text("Aim Change");
+                ImGui::PushItemWidth(150.f);
+                if (ImGui::Combo("##Aim Change", &g_player_option.player_aim, aim_list, IM_ARRAYSIZE(aim_list)))
+                {
+                    *g_pointers->m_player_aim = g_player_option.player_aim;
+                }
+                ImGui::PopItemWidth();
+                ImGui::Separator();
             }
             if (ImGui::CollapsingHeader(xorstr("Script Monitor")))
             {

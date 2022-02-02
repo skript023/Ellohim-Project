@@ -436,6 +436,9 @@
     <ClCompile Include="src\gui\controller\game_variable.cpp">
       <Filter>gui\controller</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\hooks\player_join.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

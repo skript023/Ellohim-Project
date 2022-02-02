@@ -147,7 +147,7 @@ namespace big
 	{
 		if (ImGui::Begin(window_name))
 		{
-			if (!game_window::create_session(login_status) && !game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid)))
+			if (!game_window::create_session(login_status))// && !game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 			{
 				GetCurrentHwProfile(g_game_window->profile_info);
 				ImGui::PushItemWidth(200);
@@ -169,7 +169,7 @@ namespace big
 				}
 			}
 
-			if (game_window::create_session(login_status) || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid)))
+			if (game_window::create_session(login_status))// || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 			{
 				ImGui::BeginTabBar(xorstr("Tab Menu"));
 				player_menu::render_player_tab(xorstr("Player"));

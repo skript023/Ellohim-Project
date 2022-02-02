@@ -14,7 +14,7 @@
 #include <imgui.h>
 
 #include "gui/window/game_window.hpp"
-#include "gui\controller\xostr.h"
+#include "gui/controller/xostr.h"
 
 namespace big
 {

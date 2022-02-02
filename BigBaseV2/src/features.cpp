@@ -252,7 +252,7 @@ namespace big::features
 		{
 			TRY_CLAUSE
 			{
-				if (game_window::create_session(g_game_window->login_status) || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid)))
+				if (game_window::create_session(g_game_window->login_status))//|| game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 					run_tick();
 			}
 			EXCEPT_CLAUSE

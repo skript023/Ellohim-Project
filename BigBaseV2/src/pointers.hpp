@@ -54,6 +54,7 @@ namespace big
 		char* m_game_build;
 		bool* m_blackout;
 		int* m_delivery;
+		int* m_player_aim;
 		bool* m_wep_crash;
 		float* m_sky_blue;
 		float* m_sky_red;
@@ -80,14 +81,14 @@ namespace big
 		functions::get_player_name_t m_get_player_name{};
 
 		functions::error_screen* m_error_screen{};
-		functions::gta_thread_tick* m_gta_thread_tick{};
-		functions::gta_thread_kill* m_gta_thread_kill{};
+		functions::gta_thread_tick m_gta_thread_tick{};
+		functions::gta_thread_kill m_gta_thread_kill{};
 
-		functions::read_bitbuf_array* m_read_bitbuf_array{};
-		functions::send_event_ack* m_send_event_ack{};
-		functions::report_cash_spawn* m_report_cash_spawn{};
-		functions::GetLabelText *m_get_label_text{};
-		functions::received_event *m_received_event{};
+		functions::read_bitbuf_array m_read_bitbuf_array{};
+		functions::send_event_ack m_send_event_ack{};
+		functions::report_cash_spawn m_report_cash_spawn{};
+		functions::GetLabelText m_get_label_text{};
+		functions::received_event m_received_event{};
 
 		functions::get_network_object_t m_get_network_object{};
 		functions::sync_can_apply_t m_sync_can_apply{};
@@ -99,6 +100,8 @@ namespace big
 		functions::clone_create_ack_t m_clone_create_ack{};
 		functions::clone_remove_ack_t m_clone_remove_ack{};
 
+		functions::joined_player_t m_player_has_joined{};
+		functions::left_player_t m_player_has_left{};
 
 		functions::GetNetGamePlayer m_get_net_game_player{};
 		

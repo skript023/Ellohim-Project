@@ -9,6 +9,8 @@ namespace big
 	{
 	public:
 		static void render_setting_tab(const char* tab_name);
+    private:
+        static inline const char* const aim_list[]{ "Assisted Aim - Full", "Assisted Aim - Partial", "Free Aim - Assisted", "Free Aim" };
 	};
 }
 

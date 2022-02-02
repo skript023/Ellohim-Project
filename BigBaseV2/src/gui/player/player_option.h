@@ -32,6 +32,7 @@ namespace big
 		static bool get_player_infinite_ammo(Player player);
 		static bool is_player_out_of_radar(Player player);
 		static Ped player_ped_id();
+		static void self_noclip(bool activate);
 		static bool get_player_infinite_clip(Player player);
 		static bool is_player_in_any_vehicle(Player player);
 		static bool does_player_exist(Player player);
@@ -107,9 +108,17 @@ namespace big
 		static inline bool is_ped_bodyguard{};
 		static inline bool is_force_applied{};
 		static inline bool is_infinite_oxygen{};
+		static inline int player_aim{};
 	private:
 		static inline int request_tick = 0;
-		
+		static inline const int controls[] = { 21, 32, 33, 34, 35, 36 };
+		static inline float speed = 20.f;
+		static inline float mult = 0.f;
+
+		static inline bool bLastNoclip = false;
+
+		static inline Entity prev = -1;
+		static inline Vector3 rot{};
 
 	};
 	class outfit
