@@ -73,17 +73,17 @@ namespace big
 
 		main_batch.add("Blip List", "4C 8D 05 ? ? ? ? 0F B7 C1", [this](memory::handle ptr)
 		{
-			m_blip_ptr = ptr.add(3).rip().as<rage::BlipList*>();//*(rage::BlipList**)ptr.add(3).rip().as<PVOID>();
+			m_blip_ptr = ptr.add(3).rip().as<decltype(m_blip_ptr)>();//*(rage::BlipList**)ptr.add(3).rip().as<PVOID>();
 		});
 
 		main_batch.add("Cutscene Manager", "48 8B 0D ? ? ? ? 48 8B 01 48 FF 60 28", [this](memory::handle ptr)
 		{
-			m_cutscene_mgr = ptr.add(3).rip().as<CutsceneManager**>();
+			m_cutscene_mgr = ptr.add(3).rip().as<decltype(m_cutscene_mgr)>();
 		});
 
 		main_batch.add("Friend Pointer", "48 03 0D ? ? ? ? E9 ? ? ? ? 48 8D 05", [this](memory::handle ptr)
 		{
-			m_friend_list = ptr.add(3).rip().as<FriendList**>();
+			m_friend_list = ptr.add(3).rip().as<decltype(m_friend_list)>();
 		});
 
 		main_batch.add("Total Friend", "3B 0D ? ? ? ? 73 13 48 63 C9", [this](memory::handle ptr)
@@ -93,22 +93,22 @@ namespace big
 
 		main_batch.add("Pointer To Entity", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 8B 15 ? ? ? ? 48 8B F9 48 83 C1 10 33 DB", [this](memory::handle ptr)
 		{
-			m_ptr_to_handle = ptr.as<functions::ptr_to_handle_t>();
+			m_ptr_to_handle = ptr.as<decltype(m_ptr_to_handle)>();
 		});
 
 		main_batch.add("Entity To Pointer", "75 0D 41 8B 41", [this](memory::handle ptr)
 		{
-			m_handle_to_ptr = ptr.sub(27).as<functions::handle_to_ptr_t>();
+			m_handle_to_ptr = ptr.sub(27).as<decltype(m_handle_to_ptr)>();
 		});
 
 		main_batch.add("Get Player Pointer", "40 53 48 83 EC 20 33 DB 38 1D ? ? ? ? 74 1C 83 F9 1F 77 26", [this](memory::handle ptr)
 		{
-			m_player_ptr = ptr.as<functions::player_pointer>();//48 89 5C 24 ? 57 48 83 EC 20 33 DB 38 1D ? ? ? ? 74 26
+			m_player_ptr = ptr.as<decltype(m_player_ptr)>();//48 89 5C 24 ? 57 48 83 EC 20 33 DB 38 1D ? ? ? ? 74 26
 		});
 
 		main_batch.add("Get Player Name", "40 53 48 83 EC 20 80 3D ? ? ? ? ? 8B D9 74 22", [this](memory::handle ptr)
 		{
-			m_get_player_name = ptr.as<functions::get_player_name_t>();
+			m_get_player_name = ptr.as<decltype(m_get_player_name)>();
 		});
 
 		main_batch.add("Replay Interface", "48 8D 0D ? ? ? ? 48 8B D7 E8 ? ? ? ? 48 8D 0D ? ? ? ? 8A D8 E8 ? ? ? ? 84 DB 75 13 48 8D 0D ? ? ? ?", [this](memory::handle ptr)
@@ -118,7 +118,7 @@ namespace big
 
 		main_batch.add("Get Event Data", "48 89 5C 24 ? 57 48 83 EC ? 49 8B F8 4C 8D 05", [this](memory::handle ptr)
 		{
-			m_get_event_data = ptr.as<functions::GetEventData>();
+			m_get_event_data = ptr.as<decltype(m_get_event_data)>();
 		});
 
 		main_batch.add("RID Joiner", "48 8D BE ? ? ? ? 48 8B CF 0F 10 ? 41 8B C4", [this](memory::handle ptr)
@@ -128,7 +128,7 @@ namespace big
 
 		main_batch.add("Waypoint", "48 8D 05 ? ? ? ? 33 D2 48 89 50 F0 48 89 50 F8 48 89 10 48 89", [this](memory::handle ptr)
 		{
-			m_waypoint_coords = ptr.add(3).rip().add(0x10).as<rage::vector3*>();
+			m_waypoint_coords = ptr.add(3).rip().add(0x10).as<decltype(m_waypoint_coords)>();
 		});
 		
 		main_batch.add("Get Label Text", "75 ? E8 ? ? ? ? 8B 0D ? ? ? ? 65 48 8B 04 25 ? ? ? ? BA ? ? ? ? 48 8B 04 C8 8B 0C 02 D1 E9", [this](memory::handle ptr)
@@ -164,12 +164,12 @@ namespace big
 
 		main_batch.add("Explosion Event", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 8A 42 21", [this](memory::handle ptr)
 		{
-			m_explosion_event = ptr.as<functions::CExplosionEvent>();
+			m_explosion_event = ptr.as<decltype(m_explosion_event)>();
 		});
 
 		main_batch.add("PTFX Event", "48 8B ? 48 89 ? ? 48 89 ? ? 48 89 ? ? 55 41 ? 41 ? 48 8D ? ? 48 81 EC ? ? ? ? 0F 29 ? ? 45 33", [this](memory::handle ptr)
 		{
-			m_ptfx_event = ptr.as<functions::PTFXEvent>();
+			m_ptfx_event = ptr.as<decltype(m_ptfx_event)>();
 		});
 
 		main_batch.add("Blackout", "48 8B D7 48 8B CB E8 ? ? ? ? 40 38 35 ? ? ? ? 74 40", [this](memory::handle ptr)
@@ -179,12 +179,12 @@ namespace big
 
 		main_batch.add("Hash Table", "48 8B 05 ? ? ? ? 4C 8B 14 D0 EB 09 41 3B 0A 74 54 4D", [this](memory::handle ptr)
 		{
-			m_hash_table = ptr.add(3).rip().as<CHashTable**>();
+			m_hash_table = ptr.add(3).rip().as<decltype(m_hash_table)>();
 		});
 
 		main_batch.add("Money In Business", "48 8D 05 ? ? ? ? 48 C1 E1 ? 48 03 C8 E8 ? ? ? ? 48 8B 5C", [this](memory::handle ptr)
 		{
-			m_money_in_bunker = ptr.add(3).rip().as<BusinessMoney**>();
+			m_money_in_bunker = ptr.add(3).rip().as<decltype(m_money_in_bunker)>();
 		});
 
 		main_batch.add("Get Model Info", "0F B7 05 ? ? ? ? 45 33 C9 4C 8B DA 66 85 C0 0F 84 ? ? ? ? 44 0F B7 C0 33 D2 8B C1 41 F7 F0 48 8B 05 ? ? ? ? 4C 8B 14 D0 EB 09 41 3B 0A 74 54", [this](memory::handle ptr)
@@ -234,22 +234,22 @@ namespace big
 		
 		main_batch.add("Player Rockstar ID", "48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83", [this](memory::handle ptr)
 		{
-			m_player_rid = ptr.add(3).rip().add(8).as<uint64_t*>();
+			m_player_rid = ptr.add(3).rip().add(8).as<decltype(m_player_rid)>();
 		});
 
 		main_batch.add("Player Crew", "48 8D 05 ? ? ? ? 48 69 C9 ? ? ? ? 48 03 C8 E8 ? ? ? ? 48 83 C4 ? C3 48 89 ? ? ? 48 89 ? ? ? 57", [this](memory::handle ptr)
 		{
-			m_player_crew = ptr.add(3).rip().as<CPlayerCrew*>();
+			m_player_crew = ptr.add(3).rip().as<decltype(m_player_crew)>();
 		});
 		
 		main_batch.add("Session Weather", "E8 ? ? ? ? EB 08 66 41 0B CD", [this](memory::handle ptr)//48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC 30 40 8A E9
 		{
-			m_session_weather = ptr.add(1).rip().as<functions::m_weather_change>();
+			m_session_weather = ptr.add(1).rip().as<decltype(m_session_weather)>();
 		});
 
 		main_batch.add("Set Lobby Clock", "E8 ? ? ? ? 48 8B 4F 60 48 85 C9 0F 84", [this](memory::handle ptr)//48 89 5C 24 ? 57 48 83 EC 20 8B F9 48 8B 0D ? ? ? ? 48 8B DA 33 D2
 		{
-			m_set_lobby_time = ptr.add(1).rip().as<functions::set_lobby_time_t>();
+			m_set_lobby_time = ptr.add(1).rip().as<decltype(m_set_lobby_time)>();
 		});
 		
 		main_batch.add("IS DLC PRESENT", "48 89 5C 24 08 57 48 83 EC 20 81 F9", [this](memory::handle ptr)
@@ -269,7 +269,7 @@ namespace big
 
 		main_batch.add("CScriptedGameEvent", "40 53 48 81 EC ? ? ? ? 44 8B 81", [this](memory::handle ptr)
 		{
-			m_script_event = ptr.as<functions::ScriptGameEvent>();//48 89 44 24 ? 0F 95 C3
+			m_script_event = ptr.as<decltype(m_script_event)>();//48 89 44 24 ? 0F 95 C3
 		});
 
 		main_batch.add("Game Build", "48 83 EC 60 48 8D 0D ? ? ? ? E8", [this](memory::handle ptr)
@@ -314,32 +314,32 @@ namespace big
 
 		main_batch.add("GetNetGamePlayer", "48 83 EC 28 33 C0 38 05 ? ? ? ? 74 0A", [this](memory::handle ptr)
 		{
-			m_get_net_game_player = ptr.as<functions::GetNetGamePlayer>();
+			m_get_net_game_player = ptr.as<decltype(m_get_net_game_player)>();
 		});
 		
 		main_batch.add("m_read_bitbuf_dword", "48 89 5c 24 ? 48 89 74 24 ? 57 48 83 ec ? 48 8b d9 33 c9 41 8b f0 8a 43", [this](memory::handle ptr)
 		{
-			m_read_bitbuf_dword = ptr.as<functions::ReadDword>();
+			m_read_bitbuf_dword = ptr.as<decltype(m_read_bitbuf_dword)>();
 		});
 
 		main_batch.add("clone_create", "48 8B C4 66 44 89 48", [this](memory::handle ptr)
 		{
-			m_clone_create = ptr.as<functions::clone_create_t>();
+			m_clone_create = ptr.as<decltype(m_clone_create)>();
 		});
 
 		main_batch.add("netObjectMgrBase__GetNetworkObject", "44 38 33 75 30 66 44", [this](memory::handle ptr)
 		{
-			m_get_network_object = ptr.sub(0x40).as<functions::get_network_object_t>();
+			m_get_network_object = ptr.sub(0x40).as<decltype(m_get_network_object)>();
 		});
 
 		main_batch.add("netSyncTree::CanApplyToObject", "49 8B CE FF 50 70 84 C0 74 31 33 FF", [this](memory::handle ptr)
 		{
-			m_sync_can_apply = ptr.sub(0x2C).as<functions::sync_can_apply_t>();
+			m_sync_can_apply = ptr.sub(0x2C).as<decltype(m_sync_can_apply)>();
 		});
 
 		main_batch.add("netSyncTree::ReadFromBuffer", "45 89 43 18 57 48 83 EC 30 48 83 79 10 00 49", [this](memory::handle ptr)
 		{
-			m_sync_read = ptr.sub(0xF).as<functions::sync_read_t>();
+			m_sync_read = ptr.sub(0xF).as<decltype(m_sync_read)>();
 		});
 
 		main_batch.add("clone_sync", "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1", [this](memory::handle ptr)
@@ -374,7 +374,7 @@ namespace big
 
 		main_batch.add("g_objectMgr", "48 8B 0D ? ? ? ? 45 33 C0 E8 ? ? ? ? 33 FF 4C 8B F0", [this](memory::handle ptr)
 		{
-			m_network_object_manager = ptr.add(3).rip().as<rage::CNetworkObjectMgr**>();
+			m_network_object_manager = ptr.add(3).rip().as<decltype(m_network_object_manager)>();
 		});
 
 		main_batch.add("Censor Chat Text", "E8 ? ? ? ? 83 F8 FF 75 B9", [this](memory::handle ptr)
@@ -384,7 +384,7 @@ namespace big
 
 		main_batch.add("Game Setting Pointer", "44 39 0D ? ? ? ? 74 0C", [this](memory::handle ptr)
 		{
-			m_game_setting = ptr.add(3).rip().sub(0x99).as<GameSetting*>();
+			m_game_setting = ptr.add(3).rip().sub(0x99).as<decltype(m_game_setting)>();
 		});
 		
 		main_batch.add("Camera Base", "48 39 0D ? ? ? ? 75 58 8B 42 20", [this](memory::handle ptr)
@@ -407,13 +407,13 @@ namespace big
 			m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
 		});
 
-		main_batch.add("PHJ", "48 8B CA 48 8B F2 FF 50 18 4C 8D 05", [this](memory::handle ptr)
+		main_batch.add("Joined Player", "48 8B CA 48 8B F2 FF 50 18 4C 8D 05", [this](memory::handle ptr)
 		{
 			m_player_has_joined = ptr.sub(0x26).as<decltype(m_player_has_joined)>();
 		});
 
 		// Player Has Left
-		main_batch.add("PHL", "4C 8B F1 48 8B CA 48 8B EA FF 50 18 4C 8D 05", [this](memory::handle ptr)
+		main_batch.add("Left Player", "4C 8B F1 48 8B CA 48 8B EA FF 50 18 4C 8D 05", [this](memory::handle ptr)
 		{
 			m_player_has_left = ptr.sub(0x26).as<decltype(m_player_has_left)>();
 		});

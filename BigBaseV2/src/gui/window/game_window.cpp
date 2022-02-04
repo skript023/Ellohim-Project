@@ -112,11 +112,11 @@ namespace big
 		{
 			http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_logout.php?username={}&rockstar_id={}", g_game_window->username, *g_pointers->m_player_rid) };
 			const auto response = request.send("GET");
-			LOG(HACKER) << "Logout Success.";
+			LOG(INFO) << "Logout Success.";
 		}
 		catch (const std::exception& e)
 		{
-			LOG(HACKER) << "Request failed, error: " << e.what();
+			LOG(INFO) << "Request failed, error: " << e.what();
 		}
 	}
 
@@ -137,7 +137,7 @@ namespace big
 		}
 		catch (const std::exception& e)
 		{
-			LOG(HACKER) << "Request failed, error: " << e.what();
+			LOG(INFO) << "Request failed, error: " << e.what();
 			status_check = RAGE_JOAAT("Request failed, couldn't connect to server");
 			return false;
 		}
