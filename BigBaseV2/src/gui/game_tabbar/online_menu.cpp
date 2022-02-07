@@ -1674,12 +1674,6 @@ namespace big
                     } QUEUE_JOB_END_CLAUSE
                 }
 
-                if (ImGui::Checkbox(xorstr("Log Player"), g_settings.options["Log Player"].get<bool*>()))
-                    g_settings.save();
-                ImGui::SameLine(200);
-                if (ImGui::Checkbox(xorstr("Disable Chat Censor"), g_settings.options["Disable Censor"].get<bool*>()))
-                    g_settings.save();
-
                 if (ImGui::Checkbox(xorstr("Request Control"), g_settings.options["Request Control Block"].get<bool*>()))
                     g_settings.save();
                 ImGui::SameLine(200);

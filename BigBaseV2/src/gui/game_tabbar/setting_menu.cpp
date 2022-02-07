@@ -81,15 +81,24 @@ namespace big
 
                 if (ImGui::Checkbox(xorstr("Logger"), g_settings.options["Logger Window"].get<bool*>()))
                     g_settings.save();
+                ImGui::SameLine(150);
 
                 ImGui::Checkbox(xorstr("Auto-Clicker"), &g_player_option.auto_click);
+                ImGui::SameLine(300);
+
+                ImGui::Checkbox(xorstr("Log Incoming Player"), g_settings.options["Player Join Log"].get<bool*>());
+                
+                if (ImGui::Checkbox(xorstr("Log Player"), g_settings.options["Log Player"].get<bool*>()))
+                    g_settings.save();
+                ImGui::SameLine(150);
+                if (ImGui::Checkbox(xorstr("Disable Chat Censor"), g_settings.options["Disable Censor"].get<bool*>()))
+                    g_settings.save();
                 ImGui::Separator();
+
                 ImGui::Text("Aim Change");
                 ImGui::PushItemWidth(150.f);
                 if (ImGui::Combo("##Aim Change", &g_player_option.player_aim, aim_list, IM_ARRAYSIZE(aim_list)))
-                {
                     *g_pointers->m_player_aim = g_player_option.player_aim;
-                }
                 ImGui::PopItemWidth();
                 ImGui::Separator();
             }

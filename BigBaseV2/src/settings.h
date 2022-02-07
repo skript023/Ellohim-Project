@@ -58,6 +58,7 @@ namespace big
 			"Disable Censor": true,
 			"Logger Window": false,
 			"Vehicle Light Control": true,
+			"Player Join Log": true,
 			"script monitor sorted": false
 		})"_json;
 
