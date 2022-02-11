@@ -98,6 +98,7 @@ namespace big
 		static inline bool reveal_players{};
 		static inline bool ultra_run_bool{};
 		static inline bool no_clip{};
+		static inline bool no_clip_2{};
 		static inline bool night_vision{};
 		static inline bool thermal_vision{};
 		static inline bool ghost_organizations{};

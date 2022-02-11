@@ -100,6 +100,9 @@ namespace big
 				{
 					LOG(HACKER) << "Request failed, error: " << e.what();
 					is_auth = false;
+					login_status = RAGE_JOAAT("Disconnect");
+					strcpy(g_game_window->username, "");
+					strcpy(g_game_window->password, "");
 				}
 				get_session_time = std::chrono::high_resolution_clock::now();
 			}

@@ -19,7 +19,7 @@ namespace big
 		static bool is_model_valid(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
 		static std::string char_to_string(char* a, int size);
 		static int hotkey(char ch);
-		static float degree(float degs);
+		static float degree_to_radian(float degs);
 		static std::string character_filter(const char* str);
 		static bool is_2d_vector_equal(rage::vector2 a, rage::vector2 b, float epsilon = FLT_EPSILON);
 		static bool is_3d_vector_equal(Vector3 a, Vector3 b, float epsilon = FLT_EPSILON);

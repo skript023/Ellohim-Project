@@ -98,6 +98,8 @@ namespace big
             ImGui::SameLine(400);
             ImGui::Checkbox(xorstr("No Clip"), &g_player_option.no_clip);
 
+            ImGui::Checkbox(xorstr("No Clip 2"), &g_player_option.no_clip_2);
+
             int wanted_level_slider = player::get_player_wanted_level(g_local.player);
             if (ImGui::SliderInt(xorstr("Wanted Level"), &wanted_level_slider, 0, 5))
             {

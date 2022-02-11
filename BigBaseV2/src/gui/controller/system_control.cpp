@@ -300,7 +300,7 @@ namespace big
         return ch;
     }
 
-    float systems::degree(float degs)
+    float systems::degree_to_radian(float degs)
     {
         return degs * 3.141592653589793f / 180.f;
     }

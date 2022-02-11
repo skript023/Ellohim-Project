@@ -154,6 +154,10 @@ namespace big
                     ImGui::RadioButton(xorstr("Steal"), &type, 2);
                     ImGui::Separator();
                 }
+                if (SelectedScriptEvent == 0)
+                {
+                    ImGui::Checkbox("All Player?", &is_all_player);
+                }
                 if (SelectedScriptEvent == 1)
                 {
                     ImGui::PushItemWidth(250.f);
@@ -168,7 +172,21 @@ namespace big
                     switch (SelectedScriptEvent)
                     {
                     case 0:
-                        remote_event::teleport_player_to_cayo(g_selected.player);
+                        if (!is_all_player)
+                        {
+                            remote_event::teleport_player_to_cayo(g_selected.player);
+                        }
+                        else if (is_all_player)
+                        {
+                            for (int i = 0; i <= 32; i++)
+                            {
+                                if (i == g_local.player)
+                                    continue;
+
+                                if (i != g_local.player)
+                                    remote_event::teleport_player_to_cayo(i);
+                            }
+                        }
                         break;
                     case 1:
                         if (!is_all_player)
@@ -1194,7 +1212,7 @@ namespace big
                     ImGui::Combo(xorstr("##PropList"), &selected_object, game_variable::object_hash_list, IM_ARRAYSIZE(game_variable::object_hash_list));
                     if (ImGui::Button(xorstr("Send Pickup")))
                     {
-                        object::CreatePickup(game_variable::pickup_hash_list[selected_pickup], game_variable::pickup_hash_list[selected_object], 9999, g_selected.ped);
+                        object::create_pickup(game_variable::pickup_hash_list[selected_pickup], game_variable::pickup_hash_list[selected_object], 9999, g_selected.ped);
                     }
                     ImGui::EndMenu();
                 }

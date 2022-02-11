@@ -44,6 +44,8 @@ namespace big
         static float get_document_supply(Player player);
         static float get_bunker_supply(Player player);
 
+        static int network_get_num_connected_player();
+
         static void remove_orbital_cannon_cooldown(bool activate);
 
         static bool network_is_host(Player player);

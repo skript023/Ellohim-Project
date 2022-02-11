@@ -52,8 +52,8 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            pos.x += DISTANCE_SPAWN * forward.x;
-            pos.y += DISTANCE_SPAWN * forward.y;
+            pos.x += 2 * forward.x;
+            pos.y += 2 * forward.y;
 
             MISC::GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, pos.z, &pos.z, FALSE, FALSE);
 
@@ -76,9 +76,6 @@ namespace big
                 ENTITY::APPLY_FORCE_TO_ENTITY(obj, 1, 150.0f, 180.0f, 200.0f, 20.0f, 20.0f, 50.0f, 0, FALSE, TRUE, TRUE, FALSE, TRUE);
             }
             STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_object);
-
-            //ENTITY::SET_ENTITY_INVINCIBLE(obj, TRUE);
-            //ENTITY::SET_ENTITY_CAN_BE_DAMAGED(obj, FALSE);
         }
         QUEUE_JOB_END_CLAUSE
     }
@@ -91,8 +88,8 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            pos.x += DISTANCE_SPAWN * forward.x;
-            pos.y += DISTANCE_SPAWN * forward.y;
+            pos.x += 2 * forward.x;
+            pos.y += 2 * forward.y;
 
             MISC::GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, pos.z, &pos.z, FALSE, FALSE);
 
@@ -115,14 +112,11 @@ namespace big
                 ENTITY::APPLY_FORCE_TO_ENTITY(obj, 1, 150.0f, 180.0f, 200.0f, 20.0f, 20.0f, 50.0f, 0, FALSE, TRUE, TRUE, FALSE, TRUE);
             }
             STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_object);
-
-            //ENTITY::SET_ENTITY_INVINCIBLE(obj, TRUE);
-            //ENTITY::SET_ENTITY_CAN_BE_DAMAGED(obj, FALSE);
         }
         QUEUE_JOB_END_CLAUSE
     }
 
-    void object::CreatePickup(const char* pickup, const char* prop, int amount, Entity entity)
+    void object::create_pickup(const char* pickup, const char* prop, int amount, Entity entity)
     {
         QUEUE_JOB_BEGIN_CLAUSE(pickup, prop, amount, entity)
         {

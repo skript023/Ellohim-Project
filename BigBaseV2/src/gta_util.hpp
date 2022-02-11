@@ -47,7 +47,10 @@ namespace big::rage_helper
 	{
 		if (auto player_mgr = *g_pointers->m_network_player_mgr)
 		{
-			return player_mgr->m_get_player[player];
+			if (auto net_player = player_mgr->m_get_player[player])
+			{
+				return net_player;
+			}
 		}
 		return nullptr;
 	}

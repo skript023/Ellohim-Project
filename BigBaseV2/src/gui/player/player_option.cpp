@@ -354,15 +354,16 @@ namespace big
         if (toggle)
         {
             int e = rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped;
-
+            if (rage_helper::get_local_ped()->m_is_in_vehicle && !player::is_player_driver(g_local.ped))
+                network::request_control(e);
             Vector3 pos = ENTITY::GET_ENTITY_COORDS(e, false);
             ENTITY::SET_ENTITY_COORDS_NO_OFFSET(e, pos.x, pos.y, pos.z, false, false, false);
             if (GetAsyncKeyState(systems::hotkey('S')))
             {
                 float fivef = .5f;
                 float heading = ENTITY::GET_ENTITY_HEADING(e);
-                float xVec = fivef * sin(systems::degree(heading)) * -1.5f;
-                float yVec = fivef * cos(systems::degree(heading));
+                float xVec = fivef * sin(systems::degree_to_radian(heading)) * -1.5f;
+                float yVec = fivef * cos(systems::degree_to_radian(heading));
                 ENTITY::SET_ENTITY_HEADING(e, heading);
 
                 pos.x -= xVec, pos.y -= yVec;
@@ -372,8 +373,8 @@ namespace big
             {
                 float fivef = .5f;
                 float heading = ENTITY::GET_ENTITY_HEADING(e);
-                float xVec = fivef * sin(systems::degree(heading)) * -1.5f;
-                float yVec = fivef * cos(systems::degree(heading));
+                float xVec = fivef * sin(systems::degree_to_radian(heading)) * -1.5f;
+                float yVec = fivef * cos(systems::degree_to_radian(heading));
                 ENTITY::SET_ENTITY_HEADING(e, heading);
 
                 pos.x += xVec, pos.y += yVec;
@@ -870,8 +871,8 @@ namespace big
                 {
                     if (ped != g_local.ped && ped != 0)
                     {
-                        object::CreatePickup("PICKUP_HEALTH_STANDARD", "prop_ld_health_pack", 1, ped);
-                        object::CreatePickup("PICKUP_ARMOUR_STANDARD", "prop_ld_armour", 1, ped);
+                        object::create_pickup("PICKUP_HEALTH_STANDARD", "prop_ld_health_pack", 1, ped);
+                        object::create_pickup("PICKUP_ARMOUR_STANDARD", "prop_ld_armour", 1, ped);
                     }
                 }
             }

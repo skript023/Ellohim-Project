@@ -18,6 +18,15 @@
 
 namespace big
 {
+    int network::network_get_num_connected_player()
+    {
+        if (*g_pointers->m_is_session_started)
+        {
+            return (*g_pointers->m_network_player_mgr)->num_player;
+        }
+        return 0;
+    }
+
     void network::remove_orbital_cannon_cooldown(bool activate)
     {
         auto cooldown = *script_global(262145).at(22852).as<int*>();
