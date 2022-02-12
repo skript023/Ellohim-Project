@@ -35,7 +35,7 @@ namespace big
                 vehicle_helper::SpawnVehicle(nama_mobil, FALSE, g_local.player);
             }
             ImGui::SameLine();
-            if (ImGui::Button(xorstr("External")))
+            if (ImGui::Button(xorstr("Personal")))
             {
                 int vehicle_index = vehicle_helper::get_vehicle_index_from_hash(rage::joaat(nama_mobil));
                 vehicle_helper::call_personal_vehicle(vehicle_index);

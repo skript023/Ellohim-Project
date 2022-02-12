@@ -60,6 +60,8 @@
 
 #define DISTANCE_SPAWN 10
 
+#define CUSTOM_HUD "Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol"
+
 namespace big
 {
 	using namespace std::chrono_literals;
