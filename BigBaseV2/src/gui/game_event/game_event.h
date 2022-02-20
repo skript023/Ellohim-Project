@@ -85,7 +85,7 @@ namespace big
 		static void take_all_cayo(int take);
 		static void take_all_casino(int take);
 		static void take_casino_partial(int take);
-		static void get_name_from_event_hash(int32_t hash);
+		static std::string get_name_from_event_hash(int32_t hash);
 		static void trigger_event(int64_t* args, int argsCount, int bitset);
 		static void remote_off_the_radar(bool toggle);
 		static void remote_blind_cops(bool toggle);

@@ -23,6 +23,7 @@ namespace big
 	{
 	public:
 		static void notification(const char* Message, const char* MessageTag);
+		static void notification(const char* message);
 	};
 
 	inline static ai* g_npc_option{};

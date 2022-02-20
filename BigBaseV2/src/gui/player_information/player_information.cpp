@@ -335,7 +335,7 @@ namespace big
 
                 if (ImGui::Button(xorstr("Send Event")))
                 {
-                    QUEUE_JOB_BEGIN_CLAUSE()
+                    QUEUE_JOB_BEGIN()
                     {
                         switch (SelectedNetworkEvent)
                         {
@@ -617,16 +617,17 @@ namespace big
                             }
                             break;
                         }
-                    } QUEUE_JOB_END_CLAUSE
+                    } QUEUE_JOB_END
                 }
                 if (SelectedNetworkEvent == 3)
                 {
                     ImGui::SameLine();
                     if (ImGui::Button("Quit Spectating"))
                     {
-                        g_fiber_pool->queue_job([] {
+                        QUEUE_JOB_BEGIN() 
+                        {
                             NETWORK::NETWORK_SET_IN_SPECTATOR_MODE(false, g_selected.ped);
-                            });
+                        }QUEUE_JOB_END
                     }
                 }
                 break;
@@ -662,118 +663,78 @@ namespace big
 
                 if (ImGui::Button(xorstr("Send Event")))
                 {
-                    g_fiber_pool->queue_job([]
+                    QUEUE_JOB_BEGIN()
+                    {
+                        switch (SelectedOtherEvent)
                         {
-                            switch (SelectedOtherEvent)
+                        case 0:
+                        {
+                            if (!AutoGetIn)
+                            {
+                                teleport::teleport_to_player(g_local.player, g_selected.player);
+                            }
+                            if (AutoGetIn)
+                            {
+                                teleport::teleport_to_player_vehicle(g_selected.player);
+                            }
+                        }
+                        break;
+                        case 1:
+                        {
+                            auto Cloned = ped::clone_ped(g_selected.ped);
+                            ENTITY::SET_ENTITY_INVINCIBLE(Cloned, TRUE);
+                            WEAPON::GIVE_DELAYED_WEAPON_TO_PED(Cloned, RAGE_JOAAT("WEAPON_MINIGUN"), 9999, TRUE);
+                        }
+                        break;
+                        case 2:
+                        {
+                            rage::CPedInterface* ped_interface = g_pointers->m_replay_interface->m_ped_interface;
+                            for (int i = 0; i < ped_interface->m_max_peds; i++)
+                            {
+                                auto* ped_ptr = ped_interface->get_ped(i);
+                                if (ped_ptr == nullptr)
+                                    continue;
+
+                                Ped ped = rage_helper::pointer_to_entity(ped_ptr);
+                                if (ped == 0 || ped == g_local.ped || entity::get_entity_health(ped) == 328)
+                                    continue;
+
+                                if (entity::get_entity_health(ped) != 328 || ped != g_local.ped)
+                                {
+                                    network::request_control(ped);
+                                    auto pos = entity::get_entity_coords(g_selected.ped, FALSE);
+                                    teleport::teleport_to_coords(ped, pos);
+                                }
+                            }
+                        }
+                        break;
+                        case 3:
+                        {
+                            Vector3 pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, true);
+                            Hash cage = controller::load("prop_gold_cont_01");
+                            *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
+                            Object obj = OBJECT::CREATE_OBJECT(cage, pos.x, pos.y, pos.z - 1.0f, true, false, false);
+                            *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
+
+                            script::get_current()->yield();
+                            if (*g_pointers->m_is_session_started)
+                            {
+                                ENTITY::_SET_ENTITY_SOMETHING(obj, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
+                                auto networkId = NETWORK::OBJ_TO_NET(obj);
+                                if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(obj))
+                                    NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
+                            }
+                            STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(cage);
+                        }
+                        break;
+                        case 4:
+                            outfit::steal_outfit(g_selected.player);
+                            break;
+                        case 5:
+                            switch (g_remote_option->disconnect_type)
                             {
                             case 0:
-                            {
-                                if (!AutoGetIn)
-                                {
-                                    teleport::teleport_to_player(g_local.player, g_selected.player);
-                                }
-                                if (AutoGetIn)
-                                {
-                                    teleport::teleport_to_player_vehicle(g_selected.player);
-                                }
-                            }
-                            break;
-                            case 1:
-                            {
-                                auto Cloned = ped::clone_ped(g_selected.ped);
-                                ENTITY::SET_ENTITY_INVINCIBLE(Cloned, TRUE);
-                                WEAPON::GIVE_DELAYED_WEAPON_TO_PED(Cloned, RAGE_JOAAT("WEAPON_MINIGUN"), 9999, TRUE);
-                            }
-                            break;
-                            case 2:
-                            {
-                                rage::CPedInterface* ped_interface = g_pointers->m_replay_interface->m_ped_interface;
-                                for (int i = 0; i < ped_interface->m_max_peds; i++)
-                                {
-                                    auto* ped_ptr = ped_interface->get_ped(i);
-                                    if (ped_ptr == nullptr)
-                                        continue;
-
-                                    Ped ped = rage_helper::pointer_to_entity(ped_ptr);
-                                    if (ped == 0 || ped == g_local.ped || entity::get_entity_health(ped) == 328)
-                                        continue;
-
-                                    if (entity::get_entity_health(ped) != 328 || ped != g_local.ped)
-                                    {
-                                        network::request_control(ped);
-                                        auto pos = entity::get_entity_coords(g_selected.ped, FALSE);
-                                        teleport::teleport_to_coords(ped, pos);
-                                    }
-                                }
-                            }
-                            break;
-                            case 3:
-                            {
-                                Vector3 pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, true);
-                                Hash cage = controller::load("prop_gold_cont_01");
-                                *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
-                                Object obj = OBJECT::CREATE_OBJECT(cage, pos.x, pos.y, pos.z - 1.0f, true, false, false);
-                                *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
-
-                                script::get_current()->yield();
-                                if (*g_pointers->m_is_session_started)
-                                {
-                                    ENTITY::_SET_ENTITY_SOMETHING(obj, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
-                                    auto networkId = NETWORK::OBJ_TO_NET(obj);
-                                    if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(obj))
-                                        NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
-                                }
-                                STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(cage);
-                            }
-                            break;
-                            case 4:
-                                outfit::steal_outfit(g_selected.player);
-                                break;
-                            case 5:
-                                switch (g_remote_option->disconnect_type)
-                                {
-                                case 0:
-                                    if (!g_remote_option->desktop_all)
-                                    {
-                                        if (ENTITY::DOES_ENTITY_EXIST(g_selected.ped))
-                                        {
-                                            auto pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
-                                            auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
-
-                                            remote_event::crash_player(g_selected.ped, pos);
-
-                                            char message[100];
-                                            strcpy(message, "~g~Crash Has Been Sent to ");
-                                            strcat(message, PLAYER::GET_PLAYER_NAME(g_selected.player));
-                                        }
-                                    }
-                                    if (g_remote_option->desktop_all)
-                                    {
-                                        for (int i = 0; i <= 32; i++)
-                                        {
-                                            Ped player_ped = player::get_player_ped(i);
-                                            if (ENTITY::DOES_ENTITY_EXIST(player_ped))
-                                            {
-                                                if (player_ped == g_local.ped)
-                                                    continue;
-
-                                                if (player_ped != g_local.ped)
-                                                {
-                                                    auto coords = ENTITY::GET_ENTITY_COORDS(player_ped, TRUE);
-                                                    remote_event::crash_player(player_ped, coords);
-                                                }
-                                            }
-                                            script::get_current()->yield();
-                                        }
-                                        controller::ShowMessage("~g~Crash All Done", false);
-                                    }
-                                    break;
-                                case 1:
-                                {
-                                    remote_event::bail_player(g_selected.player);
-                                }
-                                break;
-                                case 2:
+                                if (!g_remote_option->desktop_all)
                                 {
                                     if (ENTITY::DOES_ENTITY_EXIST(g_selected.ped))
                                     {
@@ -781,65 +742,104 @@ namespace big
                                         auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
 
                                         remote_event::crash_player(g_selected.ped, pos);
-                                    }
-                                    remote_event::bail_player(g_selected.player);
 
-                                    auto message = fmt::format("~g~DoS Attack Has Been Sent to {}", player::get_player_ip(g_selected.player));
-                                    message::notification(message.c_str(), "~bold~~g~Ellohim DoS Attack");
+                                        ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Crash Has Been Sent to %s", PLAYER::GET_PLAYER_NAME(g_selected.player) });
+                                    }
                                 }
-                                break;
-                                }
-                                break;
-                            case 6:
-                                switch (teleport_type)
+                                if (g_remote_option->desktop_all)
                                 {
-                                case 0:
-                                    if (PED::IS_PED_IN_ANY_VEHICLE(g_selected.ped, TRUE))
+                                    for (int i = 0; i <= 32; i++)
                                     {
-                                        Vehicle e = PED::GET_VEHICLE_PED_IS_USING(g_selected.ped);
-                                        auto pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), TRUE);
-                                        *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                        network::request_control(e);
-                                        *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
-                                        teleport::teleport_to_coords(e, pos);
-                                    }
-                                    break;
-                                case 1:
-                                    if (player::is_player_in_any_vehicle(g_selected.player))
-                                    {
-                                        teleport::teleport_to_marker(g_selected.player);
-                                    }
-                                    if (all_player)
-                                    {
-                                        for (int i = 0; i <= 32; i++)
+                                        Ped player_ped = player::get_player_ped(i);
+                                        if (ENTITY::DOES_ENTITY_EXIST(player_ped))
                                         {
-                                            if (player::is_player_in_any_vehicle(i))
+                                            if (player_ped == g_local.ped)
+                                                continue;
+
+                                            if (player_ped != g_local.ped)
                                             {
-                                                teleport::teleport_to_marker(i);
+                                                auto coords = ENTITY::GET_ENTITY_COORDS(player_ped, TRUE);
+                                                remote_event::crash_player(player_ped, coords);
                                             }
                                         }
+                                        script::get_current()->yield();
                                     }
-                                    break;
-                                case 2:
-                                    if (player::is_player_in_any_vehicle(g_selected.player))
+                                    controller::ShowMessage("~g~Crash All Done", false);
+                                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Crash All Done" });
+                                }
+                                break;
+                            case 1:
+                            {
+                                remote_event::bail_player(g_selected.player);
+                            }
+                            break;
+                            case 2:
+                            {
+                                if (ENTITY::DOES_ENTITY_EXIST(g_selected.ped))
+                                {
+                                    auto pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, TRUE);
+                                    auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
+
+                                    remote_event::crash_player(g_selected.ped, pos);
+                                }
+                                remote_event::bail_player(g_selected.player);
+
+                                auto message = fmt::format("~g~DoS Attack Has Been Sent to {}", player::get_player_ip(g_selected.player));
+                                message::notification(message.c_str(), "~bold~~g~Ellohim DoS Attack");
+                            }
+                            break;
+                            }
+                            break;
+                        case 6:
+                            switch (teleport_type)
+                            {
+                            case 0:
+                                if (PED::IS_PED_IN_ANY_VEHICLE(g_selected.ped, TRUE))
+                                {
+                                    Vehicle e = PED::GET_VEHICLE_PED_IS_USING(g_selected.ped);
+                                    auto pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), TRUE);
+                                    *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
+                                    network::request_control(e);
+                                    *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
+                                    teleport::teleport_to_coords(e, pos);
+                                }
+                                break;
+                            case 1:
+                                if (player::is_player_in_any_vehicle(g_selected.player))
+                                {
+                                    teleport::teleport_to_marker(g_selected.player);
+                                }
+                                if (all_player)
+                                {
+                                    for (int i = 0; i <= 32; i++)
                                     {
-                                        teleport::teleport_to_objective(g_selected.player);
-                                    }
-                                    if (all_player)
-                                    {
-                                        for (int i = 0; i <= 32; i++)
+                                        if (player::is_player_in_any_vehicle(i))
                                         {
-                                            if (player::is_player_in_any_vehicle(i))
-                                            {
-                                                teleport::teleport_to_objective(i);
-                                            }
+                                            teleport::teleport_to_marker(i);
                                         }
                                     }
-                                    break;
+                                }
+                                break;
+                            case 2:
+                                if (player::is_player_in_any_vehicle(g_selected.player))
+                                {
+                                    teleport::teleport_to_objective(g_selected.player);
+                                }
+                                if (all_player)
+                                {
+                                    for (int i = 0; i <= 32; i++)
+                                    {
+                                        if (player::is_player_in_any_vehicle(i))
+                                        {
+                                            teleport::teleport_to_objective(i);
+                                        }
+                                    }
                                 }
                                 break;
                             }
-                        });
+                            break;
+                        }
+                    }QUEUE_JOB_END
                 }
                 break;
             }

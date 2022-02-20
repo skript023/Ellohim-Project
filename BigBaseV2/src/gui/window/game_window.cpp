@@ -136,56 +136,74 @@ namespace big
 			get_result.erase(std::remove_if(get_result.begin(), get_result.end(), [](unsigned char x) {return std::isspace(x); }), get_result.end());
 			status_check = get_result.empty() ? 0 : stoi(get_result);
 			login_status = get_result.empty() ? 0 : stoi(get_result);
+			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, "Login Success" });
 			return true;
 		}
 		catch (const std::exception& e)
 		{
+			ImGui::InsertNotification({ ImGuiToastType_Error, 4000, "Login Failed : Your Username or Password Incorrect" });
 			LOG(INFO) << "Request failed, error: " << e.what();
 			status_check = RAGE_JOAAT("Request failed, couldn't connect to server");
 			return false;
 		}
 	}
 
-	void game_window::render_base_window(const char* window_name)
+	void game_window::main_window(const char* window_name)
 	{
-		if (ImGui::Begin(window_name))
+		if (g_gui.m_opened)
 		{
-			if (!game_window::create_session(login_status))// && !game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
+			if (ImGui::Begin(window_name))
 			{
-				GetCurrentHwProfile(g_game_window->profile_info);
-				ImGui::PushItemWidth(200);
-				ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
-				ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
-				ImGui::PopItemWidth();
-				game_window::get_status();
-				if (ImGui::Button(xorstr("Login")))
+				if (!game_window::create_session(login_status))// && !game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 				{
-					if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
+					GetCurrentHwProfile(g_game_window->profile_info);
+					ImGui::PushItemWidth(200);
+					ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
+					ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
+					ImGui::PopItemWidth();
+					game_window::get_status();
+					if (ImGui::Button(xorstr("Login")))
 					{
-						LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
+						if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
+						{
+							LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
+						}
+					}
+					ImGui::SameLine();
+					if (ImGui::Button(xorstr("Quit")))
+					{
+						g_running = false;
 					}
 				}
-				ImGui::SameLine();
-				if (ImGui::Button(xorstr("Quit")))
+
+				if (game_window::create_session(login_status))// || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 				{
-					g_running = false;
+					ImGui::BeginTabBar(xorstr("Tab Menu"));
+					player_menu::render_player_tab(xorstr("Player"));
+					vehicle_tab::render_vehicle_tab(xorstr("Vehicle"));
+					lsc::render_lsc_tab(xorstr("LS Customs"));
+					online_menu::render_online_tab(xorstr("Online"));
+					player_list::render_player_list(xorstr("Player List"));
+					setting_tab::render_setting_tab(xorstr("Setting"));
+					ImGui::EndTabBar();
 				}
 			}
-
-			if (game_window::create_session(login_status))// || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
-			{
-				ImGui::BeginTabBar(xorstr("Tab Menu"));
-				player_menu::render_player_tab(xorstr("Player"));
-				vehicle_tab::render_vehicle_tab(xorstr("Vehicle"));
-				lsc::render_lsc_tab(xorstr("LS Customs"));
-				online_menu::render_online_tab(xorstr("Online"));
-				player_list::render_player_list(xorstr("Player List"));
-				setting_tab::render_setting_tab(xorstr("Setting"));
-				window_log::logger(xorstr("Log Console"));
-				game_window::interact_to_server(240s);
-				ImGui::EndTabBar();
-			}
+			ImGui::End();
 		}
-		ImGui::End();
+	}
+
+	void game_window::render_all_window(const char* window_name)
+	{
+		main_window(window_name);
+		interact_to_server(240s);
+		window_log::logger(xorstr("Log Console"));
+
+		//** Render toasts on top of everything, at the end of your code!
+		//** You should push style vars here
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f);
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(43.f / 255.f, 43.f / 255.f, 43.f / 255.f, 100.f / 255.f));
+		ImGui::RenderNotifications();
+		ImGui::PopStyleVar(1); // Don't forget to Pop()
+		ImGui::PopStyleColor(1);
 	}
 }

@@ -40,6 +40,7 @@ namespace big
 		rage::CReplayInterface* m_replay_interface;
 		rage::BlipList* m_blip_ptr;
 		rage::CNetworkObjectMgr** m_network_object_manager{};
+		rage::ivector2 *m_screen_resolution{};
 		CutsceneManager **m_cutscene_mgr;
 
 		DWORD64 *m_add_owned_explosion_bypass_1;
@@ -70,7 +71,7 @@ namespace big
 		functions::ClearPedTask m_clear_ped_event{};
 		functions::ReadDword m_read_bitbuf_dword{};
 		functions::clone_create_t m_clone_create{};
-		functions::GetModelInfo m_get_model_info{};
+		functions::get_model_info m_get_model_info{};
 		functions::CNetworkRequestEvent m_request_control_event{};
 		functions::CRemoveWeaponEvent m_remove_weapon{};
 		functions::CSendKickVoteEvent m_kick_vote{};

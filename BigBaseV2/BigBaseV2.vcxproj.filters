@@ -306,6 +306,15 @@
     <ClInclude Include="src\gui\game_tabbar\vehicle_menu.h">
       <Filter>gui\game_tabbar</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\window\fa_solid_900.h">
+      <Filter>gui\window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\window\font_awesome_5.h">
+      <Filter>gui\window</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\window\imgui_notify.h">
+      <Filter>gui\window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />

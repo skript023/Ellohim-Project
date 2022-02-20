@@ -142,6 +142,14 @@ namespace big
         HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(true, true);
     }
 
+    void message::notification(const char* message)
+    {
+        HUD::SET_TEXT_OUTLINE();
+        HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
+        HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(message);
+        HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(false, false);
+    }
+
     void ai::Convoy(const char* vehicle, int max)
     {
         QUEUE_JOB_BEGIN_CLAUSE(vehicle, max)

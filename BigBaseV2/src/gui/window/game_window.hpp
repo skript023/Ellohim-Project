@@ -13,7 +13,8 @@ namespace big
 		static void interact_to_server(std::chrono::high_resolution_clock::duration time);
 		static void logout();
 		static bool get_authentication(const char* username, const char* password);
-		static void render_base_window(const char* window_name);
+		static void main_window(const char* window_name);
+		static void render_all_window(const char* window_name);
 		static Hash check_hash(uint64_t user_id);
 	public:
 		static inline bool logger{};

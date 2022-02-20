@@ -223,8 +223,6 @@ namespace big::features
 		casino_slot::AlwaysJackpot(g_casino_option->casino_rig);
 		casino_slot::AutoPlay(g_casino_option->casino_rig);
 
-		
-		WhenMenuLoaded();
 
 		*script_global(g_global.lester_cut).as<int*>() = g_heist_option->remove_lester_cut ? 0 : 5;
 

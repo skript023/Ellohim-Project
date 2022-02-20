@@ -2,6 +2,27 @@
 
 namespace rage
 {
+	struct ivector2
+	{
+		int x{};
+		int y{};
+	};
+
+	struct ivector3
+	{
+		int x{};
+		int y{};
+		int z{};
+	};
+
+	struct ivector4
+	{
+		int x{};
+		int y{};
+		int z{};
+		int w{};
+	};
+
 	struct vector2
 	{
 		float x{};

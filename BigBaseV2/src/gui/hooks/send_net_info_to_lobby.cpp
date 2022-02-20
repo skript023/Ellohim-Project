@@ -42,7 +42,8 @@ namespace big
 			}
 
 			if (!ip_diff || !name_diff || !scid_diff)
-				message::notification("~g~Your Information Has Spoofed", "~bold~~g~Ellohim Spoofer");
+				ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Your Information Successfully Spoofed" });
+
 
 			rage::netAddress spoofed = *(rage::netAddress*)&local_player->m_relay_ip;
 			auto spoofed_ip = fmt::format("{}.{}.{}.{}", spoofed.m_field1, spoofed.m_field2, spoofed.m_field3, spoofed.m_field4);

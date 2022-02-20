@@ -12,6 +12,7 @@
 #include "gui/controller/network_controller.h"
 #include "gui/game_event/game_event.h"
 #include <script_local.hpp>
+#include <gui/window/imgui_notify.h>
 
 namespace big
 {
@@ -337,7 +338,7 @@ namespace big
                 memory_util::clear_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(), DESTROYED | IMPOUNDED | UNK3);
 
                 memory_util::set_flag(script_global(g_global.garage).at(vehicle_index, 142).at(103).as<int*>(), UNK0 | SPAWN_AT_MORS_MUTUAL);
-                controller::ShowMessage("Insurance Done", false);
+                ImGui::InsertNotification({ ImGuiToastType_Protection, 5000, "All Insurance Claimed!" });
             }
         }
         return has_vehicle_insurance;

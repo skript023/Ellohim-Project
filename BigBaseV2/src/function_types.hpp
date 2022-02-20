@@ -37,11 +37,12 @@ namespace big::functions
 	using clone_pack_t = void (*) (rage::CNetworkObjectMgr* mgr, rage::netObject* netObject, CNetGamePlayer* src, rage::datBitBuffer* buffer);
 	using clone_sync_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, rage::datBitBuffer* buffer, int32_t unk, int32_t timestamp);
 	using clone_remove_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_id, int32_t unk);
+    
     using joined_player_t = void (*)(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
     using left_player_t = void (*)(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 
 	using get_network_object_t = rage::netObject* (__fastcall*) (rage::CNetworkObjectMgr* mgr, int16_t id, bool is_true);
-	using GetModelInfo = int64_t(*)(unsigned int model_hash, DWORD* a2);
+	using get_model_info = int64_t(*)(unsigned int model_hash, DWORD* a2);
 	using SendNetInfoToLobby = bool(*)(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 	using GetNetGamePlayer = CNetGamePlayer*(__fastcall*)(Player player);
 

@@ -298,9 +298,20 @@ namespace big
         }
     }
 
-    void remote_event::get_name_from_event_hash(int32_t hash)
+    std::string remote_event::get_name_from_event_hash(int32_t hash)
     {
-
+        switch (hash)
+        {
+        case TELEPORT_CAYO:
+            return "Send to island event";
+        case TELEPORT_APARTMENT:
+            return "Force invite apartment event";
+        case CEO_BAN:
+            return "CEO Ban event";
+        case CEO_KICK:
+            return "CEO kick event";
+        }
+        return "Unknown Hash";
     }
 
     void remote_event::trigger_event(int64_t* args, int argsCount, int bitset)

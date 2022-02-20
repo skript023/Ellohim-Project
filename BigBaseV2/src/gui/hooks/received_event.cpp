@@ -89,11 +89,12 @@ namespace big
 				uint16_t network_id{};
 				buffer->ReadWord(&network_id, 0xD);
 				char sender_info[100];
-				strcpy(sender_info, "~bold~~g~Blocked Remove Weapon From ");
+				strcpy(sender_info, "Blocked Remove Weapon From ");
 				strcat(sender_info, source_player->get_name());
 				if (g_settings.options["Remove Weapon Block"])
 				{
 					message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
+					ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Remove Weapon From %s", source_player->get_name() });
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
 				}
@@ -112,11 +113,7 @@ namespace big
 
 				if (money >= 2000)
 				{
-					char msg[64];
-					strcpy(msg, "~bold~~g~<C>");
-					strcat(msg, source_player->get_name());
-					strcat(msg, "</C> is spawning cash.");
-					message::notification(msg, "~bold~~g~Ellohim Menu Protection");
+					ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "%s is spawning cash", source_player->get_name() });
 				}
 
 				break;
@@ -125,12 +122,7 @@ namespace big
 			case NETWORK_CHECK_CODE_CRCS_EVENT:
 			case REPORT_MYSELF_EVENT:
 			{
-				char msg[64];
-				strcpy(msg, "~bold~~g~Detected <C>");
-				strcat(msg, source_player->get_name());
-				strcat(msg, "</C> as cheater.");
-				message::notification(msg, "~bold~~g~Ellohim Menu Protection");
-
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "%s flagged as cheater", source_player->get_name() });
 				break;
 			}
 			case REQUEST_CONTROL_EVENT:
@@ -139,12 +131,9 @@ namespace big
 				{
 					uint16_t network_id{};
 					buffer->ReadWord(&network_id, 0xD);
-					char sender_info[100];
-					strcpy(sender_info, "~bold~~g~Blocked Request Control From ");
-					strcat(sender_info, source_player->get_name());
 					if (player::is_player_driver(g_local.ped))
 					{
-						message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 3000, "Blocked Request Control From %s", source_player->get_name() });
 
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 						return false;
@@ -159,8 +148,7 @@ namespace big
 				buffer->ReadDword(&bitset, MAX_PLAYERS);
 				if (g_settings.options["Kick Vote Block"] && bitset& (1 << target_player->player_id))
 				{
-					message::notification(fmt::format("~bold~~g~You Got Voted Kick By {}", source_player->get_name()).c_str(), "~bold~~g~Ellohim Protection");
-					LOG(INFO) << fmt::format("~bold~~g~You Got Voted Kick By {}", source_player->get_name());
+					ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Vote Kick From %s", source_player->get_name() });
 					remote_event::bail_player(source_player->player_id);
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
@@ -180,13 +168,13 @@ namespace big
 				buffer->Seek(149);
 				buffer->ReadDword(&explosion_flags, 32);
 				auto ped_owner_id = -1;
-				if (auto net_obj = (*g_pointers->m_network_object_manager)->find_object_by_id(explosion_owner, FALSE))
+				if (auto net_obj = (*g_pointers->m_network_object_manager)->find_object_by_id(explosion_owner, false))
 					ped_owner_id = net_obj->owner_id;
 				if ((explosion_flags & 11) && source_player->player_id != ped_owner_id && ped_owner_id != -1)
 				{
 					if (g_settings.options["Explosion Event Block"])
 					{
-						message::notification(fmt::format("~bold~~g~Blocked Explosion Event From {}", source_player->get_name()).c_str(), "~bold~~g~Ellohim Menu Protection");
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Explosion Event From %s", source_player->get_name() });
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 						return false;
 					}
@@ -198,12 +186,9 @@ namespace big
 			{
 				uint16_t network_id{};
 				buffer->ReadWord(&network_id, 0xD);
-				char sender_info[100];
-				strcpy(sender_info, "~bold~~g~Blocked PTFX Task From ");
-				strcat(sender_info, source_player->get_name());
 				if (g_settings.options["PTFX Event Block"])
 				{
-					message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
+					ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked PTFX Event From %s", source_player->get_name() });
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
 				}

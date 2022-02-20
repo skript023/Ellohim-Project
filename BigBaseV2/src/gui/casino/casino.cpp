@@ -95,47 +95,47 @@ namespace big
     void cayo_perico::CayoPericoHeist()
     {
         g_fiber_pool->queue_job([]
+        {
+            const auto mpx = std::to_string(g_local.character);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_I"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_I_SCOPED"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_C"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_C_SCOPED"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_I"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_I_SCOPED"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_C"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_C_SCOPED"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_I"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_I_SCOPED"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_C"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_C_SCOPED"), 0, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_I_SCOPED"), 16777215, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_I"), 16777215, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_C_SCOPED"), 255, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_C"), 255, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_PAINT_SCOPED"), 255, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_PAINT"), 255, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BS_ENTR"), 63, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BS_ABIL"), 63, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_WEP_DISRP"), 3, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_HEL_DISRP"), 3, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_ARM_DISRP"), 3, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BOLTCUT"), 4641, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_GRAPPEL"), 33024, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_UNIFORM"), 16770, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_TROJAN"), 1, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_APPROACH"), -1, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_VOLTAGE"), 3, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BS_GEN"), 131071, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_WEAPONS"), 2, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_TARGET"), 5, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4_PROGRESS"), 130415, TRUE);
+            STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4_MISSIONS"), 65535, TRUE);
+            if (auto heist_island_planning = rage_helper::find_script_thread(RAGE_JOAAT("heist_island_planning")))
             {
-                const auto mpx = std::to_string(g_local.character);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_I"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_I_SCOPED"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_C"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_CASH_C_SCOPED"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_I"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_I_SCOPED"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_C"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_WEED_C_SCOPED"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_I"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_I_SCOPED"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_C"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_COKE_C_SCOPED"), 0, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_I_SCOPED"), 16777215, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_I"), 16777215, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_C_SCOPED"), 255, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_GOLD_C"), 255, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_PAINT_SCOPED"), 255, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4LOOT_PAINT"), 255, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BS_ENTR"), 63, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BS_ABIL"), 63, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_WEP_DISRP"), 3, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_HEL_DISRP"), 3, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_ARM_DISRP"), 3, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BOLTCUT"), 4641, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_GRAPPEL"), 33024, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_UNIFORM"), 16770, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_TROJAN"), 1, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_APPROACH"), -1, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_VOLTAGE"), 3, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_BS_GEN"), 131071, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_WEAPONS"), 2, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4CNF_TARGET"), 5, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4_PROGRESS"), 130415, TRUE);
-                STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_H4_MISSIONS"), 65535, TRUE);
-                if (auto heist_island_planning = rage_helper::find_script_thread(RAGE_JOAAT("heist_island_planning")))
-                {
-                    *script_local(heist_island_planning, m_local.submarine_computer).as<int*>() = 2;
-                }
-            });
+                *script_local(heist_island_planning, m_local.submarine_computer).as<int*>() = 2;
+            }
+        });
     }
 
     void cayo_perico::set_heat_to_zero(bool activation)

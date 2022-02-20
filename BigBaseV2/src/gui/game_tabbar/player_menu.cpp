@@ -153,7 +153,8 @@ namespace big
                             }
                             script::get_current()->yield(1ms);
                         }
-                        });
+                        ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Weapons have been successfully given!" });
+                    });
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Add Ammo")))
@@ -172,6 +173,7 @@ namespace big
                             }
                             script::get_current()->yield(1ms);
                         }
+                        ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Ammo have been successfully added!" });
                     });
                 }
 
@@ -624,6 +626,7 @@ namespace big
                             }
                             break;
                         }
+                        ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Packed bools have been successfully enabled" });
                     });
                 }
                 if (ImGui::IsItemHovered())
@@ -763,6 +766,7 @@ namespace big
                                 }
                                 break;
                             }
+                            ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Packed bools have been successfully reverted" });
                         });
                 }
                 if (ImGui::IsItemHovered())
@@ -2543,9 +2547,10 @@ namespace big
                             }
                             case 3:
                             {
-                                for (int i = 1; i <= 77; i++) {
+                                for (int i = 1; i <= 77; i++) 
+                                {
                                     PLAYER::GIVE_ACHIEVEMENT_TO_PLAYER(i);
-                                    controller::ShowMessage("All Achievements Unlocked!", true);
+                                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "All Achievements Successfully Unlocked!" });
                                 }
                                 break;
                             }
@@ -2563,7 +2568,7 @@ namespace big
                                 {
                                     *script_global(262145).at(i).as<bool*>() = true;
                                 }
-                                controller::ShowMessage("Shop Unlocked!", true);
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Shop Successfully Unlocked!" });
                                 break;
                             }
                             case 6:
@@ -2601,7 +2606,7 @@ namespace big
                                 stats::set_packed_bool(25518, FALSE, -1);
                                 stats::set_packed_bool(25519, FALSE, -1);
                                 STATS::STAT_SAVE(0, 0, 3, 0);
-                                controller::ShowMessage("~b~~o~Done! Check your Weapons.", true);
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Unhide gun locker done, restart your game!" });
                                 break;
                             }
                             case 7:
@@ -2610,7 +2615,7 @@ namespace big
                                 {
                                     *script_global(262145).at(i).as<bool*>() = true;
                                 }
-                                controller::ShowMessage("Tuner Costumes Unlocked!", true);
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Tuner Costumes Unlocked!" });
                                 break;
                             }
                             case 8:
@@ -2626,8 +2631,8 @@ namespace big
                     g_fiber_pool->queue_job([]
                     {
                         STATS::STAT_SAVE(0, 0, 3, 0);
-                        message::notification("~bold~~g~Character Saved!", "~bold~~g~Ellohim Cloud Save");
                     });
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Character successfully saved" });
                 }
 
                 static int LevelArray;

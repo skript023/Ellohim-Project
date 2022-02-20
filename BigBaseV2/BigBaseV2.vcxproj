@@ -243,7 +243,10 @@
     <ClInclude Include="src\gui\teleport\teleport.h" />
     <ClInclude Include="src\gui\vehicle\vehicle_helper.h" />
     <ClInclude Include="src\gui\weapons\weapon_helper.h" />
+    <ClInclude Include="src\gui\window\fa_solid_900.h" />
+    <ClInclude Include="src\gui\window\font_awesome_5.h" />
     <ClInclude Include="src\gui\window\game_window.hpp" />
+    <ClInclude Include="src\gui\window\imgui_notify.h" />
     <ClInclude Include="src\gui\window\window_logger.hpp" />
     <ClInclude Include="src\hooking.hpp" />
     <ClInclude Include="src\imguibitfield.h" />

@@ -16,7 +16,6 @@
 #include "gui/helper_function.hpp"
 #include "benchmark.h"
 #include "setting_menu.h"
-#include "gui/controller/http_request.hpp"
 #include "gui/window/game_window.hpp"
 
 namespace big
@@ -35,7 +34,7 @@ namespace big
             ImGui::SameLine();
             if (ImGui::Button(xorstr("End Cutscene")))
             {
-                auto cutscene = *g_pointers->m_cutscene_mgr; cutscene->m_end_cutscene = 1;
+                (*g_pointers->m_cutscene_mgr)->m_end_cutscene = 1;
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Bail from Session")))
@@ -57,7 +56,7 @@ namespace big
             {
                 auto benchmarking = benchmark("Vehicle Spawn");
                 vehicle_helper::vehicle("Krieger", g_local.ped);
-                message::notification(fmt::format("~g~finished with a resulting time of: {} nanoseconds", benchmarking.get_runtime()).c_str(), "~bold~~y~Benchmark");
+                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "finished with a resulting time of %d nanoseconds", benchmarking.get_runtime() });
             }
             ImGui::Separator();
             
@@ -185,11 +184,11 @@ namespace big
             if (ImGui::CollapsingHeader(xorstr("Script Event Tester")))
             {
                 static event_json::event_json event_obj{};
-                ImGui::SliderInt("Size Of Event Array", &event_obj.size_of_args_array, 2, 53);
+                ImGui::SliderInt(xorstr("Size Of Event Array"), &event_obj.size_of_args_array, 2, 53);
                 event_obj.args.resize(event_obj.size_of_args_array);
                 event_obj.arg_is_hex.resize(event_obj.size_of_args_array - 2);
                 ImGui::PushItemWidth(300.f);
-                ImGui::InputScalar("Event ID", ImGuiDataType_S64, &event_obj.args[0]);
+                ImGui::InputScalar(xorstr("Event ID"), ImGuiDataType_S64, &event_obj.args[0]);
                 ImGui::PopItemWidth();
                 for (int i = 2; i < event_obj.size_of_args_array; i++)
                 {
@@ -208,11 +207,11 @@ namespace big
                 static int selected_target = 0;
                 ImGui::PushItemWidth(200.f);
                 //ImGui::Combo("Target Player", &TargetPlayer, features::PlayerNames, IM_ARRAYSIZE(features::PlayerNames));
-                if (ImGui::BeginCombo("Target Player", g_misc_option->player_names[selected_target]))
+                if (ImGui::BeginCombo(xorstr("Target Player"), g_misc_option->player_names[selected_target]))
                 {
                     for (int i = 0; i < 32; ++i)
                     {
-                        if (!strcmp(g_misc_option->player_names[i], "**Invalid**") == 0)
+                        if (strcmp(g_misc_option->player_names[i], "**Invalid**") != 0)
                         {
                             if (ImGui::Selectable(g_misc_option->player_names[i], i == g_event_tester.event_player))
                             {
@@ -225,13 +224,13 @@ namespace big
                 }
                 ImGui::PopItemWidth();
                 ImGui::SameLine();
-                if (ImGui::Button("Send Event"))
+                if (ImGui::Button(xorstr("Send Event")))
                 {
                     event_obj.args[1] = g_local.player;//g_event_tester.event_ped;
-                    QUEUE_JOB_BEGIN_CLAUSE()
+                    QUEUE_JOB_BEGIN()
                     {
                         SCRIPT::TRIGGER_SCRIPT_EVENT(1, &event_obj.args[0], event_obj.size_of_args_array, (1 << g_event_tester.event_player));
-                    } QUEUE_JOB_END_CLAUSE
+                    } QUEUE_JOB_END
                 }
 
                 auto events = script_tester::list_events();
@@ -251,16 +250,16 @@ namespace big
                 ImGui::BeginGroup();
                 static char event_name[50]{};
                 ImGui::PushItemWidth(250);
-                ImGui::InputText("##EventName", event_name, IM_ARRAYSIZE(event_name));
-                if (ImGui::Button("Save Event"))
+                ImGui::InputText(xorstr("##EventName"), event_name, IM_ARRAYSIZE(event_name));
+                if (ImGui::Button(xorstr("Save Event")))
                 {
                     script_tester::save_event(event_name, event_obj);
                 }
-                if (ImGui::Button("Load Event"))
+                if (ImGui::Button(xorstr("Load Event")))
                 {
                     script_tester::load_event_menu(selected_event, event_obj);
                 }
-                if (ImGui::Button("Delete Event"))
+                if (ImGui::Button(xorstr("Delete Event")))
                 {
                     if (!selected_event.empty())
                     {
@@ -269,7 +268,7 @@ namespace big
                     }
                 }
                 ImGui::SameLine();
-                if (ImGui::Button("Clear"))
+                if (ImGui::Button(xorstr("Clear")))
                 {
                     event_obj.size_of_args_array = 2;
                     event_obj.args.clear();
@@ -280,7 +279,7 @@ namespace big
             }
             if (*g_pointers->m_script_globals != nullptr)
             {
-                if (ImGui::CollapsingHeader("Global Script Editor"))
+                if (ImGui::CollapsingHeader(xorstr("Global Script Editor")))
                 {
                     static global_test_json::global_test_json global_test{};
                     static script_global glo_bal_sunday = script_global(global_test.global_index);
@@ -313,7 +312,7 @@ namespace big
                         }
                     }
 
-                    if (ImGui::Button("Add Offset"))
+                    if (ImGui::Button(xorstr("Add Offset")))
                         global_test.global_appendages.push_back({ GlobalAppendageType_At, 0LL, 0ULL });
                     ImGui::SameLine();
                     if (ImGui::Button("Add Read Player Id"))
@@ -332,16 +331,16 @@ namespace big
                     {
                         ImGui::SetNextItemWidth(200.f);
                         if (Global_Type != 2)
-                            ImGui::InputScalar("Value", Global_Type == 0 ? ImGuiDataType_S64 : Global_Type == 1 ? ImGuiDataType_Float : ImGuiDataType_S64, ptr);
+                            ImGui::InputScalar(xorstr("Value"), Global_Type == 0 ? ImGuiDataType_S64 : Global_Type == 1 ? ImGuiDataType_Float : ImGuiDataType_S64, ptr);
 
                     }
                     else
-                        ImGui::Text("INVALID_GLOBAL_READ");
+                        ImGui::Text(xorstr("INVALID_GLOBAL_READ"));
 
                     auto globals = list_globals();
                     static std::string selected_global;
-                    ImGui::Text("Saved Globals");
-                    if (ImGui::ListBoxHeader("##savedglobals", ImVec2(200, 200)))
+                    ImGui::Text(xorstr("Saved Globals"));
+                    if (ImGui::ListBoxHeader(xorstr("##savedglobals"), ImVec2(200, 200)))
                     {
                         for (auto pair : globals)
                         {
@@ -351,14 +350,14 @@ namespace big
                         ImGui::ListBoxFooter();
                     }
                     ImGui::SameLine();
-                    if (ImGui::ListBoxHeader("##globalvalues", ImVec2(200, 200)))
+                    if (ImGui::ListBoxHeader(xorstr("##globalvalues"), ImVec2(200, 200)))
                     {
                         for (auto pair : globals)
                         {
                             if (auto ptr = global_tester::get_global_ptr(pair.second))
                                 ImGui::Selectable(fmt::format("{}", *ptr).c_str(), false, ImGuiSelectableFlags_Disabled);
                             else
-                                ImGui::Selectable("INVALID_GLOBAL_READ", false, ImGuiSelectableFlags_Disabled);
+                                ImGui::Selectable(xorstr("INVALID_GLOBAL_READ"), false, ImGuiSelectableFlags_Disabled);
                         }
                         ImGui::ListBoxFooter();
                     }
@@ -366,19 +365,19 @@ namespace big
                     ImGui::BeginGroup();
                     static char global_name[50]{};
                     ImGui::SetNextItemWidth(200.f);
-                    ImGui::InputText("##GlobalName", global_name, IM_ARRAYSIZE(global_name));
+                    ImGui::InputText(xorstr("##GlobalName"), global_name, IM_ARRAYSIZE(global_name));
 
-                    if (ImGui::Button("Save Global"))
+                    if (ImGui::Button(xorstr("Save Global")))
                     {
                         global_tester::save_global(global_name, global_test);
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Load Global"))
+                    if (ImGui::Button(xorstr("Load Global")))
                     {
                         global_tester::load_global_menu(selected_global, global_test);
                     }
 
-                    if (ImGui::Button("Delete Global"))
+                    if (ImGui::Button(xorstr("Delete Global")))
                     {
                         if (!selected_global.empty())
                         {
@@ -387,12 +386,12 @@ namespace big
                         }
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Add Read Global"))
+                    if (ImGui::Button(xorstr("Add Read Global")))
                     {
                         global_test.global_appendages.push_back({ GlobalAppendageType_ReadGlobal, 0LL, 0ULL, selected_global });
                     }
                     ImGui::SameLine();
-                    if (ImGui::Button("Clear"))
+                    if (ImGui::Button(xorstr("Clear")))
                     {
                         global_test.global_index = 0;
                         global_test.global_appendages.clear();
@@ -404,7 +403,7 @@ namespace big
             if (ImGui::CollapsingHeader(xorstr("Local Script Editor")))
             {
                 static GtaThread* selected_thread{};
-                if (ImGui::ListBoxHeader("##scriptslocal", ImVec2(250, 500)))
+                if (ImGui::ListBoxHeader(xorstr("##scriptslocal"), ImVec2(250, 500)))
                 {
                     if (g_settings.options["script monitor sorted"])
                     {
@@ -430,12 +429,12 @@ namespace big
                 {
                     ImGui::SameLine();
                     ImGui::BeginGroup();
-                    if (ImGui::Checkbox("Sorted?", g_settings.options["script monitor sorted"].get<bool*>()))
+                    if (ImGui::Checkbox(xorstr("Sorted?"), g_settings.options["script monitor sorted"].get<bool*>()))
                         g_settings.save();
                     static local_test_json::local_test_json local_test{};
                     static script_local local_sunday = script_local(selected_thread, local_test.local_index);
                     ImGui::SetNextItemWidth(200.f);
-                    if (ImGui::InputScalar("Local", ImGuiDataType_U64, &local_test.local_index))
+                    if (ImGui::InputScalar(xorstr("Local"), ImGuiDataType_U64, &local_test.local_index))
                         local_sunday = script_local(selected_thread, local_test.local_index);
 
                     for (int i = 0; i < local_test.local_appendages.size(); i++)
@@ -485,12 +484,12 @@ namespace big
                             ImGui::InputScalar("Value##Local", Local_Type == 0 ? ImGuiDataType_S32 : Local_Type == 1 ? ImGuiDataType_Float : ImGuiDataType_S32, ptr);
                     }
                     else
-                        ImGui::Text("INVALID_LOCAL_READ");
+                        ImGui::Text(xorstr("INVALID_LOCAL_READ"));
 
                     auto locals = list_locals();
                     static std::string selected_local;
-                    ImGui::Text("Saved Locals");
-                    if (ImGui::ListBoxHeader("##savedlocals", ImVec2(200, 200)))
+                    ImGui::Text(xorstr("Saved Locals"));
+                    if (ImGui::ListBoxHeader(xorstr("##savedlocals"), ImVec2(200, 200)))
                     {
                         for (auto pair : locals)
                         {
@@ -500,14 +499,14 @@ namespace big
                         ImGui::ListBoxFooter();
                     }
                     ImGui::SameLine();
-                    if (ImGui::ListBoxHeader("##localvalues", ImVec2(200, 200)))
+                    if (ImGui::ListBoxHeader(xorstr("##localvalues"), ImVec2(200, 200)))
                     {
                         for (auto pair : locals)
                         {
                             if (auto ptr = local_tester::get_local_ptr(selected_thread, pair.second))
                                 ImGui::Selectable(fmt::format("{}", *ptr).c_str(), false, ImGuiSelectableFlags_Disabled);
                             else
-                                ImGui::Selectable("INVALID_LOCAL_READ", false, ImGuiSelectableFlags_Disabled);
+                                ImGui::Selectable(xorstr("INVALID_LOCAL_READ"), false, ImGuiSelectableFlags_Disabled);
                         }
                         ImGui::ListBoxFooter();
                     }

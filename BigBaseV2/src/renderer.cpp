@@ -8,6 +8,7 @@
 #include <backends/imgui_impl_dx11.h>
 #include <backends/imgui_impl_win32.h>
 #include <imgui_internal.h>
+#include <gui/window/imgui_notify.h>
 
 IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -54,6 +55,8 @@ namespace big
 		std::strcpy(font_cfg.Name, "Rubik");
 
 		m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg);
+		ImGui::MergeIconsWithLatestFont(16.f, false);
+
 		m_monospace_font = ImGui::GetIO().Fonts->AddFontDefault();
 
 		g_gui.dx_init();
@@ -86,11 +89,8 @@ namespace big
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
-		if (g_gui.m_opened)
-		{
-			g_gui.dx_on_tick();
-		}
-
+		g_gui.dx_on_tick();
+		
 		ImGui::Render();
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	}

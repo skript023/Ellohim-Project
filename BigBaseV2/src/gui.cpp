@@ -15,6 +15,7 @@
 
 #include "gui/window/game_window.hpp"
 #include "gui/controller/xostr.h"
+#include <gui/window/imgui_notify.h>
 
 namespace big
 {
@@ -100,7 +101,7 @@ namespace big
 	{
 		TRY_CLAUSE
 		{
-			game_window::render_base_window(xorstr("Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol"));
+			game_window::render_all_window(xorstr("Madang Hese Udud Hese Teu Boga Duit Wuhan Kontol"));
 		}
 		EXCEPT_CLAUSE
 	}
@@ -108,6 +109,7 @@ namespace big
 	void gui::script_init()
 	{
 		g_gui.m_opened = true;
+		ImGui::InsertNotification({ ImGuiToastType_Ellohim, 7000, "Ellohim mod menu succesfully injected to the game press 'Insert' to show/hide menu" });
 	}
 
 	void gui::script_on_tick()

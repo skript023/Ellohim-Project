@@ -189,7 +189,7 @@ namespace big
 
 		main_batch.add("Get Model Info", "0F B7 05 ? ? ? ? 45 33 C9 4C 8B DA 66 85 C0 0F 84 ? ? ? ? 44 0F B7 C0 33 D2 8B C1 41 F7 F0 48 8B 05 ? ? ? ? 4C 8B 14 D0 EB 09 41 3B 0A 74 54", [this](memory::handle ptr)
 		{
-			m_get_model_info = ptr.as<functions::GetModelInfo>();
+			m_get_model_info = ptr.as<decltype(m_get_model_info)>();
 		});
 
 		main_batch.add("Add Owned Explosion Bypass 1", "0F 85 ? ? ? ? 48 8B 05 ? ? ? ? 48 8B 48 08 E8", [this](memory::handle ptr)
@@ -421,6 +421,11 @@ namespace big
 		main_batch.add("Aim Status", "48 8D 0D ? ? ? ? 48 63 C3 3B 14 81 0F 84 ? ? ? ? 41 B8 ? ? ? ? 8B CB", [this](memory::handle ptr)
 		{
 			m_player_aim = ptr.add(3).rip().add(12).as<decltype(m_player_aim)>();
+		});
+
+		main_batch.add("Screen Resolution", "8B 0D ? ? ? ? 49 8D 56 28", [this](memory::handle ptr)
+		{
+			m_screen_resolution = ptr.add(2).rip().as<decltype(m_screen_resolution)>();
 		});
 
 		main_batch.run(memory::module(nullptr));
