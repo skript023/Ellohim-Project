@@ -114,6 +114,7 @@ namespace big
 
 		PVOID m_send_net_info_to_lobby;
 		PVOID m_rid_joiner;
+		PVOID m_viewport;
 
 		PVOID m_request_control_bypass;
 		PVOID m_nativeReturn;

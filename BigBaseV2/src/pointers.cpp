@@ -66,6 +66,16 @@ namespace big
 			m_swapchain = ptr.add(3).rip().as<IDXGISwapChain**>();
 		});
 
+		main_batch.add("Screen Resolution", "8B 0D ? ? ? ? 49 8D 56 28", [this](memory::handle ptr)
+		{
+			m_screen_resolution = ptr.add(2).rip().as<decltype(m_screen_resolution)>();
+		});
+
+		main_batch.add("Viewport", "48 8B 15 ? ? ? ? 48 8D 2D ? ? ? ? 48 8B CD", [this](memory::handle ptr)
+		{
+			m_viewport = ptr.add(2).rip().as<decltype(m_viewport)>();
+		});
+
 		main_batch.add("Native Return Bypass", "FF E3", [this](memory::handle ptr)
 		{
 			m_nativeReturn = ptr.as<PVOID>();
@@ -421,11 +431,6 @@ namespace big
 		main_batch.add("Aim Status", "48 8D 0D ? ? ? ? 48 63 C3 3B 14 81 0F 84 ? ? ? ? 41 B8 ? ? ? ? 8B CB", [this](memory::handle ptr)
 		{
 			m_player_aim = ptr.add(3).rip().add(12).as<decltype(m_player_aim)>();
-		});
-
-		main_batch.add("Screen Resolution", "8B 0D ? ? ? ? 49 8D 56 28", [this](memory::handle ptr)
-		{
-			m_screen_resolution = ptr.add(2).rip().as<decltype(m_screen_resolution)>();
 		});
 
 		main_batch.run(memory::module(nullptr));

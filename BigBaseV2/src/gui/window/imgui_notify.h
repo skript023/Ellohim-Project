@@ -16,7 +16,7 @@
 
 #define NOTIFY_MAX_MSG_LENGTH			4096		// Max message content length
 #define NOTIFY_PADDING_X				20.f		// Bottom-left X padding
-#define NOTIFY_PADDING_Y				20.f		// Bottom-left Y padding
+#define NOTIFY_PADDING_Y				40.f		// Bottom-left Y padding
 #define NOTIFY_PADDING_MESSAGE_Y		10.f		// Padding Y between each message
 #define NOTIFY_FADE_IN_OUT_TIME			150			// Fade in and out duration
 #define NOTIFY_DEFAULT_DISMISS			3000		// Auto dismiss after X ms (default, applied only of no data provided in constructors)
@@ -165,9 +165,9 @@ public:
 		case ImGuiToastType_Info:
 			return ICON_FA_INFO_CIRCLE;
 		case ImGuiToastType_Protection:
-			return ICON_FA_EXCLAMATION_TRIANGLE;
+			return ICON_FA_SHIELD;
 		case ImGuiToastType_ReportBlock:
-			return ICON_FA_EXCLAMATION_TRIANGLE;
+			return ICON_FA_SHIELD_CHECK;
 		case ImGuiToastType_Ellohim:
 			return ICON_FA_DRAGON;
 		}

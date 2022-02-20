@@ -8,7 +8,7 @@ namespace big
 	{
 		if (g_settings.options["Player Join Log"])
 		{
-			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "%s joined", net_player->get_name() });
+			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 5000, "%s joined", net_player->get_name() });
 		}
 
 		return g_hooking->m_player_has_joined_hook.get_original<decltype(&hooks::player_join)>()(_this, net_player);
@@ -18,7 +18,7 @@ namespace big
 	{
 		if (g_settings.options["Player Join Log"])
 		{
-			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "%s left", net_player->get_name() });
+			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 5000, "%s left", net_player->get_name() });
 		}
 
 		return g_hooking->m_player_has_left_hook.get_original<decltype(&hooks::player_leave)>()(_this, net_player);

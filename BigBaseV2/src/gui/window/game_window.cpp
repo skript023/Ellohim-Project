@@ -158,11 +158,13 @@ namespace big
 				{
 					GetCurrentHwProfile(g_game_window->profile_info);
 					ImGui::PushItemWidth(200);
-					ImGui::InputText(xorstr("Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
-					ImGui::InputText(xorstr("Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
+					ImGui::Text("Username");
+					ImGui::InputText(xorstr("##Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
+					ImGui::Text("Password");
+					ImGui::InputText(xorstr("##Password"), g_game_window->temp_password, IM_ARRAYSIZE(g_game_window->temp_password), ImGuiInputTextFlags_Password);
 					ImGui::PopItemWidth();
 					game_window::get_status();
-					if (ImGui::Button(xorstr("Login")))
+					if (ImGui::Button(xorstr(ICON_FA_SIGN_IN_ALT " Login")))
 					{
 						if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
 						{
@@ -170,7 +172,7 @@ namespace big
 						}
 					}
 					ImGui::SameLine();
-					if (ImGui::Button(xorstr("Quit")))
+					if (ImGui::Button(xorstr(ICON_FA_POWER_OFF " Quit")))
 					{
 						g_running = false;
 					}
@@ -179,12 +181,12 @@ namespace big
 				if (game_window::create_session(login_status))// || game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 				{
 					ImGui::BeginTabBar(xorstr("Tab Menu"));
-					player_menu::render_player_tab(xorstr("Player"));
-					vehicle_tab::render_vehicle_tab(xorstr("Vehicle"));
-					lsc::render_lsc_tab(xorstr("LS Customs"));
-					online_menu::render_online_tab(xorstr("Online"));
-					player_list::render_player_list(xorstr("Player List"));
-					setting_tab::render_setting_tab(xorstr("Setting"));
+					player_menu::render_player_tab(xorstr(ICON_FA_USER " Player"));
+					vehicle_tab::render_vehicle_tab(xorstr(ICON_FA_CAR " Vehicle"));
+					lsc::render_lsc_tab(xorstr(ICON_FA_SHOPPING_CART " LS Customs"));
+					online_menu::render_online_tab(xorstr(ICON_FA_GLOBE " Online"));
+					player_list::render_player_list(xorstr(ICON_FA_DESKTOP " Player List"));
+					setting_tab::render_setting_tab(xorstr(ICON_FA_TOOLS " Setting"));
 					ImGui::EndTabBar();
 				}
 			}
