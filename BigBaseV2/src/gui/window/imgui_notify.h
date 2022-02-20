@@ -142,9 +142,9 @@ public:
 		case ImGuiToastType_Info:
 			return { 0, 157, 255, 255 }; // Blue
 		case ImGuiToastType_Protection:
-			return { 255, 0, 0, 255 };
+			return { 0, 157, 255, 255 };
 		case ImGuiToastType_ReportBlock:
-			return { 255, 0, 0, 255 };
+			return { 0, 157, 255, 255 };
 		case ImGuiToastType_Ellohim:
 			return { 0, 255, 0, 255 };
 		}
@@ -165,9 +165,9 @@ public:
 		case ImGuiToastType_Info:
 			return ICON_FA_INFO_CIRCLE;
 		case ImGuiToastType_Protection:
-			return ICON_FA_SHIELD;
+			return ICON_FA_SHIELD_ALT;
 		case ImGuiToastType_ReportBlock:
-			return ICON_FA_SHIELD_CHECK;
+			return ICON_FA_USER_SHIELD;
 		case ImGuiToastType_Ellohim:
 			return ICON_FA_DRAGON;
 		}

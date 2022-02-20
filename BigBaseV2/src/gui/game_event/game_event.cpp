@@ -14,6 +14,7 @@
 #include "game_event.h"
 #include "gui/controller/memory_address.hpp"
 #include "gui/entity/entity_control.h"
+#include <gui/window/imgui_notify.h>
 
 namespace big
 {
@@ -291,7 +292,7 @@ namespace big
                     if (ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, ped, TRUE) && WEAPON::HAS_ENTITY_BEEN_DAMAGED_BY_WEAPON(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 0, 2))
                     {
                         bail_player(player);
-                        controller::ShowMessage(fmt::format("~g~Kick Has Been Sent To {}", PLAYER::GET_PLAYER_NAME(player)).c_str(), false);
+                        ImGui::InsertNotification({ ImGuiToastType_Protection, 10000, "%s has been kicked from session", PLAYER::GET_PLAYER_NAME(player) });
                     }
                 }
             }

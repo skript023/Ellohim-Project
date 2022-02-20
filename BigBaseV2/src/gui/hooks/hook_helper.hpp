@@ -37,10 +37,10 @@ namespace big::hook_helper
 
 				LOG(HACKER) << fmt::format("Blocked Report From {} with stat name {} and hash {} by value {}", sender_name, stat_name, hash, amount);
 
-				ImGui::InsertNotification({ ImGuiToastType_ReportBlock, 5999, "Blocked Report From %s with stat name %s by value %d", sender_name, stat_name, amount });
+				ImGui::InsertNotification({ ImGuiToastType_ReportBlock, 15999, "Blocked Report From %s with stat name %s by value %d", sender_name, stat_name, amount });
 				if (g_settings.options["Redirect Report"])
 				{
-					ImGui::InsertNotification({ ImGuiToastType_ReportBlock, 5999, "Redirect Report To %s with stat name %s by value %d", sender_name, stat_name, amount });
+					ImGui::InsertNotification({ ImGuiToastType_ReportBlock, 15999, "Redirect Report To %s with stat name %s by value %d", sender_name, stat_name, amount });
 					g_pointers->m_increment_event(net_event_struct, receiver, sender);
 					remote_event::bail_player(sender_id);
 				}
@@ -276,7 +276,7 @@ namespace big::hook_helper
 				strcat(sender_info, std::to_string(event_hash).c_str());
 
 				//LOG(INFO_TO_FILE) << "ID : " << std::to_string(sender_id) << " USER SENDER : " << sender_name << " USER ID : " << std::to_string(PlayerRID).c_str() << " EVENT HASH : " << std::to_string(event_hash).c_str();
-				//ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "Blocked Kick Event Event From %s with Hash %d Args Count %d", sender_name, event_hash, args_size });
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "Blocked Kick Event Event From %s with Hash %d Args Count %d", sender_name, event_hash, args_size });
 
 			}
 			break;
