@@ -1059,7 +1059,7 @@ namespace big
 
     bool player::is_player_out_of_radar(Player player)
     {
-        return *script_global(g_global.radar_toggle).at(player, 443).at(209).as<bool*>();
+        return *script_global(g_global.radar_toggle).at(player, g_global.radar_size).at(209).as<bool*>();
     }
 
     Ped player::player_ped_id()

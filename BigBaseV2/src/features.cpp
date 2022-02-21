@@ -237,9 +237,21 @@ namespace big::features
 
 		if (g_gui.m_opened) 
 		{
-			for (int i = 0; i < 32; ++i) 
+			if (network::network_get_num_connected_player() != g_misc_option->player_names.size())
 			{
-				g_misc_option->player_names[i] = PLAYER::GET_PLAYER_NAME(i);//player::get_player_name(i);
+				g_misc_option->player_names.clear();
+				for (int i = 0; i < MAX_PLAYERS; i++)
+				{
+					if (auto net_player = rage_helper::get_net_player(i))
+					{
+						std::string name = net_player->get_name();
+						g_misc_option->player_names[name] = i;
+					}
+				}
+			}
+			if (!*g_pointers->m_is_session_started)
+			{
+				g_misc_option->player_names[player::get_player_name(g_local.player)] = g_local.player;
 			}
 		}
 	}

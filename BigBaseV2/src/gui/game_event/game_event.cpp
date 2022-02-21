@@ -100,7 +100,7 @@ namespace big
 
     void remote_event::take_casino_partial(int take)
     {
-        QUEUE_JOB_BEGIN_CLAUSE(take)
+        QUEUE_JOB_BEGIN(take)
         {
             *script_global(g_global.artwork).as<int*>() = (take * 100) / 18;
             script::get_current()->yield(1500ms);
@@ -111,7 +111,7 @@ namespace big
                 script::get_current()->yield();
             }
             *script_global(g_global.artwork).as<int*>() = 2350000;
-        } QUEUE_JOB_END_CLAUSE
+        } QUEUE_JOB_END
     }
 
     void remote_event::set_bounty(Player player, int amount)

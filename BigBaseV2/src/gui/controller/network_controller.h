@@ -10,6 +10,8 @@ namespace big
 	public:
 		static void spectate_player(Ped playerped);
 		static void set_session(int SessionId);
+        static bool check_network_status();
+        static INTERNET_STATUS get_internet_status();
 		static void request_control(Entity entity);
 
 		static void trigger_meth_production(Player player);

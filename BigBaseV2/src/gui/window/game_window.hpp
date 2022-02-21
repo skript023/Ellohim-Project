@@ -11,6 +11,7 @@ namespace big
 		static const char* get_login_status_from_hash(Hash hash);
 		static void get_status();
 		static void interact_to_server(std::chrono::high_resolution_clock::duration time);
+		static void automatic_logout();
 		static void logout();
 		static bool get_authentication(const char* username, const char* password);
 		static void main_window(const char* window_name);
@@ -32,6 +33,7 @@ namespace big
 		static inline std::chrono::steady_clock::time_point get_session_time;
 		static inline bool is_session_returned{ false };
 		static inline Hash status_check{ 0 };
+		static inline bool show_disconnect_once{ false };
 	};
 
 	inline static game_window* g_game_window{};

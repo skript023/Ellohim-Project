@@ -78,7 +78,20 @@ namespace big::rage_helper
 
 	inline CPed* get_player_pointer(Player player)
 	{
-		return g_pointers->m_player_ptr(player);
+		if (auto local_ped = g_pointers->m_player_ptr(player))
+		{
+			return local_ped;
+		}
+		return nullptr;
+	}
+
+	inline CPlayerInfo* get_player_info(Player player)
+	{
+		if (auto local_ped = get_player_pointer(player))
+		{
+			return local_ped->m_playerinfo;
+		}
+		return nullptr;
 	}
 
 	template<typename setting>

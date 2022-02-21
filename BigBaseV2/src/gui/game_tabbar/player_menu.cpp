@@ -98,7 +98,7 @@ namespace big
             ImGui::SameLine(400);
             ImGui::Checkbox(xorstr("No Clip"), &g_player_option.no_clip);
 
-            ImGui::Checkbox(xorstr("No Clip 2"), &g_player_option.no_clip_2);
+            //ImGui::Checkbox(xorstr("No Clip 2"), &g_player_option.no_clip_2);
 
             int wanted_level_slider = player::get_player_wanted_level(g_local.player);
             if (ImGui::SliderInt(xorstr("Wanted Level"), &wanted_level_slider, 0, 5))
@@ -127,12 +127,12 @@ namespace big
             {
                 g_fiber_pool->queue_job([]
                 {
-                    PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
+                    PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(g_local.player), -1);
                 });
             }
             ImGui::Separator();
 
-            if (ImGui::CollapsingHeader(xorstr("Weapon Option")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_ARROWS_ALT" Weapon Option")))
             {
                 if (ImGui::Button(xorstr("Give Weapon")))
                 {
@@ -219,7 +219,7 @@ namespace big
                     rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_impact_explosion_type = impact_type - 1;
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Player Stat")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_CHART_LINE" Player Stat")))
             {
                 static int e = 0;
                 ImGui::Text(xorstr("Write Stat"));
@@ -1248,6 +1248,7 @@ namespace big
                                 STATS::STAT_INCREMENT(rage::joaat("MP_PLAYING_TIME"), systems::int_to_float(INT_MAX)); // found in mpstatssetupui.
                                 STATS::STAT_INCREMENT(rage::joaat("MP" + mpx + "_LONGEST_PLAYING_TIME"), systems::int_to_float(INT_MAX));
                                 STATS::STAT_SAVE(0, 0, 3, 0);
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 5000, ICON_FA_CHECK_CIRCLE" Basic Unlock Done!" });
                                 break;
                             }
                             case 1:
@@ -1505,6 +1506,7 @@ namespace big
                                 STATS::STAT_SET_BOOL(rage::joaat("MP" + mpx + "_AWD_MONKEY_C_MONKEY_DO"), TRUE, TRUE);
                                 STATS::STAT_SET_BOOL(rage::joaat("MP" + mpx + "_AWD_TRAINED_TO_KILL"), TRUE, TRUE);
                                 STATS::STAT_SET_BOOL(rage::joaat("MP" + mpx + "_AWD_DIRECTOR"), TRUE, TRUE);
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 5000, ICON_FA_CHECK_CIRCLE" Bool Stat Successfully Applied!" });
                                 break;
                             }
                             case 2:
@@ -2543,6 +2545,7 @@ namespace big
                                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_AWD_ROBBERY_CONTRACT"), 100, TRUE);
                                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_AWD_FACES_OF_DEATH"), 250, TRUE);
                                 STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_AWD_AUTO_SHOP"), 100, TRUE);
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 5000, ICON_FA_CHECK_CIRCLE" Integer Stat Successfully Applied!" });
                                 break;
                             }
                             case 3:
@@ -2568,7 +2571,7 @@ namespace big
                                 {
                                     *script_global(262145).at(i).as<bool*>() = true;
                                 }
-                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Shop Successfully Unlocked!" });
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 5000, ICON_FA_CHECK_CIRCLE" Shop Successfully Unlocked!" });
                                 break;
                             }
                             case 6:
@@ -2606,7 +2609,7 @@ namespace big
                                 stats::set_packed_bool(25518, FALSE, -1);
                                 stats::set_packed_bool(25519, FALSE, -1);
                                 STATS::STAT_SAVE(0, 0, 3, 0);
-                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Unhide gun locker done, restart your game!" });
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, ICON_FA_CHECK_CIRCLE" Unhide gun locker done, restart your game!" });
                                 break;
                             }
                             case 7:
@@ -2615,12 +2618,13 @@ namespace big
                                 {
                                     *script_global(262145).at(i).as<bool*>() = true;
                                 }
-                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Tuner Costumes Unlocked!" });
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, ICON_FA_CHECK_CIRCLE" Tuner Costumes Unlocked!" });
                                 break;
                             }
                             case 8:
                             {
                                 player::global_exp_correction();
+                                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, ICON_FA_CHECK_CIRCLE" Player EXP has been adjusted" });
                                 break;
                             }
                         }
@@ -2632,7 +2636,7 @@ namespace big
                     {
                         STATS::STAT_SAVE(0, 0, 3, 0);
                     });
-                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Character successfully saved" });
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, ICON_FA_CHECK_CIRCLE" Character successfully saved" });
                 }
 
                 static int LevelArray;
@@ -2696,7 +2700,7 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Player Appearance")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_TSHIRT" Player Appearance")))
             {
                 if (ImGui::BeginCombo(xorstr("##Costumes"), SelectedAppearance)) // The second parameter is the label previewed before opening the combo.
                 {
@@ -3163,7 +3167,7 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Teleport Option")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_DOOR_OPEN" Teleport Option")))
             {
                 if (ImGui::Button(xorstr("Teleport Waypoint")))
                 {
@@ -3951,7 +3955,7 @@ namespace big
                     break;
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Model Changer")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_RECYCLE" Model Changer")))
             {
                 static char hash[200];
                 ImGui::InputText(xorstr("Model Changer##Manual"), hash, IM_ARRAYSIZE(hash), ImGuiInputTextFlags_CharsUppercase);

@@ -16,7 +16,7 @@
 
 #define NOTIFY_MAX_MSG_LENGTH			4096		// Max message content length
 #define NOTIFY_PADDING_X				20.f		// Bottom-left X padding
-#define NOTIFY_PADDING_Y				40.f		// Bottom-left Y padding
+#define NOTIFY_PADDING_Y				70.f		// Bottom-left Y padding
 #define NOTIFY_PADDING_MESSAGE_Y		10.f		// Padding Y between each message
 #define NOTIFY_FADE_IN_OUT_TIME			150			// Fade in and out duration
 #define NOTIFY_DEFAULT_DISMISS			3000		// Auto dismiss after X ms (default, applied only of no data provided in constructors)
@@ -110,7 +110,7 @@ public:
 			case ImGuiToastType_Warning:
 				return "Warning";
 			case ImGuiToastType_Error:
-				return "Error";
+				return "System Error";
 			case ImGuiToastType_Info:
 				return "Info";
 			case ImGuiToastType_Protection:
@@ -193,10 +193,7 @@ public:
 		{
 			return ImGuiToastPhase_Wait;
 		}
-		else
-		{
-			return ImGuiToastPhase_FadeIn;
-		}
+		return ImGuiToastPhase_FadeIn;
 	}
 
 	NOTIFY_INLINE auto get_fade_percent() -> const float

@@ -46,7 +46,7 @@ namespace big
 		static inline nlohmann::json http_result{};
 		static inline bool trigger_player_info_from_ip{};
 		static inline std::chrono::steady_clock::time_point http_response_tick;
-		static inline const char* player_names[32];
+		static inline std::map<std::string, int> player_names;
 	};
 	static class player_info
 	{

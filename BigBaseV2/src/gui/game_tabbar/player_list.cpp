@@ -23,29 +23,29 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            ImGui::TextColored(g_local.connected_player <= 30 && g_local.connected_player > 20 ? ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f } : g_local.connected_player <= 20 && g_local.connected_player > 10 ? ImVec4{ 225.0f , 225.0f, 0.0f, 1.0f } : ImVec4{ 0.0f , 255.0f, 0.0f, 1.0f }, "Total Player : %d", g_local.connected_player);
+            ImGui::TextColored(g_local.connected_player <= 30 && g_local.connected_player > 20 ? ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f } : g_local.connected_player <= 20 && g_local.connected_player > 10 ? ImVec4{ 225.0f , 225.0f, 0.0f, 1.0f } : ImVec4{ 0.0f , 255.0f, 0.0f, 1.0f }, ICON_FA_USER" Total Player : %d", g_local.connected_player);
             if (ImGui::ListBoxHeader(xorstr("##PlayerList"), ImVec2(230, 400)))
             {
-                for (int i = 0; i < 32; ++i)
+                for (auto player_list : g_misc_option->player_names)
                 {
-                    auto num = std::to_string(i);
-                    if (strcmp(g_misc_option->player_names[i], "**Invalid**") != 0)
+                    if (!g_misc_option->player_names.empty())
                     {
-                        strcpy(players_name, "[");
-                        strcat(players_name, num.c_str());
-                        strcat(players_name, "]");
-                        strcat(players_name, g_misc_option->player_names[i]);
-                        if (network::network_is_host(i))
+                        strcpy(players_name, player_list.first.c_str());
+                        if (network::network_is_host(player_list.second))
                         {
-                            strcat(players_name, "[H]");
+                            strcat(players_name, " " ICON_FA_CROWN);
                         }
-                        if (i == g_local.ScriptHost)
+                        if (player_list.second == g_local.ScriptHost)
                         {
-                            strcat(players_name, "[SH]");
+                            strcat(players_name, " " ICON_FA_DATABASE);
                         }
-                        if (ImGui::Selectable(players_name, i == g_selected.player))
+                        if (player::is_player_in_any_vehicle(player_list.second))
                         {
-                            g_selected.player = i;
+                            strcat(players_name, " " ICON_FA_CAR);
+                        }
+                        if (ImGui::Selectable(players_name, player_list.second == g_selected.player))
+                        {
+                            g_selected.player = player_list.second;
                             g_misc_option->trigger_player_info_from_ip = (std::chrono::high_resolution_clock::now().time_since_epoch().count() + g_misc_option->http_response_tick.time_since_epoch().count()) >= std::chrono::milliseconds(300ms).count();
                         }
                     }
@@ -59,9 +59,9 @@ namespace big
             ImGui::PushID(xorstr("##PlayerInfo"));
             ImGui::BeginTabBar(xorstr("Player Information"));
             //Render
-            player_information::render_player_event(xorstr("Remote Event"));
-            player_information::render_player_info(xorstr("Player Info"));
-            player_information::render_player_business_info(xorstr("Business Info"));
+            player_information::render_player_event(xorstr(ICON_FA_STAR" Remote Event"));
+            player_information::render_player_info(xorstr(ICON_FA_INFO_CIRCLE" Player Info"));
+            player_information::render_player_business_info(xorstr(ICON_FA_INFO_CIRCLE" Business Info"));
             ImGui::EndTabBar();
             ImGui::PopID();
             ImGui::PopItemWidth();

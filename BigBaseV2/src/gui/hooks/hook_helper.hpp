@@ -276,7 +276,7 @@ namespace big::hook_helper
 				strcat(sender_info, std::to_string(event_hash).c_str());
 
 				//LOG(INFO_TO_FILE) << "ID : " << std::to_string(sender_id) << " USER SENDER : " << sender_name << " USER ID : " << std::to_string(PlayerRID).c_str() << " EVENT HASH : " << std::to_string(event_hash).c_str();
-				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "Blocked Kick Event Event From %s with Hash %d Args Count %d", sender_name, event_hash, args_size });
+				//ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "Blocked Kick Event Event From %s with Hash %d Args Count %d", sender_name, event_hash, args_size });
 
 			}
 			break;

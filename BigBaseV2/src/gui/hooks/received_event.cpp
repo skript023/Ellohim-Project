@@ -66,14 +66,11 @@ namespace big
 				{
 					uint16_t network_id{};
 					buffer->ReadWord(&network_id, 0xD);
-					char sender_info[100];
-					strcpy(sender_info, "~bold~~g~Blocked Clear Ped Task From ");
-					strcat(sender_info, source_player->get_name());
 					if (!g_local.is_cutscene_playing && (!(g_local.is_activity_session && rage_helper::get_local_vehicle()->m_model_info->m_model_hash == VEHICLE_PBUS)))
 					{
 						if (g_settings.options["Clear Ped Task Block"])
 						{
-							message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
+							ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Clear Ped Task From %s", source_player->get_name() });
 							g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 
 							return false;

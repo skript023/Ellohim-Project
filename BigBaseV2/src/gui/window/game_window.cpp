@@ -71,13 +71,13 @@ namespace big
 				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Failed"));
 				break;
 			case RAGE_JOAAT("Unauthorized"):
-				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("You're not Developer"));
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("You're not developer"));
 				break;
 			case RAGE_JOAAT("Request failed, couldn't connect to server"):
-				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Couldn't Connect to Server"));
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Couldn't connect to server"));
 				break;
 			default:
-				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Couldn't Connect to Server"));
+				ImGui::TextColored(ImVec4(255.0f, 0.0f, 0.0f, 1.0f), xorstr("Your session time out or disconnected"));
 				break;
 			}
 		}
@@ -86,25 +86,42 @@ namespace big
 	void game_window::interact_to_server(std::chrono::high_resolution_clock::duration time)
 	{
 		get_session_time = std::chrono::high_resolution_clock::now();
-		if (*g_pointers->m_is_session_started && is_auth && (*g_game_window->username && *g_game_window->password))
+		if (*g_pointers->m_is_session_started && (*g_game_window->username && *g_game_window->password))
 		{
 			if ((std::chrono::high_resolution_clock::now() - get_session_time).count() >= time.count())
 			{
-				try
+				if (network::check_network_status())
 				{
-					http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
-					const auto response = request.send("GET");
-					is_auth = true;
+					try
+					{
+						http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
+						const auto response = request.send("GET");
+					}
+					catch (const std::exception& e)
+					{
+						LOG(HACKER) << "Request failed, error: " << e.what();
+						login_status = RAGE_JOAAT("Disconnect");
+						strcpy(g_game_window->username, "");
+						strcpy(g_game_window->password, "");
+					}
+					get_session_time = std::chrono::high_resolution_clock::now();
 				}
-				catch (const std::exception& e)
-				{
-					LOG(HACKER) << "Request failed, error: " << e.what();
-					is_auth = false;
-					login_status = RAGE_JOAAT("Disconnect");
-					strcpy(g_game_window->username, "");
-					strcpy(g_game_window->password, "");
-				}
-				get_session_time = std::chrono::high_resolution_clock::now();
+			}
+		}
+	}
+
+	void game_window::automatic_logout()
+	{
+		if (!network::check_network_status())
+		{
+			strcpy(g_game_window->username, "");
+			strcpy(g_game_window->password, "");
+			status_check = 0;
+			login_status = RAGE_JOAAT("Disconnect");
+			if (show_disconnect_once)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Error, 24000, ICON_FA_TIMES_CIRCLE" Couldn't connect to server" });
+				show_disconnect_once = false;
 			}
 		}
 	}
@@ -125,6 +142,11 @@ namespace big
 
 	bool game_window::get_authentication(const char* username, const char* password)
 	{
+		if (!network::check_network_status())
+		{
+			ImGui::InsertNotification({ ImGuiToastType_Error, 4000, ICON_FA_TIMES_CIRCLE" Login failed, you are not connected to internet" });
+			return false;
+		}
 		strcpy(g_game_window->username, username);
 		strcpy(g_game_window->password, password);
 		try
@@ -136,12 +158,12 @@ namespace big
 			get_result.erase(std::remove_if(get_result.begin(), get_result.end(), [](unsigned char x) {return std::isspace(x); }), get_result.end());
 			status_check = get_result.empty() ? 0 : stoi(get_result);
 			login_status = get_result.empty() ? 0 : stoi(get_result);
-			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, "Login Success" });
+			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, ICON_FA_CHECK_CIRCLE" Login Success" });
 			return true;
 		}
 		catch (const std::exception& e)
 		{
-			ImGui::InsertNotification({ ImGuiToastType_Error, 4000, "Login Failed : Your Username or Password Incorrect" });
+			ImGui::InsertNotification({ ImGuiToastType_Error, 4000, ICON_FA_TIMES_CIRCLE" Login Failed : Your Username or Password Incorrect" });
 			LOG(INFO) << "Request failed, error: " << e.what();
 			status_check = RAGE_JOAAT("Request failed, couldn't connect to server");
 			return false;
@@ -197,8 +219,9 @@ namespace big
 	void game_window::render_all_window(const char* window_name)
 	{
 		main_window(window_name);
-		interact_to_server(240s);
-		window_log::logger(xorstr("Log Console"));
+		interact_to_server(600s);
+		game_window::automatic_logout();
+		window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
 
 		//** Render toasts on top of everything, at the end of your code!
 		//** You should push style vars here

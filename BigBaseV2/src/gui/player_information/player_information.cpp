@@ -281,13 +281,13 @@ namespace big
                     if (ExplosiveMode == 0)
                     {
                         ImGui::Combo(xorstr("Select Explosion Type"), &SelectedExplosion, game_variable::explosion_list, IM_ARRAYSIZE(game_variable::explosion_list));
-                        if (ImGui::BeginCombo(xorstr("Blame Player"), g_misc_option->player_names[SelectedBlame]))
+                        if (ImGui::BeginCombo(xorstr("Blame Player"), player::get_player_name(g_local.player)))
                         {
-                            for (int i = 0; i < 32; ++i)
+                            for (int i = 0; i < MAX_PLAYERS; ++i)
                             {
-                                if (!controller::cstrcmp(g_misc_option->player_names[i], "**Invalid**"))
+                                if (strcmp(player::get_player_name(i), "**Invalid**") != 0)
                                 {
-                                    if (ImGui::Selectable(g_misc_option->player_names[i], i == SelectedBlame))
+                                    if (ImGui::Selectable(player::get_player_name(i), i == SelectedBlame))
                                     {
                                         SelectedBlame = i;
                                     }

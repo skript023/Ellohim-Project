@@ -206,14 +206,14 @@ namespace big
                 }
                 static int selected_target = 0;
                 ImGui::PushItemWidth(200.f);
-                //ImGui::Combo("Target Player", &TargetPlayer, features::PlayerNames, IM_ARRAYSIZE(features::PlayerNames));
-                if (ImGui::BeginCombo(xorstr("Target Player"), g_misc_option->player_names[selected_target]))
+
+                if (ImGui::BeginCombo(xorstr("Target Player"), player::get_player_name(g_local.player)))
                 {
-                    for (int i = 0; i < 32; ++i)
+                    for (int i = 0; i < MAX_PLAYERS; ++i)
                     {
-                        if (strcmp(g_misc_option->player_names[i], "**Invalid**") != 0)
+                        if (strcmp(player::get_player_name(i), "**Invalid**") != 0)
                         {
-                            if (ImGui::Selectable(g_misc_option->player_names[i], i == g_event_tester.event_player))
+                            if (ImGui::Selectable(player::get_player_name(i), i == g_event_tester.event_player))
                             {
                                 selected_target = i;
                                 g_event_tester.event_player = i;
@@ -679,13 +679,13 @@ namespace big
                 ImGui::Separator();
             }
             ImGui::Separator();
-            if (ImGui::Button(xorstr("Unload Mod Menu")))
+            if (ImGui::Button(xorstr(ICON_FA_SIGN_OUT_ALT" Unload Mod Menu")))
             {
                 message::notification("~bold~~g~Menu Unloaded", "~bold~~g~Ellohim Unloader");
                 g_running = false;
             }
             ImGui::SameLine();
-            if (ImGui::Button(xorstr("Exit Game")))
+            if (ImGui::Button(xorstr(ICON_FA_POWER_OFF " Exit Game")))
             {
                 game_window::logout();
                 exit(0);

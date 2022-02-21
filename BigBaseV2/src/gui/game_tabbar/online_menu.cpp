@@ -215,7 +215,7 @@ namespace big
             ImGui::Combo(xorstr("Revenger"), &g_weapon_option.weapon_hash, game_variable::revenge_list, IM_ARRAYSIZE(game_variable::revenge_list));
             ImGui::PopItemWidth();
             //ImGui::MenuItem("Menu item", "CTRL+M");
-            if (ImGui::CollapsingHeader(xorstr("Misc")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_CLOCK" Time & Clock")))
             {
                 ImGui::Text(xorstr("Weather Changer"));
                 
@@ -285,7 +285,7 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Heist")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_MONEY_CHECK" Heist")))
             {
                 ImGui::Checkbox(xorstr("All Crew Cut 0%"), &g_heist_option->casino_heist_crew);
                 ImGui::SameLine(200);
@@ -297,7 +297,7 @@ namespace big
                 ImGui::SameLine(200);
                 ImGui::Checkbox(xorstr("Glass Cutter"), &g_heist_option->zero_heat);
 
-                if (ImGui::Button(xorstr("Open Vault Door"), ImVec2(200, 0)))
+                if (ImGui::Button(xorstr(ICON_FA_DOOR_OPEN" Open Vault Door"), ImVec2(200, 0)))
                 {
                     if (auto vault_door = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
                     {
@@ -313,7 +313,7 @@ namespace big
                     }
                 }
                 ImGui::SameLine();
-                if (ImGui::Button(xorstr("Instant Hack FP"), ImVec2(200, 0)))
+                if (ImGui::Button(xorstr(ICON_FA_FINGERPRINT" Instant Hack FP"), ImVec2(200, 0)))
                 {
                     if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                     {
@@ -936,7 +936,7 @@ namespace big
                     break;
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Business")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_BRIEFCASE" Business")))
             {
                 if (ImGui::BeginCombo(xorstr("Rare Item"), cargo_rare_items[selected_rare_items])) // The second parameter is the label previewed before opening the combo.
                 {
@@ -1396,7 +1396,7 @@ namespace big
                     }
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Spoofer")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_USER_SHIELD" Spoofer")))
             {
                 ImGui::RadioButton(xorstr("Name Spoofer"), &g_spoofer_option->spoofer_type, 0);
                 ImGui::SameLine();
@@ -1426,6 +1426,53 @@ namespace big
                     }
                 break;
                 case 2:
+                    ImGui::Text(xorstr(ICON_FA_WIFI" Change IP by country"));
+                    ImGui::PushItemWidth(200.f);
+                    if (ImGui::Combo(xorstr("##change ip by country"), &selected_country, internet_protocol_list, IM_ARRAYSIZE(internet_protocol_list)))
+                    {
+                        switch (selected_country)
+                        {
+                        case 0:
+                        {
+                            auto ip_address = rage_helper::get_local_playerinfo()->m_online_ip;
+                            uint8_t out[4];
+                            *(uint32_t*)&out = ip_address;
+                            g_spoofer_option->ip_1 = out[3];
+                            g_spoofer_option->ip_2 = out[2];
+                            g_spoofer_option->ip_3 = out[1];
+                            g_spoofer_option->ip_4 = out[0];
+                            break;
+                        }
+                        case 1:
+                            g_spoofer_option->ip_1 = 219;
+                            g_spoofer_option->ip_2 = 100;
+                            g_spoofer_option->ip_3 = 37;
+                            g_spoofer_option->ip_4 = 121;
+                            break;
+                        case 2:
+                            g_spoofer_option->ip_1 = 121;
+                            g_spoofer_option->ip_2 = 137;
+                            g_spoofer_option->ip_3 = 177;
+                            g_spoofer_option->ip_4 = 221;
+                            break;
+                        case 3:
+                            g_spoofer_option->ip_1 = 24;
+                            g_spoofer_option->ip_2 = 48;
+                            g_spoofer_option->ip_3 = 0;
+                            g_spoofer_option->ip_4 = 1;
+                            break;
+                        case 4:
+                            g_spoofer_option->ip_1 = 198;
+                            g_spoofer_option->ip_2 = 13;
+                            g_spoofer_option->ip_3 = 36;
+                            g_spoofer_option->ip_4 = 179;
+                            break;
+                        }
+                    }
+                    ImGui::PopItemWidth();
+
+                    ImGui::Separator();
+
                     ImGui::Text(xorstr("IP Spoofer"));
                     ImGui::PushItemWidth(100);
                     ImGui::InputScalar(xorstr("##IP 1"), ImGuiDataType_U8, &g_spoofer_option->ip_1);
@@ -1514,7 +1561,7 @@ namespace big
                     break;
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Casino Stuff")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_DOLLAR_SIGN " Casino Stuff")))
             {
                 ImGui::Checkbox(xorstr("Blackjack Rig 2,5m Auto"), &g_blackjack_option->blackjack_rig);
                 ImGui::Checkbox(xorstr("Slot Machine Rig 2,5m Auto"), &g_casino_option->casino_rig);
@@ -1547,7 +1594,7 @@ namespace big
                     }
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Friend List")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_USER " Friend List")))
             {
                 if (ImGui::ListBoxHeader(xorstr("##Friend"), ImVec2(210, 400)))
                 {
@@ -1575,7 +1622,7 @@ namespace big
 
                 ImGui::EndGroup();
             }
-            if (ImGui::CollapsingHeader(xorstr("Protection")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_SHIELD_ALT" Protection")))
             {
                 if (ImGui::Button(xorstr("Detach Object")))
                 {
