@@ -246,18 +246,25 @@ namespace big::features
 					{
 						auto cstr_name = net_player->get_name();
 						std::string name = cstr_name;
+						auto is_in_interior = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(i)) != 0;
 						transform(name.begin(), name.end(), name.begin(), ::tolower);
-						g_misc_option->player_names[name] = { cstr_name, i};
-						g_misc_option->is_player_in_interior[i] = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(i)) != 0;
+						g_misc_option->player_names[name] = { cstr_name, i, is_in_interior };
 					}
 				}
 			}
 			if (!*g_pointers->m_is_session_started)
 			{
-				auto cstr_name = player::get_player_name(g_local.player);
-				std::string name = cstr_name;
-				g_misc_option->player_names[cstr_name] = { cstr_name, g_local.player };
-				g_misc_option->is_player_in_interior[g_local.player] = INTERIOR::GET_INTERIOR_FROM_ENTITY(g_local.ped) != 0;
+				if (network::network_get_num_connected_player() == 0)
+				{
+					auto cstr_name = player::get_player_name(g_local.player);
+					std::string name = cstr_name;
+					auto is_in_interior = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(g_local.ped)) != 0;
+					g_misc_option->player_names[cstr_name] = { cstr_name, is_in_interior };
+				}
+				else
+				{
+					g_misc_option->player_names.clear();
+				}
 			}
 		}
 	}

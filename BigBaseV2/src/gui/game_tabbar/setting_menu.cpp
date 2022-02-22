@@ -209,14 +209,17 @@ namespace big
 
                 if (ImGui::BeginCombo(xorstr("Target Player"), player::get_player_name(g_event_tester.event_player)))
                 {
-                    for (int i = 0; i < MAX_PLAYERS; ++i)
+                    for (auto player_list : g_misc_option->player_names)
                     {
-                        if (strcmp(player::get_player_name(i), "**Invalid**") != 0)
+                        if (!g_misc_option->player_names.empty())
                         {
-                            if (ImGui::Selectable(player::get_player_name(i), i == g_event_tester.event_player))
+                            if (ImGui::Selectable(player_list.second.name, player_list.second.id == g_event_tester.event_player))
                             {
-                                selected_target = i;
-                                g_event_tester.event_player = i;
+                                if (selected_target != player_list.second.id)
+                                    selected_target = player_list.second.id;
+
+                                if (g_event_tester.event_player != player_list.second.id)
+                                    g_event_tester.event_player = player_list.second.id;
                             }
                         }
                     }

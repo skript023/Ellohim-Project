@@ -39,7 +39,7 @@ namespace big
                         {
                             strcat(players_name, " " ICON_FA_USER_TIE);
                         }
-                        if (g_misc_option->is_player_in_interior[player_list.second.id])
+                        if (player_list.second.interior)
                         {
                             strcat(players_name, " " ICON_FA_BUILDING);
                         }

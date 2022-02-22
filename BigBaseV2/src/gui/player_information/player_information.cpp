@@ -283,13 +283,14 @@ namespace big
                         ImGui::Combo(xorstr("Select Explosion Type"), &SelectedExplosion, game_variable::explosion_list, IM_ARRAYSIZE(game_variable::explosion_list));
                         if (ImGui::BeginCombo(xorstr("Blame Player"), player::get_player_name(SelectedBlame)))
                         {
-                            for (int i = 0; i < MAX_PLAYERS; ++i)
+                            for (auto player_list : g_misc_option->player_names)
                             {
-                                if (strcmp(player::get_player_name(i), "**Invalid**") != 0)
+                                if (!g_misc_option->player_names.empty())
                                 {
-                                    if (ImGui::Selectable(player::get_player_name(i), i == SelectedBlame))
+                                    if (ImGui::Selectable(player_list.second.name, player_list.second.id == SelectedBlame))
                                     {
-                                        SelectedBlame = i;
+                                        if (SelectedBlame != player_list.second.id)
+                                            SelectedBlame = player_list.second.id;
                                     }
                                 }
                             }
