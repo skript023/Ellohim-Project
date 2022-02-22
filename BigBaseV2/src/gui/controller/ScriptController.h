@@ -6,6 +6,12 @@
 
 namespace big
 {
+	struct online_player
+	{
+		const char* name{};
+		int id{};
+	};
+
 	class controller
 	{
 		public:
@@ -46,7 +52,8 @@ namespace big
 		static inline nlohmann::json http_result{};
 		static inline bool trigger_player_info_from_ip{};
 		static inline std::chrono::steady_clock::time_point http_response_tick;
-		static inline std::map<std::string, int> player_names;
+		static inline std::map<std::string, online_player> player_names;
+		static inline bool is_player_in_interior[32];
 	};
 	static class player_info
 	{

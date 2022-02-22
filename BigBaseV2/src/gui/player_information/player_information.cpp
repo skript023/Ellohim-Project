@@ -91,7 +91,7 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            if (ImGui::CollapsingHeader(xorstr("Business Location")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_MAP_MARKED" Business Location")))
             {
                 ImGui::Text(fmt::format("Meth Location : {}", network::get_meth_location(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Weed Location : {}", network::get_weed_location(g_selected.player)).c_str());
@@ -101,7 +101,7 @@ namespace big
                 ImGui::Text(fmt::format("Bunker Location : {}", network::get_bunker_location(g_selected.player)).c_str());
                 ImGui::Separator();
             }
-            if (ImGui::CollapsingHeader(xorstr("Total Stock of Product")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_FORKLIFT" Total Stock of Product")))
             {
                 ImGui::Text(fmt::format("Meth Product : {:.2f}%%", network::get_meth_stock(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Weed Product : {:.2f}%%", network::get_weed_stock(g_selected.player)).c_str());
@@ -112,7 +112,7 @@ namespace big
                 ImGui::Text(fmt::format("Research Progress : {:.2f}%%", network::get_research_progress(g_selected.player)).c_str());
                 ImGui::Separator();
             }
-            if (ImGui::CollapsingHeader(xorstr("Total Supply")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_FORKLIFT" Total Supply")))
             {
                 ImGui::Text(fmt::format("Meth Supply : {:.2f}%%", network::get_meth_supply(g_selected.player)).c_str());
                 ImGui::Text(fmt::format("Weed Supply : {:.2f}%%", network::get_weed_supply(g_selected.player)).c_str());
@@ -281,7 +281,7 @@ namespace big
                     if (ExplosiveMode == 0)
                     {
                         ImGui::Combo(xorstr("Select Explosion Type"), &SelectedExplosion, game_variable::explosion_list, IM_ARRAYSIZE(game_variable::explosion_list));
-                        if (ImGui::BeginCombo(xorstr("Blame Player"), player::get_player_name(g_local.player)))
+                        if (ImGui::BeginCombo(xorstr("Blame Player"), player::get_player_name(SelectedBlame)))
                         {
                             for (int i = 0; i < MAX_PLAYERS; ++i)
                             {

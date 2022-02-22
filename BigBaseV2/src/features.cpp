@@ -237,21 +237,27 @@ namespace big::features
 
 		if (g_gui.m_opened) 
 		{
-			if (network::network_get_num_connected_player() != g_misc_option->player_names.size())
+			if ((network::network_get_num_connected_player() != g_misc_option->player_names.size()) && *g_pointers->m_is_session_started)
 			{
 				g_misc_option->player_names.clear();
-				for (int i = 0; i < MAX_PLAYERS; i++)
+				for (int i = 0; i < MAX_PLAYERS; ++i)
 				{
 					if (auto net_player = rage_helper::get_net_player(i))
 					{
-						std::string name = net_player->get_name();
-						g_misc_option->player_names[name] = i;
+						auto cstr_name = net_player->get_name();
+						std::string name = cstr_name;
+						transform(name.begin(), name.end(), name.begin(), ::tolower);
+						g_misc_option->player_names[name] = { cstr_name, i};
+						g_misc_option->is_player_in_interior[i] = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(i)) != 0;
 					}
 				}
 			}
 			if (!*g_pointers->m_is_session_started)
 			{
-				g_misc_option->player_names[player::get_player_name(g_local.player)] = g_local.player;
+				auto cstr_name = player::get_player_name(g_local.player);
+				std::string name = cstr_name;
+				g_misc_option->player_names[cstr_name] = { cstr_name, g_local.player };
+				g_misc_option->is_player_in_interior[g_local.player] = INTERIOR::GET_INTERIOR_FROM_ENTITY(g_local.ped) != 0;
 			}
 		}
 	}

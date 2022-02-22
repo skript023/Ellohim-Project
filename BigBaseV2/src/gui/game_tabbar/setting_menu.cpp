@@ -60,7 +60,7 @@ namespace big
             }
             ImGui::Separator();
             
-            if (ImGui::CollapsingHeader(xorstr("Game Setting")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_GAMEPAD " Game Setting")))
             {
                 ImGui::Checkbox(xorstr("Expand Radar"), &g_pointers->m_game_setting->m_radar_expansion);
                 ImGui::SameLine(150);
@@ -96,12 +96,12 @@ namespace big
 
                 ImGui::Text("Aim Change");
                 ImGui::PushItemWidth(150.f);
-                if (ImGui::Combo("##Aim Change", &g_player_option.player_aim, aim_list, IM_ARRAYSIZE(aim_list)))
+                if (ImGui::Combo(xorstr("##Aim Change"), &g_player_option.player_aim, aim_list, IM_ARRAYSIZE(aim_list)))
                     *g_pointers->m_player_aim = g_player_option.player_aim;
                 ImGui::PopItemWidth();
                 ImGui::Separator();
             }
-            if (ImGui::CollapsingHeader(xorstr("Script Monitor")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_DESKTOP " Script Monitor")))
             {
                 static GtaThread* selected_thread{};
                 if (ImGui::ListBoxHeader("##scripts", ImVec2(250, 500)))
@@ -181,7 +181,7 @@ namespace big
                 ImGui::EndGroup();
                 ImGui::Separator();
             }
-            if (ImGui::CollapsingHeader(xorstr("Script Event Tester")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_DESKTOP " Script Event Tester")))
             {
                 static event_json::event_json event_obj{};
                 ImGui::SliderInt(xorstr("Size Of Event Array"), &event_obj.size_of_args_array, 2, 53);
@@ -207,7 +207,7 @@ namespace big
                 static int selected_target = 0;
                 ImGui::PushItemWidth(200.f);
 
-                if (ImGui::BeginCombo(xorstr("Target Player"), player::get_player_name(g_local.player)))
+                if (ImGui::BeginCombo(xorstr("Target Player"), player::get_player_name(g_event_tester.event_player)))
                 {
                     for (int i = 0; i < MAX_PLAYERS; ++i)
                     {
@@ -279,7 +279,7 @@ namespace big
             }
             if (*g_pointers->m_script_globals != nullptr)
             {
-                if (ImGui::CollapsingHeader(xorstr("Global Script Editor")))
+                if (ImGui::CollapsingHeader(xorstr(ICON_FA_DESKTOP " Global Script Editor")))
                 {
                     static global_test_json::global_test_json global_test{};
                     static script_global glo_bal_sunday = script_global(global_test.global_index);
@@ -400,7 +400,7 @@ namespace big
                     ImGui::Separator();
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Local Script Editor")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_DESKTOP " Local Script Editor")))
             {
                 static GtaThread* selected_thread{};
                 if (ImGui::ListBoxHeader(xorstr("##scriptslocal"), ImVec2(250, 500)))
@@ -547,7 +547,7 @@ namespace big
                     ImGui::Separator();
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr("Stat Loader")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_CLOUD_DOWNLOAD_ALT " Stat Loader")))
             {
                 static stats_json::stats_json stat_obj{};
                 static bool loaded = false;

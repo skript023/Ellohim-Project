@@ -178,7 +178,7 @@ namespace big
 			{
 				if (!game_window::create_session(login_status))// && !game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 				{
-					GetCurrentHwProfile(g_game_window->profile_info);
+					GetCurrentHwProfile(g_game_window->profile_info); g_settings.options["Logger Window"] = true;
 					ImGui::PushItemWidth(200);
 					ImGui::Text("Username");
 					ImGui::InputText(xorstr("##Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));
@@ -191,6 +191,7 @@ namespace big
 						if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
 						{
 							LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
+							g_settings.options["Logger Window"] = false;
 						}
 					}
 					ImGui::SameLine();

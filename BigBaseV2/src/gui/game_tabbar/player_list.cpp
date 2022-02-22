@@ -30,22 +30,28 @@ namespace big
                 {
                     if (!g_misc_option->player_names.empty())
                     {
-                        strcpy(players_name, player_list.first.c_str());
-                        if (network::network_is_host(player_list.second))
+                        strcpy(players_name, player_list.second.name);
+                        if (network::network_is_host(player_list.second.id))
                         {
                             strcat(players_name, " " ICON_FA_CROWN);
                         }
-                        if (player_list.second == g_local.ScriptHost)
+                        if (player_list.second.id == g_local.ScriptHost)
                         {
-                            strcat(players_name, " " ICON_FA_DATABASE);
+                            strcat(players_name, " " ICON_FA_USER_TIE);
                         }
-                        if (player::is_player_in_any_vehicle(player_list.second))
+                        if (g_misc_option->is_player_in_interior[player_list.second.id])
+                        {
+                            strcat(players_name, " " ICON_FA_BUILDING);
+                        }
+                        if (player::is_player_in_any_vehicle(player_list.second.id))
                         {
                             strcat(players_name, " " ICON_FA_CAR);
                         }
-                        if (ImGui::Selectable(players_name, player_list.second == g_selected.player))
+                        if (ImGui::Selectable(players_name, player_list.second.id == g_selected.player))
                         {
-                            g_selected.player = player_list.second;
+                            if (g_selected.player != player_list.second.id)
+                                g_selected.player = player_list.second.id;
+
                             g_misc_option->trigger_player_info_from_ip = (std::chrono::high_resolution_clock::now().time_since_epoch().count() + g_misc_option->http_response_tick.time_since_epoch().count()) >= std::chrono::milliseconds(300ms).count();
                         }
                     }

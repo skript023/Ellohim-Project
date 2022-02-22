@@ -285,7 +285,7 @@ namespace big
                     });
                 }
             }
-            if (ImGui::CollapsingHeader(xorstr(ICON_FA_MONEY_CHECK" Heist")))
+            if (ImGui::CollapsingHeader(xorstr(ICON_FA_SEARCH_DOLLAR" Heist")))
             {
                 ImGui::Checkbox(xorstr("All Crew Cut 0%"), &g_heist_option->casino_heist_crew);
                 ImGui::SameLine(200);
