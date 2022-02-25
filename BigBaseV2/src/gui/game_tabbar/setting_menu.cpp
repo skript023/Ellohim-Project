@@ -17,6 +17,7 @@
 #include "benchmark.h"
 #include "setting_menu.h"
 #include "gui/window/game_window.hpp"
+#include "fonts/font_list.hpp"
 
 namespace big
 {
@@ -99,6 +100,29 @@ namespace big
                 if (ImGui::Combo(xorstr("##Aim Change"), &g_player_option.player_aim, aim_list, IM_ARRAYSIZE(aim_list)))
                     *g_pointers->m_player_aim = g_player_option.player_aim;
                 ImGui::PopItemWidth();
+
+                ImGui::Text("Fonts");
+                ImGui::PushItemWidth(150.f);
+                if (ImGui::Combo(xorstr("##Fonts Change"), &selected_fonts, fonts_list, IM_ARRAYSIZE(fonts_list)))
+                {
+                    switch (selected_fonts)
+                    {
+                    case 0:
+                        memcpy(m_font, font_rubik, sizeof(font_rubik));
+                        break;
+                    case 1:
+                        memcpy(m_font, fira_code, sizeof(fira_code));
+                        break;
+                    case 2:
+                        memcpy(m_font, nanum_ghotic, sizeof(nanum_ghotic));
+                        break;
+                    case 3:
+                        memcpy(m_font, roboto_condensed, sizeof(roboto_condensed));
+                        break;
+                    }
+                }
+                ImGui::PopItemWidth();
+
                 ImGui::Separator();
             }
             if (ImGui::CollapsingHeader(xorstr(ICON_FA_DESKTOP " Script Monitor")))

@@ -9,10 +9,14 @@ namespace big
 	{
 	public:
 		static void render_setting_tab(const char* tab_name);
+        static inline void* m_font{};
     private:
+        static inline int selected_fonts{};
         static inline const char* const aim_list[]{ "Assisted Aim - Full", "Assisted Aim - Partial", "Free Aim - Assisted", "Free Aim" };
+        static inline const char* const fonts_list[]{ "Default", "Fira Code", "Nanum Ghotic Bold", "Roboto Condensed" };
 	};
 }
+
 
 /*
             if (ImGui::Button("Give Ammo"))

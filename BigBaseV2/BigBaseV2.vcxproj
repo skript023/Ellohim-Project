@@ -278,6 +278,9 @@
     <ClCompile Include="src\features.cpp" />
     <ClCompile Include="src\fiber_pool.cpp" />
     <ClCompile Include="src\fonts\fira_code.cpp" />
+    <ClCompile Include="src\fonts\nanum_ghotic.cpp" />
+    <ClCompile Include="src\fonts\nanum_ghotic.cpp" />
+    <ClCompile Include="src\fonts\roboto_condensed.cpp" />
     <ClCompile Include="src\fonts\rubik.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\gui\artificial_intelligence\artificial_intelligence.cpp" />

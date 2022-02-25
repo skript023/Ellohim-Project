@@ -257,7 +257,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player, apartment_id]
         {
-            int64_t invite_apartment_args[9] = { TELEPORT_APARTMENT, g_local.player, 1, -1, 1, apartment_id, 0, 1, 0 };
+            int64_t invite_apartment_args[9] = { TELEPORT_APARTMENT, player, 1, -1, 1, apartment_id, 0, 1, 0 };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, invite_apartment_args, ARRAYSIZE(invite_apartment_args), 1 << player);
         });
     }
@@ -342,7 +342,7 @@ namespace big
         {
             int64_t args[7] = { OFF_RADAR, g_local.player, *script_global(g_global.radar_time).at(70).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, 1, *script_global(1893548).at(g_selected.player, 600).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, 7, 1 << g_selected.player);
-            *script_global(g_global.radar_toggle).at(g_selected.player, 449).at(209).as<bool*>() = toggle;
+            *script_global(g_global.radar_toggle).at(g_selected.player, g_global.radar_size).at(g_global.radar_offset).as<bool*>() = toggle;
         }
     }
 
