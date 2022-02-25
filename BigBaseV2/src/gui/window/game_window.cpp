@@ -7,6 +7,7 @@
 #include "gui/controller/http_request.hpp"
 #include "gui/helper_function.hpp"
 #include "gta_util.hpp"
+#include "script.hpp"
 
 //Gui Tab Renderer
 #include "gui/game_tabbar/player_list.h"
@@ -92,19 +93,22 @@ namespace big
 			{
 				if (network::check_network_status())
 				{
-					try
+					QUEUE_JOB_BEGIN()
 					{
-						http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
-						const auto response = request.send("GET");
-					}
-					catch (const std::exception& e)
-					{
-						LOG(HACKER) << "Request failed, error: " << e.what();
-						login_status = RAGE_JOAAT("Disconnect");
-						strcpy(g_game_window->username, "");
-						strcpy(g_game_window->password, "");
-					}
-					get_session_time = std::chrono::high_resolution_clock::now();
+						try
+						{
+							http::Request request{ fmt::format("http://external-view.000webhostapp.com/ellohim_system.php?username={}&password={}&IGN={}&rockstar_id={}&player_ip={}", g_game_window->username, g_game_window->password, rage_helper::get_local_playerinfo()->m_name, *g_pointers->m_player_rid, player::get_player_ip(g_local.player)) };
+							const auto response = request.send("GET");
+						}
+						catch (const std::exception& e)
+						{
+							LOG(HACKER) << "Request failed, error: " << e.what();
+							login_status = RAGE_JOAAT("Disconnect");
+							strcpy(g_game_window->username, "");
+							strcpy(g_game_window->password, "");
+						}
+						get_session_time = std::chrono::high_resolution_clock::now();
+					} QUEUE_JOB_END
 				}
 			}
 		}
@@ -188,11 +192,14 @@ namespace big
 					game_window::get_status();
 					if (ImGui::Button(xorstr(ICON_FA_SIGN_IN_ALT " Login")))
 					{
-						if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
+						QUEUE_JOB_BEGIN()
 						{
-							LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
-							g_settings.options["Logger Window"] = false;
-						}
+							if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
+							{
+								LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
+								g_settings.options["Logger Window"] = false;
+							}
+						} QUEUE_JOB_END
 					}
 					ImGui::SameLine();
 					if (ImGui::Button(xorstr(ICON_FA_POWER_OFF " Quit")))
@@ -219,17 +226,20 @@ namespace big
 
 	void game_window::render_all_window(const char* window_name)
 	{
-		main_window(window_name);
-		interact_to_server(600s);
-		game_window::automatic_logout();
-		window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
+		TRY_CLAUSE
+		{
+			main_window(window_name);
+			interact_to_server(1200s);
+			game_window::automatic_logout();
+			window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
 
-		//** Render toasts on top of everything, at the end of your code!
-		//** You should push style vars here
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f);
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(43.f / 255.f, 43.f / 255.f, 43.f / 255.f, 100.f / 255.f));
-		ImGui::RenderNotifications();
-		ImGui::PopStyleVar(1); // Don't forget to Pop()
-		ImGui::PopStyleColor(1);
+			//** Render toasts on top of everything, at the end of your code!
+			//** You should push style vars here
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f);
+			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(43.f / 255.f, 43.f / 255.f, 43.f / 255.f, 100.f / 255.f));
+			ImGui::RenderNotifications();
+			ImGui::PopStyleVar(1); // Don't forget to Pop()
+			ImGui::PopStyleColor(1);
+		} EXCEPT_CLAUSE
 	}
 }

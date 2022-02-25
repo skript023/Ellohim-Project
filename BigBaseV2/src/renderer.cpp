@@ -16,7 +16,8 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARA
 namespace big
 {
 	renderer::renderer() :
-		m_dxgi_swapchain(*g_pointers->m_swapchain)
+		m_dxgi_swapchain(*g_pointers->m_swapchain),
+		m_resolution(*g_pointers->m_screen_resolution)
 	{
 		void *d3d_device{};
 		if (SUCCEEDED(m_dxgi_swapchain->GetDevice(__uuidof(ID3D11Device), &d3d_device)))
@@ -55,25 +56,25 @@ namespace big
 		font_cfg.FontDataOwnedByAtlas = false;
 		std::strcpy(font_cfg.Name, "Rubik");
 
-		if ((*g_pointers->m_screen_resolution).y == 720 || (*g_pointers->m_screen_resolution).y == 768)
+		if (m_resolution.y == 720 || m_resolution.y == 768)
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(13.f, false);
 			ImGui::MergeFont(const_cast<std::uint8_t*>(xiao_wei), sizeof(xiao_wei), 17.f);
 		}
-		else if ((*g_pointers->m_screen_resolution).y == 900)
+		else if (m_resolution.y == 900)
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 17.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(16.f, false);
 			ImGui::MergeFont(const_cast<std::uint8_t*>(xiao_wei), sizeof(xiao_wei), 20.f);
 		}
-		else if ((*g_pointers->m_screen_resolution).y >= 1080)
+		else if (m_resolution.y >= 1080)
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 20.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(18.f, false);
 			ImGui::MergeFont(const_cast<std::uint8_t*>(xiao_wei), sizeof(xiao_wei), 24.f);
 		}
-		else
+		else if (m_resolution.y <= 720)
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(13.f, false);

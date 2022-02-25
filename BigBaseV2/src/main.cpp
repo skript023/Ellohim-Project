@@ -61,8 +61,6 @@ __          __    _                   _  __           _        _
 					std::this_thread::sleep_for(500ms);
 				}
 
-				game_window::logout();
-
 				g_hooking->disable();
 				LOG(HACKER) << "Hooking disabled.";
 

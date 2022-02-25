@@ -16,7 +16,6 @@ namespace big
 			offset = ((DWORD64)exp->ExceptionRecord->ExceptionAddress - (DWORD64)mod);
 			GetModuleFileNameA(mod, buffer, MAX_PATH - 1);
 		}
-		game_window::logout();
 		LOG(FATAL) << "Exception Code: " << HEX_TO_UPPER(exp->ExceptionRecord->ExceptionCode) << " Exception Offset: " << HEX_TO_UPPER(offset) << " Fault Module Name: " << buffer;
 	}
 

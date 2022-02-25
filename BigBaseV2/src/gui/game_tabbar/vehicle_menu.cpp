@@ -367,14 +367,16 @@ namespace big
                         if (*g_pointers->m_is_session_started)
                         {
                             for (int i = 0; i <= get_max_slots(); ++i)
-                            {
-                                auto names = get_personal_vehicle(i);
+                                personal_vehicle_order[get_personal_vehicle(i)] = i;
 
-                                if (strcmp(names, "Not Found") != 0)
+                            
+                            for (auto personal_vehicle : personal_vehicle_order)
+                            {
+                                if (strcmp(personal_vehicle.first.c_str(), "Not Found") != 0)
                                 {
-                                    if (ImGui::Selectable((names), i == SelectedPersonal))
+                                    if (ImGui::Selectable((personal_vehicle.first.c_str()), personal_vehicle.second == SelectedPersonal))
                                     {
-                                        SelectedPersonal = i;
+                                        SelectedPersonal = personal_vehicle.second;
                                     }
                                 }
                             }

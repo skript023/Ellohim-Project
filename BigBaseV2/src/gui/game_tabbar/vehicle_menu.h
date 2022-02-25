@@ -10,6 +10,7 @@ namespace big
 	public:
 		static void render_vehicle_tab(const char* tab_name);
 	private:
+		static inline std::map<std::string, int> personal_vehicle_order;
 		static inline const char* find_vehicle_name(Hash hash)
 		{
 			if (hash == 0)
