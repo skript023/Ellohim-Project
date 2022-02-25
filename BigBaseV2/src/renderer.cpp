@@ -57,18 +57,27 @@ namespace big
 
 		if ((*g_pointers->m_screen_resolution).y == 720 || (*g_pointers->m_screen_resolution).y == 768)
 		{
-			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(noto_serif), sizeof(noto_serif), 14.f, &font_cfg);
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(13.f, false);
+			ImGui::MergeFont(const_cast<std::uint8_t*>(xiao_wei), sizeof(xiao_wei), 17.f);
 		}
 		else if ((*g_pointers->m_screen_resolution).y == 900)
 		{
-			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(noto_serif), sizeof(noto_serif), 17.f, &font_cfg);
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 17.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(16.f, false);
+			ImGui::MergeFont(const_cast<std::uint8_t*>(xiao_wei), sizeof(xiao_wei), 20.f);
 		}
 		else if ((*g_pointers->m_screen_resolution).y >= 1080)
 		{
-			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(noto_serif), sizeof(noto_serif), 20.f, &font_cfg);
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 20.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(18.f, false);
+			ImGui::MergeFont(const_cast<std::uint8_t*>(xiao_wei), sizeof(xiao_wei), 24.f);
+		}
+		else
+		{
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
+			ImGui::MergeIconsWithLatestFont(13.f, false);
+			ImGui::MergeFont(const_cast<std::uint8_t*>(xiao_wei), sizeof(xiao_wei), 17.f);
 		}
 
 		m_monospace_font = ImGui::GetIO().Fonts->AddFontDefault();

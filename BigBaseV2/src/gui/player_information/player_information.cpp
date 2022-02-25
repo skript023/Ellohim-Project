@@ -39,6 +39,7 @@ namespace big
             ImGui::Text("City/Region : %s/%s", g_misc_option->city.c_str(), g_misc_option->region.c_str());
             ImGui::Text("ZIP Code : %s", g_misc_option->zip.c_str());
             ImGui::Text("Proxy/VPN : %s", g_misc_option->proxy ? "True" : "False");
+            ImGui::Text(fmt::format("Organization Name : {}", player::get_player_organization_name(g_selected.player)).c_str());
 
             ImGui::Text("Local IP : %s", player::get_player_local_ip(g_selected.player));
             ImGui::Text("IP : %s", player::get_player_ip(g_selected.player));

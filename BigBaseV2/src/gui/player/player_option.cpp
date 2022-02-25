@@ -23,6 +23,8 @@
 #include "gui/controller/xostr.h"
 #include "gui/controller/network_controller.h"
 
+#pragma warning (disable:4172)
+
 #define ARRAY_SIZE(_ARR)          ((int)(sizeof(_ARR) / sizeof(*(_ARR))))
 #define ARR_SZ(_ARR)              ((int)(sizeof(_ARR) / sizeof((_ARR)[0])))
 
@@ -1065,6 +1067,19 @@ namespace big
     Ped player::player_ped_id()
     {
         return rage_helper::pointer_to_entity(rage_helper::get_local_ped());
+    }
+
+    const char* player::get_player_organization_name(Player player)
+    {
+        char org_name[20];
+        auto name = script_global(1893548).at(player, 600).at(11).at(105).as<std::string*>();
+        strcpy(org_name, name->c_str());
+
+        if (org_name != nullptr)
+        {
+            return org_name;
+        }
+        return "Player not in organization";
     }
 
     void player::self_noclip(bool activate) 

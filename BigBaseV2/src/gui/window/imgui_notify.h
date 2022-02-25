@@ -372,6 +372,15 @@ namespace ImGui
 
 		GetIO().Fonts->AddFontFromMemoryTTF((void*)fa_solid_900, sizeof(fa_solid_900), font_size, &icons_config, icons_ranges);
 	}
+
+	NOTIFY_INLINE VOID MergeFont(void* font, int sizeof_font, float font_size)
+	{
+		ImFontConfig icons_config;
+		icons_config.MergeMode = true;
+		icons_config.PixelSnapH = true;
+
+		GetIO().Fonts->AddFontFromMemoryTTF(font, sizeof_font, font_size, &icons_config, ImGui::GetIO().Fonts->GetGlyphRangesChineseFull());
+	}
 }
 
 #endif

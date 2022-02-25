@@ -32,6 +32,7 @@ namespace big
 		static bool get_player_infinite_ammo(Player player);
 		static bool is_player_out_of_radar(Player player);
 		static Ped player_ped_id();
+		static const char* get_player_organization_name(Player player);
 		static void self_noclip(bool activate);
 		static bool get_player_infinite_clip(Player player);
 		static bool is_player_in_any_vehicle(Player player);

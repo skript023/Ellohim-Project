@@ -455,16 +455,7 @@
     <ClCompile Include="src\fonts\rubik.cpp">
       <Filter>fonts</Filter>
     </ClCompile>
-    <ClCompile Include="src\fonts\fira_code.cpp">
-      <Filter>fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fonts\roboto_condensed.cpp">
-      <Filter>fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fonts\nanum_ghotic.cpp">
-      <Filter>fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fonts\noto_sherif.cpp">
+    <ClCompile Include="src\fonts\xiao_wei.cpp">
       <Filter>fonts</Filter>
     </ClCompile>
   </ItemGroup>
