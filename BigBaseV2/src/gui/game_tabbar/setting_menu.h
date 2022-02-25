@@ -9,7 +9,7 @@ namespace big
 	{
 	public:
 		static void render_setting_tab(const char* tab_name);
-        static inline void* m_font{};
+        static inline std::uint8_t* m_font{};
     private:
         static inline int selected_fonts{};
         static inline const char* const aim_list[]{ "Assisted Aim - Full", "Assisted Aim - Partial", "Free Aim - Assisted", "Free Aim" };

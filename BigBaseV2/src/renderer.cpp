@@ -57,17 +57,17 @@ namespace big
 
 		if ((*g_pointers->m_screen_resolution).y == 720 || (*g_pointers->m_screen_resolution).y == 768)
 		{
-			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(reinterpret_cast<std::uint8_t*>(m_font), sizeof(m_font), 14.f, &font_cfg);
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(noto_serif), sizeof(noto_serif), 14.f, &font_cfg);
 			ImGui::MergeIconsWithLatestFont(13.f, false);
 		}
 		else if ((*g_pointers->m_screen_resolution).y == 900)
 		{
-			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(reinterpret_cast<std::uint8_t*>(m_font), sizeof(m_font), 17.f, &font_cfg);
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(noto_serif), sizeof(noto_serif), 17.f, &font_cfg);
 			ImGui::MergeIconsWithLatestFont(16.f, false);
 		}
 		else if ((*g_pointers->m_screen_resolution).y >= 1080)
 		{
-			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(reinterpret_cast<std::uint8_t*>(m_font), sizeof(m_font), 20.f, &font_cfg);
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(noto_serif), sizeof(noto_serif), 20.f, &font_cfg);
 			ImGui::MergeIconsWithLatestFont(18.f, false);
 		}
 

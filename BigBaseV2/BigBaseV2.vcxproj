@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -278,8 +277,7 @@
     <ClCompile Include="src\features.cpp" />
     <ClCompile Include="src\fiber_pool.cpp" />
     <ClCompile Include="src\fonts\fira_code.cpp" />
-    <ClCompile Include="src\fonts\nanum_ghotic.cpp" />
-    <ClCompile Include="src\fonts\nanum_ghotic.cpp" />
+    <ClCompile Include="src\fonts\noto_sherif.cpp" />
     <ClCompile Include="src\fonts\roboto_condensed.cpp" />
     <ClCompile Include="src\fonts\rubik.cpp" />
     <ClCompile Include="src\gui.cpp" />

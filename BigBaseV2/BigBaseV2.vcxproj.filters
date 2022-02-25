@@ -461,8 +461,10 @@
     <ClCompile Include="src\fonts\roboto_condensed.cpp">
       <Filter>fonts</Filter>
     </ClCompile>
-    <ClCompile Include="src\fonts\nanum_ghotic.cpp" />
     <ClCompile Include="src\fonts\nanum_ghotic.cpp">
+      <Filter>fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\noto_sherif.cpp">
       <Filter>fonts</Filter>
     </ClCompile>
   </ItemGroup>
