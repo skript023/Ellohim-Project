@@ -61,6 +61,9 @@
     <Filter Include="gui\window">
       <UniqueIdentifier>{bd8f2895-9b68-4e16-ab93-ab4fae45f8e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="fonts">
+      <UniqueIdentifier>{267e656a-9a78-4aa1-b2b1-5c7f9c67e732}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\benchmark.h" />
@@ -69,7 +72,6 @@
     <ClInclude Include="src\detour_hook.hpp" />
     <ClInclude Include="src\features.hpp" />
     <ClInclude Include="src\fiber_pool.hpp" />
-    <ClInclude Include="src\fonts.hpp" />
     <ClInclude Include="src\function_types.hpp" />
     <ClInclude Include="src\gta\PickupRewards.h">
       <Filter>gta</Filter>
@@ -315,13 +317,15 @@
     <ClInclude Include="src\gui\window\imgui_notify.h">
       <Filter>gui\window</Filter>
     </ClInclude>
+    <ClInclude Include="src\fonts\font_list.hpp">
+      <Filter>fonts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
     <ClCompile Include="src\detour_hook.cpp" />
     <ClCompile Include="src\features.cpp" />
     <ClCompile Include="src\fiber_pool.cpp" />
-    <ClCompile Include="src\fonts.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\hooking.cpp" />
     <ClCompile Include="src\invoker.cpp" />
@@ -447,6 +451,12 @@
     </ClCompile>
     <ClCompile Include="src\gui\hooks\player_join.cpp">
       <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\rubik.cpp">
+      <Filter>fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\fira_code.cpp">
+      <Filter>fonts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

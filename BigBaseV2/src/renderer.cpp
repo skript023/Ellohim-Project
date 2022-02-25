@@ -1,5 +1,5 @@
 #include "common.hpp"
-#include "fonts.hpp"
+#include "fonts/font_list.hpp"
 #include "logger.hpp"
 #include "gui.hpp"
 #include "pointers.hpp"
@@ -54,8 +54,21 @@ namespace big
 		font_cfg.FontDataOwnedByAtlas = false;
 		std::strcpy(font_cfg.Name, "Rubik");
 
-		m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg);
-		ImGui::MergeIconsWithLatestFont(13.f, false);
+		if ((*g_pointers->m_screen_resolution).y == 720 || (*g_pointers->m_screen_resolution).y == 768)
+		{
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(roboto_condensed), sizeof(roboto_condensed), 14.f, &font_cfg);
+			ImGui::MergeIconsWithLatestFont(13.f, false);
+		}
+		else if ((*g_pointers->m_screen_resolution).y == 900)
+		{
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(roboto_condensed), sizeof(roboto_condensed), 17.f, &font_cfg);
+			ImGui::MergeIconsWithLatestFont(16.f, false);
+		}
+		else if ((*g_pointers->m_screen_resolution).y >= 1080)
+		{
+			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(roboto_condensed), sizeof(roboto_condensed), 20.f, &font_cfg);
+			ImGui::MergeIconsWithLatestFont(18.f, false);
+		}
 
 		m_monospace_font = ImGui::GetIO().Fonts->AddFontDefault();
 
