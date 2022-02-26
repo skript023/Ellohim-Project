@@ -18,7 +18,6 @@
 
 namespace big
 {
-   //======================================================Tab Render================================================================
     void player_list::render_player_list(const char* tab_name)
     {
         if (ImGui::BeginTabItem(tab_name))

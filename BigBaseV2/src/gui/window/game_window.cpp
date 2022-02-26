@@ -229,7 +229,6 @@ namespace big
 		TRY_CLAUSE
 		{
 			main_window(window_name);
-			interact_to_server(1200s);
 			game_window::automatic_logout();
 			window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
 

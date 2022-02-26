@@ -16,6 +16,7 @@
 #include "gui/controller/memory_address.hpp"
 #include "gui/player/player_option.h"
 #include "http_request.hpp"
+#include "network_controller.h"
 
 namespace big
 {
@@ -234,6 +235,7 @@ namespace big
 
     void controller::get_player_info_from_ip(Player player)
     {
+        if (!network::check_network_status()) return;
         http_response_tick = std::chrono::high_resolution_clock::now();
         if ((std::chrono::high_resolution_clock::now() - http_response_tick).count() >= std::chrono::milliseconds(3000ms).count() || trigger_player_info_from_ip)
         {
