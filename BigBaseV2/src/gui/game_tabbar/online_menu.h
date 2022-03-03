@@ -85,6 +85,7 @@ namespace big
         
         static inline int selected_country{ 0 };
         static inline const char* const internet_protocol_list[] = { "Select Country", "Japan", "Korea", "Canada", "USA" };
+        static inline char organization_name[32];
     };
 }
 //LA(1784, 'gb_gunrunning') bunker = Counter --> LA(2029, 'gb_gunrunning') = Bunker Delivery

@@ -28,11 +28,7 @@ namespace big
             std::time_t date = std::chrono::system_clock::to_time_t(end);
 
             ImGui::Text("%s", std::ctime(&date));
-            ImGui::SameLine();
 
-            ImGui::Text("Transition : %s", g_local.transition ? "True" : "False");
-            ImGui::SameLine();
-            ImGui::Text("Bypass : 0x0%X", *(unsigned short*)g_pointers->m_model_spawn_bypass);
             if (ImGui::Checkbox(xorstr("Godmode"), g_settings.options["Player Godmode"].get<bool*>()))
                 g_settings.save();
             ImGui::SameLine(200);
@@ -98,7 +94,13 @@ namespace big
             ImGui::SameLine(400);
             ImGui::Checkbox(xorstr("No Clip"), &g_player_option.no_clip);
 
-            //ImGui::Checkbox(xorstr("No Clip 2"), &g_player_option.no_clip_2);
+            ImGui::Separator();
+            ImGui::Checkbox(xorstr("Infinite Oxygen"), &g_player_option.is_infinite_oxygen);
+            ImGui::SameLine(200);
+            ImGui::Checkbox(xorstr("Super Punch"), &g_player_option.super_punch);
+            ImGui::SameLine(400);
+            ImGui::Checkbox(xorstr("Bulletproof"), &g_player_option.no_damage);
+
 
             int wanted_level_slider = player::get_player_wanted_level(g_local.player);
             if (ImGui::SliderInt(xorstr("Wanted Level"), &wanted_level_slider, 0, 5))
@@ -108,7 +110,6 @@ namespace big
             const float min = 1.0f, max = 100.0f;
             ImGui::SliderScalar(xorstr("Run Speed"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_run_speed, &min, &max);
             ImGui::SliderScalar(xorstr("Swim Speed"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_swim_speed, &min, &max);
-            ImGui::SliderScalar(xorstr("Bullet Batch"), ImGuiDataType_Float, &rage_helper::get_local_playerinfo()->m_super_punch, &min, &max);
 
             if (ImGui::Button(xorstr("Heal Player")))
             {
@@ -204,6 +205,9 @@ namespace big
                 ImGui::Checkbox(xorstr("Teleport Gun"), &g_weapon_option.teleport_gun_bool);
 
                 ImGui::PushItemWidth(200);
+                ImGui::SliderFloat(xorstr("Weapon Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_gun_multiplier, 0.f, 2.f);
+                ImGui::SliderFloat(xorstr("Melee Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_melee_multiplier, 0.f, 2.f);
+
                 if (ImGui::SliderInt(xorstr("Burst Ammo"), &bullet_batch, 0, 100))
                 {
                     rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = bullet_batch;

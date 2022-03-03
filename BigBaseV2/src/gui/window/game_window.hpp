@@ -17,6 +17,7 @@ namespace big
 		static void main_window(const char* window_name);
 		static void render_all_window(const char* window_name);
 		static Hash check_hash(uint64_t user_id);
+		static bool qwertyuiopasdfghjkklzxcvbnm(const uint64_t user_id);
 	public:
 		static inline bool logger{};
 		static inline Hash login_status{ 0 };

@@ -30,6 +30,31 @@
 
 namespace big
 {
+    void player::set_playeer_super_punch(bool activate)
+    {
+        static const auto default = rage_helper::get_local_ped()->m_playerinfo->m_super_punch;
+        if (activate)
+            rage_helper::get_local_ped()->m_playerinfo->m_super_punch = 1000.f;
+        else
+            rage_helper::get_local_ped()->m_playerinfo->m_super_punch = default;
+    }
+
+    void player::set_player_no_damage(bool activate)
+    {
+        static const auto default_health = rage_helper::get_local_ped()->m_playerinfo->m_damage_hp;
+        static const auto default_armour = rage_helper::get_local_ped()->m_playerinfo->m_damage_armour;
+        if (activate)
+        {
+            rage_helper::get_local_ped()->m_playerinfo->m_damage_hp = 0.f;
+            rage_helper::get_local_ped()->m_playerinfo->m_damage_armour = 0.f;
+        }
+        else
+        {
+            rage_helper::get_local_ped()->m_playerinfo->m_damage_hp = default_health;
+            rage_helper::get_local_ped()->m_playerinfo->m_damage_armour = default_armour;
+        }
+    }
+
     std::string player::get_player_city(Player player)
     {
         try
@@ -1071,15 +1096,14 @@ namespace big
 
     const char* player::get_player_organization_name(Player player)
     {
-        char org_name[20];
-        auto name = script_global(1893548).at(player, 600).at(11).at(105).as<std::string*>();
-        strcpy(org_name, name->c_str());
+        auto pointer = script_global(1893548).at(player, 600).at(11).at(105).as<void*>();
+        char* name = (char*)pointer;
 
-        if (org_name != nullptr)
+        if (name != nullptr)
         {
-            return org_name;
+            return name;
         }
-        return "Player not in organization";
+        return " ";
     }
 
     void player::self_noclip(bool activate) 
@@ -1120,10 +1144,10 @@ namespace big
                 vel.y -= speed;
             // Left
             if (PAD::IS_DISABLED_CONTROL_PRESSED(0, 34))
-                vel.x -= speed;
+                vel.x -= speed / 2;
             // Right
             if (PAD::IS_DISABLED_CONTROL_PRESSED(0, 35))
-                vel.x += speed;
+                vel.x += speed / 2;
 
             rot = CAM::GET_GAMEPLAY_CAM_ROT(2);
             ENTITY::SET_ENTITY_ROTATION(ent, 0.f, rot.y, rot.z, 2, 0);

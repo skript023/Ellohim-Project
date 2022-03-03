@@ -385,8 +385,6 @@ namespace big
                             break;
                         case 1:
                             TASK::CLEAR_PED_TASKS_IMMEDIATELY(g_selected.ped);
-                            /*int bounty[21] = { -116602735, player, 1, 9999, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, *script_global(1652336).at(9).as<int*>(), *script_global(1652336).at(10).as<int*>() };
-                            SCRIPT::TRIGGER_SCRIPT_EVENT(1, reinterpret_cast<uint64_t*>(bounty), 22, 1 << g_selected.player);*/
                             break;
                         case 2:
                             switch (ExplosiveMode)
@@ -838,6 +836,14 @@ namespace big
                                     }
                                 }
                                 break;
+                            }
+                            break;
+                        case 7:
+                            if (player::is_player_in_any_vehicle(g_selected.player))
+                            {
+                                auto veh = player::get_player_vehicle(g_selected.ped, false);
+                                network::request_control(veh);
+                                ENTITY::SET_ENTITY_INVINCIBLE(veh, TRUE);
                             }
                             break;
                         }

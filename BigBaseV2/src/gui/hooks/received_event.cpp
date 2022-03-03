@@ -85,12 +85,8 @@ namespace big
 			{
 				uint16_t network_id{};
 				buffer->ReadWord(&network_id, 0xD);
-				char sender_info[100];
-				strcpy(sender_info, "Blocked Remove Weapon From ");
-				strcat(sender_info, source_player->get_name());
 				if (g_settings.options["Remove Weapon Block"])
 				{
-					message::notification(sender_info, "~bold~~g~Ellohim Menu Protection");
 					ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Remove Weapon From %s", source_player->get_name() });
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 					return false;
@@ -167,7 +163,7 @@ namespace big
 				auto ped_owner_id = -1;
 				if (auto net_obj = (*g_pointers->m_network_object_manager)->find_object_by_id(explosion_owner, false))
 					ped_owner_id = net_obj->owner_id;
-				if ((explosion_flags & 11) && source_player->player_id != ped_owner_id && ped_owner_id != -1)
+				if ((explosion_flags & 11) && (source_player->player_id != ped_owner_id) && ped_owner_id != -1)
 				{
 					if (g_settings.options["Explosion Event Block"])
 					{

@@ -160,7 +160,7 @@ namespace big::features
 		}
 		chrono_loop(200ms);
 		player::set_player_waterproof(g_local.player, g_player_option.waterproof);
-		player::set_player_no_clip(g_player_option.no_clip);
+		player::self_noclip(g_player_option.no_clip);
 		player::ghost_organization(g_player_option.ghost_organizations);
 		player::reveal_player(g_player_option.reveal_players);
 		player::blind_cops(g_player_option.blinds_cops);
@@ -271,7 +271,7 @@ namespace big::features
 		{
 			TRY_CLAUSE
 			{
-				if (game_window::create_session(g_game_window->login_status))//|| game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
+				if (game_window::create_session(g_game_window->login_status))
 					run_tick();
 			}
 			EXCEPT_CLAUSE

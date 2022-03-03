@@ -85,6 +85,32 @@ namespace rage
 		char pad_0154[692]; //0x0154
 	}; //Size: 0x0408
 
+	class CPedCreationDataNode
+	{
+	public:
+		char pad_0000[192]; //0x0000
+		int32_t m_popType; //0x00C0
+		uint32_t m_model; //0x00C4
+		uint32_t m_random_seed; //0x00C8
+		int32_t m_max_health; //0x00CC
+		bool m_in_vehicle; //0x00D0
+		char pad_00D1[1]; //0x00D1
+		uint16_t m_vehicle_id; //0x00D2
+		uint8_t m_vehicle_seat; //0x00D4
+		char pad_00D5[3]; //0x00D5
+		bool m_has_prop; //0x00D8
+		char pad_00D9[3]; //0x00D9
+		uint32_t m_prop; //0x00DC
+		bool m_is_standing; //0x00E0
+		bool m_is_respawn_object_id; //0x00E1
+		bool m_respawn_flagged_for_removal; //0x00E2
+		bool m_has_att_damage_to_player; //0x00E3
+		uint8_t m_attribute_damage_to_player; //0x00E4
+		char pad_00E5[3]; //0x00E5
+		uint32_t m_voice_hash; //0x00E8
+		char pad_00EC[88]; //0x00EC
+	}; //Size: 0x0144
+
 	class netObject
 	{
 	public:

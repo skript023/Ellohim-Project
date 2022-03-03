@@ -1515,6 +1515,9 @@ namespace big
                 ImGui::RadioButton(xorstr("Level Spoofer"), &g_spoofer_option->stat_spoofer, 0);
                 ImGui::SameLine();
                 ImGui::RadioButton(xorstr("Money Spoofer"), &g_spoofer_option->stat_spoofer, 1);
+                ImGui::SameLine();
+                ImGui::RadioButton(xorstr("Organization Name Spoofer"), &g_spoofer_option->stat_spoofer, 2);
+
                 switch (g_spoofer_option->stat_spoofer)
                 {
                 case 0:
@@ -1539,6 +1542,14 @@ namespace big
                     if (ImGui::Button(xorstr("Set Spoof##Disable Money Spoofer##S")))
                     {
                         g_spoofer_option->money_spoofer = false;
+                    }
+                    break;
+                case 2:
+                    ImGui::InputText(xorstr("##Organization Name"), organization_name, IM_ARRAYSIZE(organization_name));
+                    if (ImGui::Button(xorstr("Set Organization Name")))
+                    {
+                        auto name = script_global(1893548).at(g_local.player, 600).at(11).at(105).as<std::string*>();
+                        strcpy(const_cast<char*>(name->c_str()), organization_name);
                     }
                     break;
                 }

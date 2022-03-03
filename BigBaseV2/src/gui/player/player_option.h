@@ -8,6 +8,8 @@ namespace big
 	class player
 	{
 	public:
+		static void set_playeer_super_punch(bool activate);
+		static void set_player_no_damage(bool activate);
 		static std::string get_player_city(Player player);
 		static std::string get_player_internet_provider(Player player);
 		static std::string get_player_country(Player player);
@@ -111,6 +113,8 @@ namespace big
 		static inline bool is_force_applied{};
 		static inline bool is_infinite_oxygen{};
 		static inline int player_aim{};
+		static inline bool no_damage{};
+		static inline bool super_punch{};
 	private:
 		static inline int request_tick = 0;
 		static inline const int controls[] = { 21, 32, 33, 34, 35, 36 };

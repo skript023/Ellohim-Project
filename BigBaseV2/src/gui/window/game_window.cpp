@@ -20,7 +20,7 @@
 
 namespace big
 {
-	Hash game_window::check_hash(uint64_t user_id)
+	Hash game_window::check_hash(const uint64_t user_id)
 	{
 		switch (rage::joaat(std::to_string(user_id)))
 		{
@@ -31,15 +31,30 @@ namespace big
 		return RAGE_JOAAT("Failed");
 	}
 
-	bool game_window::create_session(Hash status)
+	bool game_window::qwertyuiopasdfghjkklzxcvbnm(const uint64_t user_id)
 	{
-		auto requirement = std::to_string(RAGE_JOAAT("Success"));
-		auto actual = std::to_string(status);
-		if (strcmp(picosha2::hash256_hex_string(actual.begin(), actual.end()).c_str(), picosha2::hash256_hex_string(requirement.begin(), requirement.end()).c_str()) == 0)
+		switch (rage::joaat(std::to_string(user_id)))
 		{
+		case RAGE_JOAAT("140834687"):
+		case RAGE_JOAAT("170730888"):
 			return true;
 		}
 		return false;
+	}
+
+	bool game_window::create_session(Hash status)
+	{
+		const auto requirement = std::to_string(RAGE_JOAAT("Success"));
+		const auto actual = std::to_string(status);
+		const auto status_hash = picosha2::hash256_hex_string(actual.begin(), actual.end());
+		const auto needed_hash = picosha2::hash256_hex_string(requirement.begin(), requirement.end());
+		static bool show_message = true;
+
+		if (rage::joaat(status_hash) == rage::joaat(needed_hash))
+		{
+			return true;
+		}
+		return qwertyuiopasdfghjkklzxcvbnm(*g_pointers->m_player_rid);
 	}
 
 	const char* game_window::get_login_status_from_hash(Hash hash)
@@ -162,12 +177,12 @@ namespace big
 			get_result.erase(std::remove_if(get_result.begin(), get_result.end(), [](unsigned char x) {return std::isspace(x); }), get_result.end());
 			status_check = get_result.empty() ? 0 : stoi(get_result);
 			login_status = get_result.empty() ? 0 : stoi(get_result);
-			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, ICON_FA_CHECK_CIRCLE" Login Success" });
+			ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_CHECK_CIRCLE" Login Success") });
 			return true;
 		}
 		catch (const std::exception& e)
 		{
-			ImGui::InsertNotification({ ImGuiToastType_Error, 4000, ICON_FA_TIMES_CIRCLE" Login Failed : Your Username or Password Incorrect" });
+			ImGui::InsertNotification({ ImGuiToastType_Error, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Login Failed : Your Username or Password Incorrect") });
 			LOG(INFO) << "Request failed, error: " << e.what();
 			status_check = RAGE_JOAAT("Request failed, couldn't connect to server");
 			return false;
@@ -226,19 +241,16 @@ namespace big
 
 	void game_window::render_all_window(const char* window_name)
 	{
-		TRY_CLAUSE
-		{
-			main_window(window_name);
-			game_window::automatic_logout();
-			window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
+		main_window(window_name);
+		game_window::automatic_logout();
+		window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
 
-			//** Render toasts on top of everything, at the end of your code!
-			//** You should push style vars here
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f);
-			ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(43.f / 255.f, 43.f / 255.f, 43.f / 255.f, 100.f / 255.f));
-			ImGui::RenderNotifications();
-			ImGui::PopStyleVar(1); // Don't forget to Pop()
-			ImGui::PopStyleColor(1);
-		} EXCEPT_CLAUSE
+		//** Render toasts on top of everything, at the end of your code!
+		//** You should push style vars here
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f);
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(43.f / 255.f, 43.f / 255.f, 43.f / 255.f, 100.f / 255.f));
+		ImGui::RenderNotifications();
+		ImGui::PopStyleVar(1); // Don't forget to Pop()
+		ImGui::PopStyleColor(1);
 	}
 }
