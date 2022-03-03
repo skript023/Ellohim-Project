@@ -57,12 +57,7 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("No Collision"), &g_player_option.pass_through_wall);
             ImGui::SameLine(400);
-            bool Blackout = *g_pointers->m_blackout;
-
-            if (ImGui::Checkbox(xorstr("Blackout"), &Blackout))
-            {
-                *g_pointers->m_blackout = Blackout;
-            }
+            if (ImGui::Checkbox(xorstr("Blackout"), g_pointers->m_blackout))
             ImGui::Separator();
 
             

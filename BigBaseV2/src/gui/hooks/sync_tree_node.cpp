@@ -86,14 +86,8 @@ namespace big
 		{
 			if (object_validity || systems::is_model_valid(sync_tree, network_object) && !is_name_valid)
 			{
-				auto vehicle_name = vehicle_helper::get_vehicle_name_from_hash(vehicle_hash);
-				auto ped_name = player::get_ped_name_from_hash(ped_hash);
-				auto object_name = object::get_object_name_from_hash(obj_hash);
-				auto player_name = player::get_ped_name_from_hash(netSyncTree->m_sync_tree_node->m_player_model);
-
 				strcat(info, name);
 				ImGui::InsertNotification({ ImGuiToastType_Protection, 7000, info });
-				LOG(HACKER) << fmt::format("Sender : {} | Ped : {} | Vehicle : {} | Object : {} | Pickup : {} | Player : {} | Type : {} | Object Id : {}", name, ped_name, vehicle_name, object_name, pickup_hash, player_name, netObject->object_type, netObject->object_id);
 				return false;
 			}
 		}

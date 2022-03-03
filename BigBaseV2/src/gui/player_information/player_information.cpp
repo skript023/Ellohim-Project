@@ -316,23 +316,23 @@ namespace big
                 if (SelectedNetworkEvent == 6)
                 {
                     ImGui::Text(xorstr("Player Must Inside Vehicle"));
-                    ImGui::RadioButton("Launch", &control_type, 0);
-                    ImGui::SameLine();
-                    ImGui::RadioButton("Boost", &control_type, 1);
-                    ImGui::SameLine();
-                    ImGui::RadioButton("Front Flip", &control_type, 2);
+                    ImGui::RadioButton(xorstr("Launch"), &control_type, 0);
+                    ImGui::SameLine(100);
+                    ImGui::RadioButton(xorstr("Boost"), &control_type, 1);
+                    ImGui::SameLine(200);
+                    ImGui::RadioButton(xorstr("Front Flip"), &control_type, 2);
 
-                    ImGui::RadioButton("Back Flip", &control_type, 3);
-                    ImGui::SameLine();
-                    ImGui::RadioButton("Side Flip", &control_type, 4);
-                    ImGui::SameLine();
-                    ImGui::RadioButton("Kick Flip", &control_type, 5);
+                    ImGui::RadioButton(xorstr("Back Flip"), &control_type, 3);
+                    ImGui::SameLine(100);
+                    ImGui::RadioButton(xorstr("Side Flip"), &control_type, 4);
+                    ImGui::SameLine(200);
+                    ImGui::RadioButton(xorstr("Kick Flip"), &control_type, 5);
 
-                    ImGui::RadioButton("Heel Flip", &control_type, 6);
-                    ImGui::SameLine();
-                    ImGui::RadioButton("Bunny Flip", &control_type, 7);
-                    ImGui::SameLine();
-                    ImGui::RadioButton("Launch  Flip", &control_type, 8);
+                    ImGui::RadioButton(xorstr("Heel Flip"), &control_type, 6);
+                    ImGui::SameLine(100);
+                    ImGui::RadioButton(xorstr("Bunny Flip"), &control_type, 7);
+                    ImGui::SameLine(200);
+                    ImGui::RadioButton(xorstr("Launch  Flip"), &control_type, 8);
                 }
 
                 if (ImGui::Button(xorstr("Send Event")))
