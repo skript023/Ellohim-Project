@@ -12,6 +12,10 @@ namespace big
 
 		static std::string get_weapon_name_from_hash(Hash weaponHash);
 		static void teleport_gun(bool activation);
+		static void set_bullet_batch_spread(Player player, float spread);
+		static void set_bullet_batch(Player player, int sharpnell);
+		static int get_bullet_batch(Player player);
+		static float get_bullet_batch_spread(Player player);
 		static void no_spread(bool activation);
 		static void no_recoil(bool activation);
 		static void burst_weapon_ammo(bool activation);
@@ -58,41 +62,43 @@ namespace big
 		static inline bool recoil_on{};
 		static inline int weapon_hash{};
 		static inline bool explosive_weapon{};
+		static inline bool burst_weapon{};
+	public:
+		static void weapon_blackhole();
+	private:
+		static inline Vector3 add_vector(Vector3 vector, Vector3 vector2)
+		{
+			vector.x += vector2.x;
+			vector.y += vector2.y;
+			vector.z += vector2.z;
+			return vector;
+		}
+
+		static inline double degree_to_radiant(double n)
+		{
+			return n * 0.017453292519943295;
+		}
+
+		static inline Vector3 rotation_to_direction(Vector3 rot)
+		{
+			double num = degree_to_radiant(rot.z);
+			double num2 = degree_to_radiant(rot.x);
+			double val = cos(num2);
+			double num3 = abs(val);
+			rot.x = (float)(-(float)sin(num) * num3);
+			rot.y = (float)(cos(num) * num3);
+			rot.z = (float)sin(num2);
+			return rot;
+		}
+
+		static inline Vector3 multiply_vector(Vector3 vector, float inc)
+		{
+			vector.x *= inc;
+			vector.y *= inc;
+			vector.z *= inc;
+			return vector;
+		}
 	};
-
-	static class weapon_spread_attributes
-	{
-	public:
-		static constexpr inline float assault_rifle_spread = 3.5f;
-		static constexpr inline float carbine_rifle_spread = 3.0f;
-		static constexpr inline float advanced_rifle_spread = 2.5f;
-		static constexpr inline float special_carbine_rifle_spread = 3.0f;
-		static constexpr inline float bullpup_rifle_spread = 3.5f;
-		static constexpr inline float compact_rifle_spread = 3.5f;
-		static constexpr inline float military_rifle_spread = 2.5f;
-		static constexpr inline float micro_smg_spread = 4.0f;
-		static constexpr inline float machine_pistol_spread = 2.5f;
-		static constexpr inline float mini_smg_spread = 3.5f;
-		static constexpr inline float smg_spread = 3.5f;
-		static constexpr inline float assault_smg_spread = 3.0f;
-		static constexpr inline float combat_pdw_spread = 3.0f;
-		static constexpr inline float mg_spread = 5.5f;
-		static constexpr inline float combat_mg_spread = 5.0f;
-		static constexpr inline float thompson_spread = 5.0f;
-		static constexpr inline float ray_carbine_spread = 5.0f;
-		static constexpr inline float ap_pistol_spread = 3.0f;
-		static constexpr inline float revolver_pistol_spread = 0.200000003f;
-	} weapon_spread;
-
-	static class weapon_recoil_attributes
-	{
-	public:
-		static constexpr inline float sniper = 0.2800000012f;
-		static constexpr inline float shotgun = 1.75f;
-		static constexpr inline float rifle = 0.3330000043f;
-		static constexpr inline float smg = 0.3330000043f;
-		static constexpr inline float mg = 0.8000000119f;
-	} weapon_recoil;
 
 	inline static weapon_helper g_weapon_option{};
 }

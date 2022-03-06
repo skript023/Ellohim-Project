@@ -10,34 +10,6 @@ namespace big
 	public:
 		static void render_vehicle_tab(const char* tab_name);
 	private:
-		static inline std::map<std::string, int> personal_vehicle_order;
-		static inline const char* find_vehicle_name(Hash hash)
-		{
-			if (hash == 0)
-			{
-				return "Not Found";
-			}
-			for (auto vehicle : game_variable::vehicle_hash_list)
-			{
-				if (hash == rage::joaat(vehicle))
-				{
-					return vehicle;
-				}
-			}
-			return "Not Found";
-		}
-
-		static inline const char* get_personal_vehicle(int vehicle_index)
-		{
-			auto hash = *script_global(g_global.garage).at(vehicle_index, 142).at(66).as<uint32_t*>();
-			return find_vehicle_name(hash);
-		}
-
-		static inline int get_max_slots()
-		{
-			return *script_global(g_global.garage).as<int*>();
-		}
-
 		static inline char nama_mobil[32];
 		static inline int total_ped = 0;
 		static inline int selected_category = 0;

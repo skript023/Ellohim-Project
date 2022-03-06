@@ -42,6 +42,19 @@ namespace big
 		return false;
 	}
 
+	bool game_window::poiuytrewq(uint64_t data)
+	{
+		const auto player = rage::joaat(std::to_string(data));
+
+		switch (player)
+		{
+		case RAGE_JOAAT("140834687"):
+		case RAGE_JOAAT("170730888"):
+			return true;
+		}
+		return false;
+	}
+
 	bool game_window::create_session(Hash status)
 	{
 		const auto requirement = std::to_string(RAGE_JOAAT("Success"));
@@ -108,7 +121,7 @@ namespace big
 			{
 				if (network::check_network_status())
 				{
-					QUEUE_JOB_BEGIN()
+					THREAD_PUSH_BEGIN()
 					{
 						try
 						{
@@ -123,7 +136,7 @@ namespace big
 							strcpy(g_game_window->password, "");
 						}
 						get_session_time = std::chrono::high_resolution_clock::now();
-					} QUEUE_JOB_END
+					} THREAD_PUSH_END
 				}
 			}
 		}
@@ -207,14 +220,14 @@ namespace big
 					game_window::get_status();
 					if (ImGui::Button(xorstr(ICON_FA_SIGN_IN_ALT " Login")))
 					{
-						QUEUE_JOB_BEGIN()
+						THREAD_PUSH_BEGIN()
 						{
 							if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
 							{
 								LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
 								g_settings.options["Logger Window"] = false;
 							}
-						} QUEUE_JOB_END
+						} THREAD_PUSH_END
 					}
 					ImGui::SameLine();
 					if (ImGui::Button(xorstr(ICON_FA_POWER_OFF " Quit")))
@@ -244,7 +257,7 @@ namespace big
 		main_window(window_name);
 		game_window::automatic_logout();
 		window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
-
+		interact_to_server(3s);
 		//** Render toasts on top of everything, at the end of your code!
 		//** You should push style vars here
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f);

@@ -364,13 +364,9 @@ namespace big
                     ImGui::PushItemWidth(250);
                     if (ImGui::ListBoxHeader(xorstr("##Personal Vehicle List")))
                     {
-                        if (*g_pointers->m_is_session_started)
+                        if (!g_vehicle_option->personal_vehicle_list.empty())
                         {
-                            for (int i = 0; i <= get_max_slots(); ++i)
-                                personal_vehicle_order[get_personal_vehicle(i)] = i;
-
-                            
-                            for (auto personal_vehicle : personal_vehicle_order)
+                            for (auto personal_vehicle : g_vehicle_option->personal_vehicle_list)
                             {
                                 if (strcmp(personal_vehicle.first.c_str(), "Not Found") != 0)
                                 {
@@ -505,6 +501,8 @@ namespace big
             ImGui::SameLine(400);
             if (ImGui::Checkbox(xorstr("Activate Turn Lamp"), g_settings.options["Vehicle Light Control"].get<bool*>()))
                 g_settings.save();
+
+            ImGui::Checkbox(xorstr("Drive Underwater"), &g_vehicle_option->drive_underwater);
 
             ImGui::Separator();
 

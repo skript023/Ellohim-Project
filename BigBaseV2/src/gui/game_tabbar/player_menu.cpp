@@ -38,8 +38,6 @@ namespace big
             if (ImGui::Checkbox(xorstr("Auto Heal"), g_settings.options["Auto Heal"].get<bool*>()))
                 g_settings.save();
 
-            ImGui::Separator();
-
             if (ImGui::Checkbox(xorstr("Never Wanted"), g_settings.options["Never Wanted"].get<bool*>()))
                 g_settings.save();
             ImGui::SameLine(200);
@@ -50,8 +48,6 @@ namespace big
             {
                 player::disable_player_ragdoll(g_local.player, no_ragdol);
             }
-
-            ImGui::Separator();
 
             ImGui::Checkbox(xorstr("Water Proof"), &g_player_option.waterproof);
             ImGui::SameLine(200);
@@ -82,14 +78,12 @@ namespace big
             if (ImGui::Checkbox(xorstr("Fast Regen"), g_settings.options["Fast Regen"].get<bool*>()))
                 g_settings.save();
 
-            ImGui::Separator();
             ImGui::Checkbox(xorstr("Ultra Run"), &g_player_option.ultra_run_bool);
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Revenge Kick"), &g_remote_option->revenge_event);
             ImGui::SameLine(400);
             ImGui::Checkbox(xorstr("No Clip"), &g_player_option.no_clip);
 
-            ImGui::Separator();
             ImGui::Checkbox(xorstr("Infinite Oxygen"), &g_player_option.is_infinite_oxygen);
             ImGui::SameLine(200);
             ImGui::Checkbox(xorstr("Super Punch"), &g_player_option.super_punch);
@@ -203,9 +197,10 @@ namespace big
                 ImGui::SliderFloat(xorstr("Weapon Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_gun_multiplier, 0.f, 2.f);
                 ImGui::SliderFloat(xorstr("Melee Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_melee_multiplier, 0.f, 2.f);
 
+                static auto bullet_batch = weapon_helper::get_bullet_batch(g_local.player);
                 if (ImGui::SliderInt(xorstr("Burst Ammo"), &bullet_batch, 0, 100))
                 {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = bullet_batch;
+                    weapon_helper::set_bullet_batch(g_local.player, bullet_batch);
                 }
                 ImGui::SliderFloat(xorstr("Burst Spread"), &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread, 0.f, 2.f);
                 ImGui::PopItemWidth();

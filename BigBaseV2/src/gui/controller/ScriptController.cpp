@@ -239,29 +239,32 @@ namespace big
         http_response_tick = std::chrono::high_resolution_clock::now();
         if ((std::chrono::high_resolution_clock::now() - http_response_tick).count() >= std::chrono::milliseconds(3000ms).count() || trigger_player_info_from_ip)
         {
-            try
+            THREAD_PUSH_BEGIN(=)
             {
-                trigger_player_info_from_ip = false;
-                if (strcmp(player::get_player_ip(player).c_str(), "0.0.0.0") != 0)
+                try
                 {
-                    http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(player)) };
+                    trigger_player_info_from_ip = false;
+                    if (strcmp(player::get_player_ip(player).c_str(), "0.0.0.0") != 0)
+                    {
+                        http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(player)) };
 
-                    const auto response = request.send("GET", "", {}, std::chrono::milliseconds(500));
-                    auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
-                    provider = result["isp"].get<std::string>();
-                    country = result["country"].get<std::string>();
-                    city = result["city"].get<std::string>();
-                    region = result["regionName"].get<std::string>();
-                    zip = result["zip"].get<std::string>();
-                    proxy = result["proxy"].get<bool>();
+                        const auto response = request.send("GET");
+                        auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
+                        provider = result["isp"].get<std::string>();
+                        country = result["country"].get<std::string>();
+                        city = result["city"].get<std::string>();
+                        region = result["regionName"].get<std::string>();
+                        zip = result["zip"].get<std::string>();
+                        proxy = result["proxy"].get<bool>();
+                    }
                 }
-            }
-            catch (const std::exception& e)
-            {
-                trigger_player_info_from_ip = false;
-                LOG(HACKER) << "Request failed, error: " << e.what();
-            }
-            http_response_tick = std::chrono::high_resolution_clock::now();
+                catch (const std::exception& e)
+                {
+                    trigger_player_info_from_ip = false;
+                    LOG(HACKER) << "Request failed, error: " << e.what();
+                }
+                http_response_tick = std::chrono::high_resolution_clock::now();
+            } THREAD_PUSH_END
         }
     }
 

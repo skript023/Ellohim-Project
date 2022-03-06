@@ -239,169 +239,157 @@ namespace big
         });
     }
 
+    void weapon_helper::set_bullet_batch_spread(Player player, float spread)
+    {
+        if (auto local_ped = rage_helper::get_player_pointer(player))
+        {
+            if (auto weapon_mgr = local_ped->m_weapon_mgr)
+            {
+                if (auto weapon_info = weapon_mgr->m_weapon_info)
+                {
+                    weapon_info->m_batch_spread = spread;
+                }
+            }
+        }
+    }
+
+    void weapon_helper::set_bullet_batch(Player player, int sharpnell)
+    {
+        if (auto local_ped = rage_helper::get_player_pointer(player))
+        {
+            if (auto weapon_mgr = local_ped->m_weapon_mgr)
+            {
+                if (auto weapon_info = weapon_mgr->m_weapon_info)
+                {
+                    weapon_info->m_bullet_batch = sharpnell;
+                }
+            }
+        }
+    }
+
+    int weapon_helper::get_bullet_batch(Player player)
+    {
+        if (auto local_ped = rage_helper::get_player_pointer(player))
+        {
+            if (auto weapon_mgr = local_ped->m_weapon_mgr)
+            {
+                if (auto weapon_info = weapon_mgr->m_weapon_info)
+                {
+                    return weapon_info->m_bullet_batch;
+                }
+            }
+        }
+        return 0;
+    }
+
+    float weapon_helper::get_bullet_batch_spread(Player player)
+    {
+        if (auto local_ped = rage_helper::get_player_pointer(player))
+        {
+            if (auto weapon_mgr = local_ped->m_weapon_mgr)
+            {
+                if (auto weapon_info = weapon_mgr->m_weapon_info)
+                {
+                    return weapon_info->m_batch_spread;
+                }
+            }
+        }
+        return 0.f;
+    }
+
     void  weapon_helper::no_recoil(bool activation)
     {
-        if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
+        static Hash old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+        Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+        static auto old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+        if (activation)
         {
-            Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-            if (activation)
+            if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
             {
-                if (!weapon_helper::is_model_shotgun(current_weapon))
+                if (old_current_weapon == current_weapon)
                 {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = 0;
+                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = 0.f;
+                }
+                if (old_current_weapon != current_weapon)
+                {
+                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
+                    old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+                    old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
                 }
             }
-            else
-            {
-                if (!weapon_helper::is_model_shotgun(current_weapon))
-                {
-                    switch (current_weapon)
-                    {
-                    case WEAPON_ADVANCEDRIFLE:
-                    case WEAPON_ASSAULTRIFLE:
-                    case WEAPON_ASSAULTRIFLE_MK2:
-                    case WEAPON_BULLPUPRIFLE:
-                    case WEAPON_BULLPUPRIFLE_MK2:
-                    case WEAPON_CARBINERIFLE:
-                    case WEAPON_CARBINERIFLE_MK2:
-                    case WEAPON_COMPACTRIFLE:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = weapon_recoil.rifle;
-                        break;
-                    case WEAPON_MICROSMG:
-                    case WEAPON_MINISMG:
-                    case WEAPON_ASSAULTSMG:
-                    case WEAPON_SMG:
-                    case WEAPON_SMG_MK2:
-                    case WEAPON_MACHINEPISTOL:
-                    case WEAPON_COMBATPDW:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = weapon_recoil.smg;
-                        break;
-                    case WEAPON_MG:
-                    case WEAPON_COMBATMG:
-                    case WEAPON_COMBATMG_MK2:
-                    case WEAPON_GUSENBERG:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = weapon_recoil.mg;
-                        break;
-                    case WEAPON_SNIPERRIFLE:
-                    case WEAPON_HEAVYSNIPER:
-                    case WEAPON_HEAVYSNIPER_MK2:
-                    case WEAPON_MARKSMANRIFLE:
-                    case WEAPON_MARKSMANRIFLE_MK2:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = weapon_recoil.sniper;
-                        break;
-                    default:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = 1;
-                        break;
-                    }
-                }
-            }
+        }
+        else
+        {
+            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
+            old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+            old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
         }
     }
 
     void  weapon_helper::no_spread(bool activation)
     {
-        if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
+        static Hash old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+        Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+        static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+
+        if (activation)
         {
-            Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-            if (activation)
+            if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
             {
-                if (!weapon_helper::is_model_shotgun(current_weapon))
+                if (old_current_weapon == current_weapon)
                 {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = 0;
+                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = 0.f;
+                }
+                if (old_current_weapon != current_weapon)
+                {
+                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
+                    old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+                    old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
                 }
             }
-            else
-            {
-                if (!weapon_helper::is_model_shotgun(current_weapon))
-                {
-                    switch (current_weapon)
-                    {
-                    case WEAPON_ADVANCEDRIFLE:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.advanced_rifle_spread;
-                        break;
-                    case WEAPON_ASSAULTRIFLE:
-                    case WEAPON_ASSAULTRIFLE_MK2:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.assault_rifle_spread;
-                        break;
-                    case WEAPON_APPISTOL:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.ap_pistol_spread;
-                        break;
-                    case WEAPON_ASSAULTSMG:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.assault_smg_spread;
-                        break;
-                    case WEAPON_BULLPUPRIFLE:
-                    case WEAPON_BULLPUPRIFLE_MK2:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.bullpup_rifle_spread;
-                        break;
-                    case WEAPON_CARBINERIFLE:
-                    case WEAPON_CARBINERIFLE_MK2:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.carbine_rifle_spread;
-                        break;
-                    case WEAPON_COMBATMG_MK2:
-                    case WEAPON_COMBATMG:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.combat_mg_spread;
-                        break;
-                    case WEAPON_COMBATPDW:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.combat_pdw_spread;
-                        break;
-                    case WEAPON_COMPACTRIFLE:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.compact_rifle_spread;
-                        break;
-                    case WEAPON_GUSENBERG:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.thompson_spread;
-                        break;
-                    case WEAPON_MINISMG:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.mini_smg_spread;
-                        break;
-                    case WEAPON_SMG_MK2:
-                    case WEAPON_SMG:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.smg_spread;
-                        break;
-                    case WEAPON_SPECIALCARBINE:
-                    case WEAPON_SPECIALCARBINE_MK2:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.thompson_spread;
-                        break;
-                    case WEAPON_RAYCARBINE:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.ray_carbine_spread;
-                        break;
-                    case WEAPON_REVOLVER:
-                    case WEAPON_REVOLVER_MK2:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = weapon_spread.revolver_pistol_spread;
-                        break;
-                    default:
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = 1.5;
-                        break;
-                    }
-                }
-            }
+        }
+        else
+        {
+            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
+            old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+            old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
         }
     }
 
     void weapon_helper::burst_weapon_ammo(bool activation)
     {
-        g_fiber_pool->queue_job([activation] {
+        Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+        static Hash old_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+        static auto old_batch = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch;
+        static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread;
+        if (activation)
+        {
             if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
             {
-                if (activation)
+            
+                if (old_weapon == current_weapon)
                 {
-                    Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-                    if (!weapon_helper::is_model_shotgun(current_weapon))
-                    {
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = 300;
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = 0.5f;
-                    }
-                }
-                else
-                {
-                    Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-                    if (!weapon_helper::is_model_shotgun(current_weapon))
-                    {
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = 1;
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = 0.0f;
-                    }
+                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = 300;
+                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = 0.5f;
                 }
             }
-        });
+            if (old_weapon != current_weapon)
+            {
+                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = old_batch;
+                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = old_spread;
+                old_batch = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch;
+                old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread;
+                old_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+            }
+        }
+        else
+        {
+            old_batch = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch;
+            old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread;
+            old_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = old_batch;
+            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = old_spread;
+        }
     }
 
     bool weapon_helper::is_model_shotgun(Hash hash)
@@ -639,39 +627,6 @@ namespace big
         }
     }
 
-    Vector3 addVector(Vector3 vector, Vector3 vector2)
-    {
-        vector.x += vector2.x;
-        vector.y += vector2.y;
-        vector.z += vector2.z;
-        return vector;
-    }
-
-    double DegreeToRadian(double n)
-    {
-        return n * 0.017453292519943295;
-    }
-
-    Vector3 RotationToDirection(Vector3 rot)
-    {
-        double num = DegreeToRadian(rot.z);
-        double num2 = DegreeToRadian(rot.x);
-        double val = cos(num2);
-        double num3 = abs(val);
-        rot.x = (float)(-(float)sin(num) * num3);
-        rot.y = (float)(cos(num) * num3);
-        rot.z = (float)sin(num2);
-        return rot;
-    }
-
-    Vector3 multiplyVector(Vector3 vector, float inc)
-    {
-        vector.x *= inc;
-        vector.y *= inc;
-        vector.z *= inc;
-        return vector;
-    }
-
     void weapon_helper::rapid_fire(bool toggle)
     {
         if (toggle)
@@ -682,9 +637,9 @@ namespace big
                 PLAYER::DISABLE_PLAYER_FIRING(PLAYER::PLAYER_PED_ID(), TRUE);
                 Vector3 gameplayCam = CAM::GET_GAMEPLAY_CAM_COORD();
                 Vector3 gameplayCamRot = CAM::GET_GAMEPLAY_CAM_ROT(0);
-                Vector3 gameplayCamDirection = RotationToDirection(gameplayCamRot);
-                Vector3 startCoords = addVector(gameplayCam, (multiplyVector(gameplayCamDirection, 1.0f)));
-                Vector3 endCoords = addVector(startCoords, multiplyVector(gameplayCamDirection, 500.0f));
+                Vector3 gameplayCamDirection = rotation_to_direction(gameplayCamRot);
+                Vector3 startCoords = add_vector(gameplayCam, (multiply_vector(gameplayCamDirection, 1.0f)));
+                Vector3 endCoords = add_vector(startCoords, multiply_vector(gameplayCamDirection, 500.0f));
                 Hash weaponhash;
                 WEAPON::GET_CURRENT_PED_WEAPON(playerPed, &weaponhash, 1);
                 if (PAD::IS_CONTROL_PRESSED(2, 208) || (GetKeyState(VK_LBUTTON) & 0x8000))
@@ -695,4 +650,25 @@ namespace big
         }
     }
 
+    void weapon_helper::weapon_blackhole()
+    {
+        weapon_helper::teleport_gun(g_weapon_option.teleport_gun_bool);
+        weapon_helper::no_spread(g_weapon_option.spread_on);
+        weapon_helper::no_recoil(g_weapon_option.recoil_on);
+        weapon_helper::rapid_fire(g_weapon_option.rapid_shoot);
+        weapon_helper::headshot_all_npc(g_weapon_option.auto_headshot);
+        weapon_helper::revenge(rage::joaat(game_variable::revenge_list[g_weapon_option.weapon_hash]), g_weapon_option.weapon_hash != 0);
+        WEAPON::SET_PED_INFINITE_AMMO_CLIP(PLAYER::PLAYER_PED_ID(), g_settings.options["Infinite Clip"]);
+
+        weapon_helper::infinite_ammo(g_settings.options["Infinite Ammo"]);
+        weapon_helper::explosive_ammo(g_weapon_option.explosive_weapon, player::get_player_ped(g_selected.player));
+        weapon_helper::object_guns(g_weapon_option.object_gun);
+        weapon_helper::removal_gun(g_weapon_option.delete_gun);
+        weapon_helper::ghost_guns(g_weapon_option.ghost_gun);
+
+        weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosives_ammo);
+        weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.fire_ammo);
+        weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.super_jump);
+        weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosive_fist);
+    }
 }

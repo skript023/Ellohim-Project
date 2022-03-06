@@ -175,37 +175,14 @@ namespace big::features
 		player::no_idle_kick(g_settings.options["No Idle Kick"]);
 		player::set_player_infinite_oxygen(PLAYER::PLAYER_ID(), g_player_option.is_infinite_oxygen);
 		
-		weapon_helper::teleport_gun(g_weapon_option.teleport_gun_bool);
-		weapon_helper::no_spread(g_weapon_option.spread_on);
-		weapon_helper::no_recoil(g_weapon_option.recoil_on);
-		weapon_helper::rapid_fire(g_weapon_option.rapid_shoot);
-		weapon_helper::headshot_all_npc(g_weapon_option.auto_headshot);
-		weapon_helper::revenge(rage::joaat(game_variable::revenge_list[g_weapon_option.weapon_hash]), g_weapon_option.weapon_hash != 0);
-		WEAPON::SET_PED_INFINITE_AMMO_CLIP(PLAYER::PLAYER_PED_ID(), g_settings.options["Infinite Clip"]);
-		
-		weapon_helper::infinite_ammo(g_settings.options["Infinite Ammo"]);
-		weapon_helper::explosive_ammo(g_weapon_option.explosive_weapon, player::get_player_ped(g_selected.player));
-		weapon_helper::object_guns(g_weapon_option.object_gun);
-		weapon_helper::removal_gun(g_weapon_option.delete_gun);
-		weapon_helper::ghost_guns(g_weapon_option.ghost_gun);
-		
-		weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosives_ammo);
-		weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.fire_ammo);
-		weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.super_jump);
-		weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosive_fist);
-		
+		weapon_helper::weapon_blackhole();
+
 		remote_event::revenge_kick(g_remote_option->revenge_event);
 		remote_event::remote_blind_cops(g_remote_option->bribe_authority);
 		remote_event::remote_off_the_radar(g_remote_option->remote_off_the_radars);
 
-		vehicle_helper::anti_grief_vehicle(g_settings.options["PV Revenge"]);
-		vehicle_helper::infinite_vehicle_ammo(g_vehicle_option->infinite_ammo);
-		vehicle_helper::infinite_boosts(g_vehicle_option->infinite_boost);
-		vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
-		vehicle_helper::horn_boosts(g_vehicle_option->horn_boost);
-		vehicle_helper::set_turn_lamp(g_settings.options["Vehicle Light Control"]);
-		vehicle_helper::set_vehicle_waterproof(player::get_player_vehicle(player::player_ped_id(), false), true);
-		
+		vehicle_helper::vehicle_blackhole();
+
 		controller::faster_time_scale(g_misc_option->time_scale);
 		
 		ai::explode_enemies(g_npc_option->explode_ped);
@@ -262,6 +239,11 @@ namespace big::features
 				auto is_in_interior = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(g_local.ped)) != 0;
 				g_misc_option->player_names[cstr_name] = { cstr_name, g_local.player, is_in_interior };
 			}
+
+			if (*g_pointers->m_is_session_started)
+				if (g_vehicle_option->personal_vehicle_list.empty() || vehicle_helper::get_max_slots() != g_vehicle_option->personal_vehicle_list.size())
+					for (int i = 0; i <= vehicle_helper::get_max_slots(); ++i)
+						g_vehicle_option->personal_vehicle_list[vehicle_helper::get_personal_vehicle_hash_key(i)] = i;
 		}
 	}
 

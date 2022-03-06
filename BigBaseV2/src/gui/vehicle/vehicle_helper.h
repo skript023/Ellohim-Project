@@ -10,7 +10,7 @@ namespace big
 	class vehicle_helper
 	{
 	public:
-		static void set_vehicle_waterproof(Player player, bool activation);
+		static void set_vehicle_waterproof(Vehicle player, bool activation);
 		static void set_turn_lamp(bool activate);
 		static void allow_unrelease_vehicle(bool activate);
 		static void set_vehicle_collision(Player player, bool activation);
@@ -21,6 +21,10 @@ namespace big
 		static std::string get_vehicle_name_from_hash(Hash vehicle_hash);
 		static void infinite_boosts(bool Activation);
 		static void attach_vehicle(const char* vehicle_name, Player player);
+
+		static const char* find_vehicle_name(Hash hash);
+		static const char* get_personal_vehicle_hash_key(int vehicle_index);
+		static int get_max_slots();
 
 		static void horn_boosts(bool Activation);
 
@@ -50,6 +54,11 @@ namespace big
 		static inline bool horn_boost{};
 		static inline int selected_vehicle{};
 		static inline bool turn_lamp{};
+		static inline bool drive_underwater{};
+		static inline std::map<std::string, int> personal_vehicle_list{};
+
+	public:
+		static void vehicle_blackhole();
 	};
 
 	static class vehicle_helper_variable

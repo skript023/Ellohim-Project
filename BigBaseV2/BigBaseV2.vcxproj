@@ -267,6 +267,7 @@
     <ClInclude Include="src\script_local.hpp" />
     <ClInclude Include="src\script_mgr.hpp" />
     <ClInclude Include="src\settings.h" />
+    <ClInclude Include="src\thread_pool.hpp" />
     <ClInclude Include="src\vmt_hook.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -327,6 +328,7 @@
     <ClCompile Include="src\script_hook.cpp" />
     <ClCompile Include="src\script_local.cpp" />
     <ClCompile Include="src\script_mgr.cpp" />
+    <ClCompile Include="src\thread_pool.cpp" />
     <ClCompile Include="src\vmt_hook.cpp" />
   </ItemGroup>
   <ItemGroup>

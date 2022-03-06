@@ -35,26 +35,29 @@ __          __    _                   _  __           _        _
     \/  \/  \__,_|_| |_|\__,_|_| |_| |_|\_\___/|_| |_|\__\___/|_|
  )kek";
 				auto pointers_instance = std::make_unique<pointers>();
-				LOG(HACKER) << "Pointers initialized.";
+				LOG(INFO) << "Pointers initialized.";
 
 				auto renderer_instance = std::make_unique<renderer>();
-				LOG(HACKER) << "Renderer initialized.";
+				LOG(INFO) << "Renderer initialized.";
 
 				auto fiber_pool_instance = std::make_unique<fiber_pool>(10);
-				LOG(HACKER) << "Fiber pool initialized.";
+				LOG(INFO) << "Fiber pool initialized.";
+
+				auto thread_pool_instance = std::make_unique<thread_pool>();
+				LOG(INFO) << "Thread pool initialized.";
 
 				auto hooking_instance = std::make_unique<hooking>();
-				LOG(HACKER) << "Hooking initialized.";
+				LOG(INFO) << "Hooking initialized.";
 
 				g_settings.load();
-				LOG(HACKER) << "Settings Loaded.";
+				LOG(INFO) << "Settings Loaded.";
 
 				g_script_mgr.add_script(std::make_unique<script>(&features::script_func));
 				g_script_mgr.add_script(std::make_unique<script>(&gui::script_func));
-				LOG(HACKER) << "Scripts registered.";
+				LOG(INFO) << "Scripts registered.";
 
 				g_hooking->enable();
-				LOG(HACKER) << "Hooking enabled.";
+				LOG(INFO) << "Hooking enabled.";
 
 				while (g_running)
 				{
@@ -74,6 +77,12 @@ __          __    _                   _  __           _        _
 
 				fiber_pool_instance.reset();
 				LOG(HACKER) << "Fiber pool uninitialized.";
+
+				thread_pool_instance->destroy();
+				LOG(INFO) << "Destroyed thread pool.";
+
+				thread_pool_instance.reset();
+				LOG(INFO) << "Thread pool uninitialized.";
 
 				renderer_instance.reset();
 				LOG(HACKER) << "Renderer uninitialized.";

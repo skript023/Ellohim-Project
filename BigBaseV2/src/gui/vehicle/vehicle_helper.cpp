@@ -20,16 +20,13 @@ namespace big
     {
         if (auto ped_vehicle = rage_helper::entity_to_pointer<CVehicle*>(vehicle))
         {
-            if (player::is_player_in_any_vehicle(vehicle))
+            if (activation && !systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 0.0f))
             {
-                if (activation && !systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 0.0f))
-                {
-                    ped_vehicle->m_navigation->m_ph_arche->m_water_collision = 0;
-                }
-                else if (!activation && systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 0.0f))
-                {
-                    ped_vehicle->m_navigation->m_ph_arche->m_water_collision = 1.f;
-                }
+                ped_vehicle->m_navigation->m_ph_arche->m_water_collision = 0;
+            }
+            else if (!activation && systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 0.0f))
+            {
+                ped_vehicle->m_navigation->m_ph_arche->m_water_collision = 1.f;
             }
         }
     }
@@ -834,5 +831,46 @@ namespace big
             STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_vehicle);
         }
         QUEUE_JOB_END_CLAUSE
+    }
+
+    const char* vehicle_helper::find_vehicle_name(Hash hash)
+    {
+        if (hash == NULL)
+        {
+            return "Not Found";
+        }
+        for (auto vehicle : game_variable::vehicle_hash_list)
+        {
+            if (hash == rage::joaat(vehicle))
+            {
+                return vehicle;
+            }
+        }
+        return "Not Found";
+    }
+
+    const char* vehicle_helper::get_personal_vehicle_hash_key(int vehicle_index)
+    {
+        auto hash = *script_global(g_global.garage).at(vehicle_index, 142).at(66).as<uint32_t*>();
+        auto name = HUD::_GET_LABEL_TEXT(find_vehicle_name(hash));
+        return name;
+    }
+
+    int vehicle_helper::get_max_slots()
+    {
+        return *script_global(g_global.garage).as<int*>();
+    }
+
+    void vehicle_helper::vehicle_blackhole()
+    {
+        vehicle_helper::set_vehicle_waterproof(player::get_player_vehicle(g_local.player, false), g_vehicle_option->drive_underwater);
+        vehicle_helper::anti_grief_vehicle(g_settings.options["PV Revenge"]);
+        vehicle_helper::infinite_vehicle_ammo(g_vehicle_option->infinite_ammo);
+        vehicle_helper::infinite_boosts(g_vehicle_option->infinite_boost);
+        vehicle_helper::vehicle_godmode(g_settings.options["Vehicle Godmode"]);
+        vehicle_helper::horn_boosts(g_vehicle_option->horn_boost);
+        vehicle_helper::set_turn_lamp(g_settings.options["Vehicle Light Control"]);
+        vehicle_helper::set_vehicle_waterproof(player::get_player_vehicle(player::player_ped_id(), false), true);
+
     }
 }
