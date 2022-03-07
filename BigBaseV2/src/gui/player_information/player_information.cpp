@@ -22,7 +22,8 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            controller::get_player_info_from_ip(g_selected.player);
+            memset(&g_player_option.player_info_open, true, 1);
+            miscellaneous::get_player_info_from_ip(g_selected.player);
             ImGui::Text("Ped ID : %d", g_selected.ped);
             ImGui::SameLine(200);
             ImGui::Text("Script Host : %s", g_local.ScriptHost == g_selected.player ? "True" : "False");
@@ -85,7 +86,10 @@ namespace big
             
             ImGui::EndTabItem();
         }
-
+        else
+        {
+            memset(&g_player_option.player_info_open, false, 1);
+        }
     }
 
     void player_information::render_player_business_info(const char* tab_name)
@@ -711,7 +715,7 @@ namespace big
                         case 3:
                         {
                             Vector3 pos = ENTITY::GET_ENTITY_COORDS(g_selected.ped, true);
-                            Hash cage = controller::load("prop_gold_cont_01");
+                            Hash cage = load_files::load_model("prop_gold_cont_01");
                             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
                             Object obj = OBJECT::CREATE_OBJECT(cage, pos.x, pos.y, pos.z - 1.0f, true, false, false);
                             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
@@ -764,7 +768,6 @@ namespace big
                                         }
                                         script::get_current()->yield();
                                     }
-                                    controller::ShowMessage("~g~Crash All Done", false);
                                     ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "Crash All Done" });
                                 }
                                 break;
@@ -883,7 +886,7 @@ namespace big
                         {
                             float offset;
 
-                            Hash vehmodel = controller::load(VehicleName);
+                            Hash vehmodel = load_files::load_model(VehicleName);
                             Vector3 pos = ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(g_selected.ped, 0.0, -10.0, 0.0);
 
                             if (STREAMING::IS_MODEL_IN_CDIMAGE(vehmodel))
@@ -947,7 +950,7 @@ namespace big
                             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(g_selected.ped);
                             auto heading = ENTITY::GET_ENTITY_HEADING(g_selected.ped);
 
-                            Hash hash_object = controller::load("prop_juicestand");
+                            Hash hash_object = load_files::load_model("prop_juicestand");
                             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
                             auto obj = OBJECT::CREATE_OBJECT(hash_object, pos.x, pos.y, pos.z, TRUE, FALSE, FALSE);
                             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;

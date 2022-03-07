@@ -115,6 +115,8 @@ namespace big
 		static inline int player_aim{};
 		static inline bool no_damage{};
 		static inline bool super_punch{};
+		static inline bool player_list_open{};
+		static inline bool player_info_open{};
 	private:
 		static inline int request_tick = 0;
 		static inline const int controls[] = { 21, 32, 33, 34, 35, 36 };
@@ -125,7 +127,8 @@ namespace big
 
 		static inline Entity prev = -1;
 		static inline Vector3 rot{};
-
+	public:
+		static void player_blackhole();
 	};
 	class outfit
 	{

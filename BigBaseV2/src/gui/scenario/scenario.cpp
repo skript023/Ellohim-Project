@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/streaming/load_game_files.hpp"
 #include <gta\Weapons.h>
 #include <gui/controller/game_variable.h>
 #include <gui/player/player_option.h>
@@ -31,7 +31,7 @@ namespace big
 
 	void scenario::play_animation(Ped ped, const char* anim_dictionary,const char* anim_name)
 	{
-		const char* anim = controller::load_anim(anim_name);
+		const char* anim = load_files::load_anim(anim_name);
 		TASK::TASK_PLAY_ANIM(ped, anim_dictionary, anim, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
 
@@ -40,7 +40,7 @@ namespace big
 		if (!ENTITY::DOES_ENTITY_EXIST(ped)) return;
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* animID = "ld_2g_p2_s2";
-		const char* anim = controller::load_anim("mini@strip_club@lap_dance_2g@ld_2g_p2");
+		const char* anim = load_files::load_anim("mini@strip_club@lap_dance_2g@ld_2g_p2");
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -50,7 +50,7 @@ namespace big
 		if (!ENTITY::DOES_ENTITY_EXIST(ped)) return;
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* animID = "shag_loop_a";
-		const char* anim = controller::load_anim("rcmpaparazzo_2");
+		const char* anim = load_files::load_anim("rcmpaparazzo_2");
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -60,7 +60,7 @@ namespace big
 		if (!ENTITY::DOES_ENTITY_EXIST(ped)) return;
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* animID = "stripper_idle_04";
-		const char* anim = controller::load_anim("mini@strip_club@idles@stripper");
+		const char* anim = load_files::load_anim("mini@strip_club@idles@stripper");
 		
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -71,7 +71,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "mini@strip_club@pole_dance@pole_dance2";
 		const char* animID = "pd_dance_02";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -82,7 +82,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "amb@world_human_push_ups@male@base";
 		const char* animID = "base";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -93,7 +93,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "amb@world_human_sit_ups@male@base";
 		const char* animID = "base";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -104,7 +104,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "rcmfanatic1celebrate";
 		const char* animID = "celebrate";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -116,7 +116,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "ragdoll@human";
 		const char* animID = "electrocute";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -127,7 +127,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "mp_suicide";
 		const char* animID = "pistol";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -138,7 +138,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "mp_safehouseshower@male@";
 		const char* animID = "male_shower_idle_b";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -149,7 +149,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "missfra0_chop_find";
 		const char* animID = "hump_loop_chop";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -160,7 +160,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "rcmcollect_paperleadinout@";
 		const char* animID = "meditiate_idle";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -171,7 +171,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "rcmpaparazzo_2";
 		const char* animID = "shag_loop_poppy";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}
@@ -182,7 +182,7 @@ namespace big
 		Vector3 pos = ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), 1);
 		const char* anim = "random@arrests";
 		const char* animID = "kneeling_arrest_idle";
-		controller::load_anim(anim);
+		load_files::load_anim(anim);
 
 		TASK::TASK_PLAY_ANIM(ped, anim, animID, 8.0f, 0.0f, -1, 9, 0, 0, 0, 0);
 	}

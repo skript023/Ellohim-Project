@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/controller/blackhole_helper.hpp"
 #include "casino.h"
 #include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"

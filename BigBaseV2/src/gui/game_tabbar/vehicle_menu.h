@@ -19,6 +19,8 @@ namespace big
 		static inline bool JumpFlag = false;
 		static inline bool ParachuteFlag = false;
 		static inline bool OppressorFlag = false;
+		static inline int vehicle_menu = 0;
+		static inline int selected_hash = 0;
 	};
 
 	static class vehicle_handling

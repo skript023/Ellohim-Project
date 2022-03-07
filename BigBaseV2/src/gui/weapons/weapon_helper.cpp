@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/streaming/load_game_files.hpp"
 #include <gta/Weapons.h>
 #include <gui/weapons/weapon_helper.h>
 #include <gui/controller/game_variable.h>
@@ -420,7 +420,7 @@ namespace big
                 pos.x += DISTANCE_SPAWN * forward.x;
                 pos.y += DISTANCE_SPAWN * forward.y;
 
-                Hash hash_object = controller::load("prop_bank_vaultdoor");
+                Hash hash_object = load_files::load_model("prop_bank_vaultdoor");
                 MISC::GET_MODEL_DIMENSIONS(hash_object, &dim1, &dim2);
 
                 *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;

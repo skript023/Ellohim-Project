@@ -23,6 +23,7 @@ namespace big
 	{
 	public:
 		static void notification(const char* Message, const char* MessageTag);
+		static void show_message(const char* Message, bool InPauseMenu);
 		static void notification(const char* message);
 	};
 

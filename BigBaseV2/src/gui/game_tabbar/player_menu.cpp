@@ -2708,7 +2708,7 @@ namespace big
                 }
                 if (ImGui::Button(xorstr("Set Appearance")))
                 {
-                    if (controller::cstrcmp(SelectedAppearance, "Swat"))
+                    if (systems::cstrcmp(SelectedAppearance, "Swat"))
                     {
                         g_fiber_pool->queue_job([]
                             {
@@ -2727,7 +2727,7 @@ namespace big
                                 outfit::set_appearance("BACK", 0, 0);
                             });
                     }
-                    else if (controller::cstrcmp(SelectedAppearance, "Santa"))
+                    else if (systems::cstrcmp(SelectedAppearance, "Santa"))
                     {
                         g_fiber_pool->queue_job([]
                             {
@@ -2741,7 +2741,7 @@ namespace big
                                 outfit::set_appearance("TORSO2", 19, 0);
                             });
                     }
-                    else if (controller::cstrcmp(SelectedAppearance, "Ghost"))
+                    else if (systems::cstrcmp(SelectedAppearance, "Ghost"))
                     {
                         g_fiber_pool->queue_job([]
                             {
@@ -2758,7 +2758,7 @@ namespace big
                                 outfit::set_appearance("BACK", 0, 0);
                             });
                     }
-                    else if (controller::cstrcmp(SelectedAppearance, "Special"))
+                    else if (systems::cstrcmp(SelectedAppearance, "Special"))
                     {
                         g_fiber_pool->queue_job([]
                             {
@@ -2775,7 +2775,7 @@ namespace big
                                 outfit::set_appearance("BACK", 51, 0);
                             });
                     }
-                    else if (controller::cstrcmp(SelectedAppearance, "Special2"))
+                    else if (systems::cstrcmp(SelectedAppearance, "Special2"))
                     {
                         g_fiber_pool->queue_job([]
                             {
@@ -2790,7 +2790,7 @@ namespace big
                                 outfit::set_appearance("TORSO2", 53, 0);
                             });
                     }
-                    else if (controller::cstrcmp(SelectedAppearance, "Police"))
+                    else if (systems::cstrcmp(SelectedAppearance, "Police"))
                     {
                         g_fiber_pool->queue_job([] {
                             if (ENTITY::GET_ENTITY_MODEL(g_local.ped) == RAGE_JOAAT("mp_m_freemode_01"))
@@ -2825,7 +2825,7 @@ namespace big
                             }
                             });
                     }
-                    else if (controller::cstrcmp(SelectedAppearance, "For W Captain"))
+                    else if (systems::cstrcmp(SelectedAppearance, "For W Captain"))
                     {
                         g_fiber_pool->queue_job([] {
                             outfit::reset_appearance();
@@ -3957,7 +3957,7 @@ namespace big
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
-                        Hash model = controller::load(hash);
+                        Hash model = load_files::load_model(hash);
                         PLAYER::SET_PLAYER_MODEL(PLAYER::PLAYER_ID(), model);
                         if (model == rage::joaat("MP_F_FREEMODE_01"))
                         {
@@ -3974,7 +3974,7 @@ namespace big
                 {
                     QUEUE_JOB_BEGIN_CLAUSE()
                     {
-                        Hash model = controller::load(game_variable::ped_hash_list[selected_ped]);
+                        Hash model = load_files::load_model(game_variable::ped_hash_list[selected_ped]);
                         PLAYER::SET_PLAYER_MODEL(PLAYER::PLAYER_ID(), model);
                         if (rage::joaat(game_variable::ped_hash_list[selected_ped]) == rage::joaat("MP_F_FREEMODE_01"))
                         {

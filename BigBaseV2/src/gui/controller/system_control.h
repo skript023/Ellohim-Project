@@ -36,6 +36,15 @@ namespace big
 		static int float_to_int(const float& num);
 		static float int_to_float(int x);
 		static float round(float var);
+		static inline bool cstrcmp(const char* s1, const char* s2)
+		{
+			while (*s1 && (*s1 == *s2))
+				s1++, s2++;
+			if (*(const unsigned char*)s1 - *(const unsigned char*)s2 == 0)
+				return true;
+			else
+				return false;
+		}
 	};
 	class fire
 	{

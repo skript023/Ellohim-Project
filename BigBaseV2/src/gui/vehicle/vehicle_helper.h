@@ -55,6 +55,8 @@ namespace big
 		static inline int selected_vehicle{};
 		static inline bool turn_lamp{};
 		static inline bool drive_underwater{};
+		static inline bool vehicle_tab_open{};
+		static inline bool personal_vehicle_menu{};
 		static inline std::map<std::string, int> personal_vehicle_list{};
 
 	public:

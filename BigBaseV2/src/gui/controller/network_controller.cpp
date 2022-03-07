@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "ScriptController.h"
+#include "blackhole_helper.hpp"
 #include "gui/game_tabbar/player_list.h"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
@@ -15,6 +15,10 @@
 #include "network_controller.h"
 #include "system_control.h"
 #include "gui/artificial_intelligence/artificial_intelligence.h"
+#include "gui/window/imgui_notify.h"
+#include "gui/controller/xostr.h"
+
+
 #include <ObjBase.h>      // include the base COM header
 #include <Netlistmgr.h>
 
@@ -488,11 +492,12 @@ namespace big
                 case 16:
                     int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
                     int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
-                    if (product == 20) message::notification("~bold~~g~Trigger Meth Production Function: Storage full with 20 Products!", "~bold~~g~Ellohim Business Manager");
+                    if (product == 20) 
+                        ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Meth Production Function: Storage full with 20 Products!") });
                     if (supply > 0)
                         *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                     else
-                        message::notification("~bold~~g~Trigger Meth Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                        ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Meth Production Function: Supplies are empty! Buy Supplies!") });
                 break;
             }
         }
@@ -511,11 +516,12 @@ namespace big
             case 17:
                 int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
                 int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
-                if (product == 80) message::notification("~bold~~g~Trigger Weed Production Function: Storage full with 80 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 80) 
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Weed Production Function: Storage full with 80 Products!") });
                 if (supply > 0)
                     *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Trigger Weed Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Weed Production Function: Supplies are empty! Buy Supplies!") });
             break;
             }
         }
@@ -534,11 +540,12 @@ namespace big
             case 18:
                 int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
                 int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
-                if (product == 10) message::notification("~bold~~g~Trigger Cocaine Production Function: Storage full with 10 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 10) 
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Cocaine Production Function: Storage full with 10 Products!") });
                 if (supply > 0)
                     *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Trigger Cocaine Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Cocaine Production Function: Supplies are empty! Buy Supplies!") });
             break;
             }
         }
@@ -557,11 +564,12 @@ namespace big
             case 19:
                 int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
                 int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
-                if (product == 40) message::notification("~bold~~g~Trigger Cash Production Function: Storage full with 40 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 40) 
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Cash Production Function: Storage full with 40 Products!") });
                 if (supply > 0)
                     *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Trigger Cash Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Cash Production Function: Supplies are empty! Buy Supplies!") });
             break;
             }
         }
@@ -580,11 +588,11 @@ namespace big
             case 20:
                 int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(2).as<int*>();
                 int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(1).as<int*>();
-                if (product == 60) message::notification("~bold~~g~Trigger Documents Production Function: Storage full with 60 Products!", "~bold~~g~Ellohim Business Manager");
+                if (product == 60) ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Documents Production Function: Storage full with 60 Products!") });
                 if (supply > 0)
                     *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(a, 13).at(9).as<int*>() = 0;
                 else
-                    message::notification("~bold~~g~Trigger Documents Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+                    ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Documents Production Function: Supplies are empty! Buy Supplies!") });
             break;
             }
         }
@@ -605,11 +613,11 @@ namespace big
     {
         int supply = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(2).as<int*>();
         int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(1).as<int*>();
-        if (product == 60) message::notification("~bold~~g~Trigger Bunker Research Function: Research Progress Done!", "~bold~~g~Ellohim Business Manager");
+        if (product == 60) ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Bunker Research Function: Research Progress Done!") });
         if (supply > 0)
             *script_global(g_global.business_index).at(5, 13).at(13).as<int*>() = 0;
         else
-            message::notification("~bold~~g~Trigger Bunker Research Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
+            ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Bunker Research Function: Supplies are empty! Buy Supplies!") });
     }
 
     void network::trigger_nightclub_production()
@@ -682,16 +690,6 @@ namespace big
 				*script_global(g_global.sctv).as<bool*>() = false;
 			}
 		});
-	}
-
-	void controller::RequestControlOfid(Entity netid)
-	{
-		int tick = 0;
-		while (!NETWORK::NETWORK_HAS_CONTROL_OF_NETWORK_ID(netid))
-		{
-			NETWORK::NETWORK_REQUEST_CONTROL_OF_NETWORK_ID(netid);
-			script::get_current()->yield();
-		}
 	}
 
     bool network::check_network_status()

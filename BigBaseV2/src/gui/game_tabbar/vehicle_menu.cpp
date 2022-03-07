@@ -21,6 +21,7 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
+            memset(&g_vehicle_option->vehicle_tab_open, true, 1);
             ImGui::InputText(xorstr("##Kosong"), nama_mobil, IM_ARRAYSIZE(nama_mobil), ImGuiInputTextFlags_CharsUppercase);
             ImGui::PushItemWidth(100.f);
             ImGui::InputScalar(xorstr("##Num"), ImGuiDataType_S32, &total_ped);
@@ -46,14 +47,14 @@ namespace big
                 ai::Convoy(nama_mobil, total_ped);
             }
             ImGui::Separator();
-            static int vehicle_menu = 0;
-            static int selected_hash = 0;
-
+            
             ImGui::RadioButton(xorstr("Vehicle"), &vehicle_menu, 0);
             ImGui::SameLine();
             ImGui::RadioButton(xorstr("Personal Vehicle"), &vehicle_menu, 1);
             ImGui::SameLine();
             ImGui::RadioButton(xorstr("Saved Vehicle"), &vehicle_menu, 2);
+
+            memset(&g_vehicle_option->personal_vehicle_menu, vehicle_menu == 1, sizeof(g_vehicle_option->personal_vehicle_menu));
 
             switch (vehicle_menu)
             {
@@ -886,6 +887,10 @@ namespace big
                 }
             }
             ImGui::EndTabItem();
+        }
+        else
+        {
+            memset(&g_vehicle_option->vehicle_tab_open, false, 1);
         }
     }
 }

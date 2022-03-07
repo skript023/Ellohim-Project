@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/streaming/load_game_files.hpp"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "crossmap.hpp"
@@ -57,7 +57,7 @@ namespace big
 
             MISC::GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, pos.z, &pos.z, FALSE, FALSE);
 
-            Hash hash_object = controller::load(name);
+            Hash hash_object = load_files::load_model(name);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
             auto obj = OBJECT::CREATE_OBJECT(hash_object, pos.x, pos.y, pos.z, TRUE, TRUE, TRUE);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
@@ -93,7 +93,7 @@ namespace big
 
             MISC::GET_GROUND_Z_FOR_3D_COORD(pos.x, pos.y, pos.z, &pos.z, FALSE, FALSE);
 
-            Hash hash_object = controller::load(hash);
+            Hash hash_object = load_files::load_model(hash);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
             auto obj = OBJECT::CREATE_OBJECT(hash_object, pos.x, pos.y, pos.z, TRUE, TRUE, TRUE);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
@@ -127,7 +127,7 @@ namespace big
             pos.z += 1.2f;
 
             Hash pickup_hash = rage::joaat(pickup);
-            Hash hash_prop = controller::load(prop);
+            Hash hash_prop = load_files::load_model(prop);
             auto pickup = OBJECT::CREATE_AMBIENT_PICKUP(pickup_hash, pos.x, pos.y, pos.z, 0, amount, hash_prop, FALSE, TRUE);
 
             script::get_current()->yield();
@@ -147,7 +147,7 @@ namespace big
             pos.z += 1.2f;
 
             Hash pickup_hash = rage::joaat(pickup);
-            Hash hash_prop = controller::load(prop);
+            Hash hash_prop = load_files::load_model(prop);
             auto pickup = OBJECT::CREATE_AMBIENT_PICKUP(pickup_hash, pos.x, pos.y, pos.z, 0, amount, hash_prop, FALSE, TRUE);
 
             script::get_current()->yield();
@@ -166,7 +166,7 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            Hash hash_object = controller::load(name);
+            Hash hash_object = load_files::load_model(name);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
             auto obj = OBJECT::CREATE_OBJECT(hash_object, pos.x, pos.y, pos.z, TRUE, TRUE, FALSE);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;

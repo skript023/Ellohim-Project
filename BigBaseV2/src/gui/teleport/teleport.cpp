@@ -7,7 +7,6 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
 #include <gta\Weapons.h>
 #include <gui/controller/game_variable.h>
 #include <gui/teleport/teleport.h>

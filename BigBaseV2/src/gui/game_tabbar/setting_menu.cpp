@@ -50,7 +50,7 @@ namespace big
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Entrypoint")))
             {
-                controller::DumpEntryBoi();
+                miscellaneous::dump_entry_point();
             }
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Benchmark")))
@@ -139,14 +139,14 @@ namespace big
                             if (auto owner = owner_list->m_owner)
                                 ImGui::Text(fmt::format("Host: {}", owner->get_name()).c_str());
                     if (ImGui::Button(fmt::format("Script Pointer: 0x{:X}", (DWORD64)selected_thread).c_str()))
-                        controller::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread).c_str());
+                        miscellaneous::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread).c_str());
                     if (ImGui::Button(fmt::format("m_stack: 0x{:X}", (DWORD64)selected_thread->m_stack).c_str()))
-                        controller::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread->m_stack).c_str());
+                        miscellaneous::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread->m_stack).c_str());
                     ImGui::Text(fmt::format("m_exit_message: {}", (selected_thread->m_exit_message) ? selected_thread->m_exit_message : "").c_str());
                     if (ImGui::Button(fmt::format("m_handler: 0x{:X}", (DWORD64)selected_thread->m_handler).c_str()))
-                        controller::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread->m_handler).c_str());
+                        miscellaneous::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread->m_handler).c_str());
                     if (selected_thread->m_net_component != nullptr && ImGui::Button(fmt::format("m_net_component: 0x{:X}", (DWORD64)selected_thread->m_net_component).c_str()))
-                        controller::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread->m_net_component).c_str());
+                        miscellaneous::set_clipboard(fmt::format("0x{:X}", (DWORD64)selected_thread->m_net_component).c_str());
                     ImGui::Text(fmt::format("m_thread_id: {}", selected_thread->m_context.m_thread_id).c_str());
                     ImGui::Text(fmt::format("m_instance_id: {}", selected_thread->m_instance_id).c_str());
                     ImGui::Text(fmt::format("m_flag1: {:X}", selected_thread->m_flag1).c_str());

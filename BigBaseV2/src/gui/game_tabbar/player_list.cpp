@@ -22,6 +22,7 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
+            memset(&g_player_option.player_list_open, true, 1);
             ImGui::TextColored(g_local.connected_player <= 30 && g_local.connected_player > 20 ? ImVec4{ 255.0f , 0.0f, 0.0f, 1.0f } : g_local.connected_player <= 20 && g_local.connected_player > 10 ? ImVec4{ 225.0f , 225.0f, 0.0f, 1.0f } : ImVec4{ 0.0f , 255.0f, 0.0f, 1.0f }, ICON_FA_USER" Total Player : %d", g_local.connected_player);
             if (ImGui::ListBoxHeader(xorstr("##PlayerList"), ImVec2(230, 400)))
             {
@@ -78,6 +79,10 @@ namespace big
             
             ImGui::Separator();
             ImGui::EndTabItem();
+        }
+        else
+        {
+            memset(&g_player_option.player_list_open, false, 1);
         }
     }
 }

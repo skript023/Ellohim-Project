@@ -4,15 +4,16 @@
 #include "gta_util.hpp"
 #include "gta/net_object_mgr.hpp"
 #include "script_global.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/streaming/load_game_files.hpp"
 #include "gui/controller/system_control.h"
 #include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"
 #include "gui/player/player_option.h"
 #include "gui/controller/network_controller.h"
 #include "gui/game_event/game_event.h"
-#include <script_local.hpp>
-#include <gui/window/imgui_notify.h>
+#include "script_local.hpp"
+#include "gui/window/imgui_notify.h"
+#include "gui/controller/blackhole_helper.hpp"
 
 namespace big
 {
@@ -538,7 +539,7 @@ namespace big
             pos.x += DISTANCE_SPAWN * forward.x;
             pos.y += DISTANCE_SPAWN * forward.y;
             
-            Hash hash_vehicle = controller::load(name);//load(name);
+            Hash hash_vehicle = load_files::load_model(name);//load(name);
 
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
             auto vehicle = VEHICLE::CREATE_VEHICLE(hash_vehicle, pos.x, pos.y, pos.z + 1.f, heading + 90.0f, TRUE, TRUE, FALSE);
@@ -679,7 +680,7 @@ namespace big
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
 
-            Hash hash_vehicle = controller::load(name);
+            Hash hash_vehicle = load_files::load_model(name);
 
             pos.x += 20.0f * forward.x;
             pos.y += 20.0f * forward.y;
@@ -708,7 +709,7 @@ namespace big
 
             script::get_current()->yield();
             //PED_TYPE_ARMY = 29 //PED_TYPE_SWAT = 27,  
-            Hash hash_ped = controller::load("s_m_y_swat_01");
+            Hash hash_ped = load_files::load_model("s_m_y_swat_01");
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
             auto pilot = PED::CREATE_PED_INSIDE_VEHICLE(plane, 29, hash_ped, -1, TRUE, TRUE);
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
@@ -801,7 +802,7 @@ namespace big
             pos.x += DISTANCE_SPAWN * forward.x;
             pos.y += DISTANCE_SPAWN * forward.y;
 
-            Hash hash_vehicle = controller::load(vehicle_name);//load(name);
+            Hash hash_vehicle = load_files::load_model(vehicle_name);//load(name);
 
             *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
             auto vehicle = VEHICLE::CREATE_VEHICLE(hash_vehicle, pos.x, pos.y, pos.z + 1, heading + 90.0f, TRUE, TRUE, FALSE);
@@ -872,5 +873,20 @@ namespace big
         vehicle_helper::set_turn_lamp(g_settings.options["Vehicle Light Control"]);
         vehicle_helper::set_vehicle_waterproof(player::get_player_vehicle(player::player_ped_id(), false), true);
 
+        if (*g_pointers->m_is_session_started)
+        {
+            if (g_vehicle_option->vehicle_tab_open && g_vehicle_option->personal_vehicle_menu)
+            {
+                if (vehicle_helper::get_max_slots() != g_vehicle_option->personal_vehicle_list.size())
+                {
+                    g_vehicle_option->personal_vehicle_list.clear();
+                    for (int i = 0; i <= vehicle_helper::get_max_slots(); i++)
+                    {
+                        auto name = vehicle_helper::get_personal_vehicle_hash_key(i);
+                        g_vehicle_option->personal_vehicle_list[name] = i;
+                    }
+                }
+            }
+        }
     }
 }

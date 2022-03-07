@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/streaming/load_game_files.hpp"
 #include <gui\game_tabbar\player_list.h>
 #include <gta\Weapons.h>
 #include <gui/controller/game_variable.h>
@@ -142,6 +142,14 @@ namespace big
         HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(true, true);
     }
 
+    void message::show_message(const char* Message, bool InPauseMenu)
+    {
+        HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
+        HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(Message);
+        HUD::END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT("CHAR_SOCIAL_CLUB", "CHAR_SOCIAL_CLUB", FALSE, 0, "~bold~~g~Ellohim Private Menu", "~bold~~y~Ellohim Message");
+        HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(true, InPauseMenu);
+    }
+
     void message::notification(const char* message)
     {
         HUD::SET_TEXT_OUTLINE();
@@ -160,7 +168,7 @@ namespace big
                 if (HUD::DOES_BLIP_EXIST(WaypointHandle))
                 {
                     Vector3 waypoint1 = HUD::GET_BLIP_COORDS(WaypointHandle);
-                    Hash vehicle_hash = controller::load(vehicle);
+                    Hash vehicle_hash = load_files::load_model(vehicle);
                     Vector3 pos = ENTITY::GET_OFFSET_FROM_ENTITY_IN_WORLD_COORDS(PLAYER::PLAYER_PED_ID(), 0.0, 5.0, 0);
 
                     *(unsigned short*)big::g_pointers->m_model_spawn_bypass = 0x9090;
@@ -184,7 +192,7 @@ namespace big
                     }
 
                     VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT(veh, "Ellohim Convoy");
-                    controller::ShowMessage("~HUD_COLOUR_GREEN~ Convoy spawned!", true);
+                    message::show_message("~HUD_COLOUR_GREEN~ Convoy spawned!", true);
                 }
             }
         } QUEUE_JOB_END_CLAUSE

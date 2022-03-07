@@ -33,8 +33,8 @@ namespace big
 #define QUEUE_JOB_END_CLAUSE __except (script::script_exception_handler(GetExceptionInformation()), EXCEPTION_EXECUTE_HANDLER) {} });
 #define QUEUE_JOB_BEGIN(...) g_fiber_pool->queue_job([__VA_ARGS__] {
 #define QUEUE_JOB_END  });
-#define THREAD_PUSH_BEGIN(...) g_thread_pool->push([__VA_ARGS__] {
-#define THREAD_PUSH_END  });
+#define THREAD_JOB_BEGIN_CLAUSE(...) g_thread_pool->push([__VA_ARGS__] {
+#define THREAD_JOB_END_CLAUSE  });
 #define THREAD_PUSH_BEGIN_CLAUSE(...) g_thread_pool->push([__VA_ARGS__] { __try
 #define THREAD_PUSH_END_CLAUSE  __except (script::script_exception_handler(GetExceptionInformation()), EXCEPTION_EXECUTE_HANDLER) {} });
 }

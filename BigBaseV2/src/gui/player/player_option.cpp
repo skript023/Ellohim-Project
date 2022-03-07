@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/controller/blackhole_helper.hpp"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "gui/player/player_option.h"
@@ -808,45 +808,45 @@ namespace big
 
     void outfit::set_appearance(char* family, int model, int texture)
     {
-        if (controller::cstrcmp(family, "HATS") || controller::cstrcmp(family, "GLASSES") || controller::cstrcmp(family, "EARS") || controller::cstrcmp(family, "WATCH") || controller::cstrcmp(family, "BRACELET"))
+        if (systems::cstrcmp(family, "HATS") || systems::cstrcmp(family, "GLASSES") || systems::cstrcmp(family, "EARS") || systems::cstrcmp(family, "WATCH") || systems::cstrcmp(family, "BRACELET"))
         {
-            if (controller::cstrcmp(family, "HATS"))
+            if (systems::cstrcmp(family, "HATS"))
                 fam = 0;
-            else if (controller::cstrcmp(family, "GLASSES"))
+            else if (systems::cstrcmp(family, "GLASSES"))
                 fam = 1;
-            else if (controller::cstrcmp(family, "EARS"))
+            else if (systems::cstrcmp(family, "EARS"))
                 fam = 2;
-            else  if (controller::cstrcmp(family, "WATCH"))
+            else  if (systems::cstrcmp(family, "WATCH"))
                 fam = 6;
-            else if (controller::cstrcmp(family, "BRACELET"))
+            else if (systems::cstrcmp(family, "BRACELET"))
                 fam = 7;
             PED::SET_PED_PROP_INDEX(PLAYER::PLAYER_PED_ID(), fam, model - 1, texture, 1);
         }
         else
         {
-            if (controller::cstrcmp(family, "FACE"))
+            if (systems::cstrcmp(family, "FACE"))
                 fam = 0;
-            else if (controller::cstrcmp(family, "MASK"))
+            else if (systems::cstrcmp(family, "MASK"))
                 fam = 1;
-            else if (controller::cstrcmp(family, "HAIR"))
+            else if (systems::cstrcmp(family, "HAIR"))
                 fam = 2;
-            else if (controller::cstrcmp(family, "JACKET"))
+            else if (systems::cstrcmp(family, "JACKET"))
                 fam = 3;
-            else if (controller::cstrcmp(family, "LEGS"))
+            else if (systems::cstrcmp(family, "LEGS"))
                 fam = 4;
-            else if (controller::cstrcmp(family, "BACK"))
+            else if (systems::cstrcmp(family, "BACK"))
                 fam = 5;
-            else if (controller::cstrcmp(family, "SHOES"))
+            else if (systems::cstrcmp(family, "SHOES"))
                 fam = 6;
-            else if (controller::cstrcmp(family, "ACCESSORY"))
+            else if (systems::cstrcmp(family, "ACCESSORY"))
                 fam = 7;
-            else if (controller::cstrcmp(family, "UNDERSHIRT"))
+            else if (systems::cstrcmp(family, "UNDERSHIRT"))
                 fam = 8;
-            else if (controller::cstrcmp(family, "KEVLAR"))
+            else if (systems::cstrcmp(family, "KEVLAR"))
                 fam = 9;
-            else if (controller::cstrcmp(family, "BADGE"))
+            else if (systems::cstrcmp(family, "BADGE"))
                 fam = 10;
-            else if (controller::cstrcmp(family, "TORSO2"))
+            else if (systems::cstrcmp(family, "TORSO2"))
                 fam = 11;
             PED::SET_PED_COMPONENT_VARIATION(PLAYER::PLAYER_PED_ID(), fam, model, texture, 0);
         }
@@ -1181,5 +1181,53 @@ namespace big
         }
 
         bLastNoclip = activate;
+    }
+
+    void player::player_blackhole()
+    {
+        player::set_player_waterproof(g_local.player, g_player_option.waterproof);
+		player::self_noclip(g_player_option.no_clip);
+		player::ghost_organization(g_player_option.ghost_organizations);
+		player::reveal_player(g_player_option.reveal_players);
+		player::blind_cops(g_player_option.blinds_cops);
+		player::ultra_run(g_player_option.ultra_run_bool);
+		player::never_wanted(g_settings.options["Never Wanted"]);
+		player::mission_lives(g_player_option.all_mission_lives);
+		player::set_player_seatbelt(g_settings.options["Seatbelt"]);
+		player::set_player_invincible(PLAYER::PLAYER_ID(), g_settings.options["Player Godmode"]);
+		player::give_all_heal(g_player_option.send_heal);
+		player::auto_heal(g_settings.options["Auto Heal"]);
+		player::set_player_no_collision(g_player_option.pass_through_wall);
+		player::no_idle_kick(g_settings.options["No Idle Kick"]);
+		player::set_player_infinite_oxygen(PLAYER::PLAYER_ID(), g_player_option.is_infinite_oxygen);
+
+        if (player_list_open)
+        {
+            if ((network::network_get_num_connected_player() != g_misc_option->player_names.size()) && *g_pointers->m_is_session_started)
+            {
+                g_misc_option->player_names.clear();
+                for (int i = 0; i < MAX_PLAYERS; i++)
+                {
+                    if (auto net_player = rage_helper::get_net_player(i))
+                    {
+                        auto cstr_name = net_player->get_name();
+                        std::string name = cstr_name;
+                        auto is_in_interior = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(i)) != 0;
+                        transform(name.begin(), name.end(), name.begin(), ::tolower);
+                        g_misc_option->player_names[name] = { cstr_name, i, is_in_interior };
+                    }
+                }
+            }
+            if (!*g_pointers->m_is_session_started)
+            {
+                if (g_misc_option->player_names.size() >= 1)
+                    g_misc_option->player_names.clear();
+
+                auto cstr_name = player::get_player_name(g_local.player);
+                std::string name = cstr_name;
+                auto is_in_interior = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(g_local.ped)) != 0;
+                g_misc_option->player_names[cstr_name] = { cstr_name, g_local.player, is_in_interior };
+            }
+        }
     }
 }

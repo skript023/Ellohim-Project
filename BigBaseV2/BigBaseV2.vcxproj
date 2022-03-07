@@ -221,13 +221,14 @@
     <ClInclude Include="src\gui\game_tabbar\setting_menu.h" />
     <ClInclude Include="src\gui\game_tabbar\vehicle_customize.h" />
     <ClInclude Include="src\gui\game_tabbar\vehicle_menu.h" />
+    <ClInclude Include="src\gui\game_time\game_time.hpp" />
     <ClInclude Include="src\gui\hooks\hook_helper.hpp" />
     <ClInclude Include="src\gui\player_information\player_information.h" />
     <ClInclude Include="src\gui\casino\casino.h" />
     <ClInclude Include="src\gui\controller\encrypt.hpp" />
     <ClInclude Include="src\gui\controller\memory_address.hpp" />
     <ClInclude Include="src\gui\controller\network_controller.h" />
-    <ClInclude Include="src\gui\controller\ScriptController.h" />
+    <ClInclude Include="src\gui\controller\blackhole_helper.hpp" />
     <ClInclude Include="src\gui\controller\system_control.h" />
     <ClInclude Include="src\gui\event_json.h" />
     <ClInclude Include="src\gui\helper_function.hpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="src\gui\persistence\persist_teleport.h" />
     <ClInclude Include="src\gui\player\player_option.h" />
     <ClInclude Include="src\gui\stat\stat_helper.h" />
+    <ClInclude Include="src\gui\streaming\load_game_files.hpp" />
     <ClInclude Include="src\gui\sync_hash.hpp" />
     <ClInclude Include="src\gui\teleport\teleport.h" />
     <ClInclude Include="src\gui\vehicle\vehicle_helper.h" />
@@ -290,6 +292,7 @@
     <ClCompile Include="src\gui\game_tabbar\setting_menu.cpp" />
     <ClCompile Include="src\gui\game_tabbar\vehicle_customize.cpp" />
     <ClCompile Include="src\gui\game_tabbar\vehicle_menu.cpp" />
+    <ClCompile Include="src\gui\game_time\game_time.cpp" />
     <ClCompile Include="src\gui\hooks\censor_chat_hook.cpp" />
     <ClCompile Include="src\gui\hooks\disable_error_screen.cpp" />
     <ClCompile Include="src\gui\hooks\freemode_script_recovery.cpp" />
@@ -301,7 +304,7 @@
     <ClCompile Include="src\gui\player_information\player_information.cpp" />
     <ClCompile Include="src\gui\casino\casino.cpp" />
     <ClCompile Include="src\gui\controller\network_controller.cpp" />
-    <ClCompile Include="src\gui\controller\ScriptController.cpp" />
+    <ClCompile Include="src\gui\controller\blackhole_helper.cpp" />
     <ClCompile Include="src\gui\controller\system_control.cpp" />
     <ClCompile Include="src\gui\scenario\scenario.cpp" />
     <ClCompile Include="src\gui\object\object_helper.cpp" />
@@ -309,6 +312,7 @@
     <ClCompile Include="src\gui\persistence\persist_teleport.cpp" />
     <ClCompile Include="src\gui\player\player_option.cpp" />
     <ClCompile Include="src\gui\stat\stat_helper.cpp" />
+    <ClCompile Include="src\gui\streaming\load_game_files.cpp" />
     <ClCompile Include="src\gui\teleport\teleport.cpp" />
     <ClCompile Include="src\gui\vehicle\vehicle_helper.cpp" />
     <ClCompile Include="src\gui\weapons\weapon_helper.cpp" />

@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "gui/controller/ScriptController.h"
+#include "gui/controller/blackhole_helper.hpp"
 #include "gui/game_tabbar/player_list.h"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
@@ -15,6 +15,7 @@
 #include "gui/controller/memory_address.hpp"
 #include "gui/entity/entity_control.h"
 #include <gui/window/imgui_notify.h>
+#include <gui/controller/xostr.h>
 
 namespace big
 {
@@ -60,7 +61,7 @@ namespace big
         }
         else
         {
-            controller::ShowMessage("Crash failed because target is near you", false);
+            ImGui::InsertNotification({ ImGuiToastType_Error, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Crash failed because target is near you") });
         }
     }
 

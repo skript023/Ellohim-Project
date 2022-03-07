@@ -13,34 +13,31 @@ namespace big
 		bool interior{};
 	};
 
-	class controller
+	class miscellaneous
 	{
 		public:
-			static bool cstrcmp(const char* s1, const char* s2);
-			static Hash load(const char* name);
-			static void ptfx_asset_load(const char* name);
-			static Hash load(Hash hash);
-			static const char* load_anim(const char* anim);
+			static inline void set_clipboard(const char* message)
+			{
+				HGLOBAL h;
+				LPVOID p;
+				int size;
+				//calc the num of unicode char
+				size = MultiByteToWideChar(CP_UTF8, NULL, message, -1, NULL, 0);
+				if (!size) return;
+				h = GlobalAlloc(GHND | GMEM_SHARE, size * 2);
+				if (!h) return;
+				p = GlobalLock(h);
+				//utf8 to unicode
+				MultiByteToWideChar(CP_UTF8, NULL, message, -1, (LPWSTR)p, size);
+				GlobalUnlock(h);
+				OpenClipboard(NULL);
+				EmptyClipboard();
+				SetClipboardData(CF_UNICODETEXT, h);
+				CloseClipboard();
+			}
+			static void dump_entry_point();
 			static void get_player_info_from_ip(Player player);
-			
-			
-			static void RequestControlOfid(Entity netid);
-			
-			
-			static void set_clipboard(const char* message);
-
-			
-			static void faster_time_scale(bool Activation);
-			static void TimeSpam(bool Activation);
-			
-			
-			static void InvalidModelProtection(bool Activation);
-			static void ShowMessage(const char* Message, bool InPauseMenu);
-			
-			static void CheckInvalidPed();
-			
 			static void variable_attach();
-			static void DumpEntryBoi();
 	public:
 		static inline bool time_spam{};
 		static inline bool time_scale{};
@@ -54,6 +51,8 @@ namespace big
 		static inline bool trigger_player_info_from_ip{};
 		static inline std::chrono::steady_clock::time_point http_response_tick;
 		static inline std::map<std::string, online_player> player_names;
+	private:
+		static void chrono_player_info_blackhole(std::chrono::milliseconds ms);
 	};
 	static class player_info
 	{
@@ -70,5 +69,5 @@ namespace big
 			static inline Hash CrossingRoadHash{};
 	}g_info;
 
-	inline static controller* g_misc_option{};
+	inline static miscellaneous* g_misc_option{};
 }

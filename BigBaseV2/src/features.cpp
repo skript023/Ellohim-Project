@@ -118,7 +118,7 @@ namespace big::features
 				casino_heist::all_heist_take(g_variable->casino_take);
 			}
 			player::player_health_regeneration(g_settings.options["Fast Regen"]);
-			controller::TimeSpam(g_misc_option->time_spam);
+			game_time::day_to_night_spam(g_misc_option->time_spam);
 			systems::auto_click(g_player_option.auto_click);
 			start = std::chrono::high_resolution_clock::now();
 		}
@@ -153,28 +153,13 @@ namespace big::features
 		g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
 		g_local.transition = TransitionCheck() && *g_pointers->m_is_session_started;
 		HotkeyAttach();
-		controller::variable_attach();
+		miscellaneous::variable_attach();
 		if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
 		{
 			g_heist_option->all_take_heist = false;
 		}
 		chrono_loop(200ms);
-		player::set_player_waterproof(g_local.player, g_player_option.waterproof);
-		player::self_noclip(g_player_option.no_clip);
-		player::ghost_organization(g_player_option.ghost_organizations);
-		player::reveal_player(g_player_option.reveal_players);
-		player::blind_cops(g_player_option.blinds_cops);
-		player::ultra_run(g_player_option.ultra_run_bool);
-		player::never_wanted(g_settings.options["Never Wanted"]);
-		player::mission_lives(g_player_option.all_mission_lives);
-		player::set_player_seatbelt(g_settings.options["Seatbelt"]);
-		player::set_player_invincible(PLAYER::PLAYER_ID(), g_settings.options["Player Godmode"]);
-		player::give_all_heal(g_player_option.send_heal);
-		player::auto_heal(g_settings.options["Auto Heal"]);
-		player::set_player_no_collision(g_player_option.pass_through_wall);
-		player::no_idle_kick(g_settings.options["No Idle Kick"]);
-		player::set_player_infinite_oxygen(PLAYER::PLAYER_ID(), g_player_option.is_infinite_oxygen);
-		
+		player::player_blackhole();
 		weapon_helper::weapon_blackhole();
 
 		remote_event::revenge_kick(g_remote_option->revenge_event);
@@ -183,7 +168,7 @@ namespace big::features
 
 		vehicle_helper::vehicle_blackhole();
 
-		controller::faster_time_scale(g_misc_option->time_scale);
+		game_time::faster_time_scale(g_misc_option->time_scale);
 		
 		ai::explode_enemies(g_npc_option->explode_ped);
 		ai::kill_enemies(g_npc_option->kill_ped);
@@ -210,40 +195,6 @@ namespace big::features
 		if (g_spoofer_option->rid != 0)
 		{
 			spoofer::player_scid(game_variable::player_rid_list[g_spoofer_option->rid]);
-		}
-
-		if (g_gui.m_opened) 
-		{
-			if ((network::network_get_num_connected_player() != g_misc_option->player_names.size()) && *g_pointers->m_is_session_started)
-			{
-				g_misc_option->player_names.clear();
-				for (int i = 0; i < MAX_PLAYERS; ++i)
-				{
-					if (auto net_player = rage_helper::get_net_player(i))
-					{
-						auto cstr_name = net_player->get_name();
-						std::string name = cstr_name;
-						auto is_in_interior = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(i)) != 0;
-						transform(name.begin(), name.end(), name.begin(), ::tolower);
-						g_misc_option->player_names[name] = { cstr_name, i, is_in_interior };
-					}
-				}
-			}
-			if (!*g_pointers->m_is_session_started)
-			{
-				if (g_misc_option->player_names.size() >= 1)
-					g_misc_option->player_names.clear();
-
-				auto cstr_name = player::get_player_name(g_local.player);
-				std::string name = cstr_name;
-				auto is_in_interior = INTERIOR::GET_INTERIOR_FROM_ENTITY(player::get_player_ped(g_local.ped)) != 0;
-				g_misc_option->player_names[cstr_name] = { cstr_name, g_local.player, is_in_interior };
-			}
-
-			if (*g_pointers->m_is_session_started)
-				if (g_vehicle_option->personal_vehicle_list.empty() || vehicle_helper::get_max_slots() != g_vehicle_option->personal_vehicle_list.size())
-					for (int i = 0; i <= vehicle_helper::get_max_slots(); ++i)
-						g_vehicle_option->personal_vehicle_list[vehicle_helper::get_personal_vehicle_hash_key(i)] = i;
 		}
 	}
 

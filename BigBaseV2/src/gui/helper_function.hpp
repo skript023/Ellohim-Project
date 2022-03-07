@@ -1,6 +1,6 @@
 #pragma once
 #include "gui/casino/casino.h"
-#include "gui/controller/ScriptController.h"
+#include "gui/controller/blackhole_helper.hpp"
 #include "gui/persistence/persist_car.h"
 #include "gui/persistence/persist_teleport.h"
 #include "gui/stat/stat_helper.h"
@@ -21,6 +21,8 @@
 #include "gui/game_event/game_helper.hpp"
 #include "gui/controller/xostr.h"
 #include "gui/window/imgui_notify.h"
+#include "gui/game_time/game_time.hpp"
+#include "gui/streaming/load_game_files.hpp"
 
 namespace big
 {

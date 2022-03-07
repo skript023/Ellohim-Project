@@ -7,7 +7,7 @@
 #include "script.hpp"
 #include "script_global.hpp"
 #include "features.hpp"
-#include "ScriptController.h"
+#include "blackhole_helper.hpp"
 #include "gta/Weapons.h"
 #include "gui/controller/game_variable.h"
 #include "gui/controller/memory_address.hpp"

@@ -121,7 +121,7 @@ namespace big
 			{
 				if (network::check_network_status())
 				{
-					THREAD_PUSH_BEGIN()
+					THREAD_JOB_BEGIN_CLAUSE()
 					{
 						try
 						{
@@ -136,7 +136,7 @@ namespace big
 							strcpy(g_game_window->password, "");
 						}
 						get_session_time = std::chrono::high_resolution_clock::now();
-					} THREAD_PUSH_END
+					} THREAD_JOB_END_CLAUSE
 				}
 			}
 		}
@@ -220,14 +220,14 @@ namespace big
 					game_window::get_status();
 					if (ImGui::Button(xorstr(ICON_FA_SIGN_IN_ALT " Login")))
 					{
-						THREAD_PUSH_BEGIN()
+						THREAD_JOB_BEGIN_CLAUSE()
 						{
 							if (get_authentication(g_game_window->temp_username, g_game_window->temp_password))
 							{
 								LOG(HACKER) << "Login : " << game_window::get_login_status_from_hash(login_status);
 								g_settings.options["Logger Window"] = false;
 							}
-						} THREAD_PUSH_END
+						} THREAD_JOB_END_CLAUSE
 					}
 					ImGui::SameLine();
 					if (ImGui::Button(xorstr(ICON_FA_POWER_OFF " Quit")))

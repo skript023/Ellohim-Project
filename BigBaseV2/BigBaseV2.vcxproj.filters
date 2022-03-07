@@ -64,6 +64,12 @@
     <Filter Include="fonts">
       <UniqueIdentifier>{267e656a-9a78-4aa1-b2b1-5c7f9c67e732}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui\streaming">
+      <UniqueIdentifier>{a397effb-c881-45f6-b0aa-00529fb16627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui\game_time">
+      <UniqueIdentifier>{7e5c40c0-fc8d-451b-843d-bb54db7df6d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\benchmark.h" />
@@ -203,7 +209,7 @@
     <ClInclude Include="src\gui\casino\casino.h">
       <Filter>gui\casino</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\controller\ScriptController.h">
+    <ClInclude Include="src\gui\controller\blackhole_helper.hpp">
       <Filter>gui\controller</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\weapons\weapon_helper.h">
@@ -321,6 +327,12 @@
       <Filter>fonts</Filter>
     </ClInclude>
     <ClInclude Include="src\thread_pool.hpp" />
+    <ClInclude Include="src\gui\streaming\load_game_files.hpp">
+      <Filter>gui\streaming</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\game_time\game_time.hpp">
+      <Filter>gui\game_time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -357,7 +369,7 @@
     <ClCompile Include="src\gui\casino\casino.cpp">
       <Filter>gui\casino</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\controller\ScriptController.cpp">
+    <ClCompile Include="src\gui\controller\blackhole_helper.cpp">
       <Filter>gui\controller</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\weapons\weapon_helper.cpp">
@@ -460,6 +472,12 @@
       <Filter>fonts</Filter>
     </ClCompile>
     <ClCompile Include="src\thread_pool.cpp" />
+    <ClCompile Include="src\gui\streaming\load_game_files.cpp">
+      <Filter>gui\streaming</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\game_time\game_time.cpp">
+      <Filter>gui\game_time</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
