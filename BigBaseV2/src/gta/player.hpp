@@ -466,7 +466,9 @@ public:
 	char pad_00D8[176]; //0x00D8
 	uint32_t m_damage_bits; //0x0188
 	uint32_t m_hostility; //0x018C
-	char pad_0190[240]; //0x0190
+	char pad_0190[168]; //0x0190
+	int m_freeze_entity; //0x0238
+	char pad_023C[68]; //0x023C
 	float m_health; //0x0280
 	char pad_0284[28]; //0x0284
 	float m_max_health; //0x02A0

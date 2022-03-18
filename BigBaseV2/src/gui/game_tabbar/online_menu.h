@@ -2,8 +2,8 @@
 
 #include "common.hpp"
 #include "natives.hpp"
-
-namespace big
+//IOAN Penampatan Serang 
+namespace big 
 {
 	class online_menu
 	{
@@ -13,37 +13,30 @@ namespace big
     private:
         static inline const char* get_friend_name(int index)
         { 
-            auto friend_list = *g_pointers->m_friend_list;
-            return friend_list->m_friend_info[index].m_name;
+            return rage_helper::get_friend()->get_friend_name(index);
         }
+
         static inline uint64_t get_friend_id(int index)
         { 
-            auto friend_list = *g_pointers->m_friend_list;
-            return   friend_list->m_friend_info[index].m_friend_id;
+            return rage_helper::get_friend()->get_friend_id(index);
         }
-        static inline void set_rockstar_id(int index, uint64_t user_id)
+
+        static inline uint64_t* set_friend_id(int index)
         { 
-            auto friend_list = *g_pointers->m_friend_list;
-            friend_list->m_friend_info[index].m_friend_id = user_id;
+            return rage_helper::get_friend()->set_friend_id(index);
         }
-        static inline int get_friend_status(int index)
+
+        static inline const char* get_friend_status(int index)
         { 
-            auto friend_list = *g_pointers->m_friend_list;
-            return  friend_list->m_friend_info[index].m_friend_status;
+            return rage_helper::get_friend()->get_friend_status(index);
         }
+
         static inline bool get_friend_multiplayer(int index)
         { 
-            auto friend_list = *g_pointers->m_friend_list;
-            return  friend_list->m_friend_info[index].m_is_multiplayer;
+            return rage_helper::get_friend()->m_friend_info[index].m_is_multiplayer;
         }
-        static inline const char* get_player_status(int index)
-        {
-            int status = get_friend_status(index);
-            bool is_multiplayer = get_friend_multiplayer(index);
-            bool is_single_player = status >> 1 & 1;
-            bool is_online = status & 1;
-            return is_multiplayer ? "Multiplayer" : is_single_player ? "Single Player" : is_online ? "Online" : "Offline";
-        }
+        
+        static inline bool block_rid_joiner{};
         static inline const char* const session_list[]{"Join Public Session", "New Public Session", "Closed Crew Session", "Crew Session","Closed Friend Session", "Find Friend Session","Solo Session", "Invite Only Session","Join Crew Session", "Join SCTV", "Leave GTA Online"};
         static inline int selected_session = 0;
 
@@ -59,6 +52,7 @@ namespace big
         static inline const char* const HeistList[]{ "Bigcon", "Silent", "Aggressive", "Cayo Perico" };
         static inline int SelectedHeist = 0;
         static inline int selected_mission = 0;
+        static inline int SelectedFriend{};
 
         static inline int player_cut_1 = 0;
         static inline int player_cut_2 = 0;
@@ -71,20 +65,20 @@ namespace big
         static inline int potential_take_value = 0;
         static inline const char* const potential_take_list[]{ "Select", "Diamond", "Gold", "Artwork", "Cash", "Tequila", "Ruby", "Bearer Bonds","Pink Diamond", "Madrazo Files", "Saphire Panther",  "Fleeca", "Prison Break", "Humane Labs", "A Series","Pasific Standard", "ACT I", "ACT II", "ACT III" };
         static inline int selected_potential_take = 0;
-        static inline const char* const bag_size[] = { "Bag Level 1", "Bag Level 2", "Bag Level 3", "Bag Level 4", "Over 1", "Over 2", "Infinite" };
+        static inline const char* const bag_size[]{ "Bag Level 1", "Bag Level 2", "Bag Level 3", "Bag Level 4", "Over 1", "Over 2", "Infinite" };
         static inline int selected_bag_size = 0;
         static inline int take_type = 0;
 
-        static inline const char* const cargo_rare_items[] = { "Ornament Egg", "Gold Minigun", "Large Diamond", "Rare Hide", "Film Reel", "Pocket Watch" };
+        static inline const char* const cargo_rare_items[]{ "Ornament Egg", "Gold Minigun", "Large Diamond", "Rare Hide", "Film Reel", "Pocket Watch" };
         static inline int selected_rare_items = 0;
         static inline int manual_delivery = 0;
 
         static inline char spoof_crew_tag[5];
 
-        static inline const char* const prize_list[] = { "Select Prize", "1:  2500 RP","2 : $20000","3 : 10000 Chips","4 : Discount","5 : 5000 RP", "6 : $30000","7 : 15000 Chips","8 : Clothing Item","9 : 7500 RP","10 : 20000 Chips","11 : Mystery Prize", "12 : Clothing Item","13 : 10000 RP","14 : $40000","15 : 25000 Chips","16 : Clothing Item","17 : 15000 RP","18 : Podium Vehicle" };
+        static inline const char* const prize_list[]{ "Select Prize", "1:  2500 RP","2 : $20000","3 : 10000 Chips","4 : Discount","5 : 5000 RP", "6 : $30000","7 : 15000 Chips","8 : Clothing Item","9 : 7500 RP","10 : 20000 Chips","11 : Mystery Prize", "12 : Clothing Item","13 : 10000 RP","14 : $40000","15 : 25000 Chips","16 : Clothing Item","17 : 15000 RP","18 : Podium Vehicle" };
         
         static inline int selected_country{ 0 };
-        static inline const char* const internet_protocol_list[] = { "Select Country", "Japan", "Korea", "Canada", "USA" };
+        static inline const char* const internet_protocol_list[]{ "Select Country", "Japan", "Korea", "Canada", "USA" };
         static inline char organization_name[32];
     };
 }

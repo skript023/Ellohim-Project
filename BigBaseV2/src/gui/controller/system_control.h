@@ -36,6 +36,7 @@ namespace big
 		static int float_to_int(const float& num);
 		static float int_to_float(int x);
 		static float round(float var);
+		static std::string title_case(const std::string str);
 		static inline bool cstrcmp(const char* s1, const char* s2)
 		{
 			while (*s1 && (*s1 == *s2))
@@ -45,6 +46,40 @@ namespace big
 			else
 				return false;
 		}
+		
+	public:
+		class money_formatter
+		{
+		public:
+			money_formatter(const char* const locale_name = "US") :
+				loc(locale_name),
+				output(std::use_facet<std::money_put<char> >(loc)),
+				iterator(os)
+			{
+				os.imbue(loc);
+				os.setf(std::ios_base::showbase);
+			}
+
+			std::string as_string(float value)
+			{
+				os.str("");  // clear string
+				output.put(iterator, false, os, ' ', value);
+				return os.str();
+			}
+
+			std::string as_string(double value)
+			{
+				os.str("");  // clear string
+				output.put(iterator, false, os, ' ', value * 100.0);
+				return os.str();
+			}
+
+		private:
+			std::locale loc;
+			const std::money_put<char>& output;
+			std::ostringstream os;
+			std::ostreambuf_iterator<char, std::char_traits<char> > iterator;
+		};
 	};
 	class fire
 	{

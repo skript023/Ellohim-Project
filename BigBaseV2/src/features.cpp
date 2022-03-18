@@ -115,7 +115,7 @@ namespace big::features
 		{
 			if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) && g_heist_option->all_take_heist)
 			{
-				casino_heist::all_heist_take(g_variable->casino_take);
+				casino_heist::all_heist_take(g_heist_option->casino_take);
 			}
 			player::player_health_regeneration(g_settings.options["Fast Regen"]);
 			game_time::day_to_night_spam(g_misc_option->time_spam);
@@ -154,18 +154,11 @@ namespace big::features
 		g_local.transition = TransitionCheck() && *g_pointers->m_is_session_started;
 		HotkeyAttach();
 		miscellaneous::variable_attach();
-		if (!systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
-		{
-			g_heist_option->all_take_heist = false;
-		}
+		
 		chrono_loop(200ms);
 		player::player_blackhole();
 		weapon_helper::weapon_blackhole();
-
-		remote_event::revenge_kick(g_remote_option->revenge_event);
-		remote_event::remote_blind_cops(g_remote_option->bribe_authority);
-		remote_event::remote_off_the_radar(g_remote_option->remote_off_the_radars);
-
+		remote_event::game_event_blackhole();
 		vehicle_helper::vehicle_blackhole();
 
 		game_time::faster_time_scale(g_misc_option->time_scale);
@@ -204,7 +197,7 @@ namespace big::features
 		{
 			TRY_CLAUSE
 			{
-				if (game_window::create_session(g_game_window->login_status))
+				if (game_window::create_session(g_game_window->login_status) && rage_helper::get_game_state())
 					run_tick();
 			}
 			EXCEPT_CLAUSE

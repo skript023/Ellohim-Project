@@ -60,6 +60,15 @@ namespace big::rage_helper
 		return g_pointers->m_get_net_game_player(player);
 	}
 
+	inline FriendList* get_friend()
+	{
+		if (auto friend_list = *g_pointers->m_friend_list)
+		{
+			return friend_list;
+		}
+		return nullptr;
+	}
+
 	inline int get_character()
 	{
 		return *script_global(1574907).as<int*>();
@@ -104,6 +113,11 @@ namespace big::rage_helper
 	inline setting get_game_setting(DWORD setting_index)
 	{
 		return *(setting*)((DWORD64)g_pointers->m_game_setting + setting_index);
+	}
+
+	inline bool get_game_state()
+	{
+		return *g_pointers->m_game_state == Playing;
 	}
 
 	inline GtaThread* find_script_thread(rage::joaat_t hash)

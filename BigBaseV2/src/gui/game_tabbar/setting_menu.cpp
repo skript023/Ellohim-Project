@@ -582,26 +582,28 @@ namespace big
                     ImGui::InputText(fmt::format("##name{}", i + 1).c_str(), (char*)stat_obj.stat_name[i].c_str(), stat_obj.stat_name[i].capacity() * 2, ImGuiInputTextFlags_CharsUppercase);
 
                     ImGui::PopItemWidth();
-                    if (stat_obj.stat_type[i] == 0)
+                    switch(stat_obj.stat_type[i])
                     {
+                    case 0:
                         ImGui::SameLine();
                         ImGui::PushItemWidth(250);
                         ImGui::InputInt(fmt::format("##int{}", i + 1).c_str(), &stat_obj.stat_int_value[i]);
                         ImGui::PopItemWidth();
-                    }
-                    else if (stat_obj.stat_type[i] == 1)
+                        break;
+                    case 1:
                     {
                         ImGui::SameLine();
                         bool stat_bool_value_tmp = stat_obj.stat_bool_value[i];
                         if (ImGui::Checkbox(fmt::format("##bool{}", i + 1).c_str(), &stat_bool_value_tmp))
                             stat_obj.stat_bool_value[i] = stat_bool_value_tmp;
                     }
-                    else if (stat_obj.stat_type[i] == 2)
-                    {
+                    break;
+                    case 2:
                         ImGui::SameLine();
                         ImGui::PushItemWidth(250);
                         ImGui::InputScalar(fmt::format("##float{}", i + 1).c_str(), ImGuiDataType_Float, &stat_obj.stat_float_value[i], NULL, NULL);
                         ImGui::PopItemWidth();
+                    break;
                     }
                 }
                 if (ImGui::Button("Set Stats"))

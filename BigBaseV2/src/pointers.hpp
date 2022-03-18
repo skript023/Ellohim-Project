@@ -42,6 +42,7 @@ namespace big
 		rage::CNetworkObjectMgr** m_network_object_manager{};
 		rage::ivector2 *m_screen_resolution{};
 		CutsceneManager **m_cutscene_mgr;
+		PresenceData** m_presence_data;
 
 		DWORD64 *m_add_owned_explosion_bypass_1;
 		DWORD64 *m_add_owned_explosion_bypass_2;
@@ -120,6 +121,7 @@ namespace big
 		PVOID m_nativeReturn;
 		PVOID m_is_dlc_present;
 		PVOID m_censor_chat_text;
+		PVOID m_game_invite;
 
 		PVOID m_model_spawn_bypass;
 	};

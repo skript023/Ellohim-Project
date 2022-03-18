@@ -40,11 +40,11 @@ __          __    _                   _  __           _        _
 				auto renderer_instance = std::make_unique<renderer>();
 				LOG(INFO) << "Renderer initialized.";
 
-				auto fiber_pool_instance = std::make_unique<fiber_pool>(10);
-				LOG(INFO) << "Fiber pool initialized.";
-
 				auto thread_pool_instance = std::make_unique<thread_pool>();
 				LOG(INFO) << "Thread pool initialized.";
+
+				auto fiber_pool_instance = std::make_unique<fiber_pool>(10);
+				LOG(INFO) << "Fiber pool initialized.";
 
 				auto hooking_instance = std::make_unique<hooking>();
 				LOG(INFO) << "Hooking initialized.";

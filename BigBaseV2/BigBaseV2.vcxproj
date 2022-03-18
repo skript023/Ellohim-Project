@@ -280,7 +280,6 @@
     <ClCompile Include="src\features.cpp" />
     <ClCompile Include="src\fiber_pool.cpp" />
     <ClCompile Include="src\fonts\rubik.cpp" />
-    <ClCompile Include="src\fonts\xiao_wei.cpp" />
     <ClCompile Include="src\gui.cpp" />
     <ClCompile Include="src\gui\artificial_intelligence\artificial_intelligence.cpp" />
     <ClCompile Include="src\gui\controller\game_variable.cpp" />
@@ -354,6 +353,7 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="src\return_address.asm" />
+    <ClInclude Include="src\gui\vehicle\vehicle_list.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

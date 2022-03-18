@@ -14,6 +14,7 @@
 #include "script_local.hpp"
 #include "gui/helper_function.hpp"
 #include "vehicle_menu.h"
+#include "gui/vehicle/vehicle_list.hpp"
 
 namespace big
 {
@@ -55,382 +56,123 @@ namespace big
             ImGui::RadioButton(xorstr("Saved Vehicle"), &vehicle_menu, 2);
 
             memset(&g_vehicle_option->personal_vehicle_menu, vehicle_menu == 1, sizeof(g_vehicle_option->personal_vehicle_menu));
+            memset(&g_vehicle_option->vehicle_list_menu, vehicle_menu == 0, sizeof(g_vehicle_option->personal_vehicle_menu));
 
             switch (vehicle_menu)
             {
-                case 0:
-                    ImGui::PushItemWidth(250);
-                    ImGui::Combo(xorstr("##VehicleCategory"), &selected_category, game_variable::vehicle_category_list, IM_ARRAYSIZE(game_variable::vehicle_hash_list));
-                    switch (selected_category)
+            case 0:
+                ImGui::PushItemWidth(250);
+                if (ImGui::Combo(xorstr("##VehicleCategory"), &selected_category, vehicles_hash::vehicle_category_list, IM_ARRAYSIZE(vehicles_hash::vehicle_category_list)))
+                    memset(&g_vehicle_option->vehicle_types_menu, selected_category, sizeof(g_vehicle_option->personal_vehicle_menu));
+
+                if (ImGui::ListBoxHeader(xorstr("##Vehicle List")))
+                {
+                    for (auto get_vehicle : g_get_vehicle->get_vehicle_data)
                     {
-                    case 0:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Super, IM_ARRAYSIZE(game_variable::Super));
-                        break;
-                    case 1:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Sport, IM_ARRAYSIZE(game_variable::Sport));
-                        break;
-                    case 2:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::SportClassic, IM_ARRAYSIZE(game_variable::SportClassic));
-                        break;
-                    case 3:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::SummerUpdate, IM_ARRAYSIZE(game_variable::SummerUpdate));
-                        break;
-                    case 4:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Sedan, IM_ARRAYSIZE(game_variable::Sedan));
-                        break;
-                    case 5:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Service, IM_ARRAYSIZE(game_variable::Service));
-                        break;
-                    case 6:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::SUV, IM_ARRAYSIZE(game_variable::SUV));
-                        break;
-                    case 7:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Plane, IM_ARRAYSIZE(game_variable::Plane));
-                        break;
-                    case 8:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Helicopter, IM_ARRAYSIZE(game_variable::Helicopter));
-                        break;
-                    case 9:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::OffRoad, IM_ARRAYSIZE(game_variable::OffRoad));
-                        break;
-                    case 10:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Muscle, IM_ARRAYSIZE(game_variable::Muscle));
-                        break;
-                    case 11:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Motorcycle, IM_ARRAYSIZE(game_variable::Motorcycle));
-                        break;
-                    case 12:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Military, IM_ARRAYSIZE(game_variable::Military));
-                        break;
-                    case 13:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Trailer, IM_ARRAYSIZE(game_variable::Trailer));
-                        break;
-                    case 14:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Train, IM_ARRAYSIZE(game_variable::Train));
-                        break;
-                    case 15:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Utility, IM_ARRAYSIZE(game_variable::Utility));
-                        break;
-                    case 16:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Van, IM_ARRAYSIZE(game_variable::Van));
-                        break;
-                    case 17:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::ArenaWar, IM_ARRAYSIZE(game_variable::ArenaWar));
-                        break;
-                    case 18:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Casino1, IM_ARRAYSIZE(game_variable::Casino1));
-                        break;
-                    case 19:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Casino2, IM_ARRAYSIZE(game_variable::Casino2));
-                        break;
-                    case 20:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Emergency, IM_ARRAYSIZE(game_variable::Emergency));
-                        break;
-                    case 21:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Industrial, IM_ARRAYSIZE(game_variable::Industrial));
-                        break;
-                    case 22:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Coupes, IM_ARRAYSIZE(game_variable::Coupes));
-                        break;
-                    case 23:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Compact, IM_ARRAYSIZE(game_variable::Compact));
-                        break;
-                    case 24:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Boat, IM_ARRAYSIZE(game_variable::Boat));
-                        break;
-                    case 25:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Bikes, IM_ARRAYSIZE(game_variable::Bikes));
-                        break;
-                    case 26:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::Commericals, IM_ARRAYSIZE(game_variable::Commericals));
-                        break;
-                    case 27:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::CayoPerico, IM_ARRAYSIZE(game_variable::CayoPerico));
-                        break;
-                    case 28:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::tuner_update, IM_ARRAYSIZE(game_variable::tuner_update));
-                        break;
-                    case 29:
-                        ImGui::ListBox("##Vehicle List", &SelectedVehicle, game_variable::the_contract, IM_ARRAYSIZE(game_variable::the_contract));
-                        break;
-                    }
-                    ImGui::PopItemWidth();
-                    ImGui::SameLine();
-                    ImGui::BeginGroup();
-                    if (ImGui::Button(xorstr("Spawn Native")))
-                    {
-                        switch (selected_category)
+                        if (ImGui::Selectable(get_vehicle.first.c_str(), get_vehicle.second.hash == SelectedVehicleHash))
                         {
-                        case 0:
-                            vehicle_helper::vehicle(game_variable::Super[SelectedVehicle], g_local.ped);
-                            break;
-                        case 1:
-                            vehicle_helper::vehicle(game_variable::Sport[SelectedVehicle], g_local.ped);;
-                            break;
-                        case 2:
-                            vehicle_helper::vehicle(game_variable::SportClassic[SelectedVehicle], g_local.ped);
-                            break;
-                        case 3:
-                            vehicle_helper::vehicle(game_variable::SummerUpdate[SelectedVehicle], g_local.ped);
-                            break;
-                        case 4:
-                            vehicle_helper::vehicle(game_variable::Sedan[SelectedVehicle], g_local.ped);
-                            break;
-                        case 5:
-                            vehicle_helper::vehicle(game_variable::Service[SelectedVehicle], g_local.ped);
-                            break;
-                        case 6:
-                            vehicle_helper::vehicle(game_variable::SUV[SelectedVehicle], g_local.ped);
-                            break;
-                        case 7:
-                            vehicle_helper::vehicle(game_variable::Plane[SelectedVehicle], g_local.ped);
-                            break;
-                        case 8:
-                            vehicle_helper::vehicle(game_variable::Helicopter[SelectedVehicle], g_local.ped);
-                            break;
-                        case 9:
-                            vehicle_helper::vehicle(game_variable::OffRoad[SelectedVehicle], g_local.ped);
-                            break;
-                        case 10:
-                            vehicle_helper::vehicle(game_variable::Muscle[SelectedVehicle], g_local.ped);
-                            break;
-                        case 11:
-                            vehicle_helper::vehicle(game_variable::Motorcycle[SelectedVehicle], g_local.ped);
-                            break;
-                        case 12:
-                            vehicle_helper::vehicle(game_variable::Military[SelectedVehicle], g_local.ped);
-                            break;
-                        case 13:
-                            vehicle_helper::vehicle(game_variable::Trailer[SelectedVehicle], g_local.ped);
-                            break;
-                        case 14:
-                            vehicle_helper::vehicle(game_variable::Train[SelectedVehicle], g_local.ped);
-                            break;
-                        case 15:
-                            vehicle_helper::vehicle(game_variable::Utility[SelectedVehicle], g_local.ped);
-                            break;
-                        case 16:
-                            vehicle_helper::vehicle(game_variable::Van[SelectedVehicle], g_local.ped);
-                            break;
-                        case 17:
-                            vehicle_helper::vehicle(game_variable::ArenaWar[SelectedVehicle], g_local.ped);
-                            break;
-                        case 18:
-                            vehicle_helper::vehicle(game_variable::Casino1[SelectedVehicle], g_local.ped);
-                            break;
-                        case 19:
-                            vehicle_helper::vehicle(game_variable::Casino2[SelectedVehicle], g_local.ped);
-                            break;
-                        case 20:
-                            vehicle_helper::vehicle(game_variable::Emergency[SelectedVehicle], g_local.ped);
-                            break;
-                        case 21:
-                            vehicle_helper::vehicle(game_variable::Industrial[SelectedVehicle], g_local.ped);
-                            break;
-                        case 22:
-                            vehicle_helper::vehicle(game_variable::Coupes[SelectedVehicle], g_local.ped);
-                            break;
-                        case 23:
-                            vehicle_helper::vehicle(game_variable::Compact[SelectedVehicle], g_local.ped);
-                            break;
-                        case 24:
-                            vehicle_helper::vehicle(game_variable::Boat[SelectedVehicle], g_local.ped);
-                            break;
-                        case 25:
-                            vehicle_helper::vehicle(game_variable::Bikes[SelectedVehicle], g_local.ped);
-                            break;
-                        case 26:
-                            vehicle_helper::vehicle(game_variable::Commericals[SelectedVehicle], g_local.ped);
-                            break;
-                        case 27:
-                            vehicle_helper::vehicle(game_variable::CayoPerico[SelectedVehicle], g_local.ped);
-                            break;
-                        case 28:
-                            vehicle_helper::vehicle(game_variable::tuner_update[SelectedVehicle], g_local.ped);
-                            break;
-                        case 29:
-                            vehicle_helper::vehicle(game_variable::the_contract[SelectedVehicle], g_local.ped);
-                            break;
+                            if (SelectedVehicleHash != get_vehicle.second.hash)
+                                SelectedVehicleHash = get_vehicle.second.hash;
+
+                            if (strcmp(SelectedVehicle, get_vehicle.second.hash_key) != 0)
+                                strcpy(SelectedVehicle, get_vehicle.second.hash_key);
                         }
                     }
-                    ImGui::SameLine();
-                    if (ImGui::Button(xorstr("Spawn External")))
+                    ImGui::ListBoxFooter();
+                }
+                ImGui::PopItemWidth();
+                ImGui::SameLine();
+                ImGui::BeginGroup();
+                if (ImGui::Button(xorstr("Spawn Native")))
+                {
+                    vehicle_helper::vehicle(SelectedVehicle, g_local.ped);
+                }
+                ImGui::SameLine();
+                if (ImGui::Button(xorstr("Spawn External")))
+                {
+                    vehicle_helper::SpawnVehicle(SelectedVehicle, FALSE, g_local.player);
+                }
+                ImGui::EndGroup();
+            break;
+            case 1:
+                ImGui::PushItemWidth(250);
+                ImGui::Text(xorstr("Vehicle Changer"));
+                ImGui::Combo(xorstr("##Change"), &selected_hash, game_variable::vehicle_hash_list, IM_ARRAYSIZE(game_variable::vehicle_hash_list));
+                ImGui::PopItemWidth();
+                ImGui::SameLine();
+                if (ImGui::Button(xorstr("Change")))
+                {
+                    *script_global(g_global.garage).at(SelectedPersonal, 142).at(66).as<uint32_t*>() = rage::joaat(game_variable::vehicle_hash_list[selected_hash]);
+                }
+                ImGui::PushItemWidth(250);
+                if (ImGui::ListBoxHeader(xorstr("##Personal Vehicle List")))
+                {
+                    if (!g_vehicle_option->personal_vehicle_list.empty())
                     {
-                        switch (selected_category)
+                        for (auto personal_vehicle : g_vehicle_option->personal_vehicle_list)
                         {
-                        case 0:
-                            vehicle_helper::SpawnVehicle(game_variable::Super[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 1:
-                            vehicle_helper::SpawnVehicle(game_variable::Sport[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 2:
-                            vehicle_helper::SpawnVehicle(game_variable::SportClassic[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 3:
-                            vehicle_helper::SpawnVehicle(game_variable::SummerUpdate[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 4:
-                            vehicle_helper::SpawnVehicle(game_variable::Sedan[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 5:
-                            vehicle_helper::SpawnVehicle(game_variable::Service[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 6:
-                            vehicle_helper::SpawnVehicle(game_variable::SUV[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 7:
-                            vehicle_helper::SpawnVehicle(game_variable::Plane[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 8:
-                            vehicle_helper::SpawnVehicle(game_variable::Helicopter[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 9:
-                            vehicle_helper::SpawnVehicle(game_variable::OffRoad[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 10:
-                            vehicle_helper::SpawnVehicle(game_variable::Muscle[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 11:
-                            vehicle_helper::SpawnVehicle(game_variable::Motorcycle[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 12:
-                            vehicle_helper::SpawnVehicle(game_variable::Military[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 13:
-                            vehicle_helper::SpawnVehicle(game_variable::Trailer[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 14:
-                            vehicle_helper::SpawnVehicle(game_variable::Train[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 15:
-                            vehicle_helper::SpawnVehicle(game_variable::Utility[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 16:
-                            vehicle_helper::SpawnVehicle(game_variable::Van[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 17:
-                            vehicle_helper::SpawnVehicle(game_variable::ArenaWar[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 18:
-                            vehicle_helper::SpawnVehicle(game_variable::Casino1[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 19:
-                            vehicle_helper::SpawnVehicle(game_variable::Casino2[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 20:
-                            vehicle_helper::SpawnVehicle(game_variable::Emergency[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 21:
-                            vehicle_helper::SpawnVehicle(game_variable::Industrial[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 22:
-                            vehicle_helper::SpawnVehicle(game_variable::Coupes[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 23:
-                            vehicle_helper::SpawnVehicle(game_variable::Compact[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 24:
-                            vehicle_helper::SpawnVehicle(game_variable::Boat[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 25:
-                            vehicle_helper::SpawnVehicle(game_variable::Bikes[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 26:
-                            vehicle_helper::SpawnVehicle(game_variable::Commericals[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 27:
-                            vehicle_helper::SpawnVehicle(game_variable::CayoPerico[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 28:
-                            vehicle_helper::SpawnVehicle(game_variable::tuner_update[SelectedVehicle], FALSE, g_local.player);
-                            break;
-                        case 29:
-                            vehicle_helper::SpawnVehicle(game_variable::the_contract[SelectedVehicle], FALSE, g_local.ped);
-                            break;
-                        }
-                    }
-                    ImGui::EndGroup();
-                break;
-                case 1:
-                    ImGui::PushItemWidth(250);
-                    ImGui::Text(xorstr("Vehicle Changer"));
-                    ImGui::Combo(xorstr("##Change"), &selected_hash, game_variable::vehicle_hash_list, IM_ARRAYSIZE(game_variable::vehicle_hash_list));
-                    ImGui::PopItemWidth();
-                    ImGui::SameLine();
-                    if (ImGui::Button(xorstr("Change")))
-                    {
-                        *script_global(g_global.garage).at(SelectedPersonal, 142).at(66).as<uint32_t*>() = rage::joaat(game_variable::vehicle_hash_list[selected_hash]);
-                    }
-                    ImGui::PushItemWidth(250);
-                    if (ImGui::ListBoxHeader(xorstr("##Personal Vehicle List")))
-                    {
-                        if (!g_vehicle_option->personal_vehicle_list.empty())
-                        {
-                            for (auto personal_vehicle : g_vehicle_option->personal_vehicle_list)
+                            if (strcmp(personal_vehicle.first.c_str(), "Not Found") != 0)
                             {
-                                if (strcmp(personal_vehicle.first.c_str(), "Not Found") != 0)
+                                if (ImGui::Selectable((personal_vehicle.first.c_str()), personal_vehicle.second == SelectedPersonal))
                                 {
-                                    if (ImGui::Selectable((personal_vehicle.first.c_str()), personal_vehicle.second == SelectedPersonal))
-                                    {
-                                        SelectedPersonal = personal_vehicle.second;
-                                    }
+                                    SelectedPersonal = personal_vehicle.second;
                                 }
                             }
                         }
-                        ImGui::ListBoxFooter();
                     }
-                    ImGui::PopItemWidth();
-                    ImGui::SameLine();
-                    ImGui::BeginGroup();
-                    if (ImGui::Button(xorstr("Call Personal")))
+                    ImGui::ListBoxFooter();
+                }
+                ImGui::PopItemWidth();
+                ImGui::SameLine();
+                ImGui::BeginGroup();
+                if (ImGui::Button(xorstr("Call Personal")))
+                {
+                    vehicle_helper::call_personal_vehicle(SelectedPersonal);
+                }
+                ImGui::EndGroup();
+            break;
+            case 2:
+                static char vehicle_file_name_input[50]{};
+                ImGui::PushItemWidth(250);
+                ImGui::InputText(xorstr("Vehicle File Name"), vehicle_file_name_input, IM_ARRAYSIZE(vehicle_file_name_input));
+                ImGui::PopItemWidth();
+                if (ImGui::Button(xorstr("Save Vehicle ##SaveVeh")))
+                {
+                    QUEUE_JOB_BEGIN_CLAUSE()
                     {
-                        vehicle_helper::call_personal_vehicle(SelectedPersonal);
-                    }
-                    ImGui::EndGroup();
-                break;
-                case 2:
-                    static char vehicle_file_name_input[50]{};
-                    ImGui::PushItemWidth(250);
-                    ImGui::InputText(xorstr("Vehicle File Name"), vehicle_file_name_input, IM_ARRAYSIZE(vehicle_file_name_input));
-                    ImGui::PopItemWidth();
-                    if (ImGui::Button(xorstr("Save Vehicle ##SaveVeh")))
+                        persist_car::do_save_vehicle(vehicle_file_name_input);
+                    } QUEUE_JOB_END_CLAUSE
+                }
+                auto vehicle_files = persist_car::list_files();
+                static std::string selected_vehicle_file;
+                ImGui::PushItemWidth(250);
+                ImGui::Text(xorstr("Saved Vehicles"));
+                if (ImGui::ListBoxHeader(xorstr("##empty"), ImVec2(200, 200)))
+                {
+                    for (auto pair : vehicle_files)
                     {
-                        QUEUE_JOB_BEGIN_CLAUSE()
-                        {
-                           persist_car::do_save_vehicle(vehicle_file_name_input);
-                        } QUEUE_JOB_END_CLAUSE
+                        if (ImGui::Selectable(pair.c_str(), selected_vehicle_file == pair))
+                            selected_vehicle_file = pair;
                     }
-                    auto vehicle_files = persist_car::list_files();
-                    static std::string selected_vehicle_file;
-                    ImGui::PushItemWidth(250);
-                    ImGui::Text(xorstr("Saved Vehicles"));
-                    if (ImGui::ListBoxHeader(xorstr("##empty"), ImVec2(200, 200)))
-                    {
-                        for (auto pair : vehicle_files)
-                        {
-                            if (ImGui::Selectable(pair.c_str(), selected_vehicle_file == pair))
-                                selected_vehicle_file = pair;
-                        }
-                        ImGui::ListBoxFooter();
-                    }
-                    ImGui::SameLine();
-                    ImGui::BeginGroup();
-                    ImGui::PushItemWidth(250);
+                    ImGui::ListBoxFooter();
+                }
+                ImGui::SameLine();
+                ImGui::BeginGroup();
+                ImGui::PushItemWidth(250);
 
-                    if (ImGui::Button(xorstr("Load Vehicle")))
+                if (ImGui::Button(xorstr("Load Vehicle")))
+                {
+                    QUEUE_JOB_BEGIN_CLAUSE()
                     {
-                        QUEUE_JOB_BEGIN_CLAUSE()
-                        {
-                            big::persist_car::do_load_vehicle(selected_vehicle_file);
-                        } QUEUE_JOB_END_CLAUSE
-                    }
-                    if (ImGui::Checkbox(xorstr("Set To Spawned Vehicle"), g_settings.options["Auto Get-in"].get<bool*>()))
-                        g_settings.save();
+                        big::persist_car::do_load_vehicle(selected_vehicle_file);
+                    } QUEUE_JOB_END_CLAUSE
+                }
+                if (ImGui::Checkbox(xorstr("Set To Spawned Vehicle"), g_settings.options["Auto Get-in"].get<bool*>()))
+                    g_settings.save();
 
-                    ImGui::PopItemWidth();
-                    ImGui::EndGroup();
-                break;
+                ImGui::PopItemWidth();
+                ImGui::EndGroup();
+            break;
             }
 
             ImGui::Separator();

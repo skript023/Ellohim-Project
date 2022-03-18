@@ -675,4 +675,11 @@ namespace big
         return retn_val;
     }
 
+    void remote_event::game_event_blackhole()
+    {
+        remote_event::revenge_kick(g_remote_option->revenge_event);
+        remote_event::remote_blind_cops(g_remote_option->bribe_authority);
+        remote_event::remote_off_the_radar(g_remote_option->remote_off_the_radars);
+    }
+
 }

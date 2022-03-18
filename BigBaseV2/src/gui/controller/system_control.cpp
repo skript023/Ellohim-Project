@@ -428,6 +428,29 @@ namespace big
         return floorf(var * 100) / 100;
     }
 
+    std::string systems::title_case (const std::string str)
+    {
+        
+        char first_capital = rage::joaat_to_upper(str[0]);
+        std::string title_str;
+        title_str = first_capital;
+        
+        for (int i =1; i <str.size(); i++)
+        {
+            if(str[i-1] == ' ' &&  str[i] >= 'a' && str[i] <= 'z')
+            {
+                char capital = rage::joaat_to_upper(str[i]);
+                title_str += capital;
+                continue;
+            }
+            else
+            {
+                title_str += rage::joaat_to_lower(str[i]);
+            }
+        }
+        return title_str;
+    }
+
     bool validate_pointer(float Pointer, int64_t Bit)
     {
         auto pointer = std::addressof(Pointer);

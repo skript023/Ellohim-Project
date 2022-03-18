@@ -23,11 +23,11 @@ namespace big
 		static const char* get_player_heist_secondary_status(Player player);
 		static const char* get_player_heist_primary_status(Player player);
 		static const char* is_modded_account(Player player);
-		static int get_player_banked_money(Player player);
+		static std::string get_player_banked_money(Player player);
 		static int get_player_level(Player player);
 		static int get_player_exp(Player player);
 		static int get_player_global_exp(Player player);
-		static int get_player_cash(Player player);
+		static std::string get_player_cash(Player player);
 		static int get_player_total_money(Player player);
 		static void get_player_location(Player player);
 		static void global_exp_correction();

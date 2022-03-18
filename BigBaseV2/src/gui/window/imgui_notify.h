@@ -378,8 +378,8 @@ namespace ImGui
 		ImFontConfig config;
 		config.MergeMode = true;
 		config.PixelSnapH = true;
-		config.OversampleH = 1; 
-		config.OversampleV = 1;
+		//config.OversampleH = 1; 
+		//config.OversampleV = 1;
 		config.FontDataOwnedByAtlas = FontDataOwnedByAtlas;
 
 		GetIO().Fonts->AddFontFromMemoryTTF(font, sizeof_font, font_size, &config, ImGui::GetIO().Fonts->GetGlyphRangesChineseFull());

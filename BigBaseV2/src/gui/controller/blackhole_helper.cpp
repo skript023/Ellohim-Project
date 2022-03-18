@@ -22,7 +22,8 @@ namespace big
 {
     bool ScriptStatus;
 
-    std::vector<uint64_t> get_player_network_handle(Player player) {
+    std::vector<uint64_t> get_player_network_handle(Player player) 
+    {
         const int size = 13;
         uint64_t* buffer = std::make_unique<uint64_t[]>(size).get();
         NETWORK::NETWORK_HANDLE_FROM_PLAYER(player, reinterpret_cast<int*>(buffer), 13);
@@ -76,7 +77,7 @@ namespace big
     {
         if (!network::check_network_status()) return;
         http_response_tick = std::chrono::high_resolution_clock::now();
-        if ((std::chrono::high_resolution_clock::now() - http_response_tick).count() >= std::chrono::milliseconds(10000ms).count() || trigger_player_info_from_ip)
+        if ((std::chrono::high_resolution_clock::now() - http_response_tick).count() >= std::chrono::milliseconds(10000).count() || trigger_player_info_from_ip)
         {
             THREAD_JOB_BEGIN_CLAUSE(=)
             {
@@ -87,7 +88,7 @@ namespace big
                     {
                         http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(player)) };
 
-                        const auto response = request.send("GET");
+                        const auto response = request.send("GET", "", {}, 1000ms);
                         auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
                         provider = result["isp"].get<std::string>();
                         country = result["country"].get<std::string>();
@@ -124,7 +125,7 @@ namespace big
         g_selected.ped = player::get_player_ped(g_selected.player);
         g_local.is_cutscene_playing = CUTSCENE::IS_CUTSCENE_PLAYING();
         g_local.is_activity_session = NETWORK::NETWORK_IS_ACTIVITY_SESSION();
-
+            
 
         g_local.ScriptHost = NETWORK::NETWORK_GET_HOST_OF_SCRIPT("freemode", -1, 0);
         g_local.character = *script_global(1574907).as<int*>();

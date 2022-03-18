@@ -15,29 +15,29 @@ namespace big
 
 	class miscellaneous
 	{
-		public:
-			static inline void set_clipboard(const char* message)
-			{
-				HGLOBAL h;
-				LPVOID p;
-				int size;
-				//calc the num of unicode char
-				size = MultiByteToWideChar(CP_UTF8, NULL, message, -1, NULL, 0);
-				if (!size) return;
-				h = GlobalAlloc(GHND | GMEM_SHARE, size * 2);
-				if (!h) return;
-				p = GlobalLock(h);
-				//utf8 to unicode
-				MultiByteToWideChar(CP_UTF8, NULL, message, -1, (LPWSTR)p, size);
-				GlobalUnlock(h);
-				OpenClipboard(NULL);
-				EmptyClipboard();
-				SetClipboardData(CF_UNICODETEXT, h);
-				CloseClipboard();
-			}
-			static void dump_entry_point();
-			static void get_player_info_from_ip(Player player);
-			static void variable_attach();
+	public:
+		static inline void set_clipboard(const char* message)
+		{
+			HGLOBAL h;
+			LPVOID p;
+			int size;
+			//calc the num of unicode char
+			size = MultiByteToWideChar(CP_UTF8, NULL, message, -1, NULL, 0);
+			if (!size) return;
+			h = GlobalAlloc(GHND | GMEM_SHARE, size * 2);
+			if (!h) return;
+			p = GlobalLock(h);
+			//utf8 to unicode
+			MultiByteToWideChar(CP_UTF8, NULL, message, -1, (LPWSTR)p, size);
+			GlobalUnlock(h);
+			OpenClipboard(NULL);
+			EmptyClipboard();
+			SetClipboardData(CF_UNICODETEXT, h);
+			CloseClipboard();
+		}
+		static void dump_entry_point();
+		static void get_player_info_from_ip(Player player);
+		static void variable_attach();
 	public:
 		static inline bool time_spam{};
 		static inline bool time_scale{};

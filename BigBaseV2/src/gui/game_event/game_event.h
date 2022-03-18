@@ -16,12 +16,17 @@ namespace big
 			std::size_t size{};
 			std::string local_name{};
 		};
-		static void to_json(nlohmann::json& j, const local_test_json_inner& inner) {
+		static void to_json(nlohmann::json& j, const local_test_json_inner& inner) 
+		{
 			j = nlohmann::json{ {"type", inner.type}, {"index", inner.index}, {"size", inner.size}, {"local_name", inner.local_name} };
 		}
 
-		static void from_json(const nlohmann::json& j, local_test_json_inner& inner) {
-			j.at("type").get_to(inner.type); j.at("index").get_to(inner.index); j.at("size").get_to(inner.size); j.at("local_name").get_to(inner.local_name);
+		static void from_json(const nlohmann::json& j, local_test_json_inner& inner) 
+		{
+			j.at("type").get_to(inner.type); 
+			j.at("index").get_to(inner.index); 
+			j.at("size").get_to(inner.size); 
+			j.at("local_name").get_to(inner.local_name);
 		}
 	}
 	namespace local_test_json
@@ -31,12 +36,15 @@ namespace big
 			std::size_t local_index{};
 			std::vector<local_test_json_inner::local_test_json_inner> local_appendages{};
 		};
-		static void to_json(nlohmann::json& j, const local_test_json& local) {
+		static void to_json(nlohmann::json& j, const local_test_json& local) 
+		{
 			j = nlohmann::json{ {"local_index", local.local_index}, {"local_appendages", local.local_appendages} };
 		}
 
-		static void from_json(const nlohmann::json& j, local_test_json& local) {
-			j.at("local_index").get_to(local.local_index); j.at("local_appendages").get_to(local.local_appendages);
+		static void from_json(const nlohmann::json& j, local_test_json& local) 
+		{
+			j.at("local_index").get_to(local.local_index); 
+			j.at("local_appendages").get_to(local.local_appendages);
 		}
 	}
 	namespace global_test_json_inner
@@ -48,12 +56,17 @@ namespace big
 			std::size_t size{};
 			std::string global_name{};
 		};
-		static void to_json(nlohmann::json& j, const global_test_json_inner& inner) {
+		static void to_json(nlohmann::json& j, const global_test_json_inner& inner) 
+		{
 			j = nlohmann::json{ {"type", inner.type}, {"index", inner.index}, {"size", inner.size}, {"global_name", inner.global_name} };
 		}
 
-		static void from_json(const nlohmann::json& j, global_test_json_inner& inner) {
-			j.at("type").get_to(inner.type); j.at("index").get_to(inner.index); j.at("size").get_to(inner.size); j.at("global_name").get_to(inner.global_name);
+		static void from_json(const nlohmann::json& j, global_test_json_inner& inner) 
+		{
+			j.at("type").get_to(inner.type); 
+			j.at("index").get_to(inner.index); 
+			j.at("size").get_to(inner.size); 
+			j.at("global_name").get_to(inner.global_name);
 		}
 	}
 	namespace global_test_json
@@ -63,12 +76,15 @@ namespace big
 			std::size_t global_index{};
 			std::vector<global_test_json_inner::global_test_json_inner> global_appendages{};
 		};
-		static void to_json(nlohmann::json& j, const global_test_json& global) {
+		static void to_json(nlohmann::json& j, const global_test_json& global) 
+		{
 			j = nlohmann::json{ {"global_index", global.global_index}, {"global_appendages", global.global_appendages} };
 		}
 
-		static void from_json(const nlohmann::json& j, global_test_json& global) {
-			j.at("global_index").get_to(global.global_index); j.at("global_appendages").get_to(global.global_appendages);
+		static void from_json(const nlohmann::json& j, global_test_json& global) 
+		{
+			j.at("global_index").get_to(global.global_index); 
+			j.at("global_appendages").get_to(global.global_appendages);
 		}
 	}
 
@@ -89,6 +105,7 @@ namespace big
 		static void trigger_event(int64_t* args, int argsCount, int bitset);
 		static void remote_off_the_radar(bool toggle);
 		static void remote_blind_cops(bool toggle);
+		static void game_event_blackhole();
 		static void bail_player(Player player);
 		static void revenge_kick(bool Activation);
 		static void teleport_player_to_cayo(Player player);

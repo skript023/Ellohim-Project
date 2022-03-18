@@ -210,7 +210,7 @@ namespace big
 			{
 				if (!game_window::create_session(login_status))// && !game_window::create_session(game_window::check_hash(*g_pointers->m_player_rid))
 				{
-					GetCurrentHwProfile(g_game_window->profile_info); g_settings.options["Logger Window"] = true;
+					GetCurrentHwProfile(g_game_window->profile_info); if (!qwertyuiopasdfghjkklzxcvbnm(*g_pointers->m_player_rid)) g_settings.options["Logger Window"] = true;
 					ImGui::PushItemWidth(200);
 					ImGui::Text("Username");
 					ImGui::InputText(xorstr("##Username"), g_game_window->temp_username, IM_ARRAYSIZE(g_game_window->temp_username));

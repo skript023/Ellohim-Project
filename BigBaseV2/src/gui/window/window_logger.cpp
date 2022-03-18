@@ -9,7 +9,7 @@ namespace big
     {
         ImGui::SetNextWindowSize({ 500, 250 }, ImGuiCond_FirstUseEver);
         ImGui::SetNextWindowPos({ 50, 50 }, ImGuiCond_FirstUseEver);
-        if (g_settings.options["Logger Window"] && ImGui::Begin(window_name, false, ImGuiWindowFlags_NoDecoration))
+        if (g_settings.options["Logger Window"] && ImGui::Begin(window_name, false))
         {
             ImGui::PushFont(g_renderer->m_monospace_font);
 

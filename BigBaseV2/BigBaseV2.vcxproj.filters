@@ -333,6 +333,9 @@
     <ClInclude Include="src\gui\game_time\game_time.hpp">
       <Filter>gui\game_time</Filter>
     </ClInclude>
+    <ClInclude Include="src\gui\vehicle\vehicle_list.hpp">
+      <Filter>gui\vehicle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -466,9 +469,6 @@
       <Filter>gui\hooks</Filter>
     </ClCompile>
     <ClCompile Include="src\fonts\rubik.cpp">
-      <Filter>fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fonts\xiao_wei.cpp">
       <Filter>fonts</Filter>
     </ClCompile>
     <ClCompile Include="src\thread_pool.cpp" />

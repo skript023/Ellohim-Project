@@ -250,12 +250,14 @@ namespace big
         return result ? "True" : "False";
     }
 
-    int player::get_player_banked_money(Player player)
+    std::string player::get_player_banked_money(Player player)
     {
+        auto get_money = systems::money_formatter("US");
         auto total = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(56).as<int*>();
         auto cash = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(3).as<int*>();
-        auto result = (total - cash);
-        return (result < 0) ? 0 : result;
+        int banked = (total - cash);
+        auto result = banked < 0 ? 0 : banked;
+        return get_money.as_string(systems::int_to_float(result));
     }
 
     int player::get_player_level(Player player)
@@ -273,14 +275,17 @@ namespace big
         return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(5).as<int*>();
     }
 
-    int player::get_player_cash(Player player)
+    std::string player::get_player_cash(Player player)
     {
-        return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(3).as<int*>();
+        auto get_money = systems::money_formatter("US");
+        auto player_money = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(3).as<int*>();
+        return get_money.as_string(systems::int_to_float(player_money));
     }
 
     int player::get_player_total_money(Player player)
     {
-        return *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(56).as<int*>();
+        auto player_total_money = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(56).as<int*>();
+        return player_total_money;
     }
 
     void player::get_player_location(Player player)
@@ -1036,6 +1041,7 @@ namespace big
 
     std::string player::get_player_vehicle_name(Player player)
     {
+        static std::string name;
         if (auto ped = rage_helper::get_player_pointer(player))
         {
             if (ped->m_is_in_vehicle)
@@ -1044,12 +1050,24 @@ namespace big
                 {
                     if (auto vehicle_info = vehicle->m_model_info)
                     {
-                        return vehicle_info->m_vehicle_name;
+                        QUEUE_JOB_BEGIN(=)
+                        {
+                            static auto hash = vehicle_info->m_model_hash;
+                            if (hash != vehicle_info->m_model_hash || name.empty())
+                            {
+                                name = HUD::_GET_LABEL_TEXT(VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(vehicle_info->m_model_hash));
+                                hash = vehicle_info->m_model_hash;
+                            }
+                        } QUEUE_JOB_END
                     }
                 }
             }
+            else
+            {
+                name = "Not in any vehicle";
+            }
         }
-        return "Not In Vehicle";
+        return name;
     }
 
     const char* player::get_player_name(Player player)

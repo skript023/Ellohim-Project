@@ -14,6 +14,7 @@
 #include "script_local.hpp"
 #include "gui/window/imgui_notify.h"
 #include "gui/controller/blackhole_helper.hpp"
+#include "gui/vehicle/vehicle_list.hpp"
 
 namespace big
 {
@@ -853,7 +854,7 @@ namespace big
     const char* vehicle_helper::get_personal_vehicle_hash_key(int vehicle_index)
     {
         auto hash = *script_global(g_global.garage).at(vehicle_index, 142).at(66).as<uint32_t*>();
-        auto name = HUD::_GET_LABEL_TEXT(find_vehicle_name(hash));
+        auto name = HUD::_GET_LABEL_TEXT(VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(hash));
         return name;
     }
 
@@ -873,6 +874,10 @@ namespace big
         vehicle_helper::set_turn_lamp(g_settings.options["Vehicle Light Control"]);
         vehicle_helper::set_vehicle_waterproof(player::get_player_vehicle(player::player_ped_id(), false), true);
 
+        if (g_vehicle_option->vehicle_tab_open && g_vehicle_option->vehicle_list_menu)
+        {
+            vehicles_hash::fill_vehicle(vehicle_types_menu);
+        }
         if (*g_pointers->m_is_session_started)
         {
             if (g_vehicle_option->vehicle_tab_open && g_vehicle_option->personal_vehicle_menu)

@@ -19,8 +19,6 @@
 
 namespace big
 {
-    int SelectedFriend{};
-
     void online_menu::render_online_tab(const char* tab_name)
     {
         if (ImGui::BeginTabItem(tab_name))
@@ -878,8 +876,11 @@ namespace big
                     ImGui::InputInt(xorstr("##InputTake"), &g_heist_option->casino_take, 1000000, 1000000);
                     if (ImGui::Button("Set Take"))
                     {
-                        g_heist_option->all_take_heist = true;
-                        casino_heist::all_heist_take(g_heist_option->casino_take);
+                        if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
+                            g_heist_option->all_take_heist = true;
+
+                        if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller_2020")))
+                            casino_heist::all_heist_take(g_heist_option->casino_take);
                     }
                     if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")))
                     {
@@ -1621,14 +1622,14 @@ namespace big
                 ImGui::SameLine();
                 ImGui::BeginGroup();
                 ImGui::Text("RID : %d", get_friend_id(SelectedFriend));
-                ImGui::Text("Status : %s", get_player_status(SelectedFriend));
+                ImGui::Text("Status : %s", get_friend_status(SelectedFriend));
                 static uint64_t target_rid;
                 ImGui::PushItemWidth(200);
                 ImGui::InputScalar(xorstr("Put Target RID"), ImGuiDataType_U64, &target_rid);
                 ImGui::PopItemWidth();
                 if (ImGui::Button(xorstr("Set RID Join")))
                 {
-                    set_rockstar_id(SelectedFriend, target_rid);
+                    *set_friend_id(SelectedFriend) = target_rid;
                 }
 
                 ImGui::EndGroup();
@@ -1730,6 +1731,18 @@ namespace big
                             ENTITY::DELETE_ENTITY(&vehicle);
                         }
                     } QUEUE_JOB_END_CLAUSE
+                }
+                ImGui::SameLine();
+                if (ImGui::Checkbox(xorstr("Block RID Joiner"), &block_rid_joiner))
+                {
+                    if (block_rid_joiner)
+                    {
+                        if (const auto presence_data = *g_pointers->m_presence_data; *g_pointers->m_presence_data && presence_data)
+                        {
+                            presence_data->updateIntegerAttribute(0, "gstype", 5); // put your game session type here, you know the values most likely (5 being public and so on)
+                            presence_data->updateStringAttribute(0, "gsinfo", "gjtriwgjtrg"); // this is the example of some invalid data, if you want to do join redirect you would need to fetch the gsinfo from the player you want to redirect to. 
+                        }
+                    }
                 }
 
                 if (ImGui::Checkbox(xorstr("Request Control"), g_settings.options["Request Control Block"].get<bool*>()))

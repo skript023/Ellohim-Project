@@ -229,7 +229,7 @@ namespace big
                 ImGui::SameLine();
                 ImGui::RadioButton(xorstr("String"), &e, 5);
                 ImGui::Separator();
-               
+
                 ImGui::InputText(xorstr("##Stat Name"), write_stat_name, IM_ARRAYSIZE(write_stat_name), ImGuiInputTextFlags_CharsUppercase);
 
                 switch (e)

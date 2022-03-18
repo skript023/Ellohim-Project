@@ -392,11 +392,11 @@ namespace big
 			m_censor_chat_text = ptr.add(1).rip().as<PVOID>();
 		});
 
-		main_batch.add("Game Setting Pointer", "44 39 0D ? ? ? ? 74 0C", [this](memory::handle ptr)
+		main_batch.add("Game Setting", "44 39 0D ? ? ? ? 74 0C", [this](memory::handle ptr)
 		{
 			m_game_setting = ptr.add(3).rip().sub(0x99).as<decltype(m_game_setting)>();
 		});
-		
+		//085814878301
 		main_batch.add("Camera Base", "48 39 0D ? ? ? ? 75 58 8B 42 20", [this](memory::handle ptr)
 		{
 			m_camera_base = ptr.add(3).rip().as<uintptr_t*>();
@@ -422,7 +422,6 @@ namespace big
 			m_player_has_joined = ptr.sub(0x26).as<decltype(m_player_has_joined)>();
 		});
 
-		// Player Has Left
 		main_batch.add("Left Player", "4C 8B F1 48 8B CA 48 8B EA FF 50 18 4C 8D 05", [this](memory::handle ptr)
 		{
 			m_player_has_left = ptr.sub(0x26).as<decltype(m_player_has_left)>();
@@ -431,6 +430,16 @@ namespace big
 		main_batch.add("Aim Status", "48 8D 0D ? ? ? ? 48 63 C3 3B 14 81 0F 84 ? ? ? ? 41 B8 ? ? ? ? 8B CB", [this](memory::handle ptr)
 		{
 			m_player_aim = ptr.add(3).rip().add(12).as<decltype(m_player_aim)>();
+		});
+
+		main_batch.add("CGameInvite", "48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 E8 ? ? ? ? 8B 83 ? ? ? ?", [this](memory::handle ptr)
+		{
+			m_game_invite = ptr.as<decltype(m_game_invite)>();
+		});
+
+		main_batch.add("Presence Data", "48 8B 0D ? ? ? ? 48 85 C9 74 10 48 8B 01 4D 8B C8 4C 8B C2 41 8B D2 48 FF 60 18", [this](memory::handle ptr)
+		{
+			m_presence_data = ptr.as<decltype(m_presence_data)>();
 		});
 
 		main_batch.run(memory::module(nullptr));

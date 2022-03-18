@@ -59,13 +59,25 @@ public:
 	char pad_00C8[304]; //0x00C8
 	bool m_is_multiplayer; //0x01F8
 	char pad_01F9[7]; //0x01F9
-}; //Size: 0x01F9
+}; //Size: 0x0200
 static_assert(sizeof(FriendInfo) == 0x200);
 
 class FriendList
 {
 public:
 	FriendInfo m_friend_info[128];
+	const char* get_friend_name(int index) { return m_friend_info[index].m_name; }
+	const char* get_friend_status(int index) 
+	{
+		bool is_multiplayer = m_friend_info[index].m_is_multiplayer;
+		int status = m_friend_info[index].m_friend_status;
+		bool is_single_player = status >> 1 & 1;
+		bool is_online = status & 1;
+		return is_multiplayer ? "Multiplayer" : is_single_player ? "Single Player" : is_online ? "Online" : "Offline";
+	}
+
+	uint64_t get_friend_id(int index) { return m_friend_info[index].m_friend_id; }
+	uint64_t* set_friend_id(int index) { return &m_friend_info[index].m_friend_id; }
 };
 
 class GameSetting
@@ -136,4 +148,35 @@ class CPedFactory
 public:
 	virtual ~CPedFactory() = default;
 	CPed *m_local_ped;
+};
+
+class PresenceData
+{
+public:
+	virtual ~PresenceData() = default; // 0 (0x00)
+	virtual bool updateIntegerAttribute(uint32_t alwaysZero, const char* attributeName, int64_t attr) = 0; // 1 (0x08)
+	virtual bool _0x10(unsigned int a2, int64_t a3) = 0; // 2 (0x10)
+	virtual bool updateStringAttribute(uint32_t alwaysZero, const char* attributeName, const char* str) = 0; // 3 (0x18)
+	virtual bool _0x20(unsigned int a2, int64_t a3, uint64_t* a4) = 0; // 4 (0x20)
+	virtual bool _0x28(unsigned int a2, int64_t a3, uint64_t* a4) = 0; // 5 (0x28)
+	virtual bool _0x30(unsigned int a2, int64_t a3, uint8_t* a4, unsigned int a5) = 0; // 6 (0x30)
+	virtual bool _0x38() = 0; // 7 (0x38)
+	virtual bool _0x40() = 0; // 8 (0x40)
+	virtual bool _0x48() = 0; // 9 (0x48)
+	virtual bool _0x50() = 0; // 10 (0x50)
+	virtual bool _0x58() = 0; // 11 (0x58)
+	virtual bool _0x60(unsigned __int8 a2) = 0; // 12 (0x60)
+	virtual bool _0x68(uint8_t* a2) = 0; // 13 (0x68)
+	virtual bool _0x70(unsigned __int8 a2) = 0; // 14 (0x70)
+	virtual bool _0x78(uint8_t* a2) = 0; // 15 (0x78)
+	virtual bool _0x80(unsigned int a2, int64_t a3, unsigned int a4) = 0; // 16 (0x80)
+	virtual bool _0x88(unsigned int a2, int64_t a3, unsigned int a4) = 0; // 17 (0x88)
+	virtual bool _0x90(int a2) = 0; // 18 (0x90)
+	virtual bool _0x98() = 0; // 19 (0x98)
+	virtual bool _0xa0(uint8_t* a2) = 0; // 20 (0xa0)
+	virtual bool _0xa8(unsigned __int8 a2) = 0; // 21 (0xa8)
+	virtual bool _0xb0(int64_t a2, int64_t a3) = 0; // 22 (0xb0)
+	virtual bool _0xb8() = 0; // 23 (0xb8)
+	virtual bool _0xc0(int64_t a2) = 0; // 24 (0xc0)
+	virtual bool _0xc8() = 0; // 25 (0xc8)
 };

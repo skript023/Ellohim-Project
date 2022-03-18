@@ -47,9 +47,9 @@ namespace big
             ImGui::SameLine(200);
             ImGui::Text("Wanted Level : %d", player::get_player_wanted_level(g_selected.player));
 
-            ImGui::Text("Cash : $%d", player::get_player_cash(g_selected.player));
+            ImGui::Text("Cash : %s", player::get_player_cash(g_selected.player));
             ImGui::SameLine(200);
-            ImGui::Text("Bank : $%d", player::get_player_banked_money(g_selected.player));
+            ImGui::Text("Bank : %s", player::get_player_banked_money(g_selected.player));
             ImGui::Text("Level : %d", player::get_player_level(g_selected.player));
             ImGui::SameLine(200);
             ImGui::Text("Off Radar : %s", player::is_player_out_of_radar(g_selected.player) ? "True" : "False");

@@ -13,7 +13,8 @@ namespace big
 		static inline char nama_mobil[32];
 		static inline int total_ped = 0;
 		static inline int selected_category = 0;
-		static inline int SelectedVehicle = 0;
+		static inline uint32_t SelectedVehicleHash = 0;
+		static inline char SelectedVehicle[32]{};
 		static inline int SelectedPersonal{};
 		static inline bool BoostFlag = false;
 		static inline bool JumpFlag = false;

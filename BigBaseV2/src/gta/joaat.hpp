@@ -13,6 +13,11 @@ namespace rage
 		return (c >= 'A' && c <= 'Z') ? c + ('a' - 'A') : c;
 	}
 
+	inline constexpr char joaat_to_upper(char c)
+	{
+		return (c >= 'a' && c <= 'a') ? c + ('A' - 'a') : c;
+	}
+
 	template <std::size_t CharCount>
 	struct constexpr_joaat
 	{
