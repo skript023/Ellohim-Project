@@ -122,6 +122,7 @@ namespace big
 		PVOID m_is_dlc_present;
 		PVOID m_censor_chat_text;
 		PVOID m_game_invite;
+		PVOID m_net_array_handler;
 
 		PVOID m_model_spawn_bypass;
 	};

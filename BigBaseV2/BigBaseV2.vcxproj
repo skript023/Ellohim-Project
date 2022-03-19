@@ -296,6 +296,7 @@
     <ClCompile Include="src\gui\hooks\disable_error_screen.cpp" />
     <ClCompile Include="src\gui\hooks\freemode_script_recovery.cpp" />
     <ClCompile Include="src\gui\hooks\get_label_text.cpp" />
+    <ClCompile Include="src\gui\hooks\net_array_handler.cpp" />
     <ClCompile Include="src\gui\hooks\player_join.cpp" />
     <ClCompile Include="src\gui\hooks\received_event.cpp" />
     <ClCompile Include="src\gui\hooks\send_net_info_to_lobby.cpp" />

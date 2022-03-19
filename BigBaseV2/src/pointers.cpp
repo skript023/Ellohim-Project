@@ -442,6 +442,11 @@ namespace big
 			m_presence_data = ptr.as<decltype(m_presence_data)>();
 		});
 
+		main_batch.add("NAH", "44 8B E0 89 45 F4 48 8B 03 48 8B CB FF 90", [this](memory::handle ptr)
+		{
+			m_net_array_handler = ptr.sub(0x3C).as<PVOID>();
+		});
+
 		main_batch.run(memory::module(nullptr));
 
 		m_hwnd = FindWindowW(L"grcWindow", nullptr);

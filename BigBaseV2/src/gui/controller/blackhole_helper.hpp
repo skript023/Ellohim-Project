@@ -41,11 +41,11 @@ namespace big
 	public:
 		static inline bool time_spam{};
 		static inline bool time_scale{};
-		static inline std::string provider{ "Unidentified" };
-		static inline std::string city{ "Unidentified" };
-		static inline std::string country{ "Unidentified" };
-		static inline std::string zip{ "Unidentified" };
-		static inline std::string region{ "Unidentified" };
+		static inline std::string provider { "Unidentified" };
+		static inline std::string city { "Unidentified" };
+		static inline std::string country { "Unidentified" };
+		static inline std::string zip { "Unidentified" };
+		static inline std::string region { "Unidentified" };
 		static inline bool proxy{ false };
 		static inline nlohmann::json http_result{};
 		static inline bool trigger_player_info_from_ip{};
@@ -69,5 +69,5 @@ namespace big
 			static inline Hash CrossingRoadHash{};
 	}g_info;
 
-	inline static miscellaneous* g_misc_option{};
+	inline miscellaneous* g_misc_option{};
 }

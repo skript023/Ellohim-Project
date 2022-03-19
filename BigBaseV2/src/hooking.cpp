@@ -50,6 +50,7 @@ namespace big
 		m_error_screen_hook("Error Screen", g_pointers->m_error_screen, &hooks::disable_error_screen),
 
 		m_received_event_hook("Received Event", g_pointers->m_received_event, &hooks::received_event),
+		m_net_array_handler_hook("net_array_handler", g_pointers->m_net_array_handler, &hooks::net_array_handler),
 
 		m_clone_create_hook("Clone Create", g_pointers->m_clone_create, &hooks::clone_create),
 		m_sync_can_apply_hook("Sync Can Apply Obj", g_pointers->m_sync_can_apply, &hooks::sync_can_apply),
@@ -85,6 +86,7 @@ namespace big
 		m_player_has_joined_hook.enable();
 		m_player_has_left_hook.enable();
 		m_received_event_hook.enable();
+		m_net_array_handler_hook.enable();
 
 		m_clone_create_hook.enable();
 		m_sync_can_apply_hook.enable();
@@ -113,6 +115,7 @@ namespace big
 		m_player_has_joined_hook.disable();
 		m_player_has_left_hook.disable();
 		m_received_event_hook.disable();
+		m_net_array_handler_hook.disable();
 
 		m_clone_create_hook.disable();
 		m_sync_can_apply_hook.disable();

@@ -25,7 +25,7 @@ namespace big
 		static bool sync_read_buffer(rage::netSyncTree* netSyncTree, int32_t sync_type, int32_t _sync_flag, rage::datBitBuffer* buffer, void* netLogStub);
 		
 		static void disable_error_screen(char* entryHeader, char* entryLine1, int instructionalKey, char* entryLine2, BOOL p4, Any p5, Any* p6, Any* p7, BOOL background);
-
+		static bool net_array_handler(int64_t netArrayHandlerBaseMgr, uint8_t* a2, rage::datBitBuffer* datbitbuffer, uint32_t bytes_to_read, int16_t a5);
 		static rage::eThreadState gta_thread_tick(GtaThread* a1, unsigned int a2);
 		static rage::eThreadState gta_thread_kill(GtaThread* thread);
 		
@@ -68,6 +68,7 @@ namespace big
 		detour_hook m_player_has_joined_hook;
 		detour_hook m_player_has_left_hook;
 		
+		detour_hook m_net_array_handler_hook;
 		detour_hook m_send_net_info_to_lobby_hook;
 		detour_hook m_censor_chat_text_hook;
 

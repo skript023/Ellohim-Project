@@ -478,6 +478,9 @@
     <ClCompile Include="src\gui\game_time\game_time.cpp">
       <Filter>gui\game_time</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\hooks\net_array_handler.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
