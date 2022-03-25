@@ -145,7 +145,7 @@ namespace big
             rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
                 if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                 {
-                    *script_local(cayo, m_local.glass_cutter_heat).as<float*>() = 75.0f;
+                    *script_local(cayo, m_local.glass_cutter_power).as<float*>() = 75.0f;
                 }
             });
         }
@@ -179,7 +179,7 @@ namespace big
     {
         if (Activation)
         {
-            if (g_local.mission != nullptr && g_local.arcade == nullptr)
+            if (systems::is_script_active(RAGE_JOAAT("fm_mission_controller")) && !systems::is_script_active(RAGE_JOAAT("gb_casino_heist_planning")))
             {
                 *script_global(g_global.casino_stat).at(PLAYER::PLAYER_ID(), 68).at(18).at(14).as<int*>() = 6;
                 *script_global(g_global.casino_stat).at(PLAYER::PLAYER_ID(), 68).at(18).at(12).as<int*>() = 6;

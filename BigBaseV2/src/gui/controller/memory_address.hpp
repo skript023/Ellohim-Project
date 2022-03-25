@@ -18,17 +18,11 @@ namespace big
 		static inline Player ScriptHost{};
 		static inline Vehicle PlayerVehicle{};
 		static inline int vehicle_net_id{};
-		static inline bool InVehicle{};
-		static inline bool Transition{};
 		static inline int character{};
 		static inline int connected_player{};
-		static inline GtaThread* mission{};
-		static inline GtaThread* mission_2020{};
-		static inline GtaThread* arcade{};
 		static inline bool invalid_protection = false;
 		static inline bool transition{};
 		static inline bool is_male{};
-		static inline bool script_transition{};
 		static inline bool is_cutscene_playing{};
 		static inline bool is_activity_session{};
 	} g_local;
@@ -333,7 +327,8 @@ namespace big
 		static constexpr inline uint32_t board_hacking_requirement = 11485 + 39;
 		static constexpr inline uint32_t voltage_hack_target = 1797;
 		static constexpr inline uint32_t voltage_hack_current = 1798;
-		static constexpr inline uint32_t glass_cutter_heat = 28273 + 4;
+		static constexpr inline uint32_t glass_cutter_power = 28273 + 4;
+		static constexpr inline uint32_t glass_cutter_heat = 28273 + 3;
 		static constexpr inline uint32_t underwater_torch_total = 28248;
 		static constexpr inline uint32_t underwater_torch_sound = 28253;
 		static constexpr inline int32_t safe_hack = 28255;

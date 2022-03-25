@@ -125,7 +125,7 @@ namespace big
     {
         static Vector3 zero;
         Vector3 coords, oldCoords;
-        auto e = g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped;
+        auto e = rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped;
 
         bool blipFound = false;
         if (!blipFound)

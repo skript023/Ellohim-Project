@@ -210,33 +210,35 @@ namespace big
     {
         if (PED::IS_PED_IN_ANY_VEHICLE(PLAYER::PLAYER_PED_ID(), FALSE))
         {
-            auto VehId = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), FALSE);
-            script::get_current()->yield();
-            if (Activation)
+            if (auto VehId = PED::GET_VEHICLE_PED_IS_IN(PLAYER::PLAYER_PED_ID(), FALSE))
             {
-                ENTITY::SET_ENTITY_INVINCIBLE(VehId, TRUE);
-                VEHICLE::SET_VEHICLE_CAN_BE_VISIBLY_DAMAGED(VehId, FALSE);
-                ENTITY::SET_ENTITY_PROOFS(VehId, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
-                VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(VehId, FALSE);
-                VEHICLE::SET_VEHICLE_WHEELS_CAN_BREAK(VehId, FALSE);
-                if (VEHICLE::_IS_VEHICLE_DAMAGED(VehId))
+                if (Activation)
                 {
-                    VEHICLE::SET_VEHICLE_DEFORMATION_FIXED(VehId);
-                    GRAPHICS::REMOVE_DECALS_FROM_VEHICLE(VehId);
-                    if (!VEHICLE::IS_VEHICLE_WINDOW_INTACT(VehId, 6))
-                        VEHICLE::FIX_VEHICLE_WINDOW(VehId, 6);
-                    if (!VEHICLE::IS_VEHICLE_WINDOW_INTACT(VehId, 7))
-                        VEHICLE::FIX_VEHICLE_WINDOW(VehId, 7);
+                    ENTITY::SET_ENTITY_INVINCIBLE(VehId, TRUE);
+                    VEHICLE::SET_VEHICLE_CAN_BE_VISIBLY_DAMAGED(VehId, FALSE);
+                    ENTITY::SET_ENTITY_PROOFS(VehId, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE);
+                    VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(VehId, FALSE);
+                    VEHICLE::SET_VEHICLE_WHEELS_CAN_BREAK(VehId, FALSE);
+                    if (VEHICLE::_IS_VEHICLE_DAMAGED(VehId))
+                    {
+                        VEHICLE::SET_VEHICLE_DEFORMATION_FIXED(VehId);
+                        GRAPHICS::REMOVE_DECALS_FROM_VEHICLE(VehId);
+                        if (!VEHICLE::IS_VEHICLE_WINDOW_INTACT(VehId, 6))
+                            VEHICLE::FIX_VEHICLE_WINDOW(VehId, 6);
+                        if (!VEHICLE::IS_VEHICLE_WINDOW_INTACT(VehId, 7))
+                            VEHICLE::FIX_VEHICLE_WINDOW(VehId, 7);
+                    }
+                }
+                else
+                {
+                    ENTITY::SET_ENTITY_INVINCIBLE(VehId, FALSE);
+                    VEHICLE::SET_VEHICLE_CAN_BE_VISIBLY_DAMAGED(VehId, TRUE);
+                    ENTITY::SET_ENTITY_PROOFS(VehId, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
+                    VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(VehId, TRUE);
+                    VEHICLE::SET_VEHICLE_WHEELS_CAN_BREAK(VehId, TRUE);
                 }
             }
-            else
-            {
-                ENTITY::SET_ENTITY_INVINCIBLE(VehId, FALSE);
-                VEHICLE::SET_VEHICLE_CAN_BE_VISIBLY_DAMAGED(VehId, TRUE);
-                ENTITY::SET_ENTITY_PROOFS(VehId, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
-                VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(VehId, TRUE);
-                VEHICLE::SET_VEHICLE_WHEELS_CAN_BREAK(VehId, TRUE);
-            }
+            
         }
     }
 
@@ -256,11 +258,11 @@ namespace big
                 if (ped == 0)
                     break;
 
-                if (ped == g_local.ped || PED::IS_PED_A_PLAYER(ped))
+                if (ped == g_local.ped || !PED::IS_PED_A_PLAYER(ped))
                     continue;
 
                 Player player = NETWORK::NETWORK_GET_PLAYER_INDEX_FROM_PED(ped);
-                if (!PED::IS_PED_A_PLAYER(ped))
+                if (PED::IS_PED_A_PLAYER(ped))
                 {
                     if (ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(vehicle, ped, TRUE) && WEAPON::HAS_ENTITY_BEEN_DAMAGED_BY_WEAPON(vehicle, 0, 2))
                     {
@@ -279,7 +281,7 @@ namespace big
 
     void vehicle_helper::call_personal_vehicle(int vehicle_index)
     {
-        g_fiber_pool->queue_job([vehicle_index]
+        QUEUE_JOB_BEGIN(vehicle_index)
         {
             /*
             despawn_personal_vehicle(get_current_personal_vehicle_index());
@@ -295,16 +297,17 @@ namespace big
                 *script_local(freemode_thread, 17437).at(176).as<int*>() = 0; // spawn vehicle instantly
             */
 
-            *script_global(g_global.call_personal_vehicle).at(965).as<int*>() = vehicle_index;
+            * script_global(g_global.call_personal_vehicle).at(965).as<int*>() = vehicle_index;
             *script_global(g_global.call_personal_vehicle).at(962).as<bool*>() = true;
-            
+
             script::get_current()->yield(1500ms);
 
             if (g_settings.options["Auto Get-in"])
             {
                 PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle_helper::get_personal_vehicle(PLAYER::PLAYER_ID()), -1);
             }
-        });
+        }
+        QUEUE_JOB_END
     }
 
     void vehicle_helper::despawn_personal_vehicle(int vehicle_index)
@@ -387,51 +390,37 @@ namespace big
             {
                 case 1:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1;
-                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1 = bit_set;
+                    memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1, flagBit);
                     break;
                 }
                 case 2:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2;
-                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2 = bit_set;
+                    memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2, flagBit);
                     break;
                 }
                 case 3:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3;
-                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3 = bit_set;
+                    memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3, flagBit);
                     break;
                 }
                 case 4:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4;
-                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4 = bit_set;
+                    memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4, flagBit);
                     break;
                 }
                 case 5:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5;
-                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5 = bit_set;
+                    memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5, flagBit);
                     break;
                 }
                 case 6:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6;
-                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6 = bit_set;
+                    memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6, flagBit);
                     break;
                 }
                 case 7:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7;
-                    uint32_t bit_set = memory_util::set_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7 = bit_set;
+                    memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7, flagBit);
                     break;
                 }
             }
@@ -440,57 +429,43 @@ namespace big
 
     void vehicle_helper::clear_vehicle_flag(int Flag, uint32_t flagBit)
     {
-        if (g_local.InVehicle)
+        if (rage_helper::get_local_ped()->m_is_in_vehicle)
         {
             switch (Flag)
             {
                 case 1:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1;
-                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1 = bit_set;
+                    memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_1, flagBit);
                     break;
                 }
                 case 2:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2;
-                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2 = bit_set;
+                    memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_2, flagBit);
                     break;
                 }
                 case 3:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3;
-                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3 = bit_set;
+                    memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_3, flagBit);
                     break;
                 }
                 case 4:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4;
-                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4 = bit_set;
+                    memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_4, flagBit);
                     break;
                 }
                 case 5:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5;
-                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5 = bit_set;
+                    memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_5, flagBit);
                     break;
                 }
                 case 6:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6;
-                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6 = bit_set;
+                    memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_6, flagBit);
                     break;
                 }
                 case 7:
                 {
-                    auto set_bit = rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7;
-                    uint32_t bit_set = memory_util::clear_bit(set_bit, flagBit);
-                    rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7 = bit_set;
+                    memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_model_info->m_flag_7, flagBit);
                     break;
                 }
             }

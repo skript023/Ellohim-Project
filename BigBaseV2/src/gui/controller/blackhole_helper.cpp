@@ -119,7 +119,6 @@ namespace big
         chrono_player_info_blackhole(2000ms);
 
         g_event_tester.event_ped = player::get_player_ped(g_event_tester.event_player);
-        g_local.InVehicle = PED::IS_PED_IN_ANY_VEHICLE(g_local.ped, FALSE);
         g_local.PlayerVehicle = PED::GET_VEHICLE_PED_IS_USING(g_local.ped);
         g_local.vehicle_net_id = NETWORK::NETWORK_GET_NETWORK_ID_FROM_ENTITY(g_local.PlayerVehicle);
         g_selected.ped = player::get_player_ped(g_selected.player);
@@ -130,16 +129,7 @@ namespace big
         g_local.ScriptHost = NETWORK::NETWORK_GET_HOST_OF_SCRIPT("freemode", -1, 0);
         g_local.character = *script_global(1574907).as<int*>();
         g_local.connected_player = NETWORK::NETWORK_GET_NUM_CONNECTED_PLAYERS();
-        g_local.mission = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller"));
-        g_local.arcade = rage_helper::find_script_thread(RAGE_JOAAT("gb_casino_heist_planning"));
-        g_local.mission_2020 = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020"));
-        g_mission.mission_controller = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")) != nullptr;
-        g_mission.mission_controller_new = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")) != nullptr;
-        g_mission.casino_board = rage_helper::find_script_thread(RAGE_JOAAT("gb_casino_heist_planning")) != nullptr;
-        g_mission.cayo_board = rage_helper::find_script_thread(RAGE_JOAAT("heist_island_planning")) != nullptr;
-        g_mission.doomsday_board = rage_helper::find_script_thread(RAGE_JOAAT("gb_gang_ops_planning")) != nullptr;
-        g_mission.apartment_board = rage_helper::find_script_thread(RAGE_JOAAT("fmmc_launcher")) != nullptr;
-        g_local.script_transition = NETWORK::NETWORK_IS_IN_TRANSITION();//features::TransitionCheck() && *g_pointers->m_is_session_started;
+        
         g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 848 + 9 + 1; //h4_islandx_disc_StrandedWhale
         g_global.business_index = g_global.player_stat + 1 + (g_local.player * g_global.player_size) + 267 + 187;
         m_local.blackjack.current_table = 1788 + 1 + (g_local.player * 8) + 4;

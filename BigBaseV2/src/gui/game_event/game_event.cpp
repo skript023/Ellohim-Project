@@ -290,7 +290,7 @@ namespace big
                 Player player = NETWORK::NETWORK_GET_PLAYER_INDEX_FROM_PED(ped);
                 if (PED::IS_PED_A_PLAYER(ped))
                 {
-                    if (ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, ped, TRUE) && WEAPON::HAS_ENTITY_BEEN_DAMAGED_BY_WEAPON(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 0, 2))
+                    if (ENTITY::HAS_ENTITY_BEEN_DAMAGED_BY_ENTITY(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, ped, TRUE) && WEAPON::HAS_ENTITY_BEEN_DAMAGED_BY_WEAPON(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 0, 2))
                     {
                         bail_player(player);
                         ImGui::InsertNotification({ ImGuiToastType_Protection, 10000, "%s has been kicked from session", PLAYER::GET_PLAYER_NAME(player) });

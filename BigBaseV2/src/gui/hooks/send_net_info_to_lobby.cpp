@@ -31,7 +31,7 @@ namespace big
 				player::change_name(spoof_name, local_player);
 			if (scid_diff)
 			{
-				if (g_local.script_transition)
+				if (g_local.transition)
 				{
 					local_player->m_rockstar_id = scid_real;
 				}

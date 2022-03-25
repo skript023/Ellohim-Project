@@ -22,6 +22,7 @@
 #include "gui/controller/http_request.hpp"
 #include "gui/controller/xostr.h"
 #include "gui/controller/network_controller.h"
+#include <gui/window/imgui_notify.h>
 
 #pragma warning (disable:4172)
 
@@ -311,12 +312,12 @@ namespace big
             script::get_current()->yield();
             if (global_exp == total)
             {
-                message::notification("~bold~~g~Your RP no longer need correction", "~bold~~g~Ellohim Recovery");
+                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 7000, "Your RP is already corrected" });
             }
             else if (global_exp != total)
             {
                 STATS::STAT_SET_INT(RAGE_JOAAT("MPPLY_GLOBALXP"), total, true);
-                message::notification("~bold~~g~Your RP Has Been Corrected", "~bold~~g~Ellohim Recovery");
+                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 7000, "Your RP has been corrected" });
             }
         });
     }
@@ -671,24 +672,29 @@ namespace big
 
     void player::set_player_infinite_oxygen(Player player, bool activation)
     {
-        if (activation)
+        if (auto player_ped = rage_helper::get_player_pointer(player))
         {
-            if (auto player_ped = rage_helper::get_player_pointer(player))
+            static const float default_value = player_ped->m_unk_player->m_oxygen;
+            if (activation)
             {
                 player_ped->m_unk_player->m_oxygen = 0.f;
+            }
+            else
+            {
+                player_ped->m_unk_player->m_oxygen = default_value;
             }
         }
     }
 
     void player::blind_cops(bool Activation)
     {
-        if (Activation)
+        if (Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).as<int*>() = 1;
             *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).at(2).as<int*>() = NETWORK::GET_NETWORK_TIME();
             *script_global(g_global.blind_cops).at(g_global.blind_cops_offset-1).as<int*>() = 5;
         }
-        else
+        else if (!Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).as<int*>() = 0;
             *script_global(g_global.blind_cops).at(g_global.blind_cops_offset).at(2).as<int*>() = 0;
@@ -698,12 +704,12 @@ namespace big
 
     void player::reveal_player(bool Activation)
     {
-        if (Activation)
+        if (Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(212).as<int*>() = 1;
             *script_global(g_global.radar_time).at(71).as<int*>() = NETWORK::GET_NETWORK_TIME();
         }
-        else
+        else if (!Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(212).as<int*>() = 0;
             *script_global(g_global.radar_time).at(71).as<int*>() = NETWORK::GET_NETWORK_TIME();
@@ -712,13 +718,13 @@ namespace big
 
     void player::off_the_radar(bool Activation)
     {
-        if (Activation)
+        if (Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 1;
             *script_global(g_global.radar_time).at(70).as<int*>() = NETWORK::GET_NETWORK_TIME();
             *script_global(2544210).at(4628).as<int*>() = 3;
         }
-        else
+        else if (!Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 0;
             *script_global(g_global.radar_time).at(70).as<int*>() = 0;
@@ -728,13 +734,13 @@ namespace big
 
     void player::ghost_organization(bool Activation)
     {
-        if (Activation)
+        if (Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 1;
             *script_global(g_global.radar_time).at(70).as<int*>() = NETWORK::GET_NETWORK_TIME();
             *script_global(2544210).at(4628).as<int*>() = 4;
         }
-        else
+        else if (!Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 0;
             *script_global(g_global.radar_time).at(70).as<int*>() = 0;
@@ -744,13 +750,14 @@ namespace big
 
     void player::set_player_no_collision(bool Activation)
     {
+        static const float default_value = rage_helper::get_local_ped()->m_navigation->m_ph_arche->get_geometry(0)->m_collision;
         if (Activation)
         {
             rage_helper::get_local_ped()->m_navigation->m_ph_arche->get_geometry(0)->m_collision = -1.0f;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x30, 0x10, 0x20, 0x70, 0x0, 0x2C }, -1.0f);
         }
         else
         {
-            rage_helper::get_local_ped()->m_navigation->m_ph_arche->get_geometry(0)->m_collision = 0.25f;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x30, 0x10, 0x20, 0x70, 0x0, 0x2C }, 0.25f);
+            rage_helper::get_local_ped()->m_navigation->m_ph_arche->get_geometry(0)->m_collision = default_value;//Memory::set_value(g_ptr.WorldPTR, { 0x8, 0x30, 0x10, 0x20, 0x70, 0x0, 0x2C }, 0.25f);
         }
     }
 

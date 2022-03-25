@@ -103,11 +103,6 @@ namespace big::features
 		}
 	}
 	
-	void LogginPlayerData()
-	{
-
-	}
-	
 	void chrono_loop(std::chrono::high_resolution_clock::duration delay)
 	{
 		static std::chrono::steady_clock::time_point start = std::chrono::high_resolution_clock::now();
@@ -149,9 +144,8 @@ namespace big::features
 	
 	void run_tick()
 	{
-		g_local.Transition = TransitionCheck() && *g_pointers->m_is_session_started;
 		g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
-		g_local.transition = TransitionCheck() && *g_pointers->m_is_session_started;
+		g_local.transition = NETWORK::NETWORK_IS_IN_TRANSITION();
 		HotkeyAttach();
 		miscellaneous::variable_attach();
 		

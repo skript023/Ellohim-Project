@@ -28,7 +28,6 @@ namespace rage
 	}; //Size: 0x018C
 	static_assert(sizeof(fwEntity) == 0x18C, "fwEntity is not properly sized");
 
-
 	class CVehicle : public fwEntity
 	{
 	public:

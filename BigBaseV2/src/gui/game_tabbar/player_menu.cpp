@@ -3461,57 +3461,57 @@ namespace big
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                    network::request_control(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped);
+                                    network::request_control(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped);
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
                                     switch (selected_teleport)
                                     {
                                     case 0:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 961.1140747, -14.38642979, 79.17744446, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 961.1140747, -14.38642979, 79.17744446, FALSE, FALSE, TRUE);
                                         break;
                                     case 1:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 999.9178467, 71.82054901, 80.9906311, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 999.9178467, 71.82054901, 80.9906311, FALSE, FALSE, TRUE);
                                         break;
                                     case 2:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2548.182129, -268.9185791, -59.32941437, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2548.182129, -268.9185791, -59.32941437, FALSE, FALSE, TRUE);
                                         break;
                                     case 3:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2521.76171875, -287.35919189453125, -58.73883057, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2521.76171875, -287.35919189453125, -58.73883057, FALSE, FALSE, TRUE);
                                         break;
                                     case 4:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2469.171387, -279.1452332, -70.99414825411, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2469.171387, -279.1452332, -70.99414825411, FALSE, FALSE, TRUE);
                                         break;
                                     case 5:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 570.1912842, 4.867886543, 103.2336273, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 570.1912842, 4.867886543, 103.2336273, FALSE, FALSE, TRUE);
                                         break;
                                     case 6:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2515.31713867, -238.67329406, -70.73883057, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2515.31713867, -238.67329406, -70.73883057, FALSE, FALSE, TRUE);
                                         break;
                                     case 7:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2497.590332, -238.8744812, -70.73883057, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2497.590332, -238.8744812, -70.73883057, FALSE, FALSE, TRUE);
                                         break;
                                     case 8:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2526.231689, -299.606445, -58.72296906, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2526.231689, -299.606445, -58.72296906, FALSE, FALSE, TRUE);
                                         break;
                                     case 9:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2510.261474609375, -224.36669921875, -70.037101745, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2510.261474609375, -224.36669921875, -70.037101745, FALSE, FALSE, TRUE);
                                         break;
                                     case 10:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2522.261474609375, -222.36669921875, -70.037101745, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2522.261474609375, -222.36669921875, -70.037101745, FALSE, FALSE, TRUE);
                                         break;
                                     case 11:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2533.521728515625, -225.20936584472656, -70.037101745, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2533.521728515625, -225.20936584472656, -70.037101745, FALSE, FALSE, TRUE);
                                         break;
                                     case 12:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2537.823486328125, -237.45211791992188, -70.037101745, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2537.823486328125, -237.45211791992188, -70.037101745, FALSE, FALSE, TRUE);
                                         break;
                                     case 13:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2534.049560546875, -248.19493103027344, -70.037101745, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2534.049560546875, -248.19493103027344, -70.037101745, FALSE, FALSE, TRUE);
                                         break;
                                     case 14:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2520.3427734375, -255.4257049560547, -70.037101745, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2520.3427734375, -255.4257049560547, -70.037101745, FALSE, FALSE, TRUE);
                                         break;
                                     case 15:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2509.84423828, -250.96855163, -70.037101745, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2509.84423828, -250.96855163, -70.037101745, FALSE, FALSE, TRUE);
                                         break;
                                     }
                                     });
@@ -3526,63 +3526,63 @@ namespace big
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                    network::request_control(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped);
+                                    network::request_control(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped);
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
                                     switch (selected_teleport)
                                     {
                                     case 0:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 5009.920, -5752.865, 28.845, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 5009.920, -5752.865, 28.845, FALSE, FALSE, TRUE);
                                         break;
                                     case 1:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4999.734, -5750.186, 14.840, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4999.734, -5750.186, 14.840, FALSE, FALSE, TRUE);
                                         break;
                                     case 2:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4981.470, -5709.159, 19.428, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4981.470, -5709.159, 19.428, FALSE, FALSE, TRUE);
                                         break;
                                     case 3:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 5033.551, -5684.114, 19.419, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 5033.551, -5684.114, 19.419, FALSE, FALSE, TRUE);
                                         break;
                                     case 4:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4992.017, -5810.792, 20.367, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4992.017, -5810.792, 20.367, FALSE, FALSE, TRUE);
                                         break;
                                     case 5:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 5044.444, -5815.814, -11.603, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 5044.444, -5815.814, -11.603, FALSE, FALSE, TRUE);
                                         break;
                                     case 6:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4990.045, -5718.167, 19.880, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4990.045, -5718.167, 19.880, FALSE, FALSE, TRUE);
                                         break;
                                     case 7:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 3211.242, -4115.156, 1.451, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 3211.242, -4115.156, 1.451, FALSE, FALSE, TRUE);
                                         break;
                                     case 8:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4923.999, -5244.877, 2.524, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4923.999, -5244.877, 2.524, FALSE, FALSE, TRUE);
                                         break;
                                     case 9:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4960.720, -5107.988, 2.980, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4960.720, -5107.988, 2.980, FALSE, FALSE, TRUE);
                                         break;
                                     case 10:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4999.311, -5165.489, 2.764, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4999.311, -5165.489, 2.764, FALSE, FALSE, TRUE);
                                         break;
                                     case 11:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 5191.332, -5133.733, 3.343, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 5191.332, -5133.733, 3.343, FALSE, FALSE, TRUE);
                                         break;
                                     case 12:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 5089.279, -4680.953, 2.397, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 5089.279, -4680.953, 2.397, FALSE, FALSE, TRUE);
                                         break;
                                     case 13:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 5133.833, -4614.249, 2.435, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 5133.833, -4614.249, 2.435, FALSE, FALSE, TRUE);
                                         break;
                                     case 14:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 5065.124, -4590.807, 2.856, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 5065.124, -4590.807, 2.856, FALSE, FALSE, TRUE);
                                         break;
                                     case 15:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4504.204, -4553.794, 4.172, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4504.204, -4553.794, 4.172, FALSE, FALSE, TRUE);
                                         break;
                                     case 16:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4436.732, -4447.588, 4.329, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4436.732, -4447.588, 4.329, FALSE, FALSE, TRUE);
                                         break;
                                     case 17:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 4446.861, -4444.089, 7.237, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 4446.861, -4444.089, 7.237, FALSE, FALSE, TRUE);
                                         break;
                                     }
                                     });
@@ -3597,18 +3597,18 @@ namespace big
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                    network::request_control(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped);
+                                    network::request_control(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped);
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
                                     switch (selected_teleport)
                                     {
                                     case 0:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1912.870, 1388.680, 219.100, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1912.870, 1388.680, 219.100, FALSE, FALSE, TRUE);
                                         break;
                                     case 1:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1924.326, 3986.480, 32.190, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1924.326, 3986.480, 32.190, FALSE, FALSE, TRUE);
                                         break;
                                     case 2:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1994.780, 5078.750, 42.680, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1994.780, 5078.750, 42.680, FALSE, FALSE, TRUE);
                                         break;
                                     }
                                     });
@@ -3623,39 +3623,39 @@ namespace big
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                    network::request_control(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped);
+                                    network::request_control(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped);
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
                                     switch (selected_teleport)
                                     {
                                     case 0:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -134.846000, 1912.264000, 197.324000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -134.846000, 1912.264000, 197.324000, FALSE, FALSE, TRUE);
                                         break;
                                     case 1:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1112.073000, 3142.279000, 38.417000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1112.073000, 3142.279000, 38.417000, FALSE, FALSE, TRUE);
                                         break;
                                     case 2:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1903.165000, 4911.505000, 48.794000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1903.165000, 4911.505000, 48.794000, FALSE, FALSE, TRUE);
                                         break;
                                     case 3:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -679.701000, 5799.503000, 17.331000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -679.701000, 5799.503000, 17.331000, FALSE, FALSE, TRUE);
                                         break;
                                     case 4:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2435.757000, 5838.161000, 59.098000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2435.757000, 5838.161000, 59.098000, FALSE, FALSE, TRUE);
                                         break;
                                     case 5:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2898.762000, 3656.657000, 44.870000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2898.762000, 3656.657000, 44.870000, FALSE, FALSE, TRUE);
                                         break;
                                     case 6:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2569.690000, 1261.146000, 44.506000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2569.690000, 1261.146000, 44.506000, FALSE, FALSE, TRUE);
                                         break;
                                     case 7:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1714.838000, 2620.766000, 3.074000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1714.838000, 2620.766000, 3.074000, FALSE, FALSE, TRUE);
                                         break;
                                     case 8:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1567.035000, 4427.674000, 7.570000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1567.035000, 4427.674000, 7.570000, FALSE, FALSE, TRUE);
                                         break;
                                     case 9:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1406.739000, 3159.471000, 40.466000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1406.739000, 3159.471000, 40.466000, FALSE, FALSE, TRUE);
                                         break;
 
                                     }
@@ -3671,27 +3671,27 @@ namespace big
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                    network::request_control(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped);
+                                    network::request_control(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped);
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
                                     switch (selected_teleport)
                                     {
                                     case 0:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 94.202000, -1294.965000, 30.059000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 94.202000, -1294.965000, 30.059000, FALSE, FALSE, TRUE);
                                         break;
                                     case 1:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1010.520000, -502.283000, 37.230000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1010.520000, -502.283000, 37.230000, FALSE, FALSE, TRUE);
                                         break;
                                     case 2:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2517.254000, 3789.320000, 54.698000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2517.254000, 3789.320000, 54.698000, FALSE, FALSE, TRUE);
                                         break;
                                     case 3:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -2348.862000, 3270.686000, 33.800000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -2348.862000, 3270.686000, 33.800000, FALSE, FALSE, TRUE);
                                         break;
                                     case 4:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -41.906000, 2873.529000, 60.454000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -41.906000, 2873.529000, 60.454000, FALSE, FALSE, TRUE);
                                         break;
                                     case 5:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1169.573000, 4926.988000, 224.407000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1169.573000, 4926.988000, 224.407000, FALSE, FALSE, TRUE);
                                         break;
                                     }
                                     });
@@ -3706,174 +3706,174 @@ namespace big
                             {
                                 g_fiber_pool->queue_job([] {
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x9090;
-                                    network::request_control(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped);
+                                    network::request_control(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped);
                                     *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
                                     switch (selected_teleport)
                                     {
                                     case 0:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1992.172000, 3046.280000, 48.131000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1992.172000, 3046.280000, 48.131000, FALSE, FALSE, TRUE);
                                         break;
                                     case 1:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 120.380000, -1297.669000, 30.005000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 120.380000, -1297.669000, 30.005000, FALSE, FALSE, TRUE);
                                         break;
                                     case 2:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 79.293000, 3704.578000, 42.245000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 79.293000, 3704.578000, 42.245000, FALSE, FALSE, TRUE);
                                         break;
                                     case 3:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2937.738000, 5325.846000, 101.476000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2937.738000, 5325.846000, 101.476000, FALSE, FALSE, TRUE);
                                         break;
                                     case 4:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 727.153000, 4189.818000, 41.776000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 727.153000, 4189.818000, 41.776000, FALSE, FALSE, TRUE);
                                         break;
                                     case 5:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -103.140000, 369.008000, 113.567000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -103.140000, 369.008000, 113.567000, FALSE, FALSE, TRUE);
                                         break;
                                     case 6:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 99.959000, 6619.539000, 33.614000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 99.959000, 6619.539000, 33.614000, FALSE, FALSE, TRUE);
                                         break;
                                     case 7:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -282.669000, 6226.274000, 32.655000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -282.669000, 6226.274000, 32.655000, FALSE, FALSE, TRUE);
                                         break;
                                     case 8:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1707.572000, 4921.021000, 42.858000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1707.572000, 4921.021000, 42.858000, FALSE, FALSE, TRUE);
                                         break;
                                     case 9:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1581.865000, 5204.295000, 4.957000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1581.865000, 5204.295000, 4.957000, FALSE, FALSE, TRUE);
                                         break;
                                     case 10:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 10.826000, -1101.157000, 30.913000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 10.826000, -1101.157000, 30.913000, FALSE, FALSE, TRUE);
                                         break;
                                     case 11:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1690.043000, 3589.014000, 36.888000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1690.043000, 3589.014000, 36.888000, FALSE, FALSE, TRUE);
                                         break;
                                     case 12:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1159.249000, -316.574000, 70.448000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1159.249000, -316.574000, 70.448000, FALSE, FALSE, TRUE);
                                         break;
                                     case 13:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1160.725000, -317.015000, 69.205000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1160.725000, -317.015000, 69.205000, FALSE, FALSE, TRUE);
                                         break;
                                     case 14:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -3048.106000, 585.321000, 8.761000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -3048.106000, 585.321000, 8.761000, FALSE, FALSE, TRUE);
                                         break;
                                     case 15:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -3149.709000, 1115.830000, 21.726000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -3149.709000, 1115.830000, 21.726000, FALSE, FALSE, TRUE);
                                         break;
                                     case 16:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1840.622000, -1235.118000, 14.286000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1840.622000, -1235.118000, 14.286000, FALSE, FALSE, TRUE);
                                         break;
                                     case 17:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 810.605000, -2978.741000, 6.818000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 810.605000, -2978.741000, 6.818000, FALSE, FALSE, TRUE);
                                         break;
                                     case 18:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 202.275000, -1645.225000, 31.068000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 202.275000, -1645.225000, 31.068000, FALSE, FALSE, TRUE);
                                         break;
                                     case 19:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 253.214000, 215.986000, 107.280000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 253.214000, 215.986000, 107.280000, FALSE, FALSE, TRUE);
                                         break;
                                     case 20:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1165.955000, -234.077000, 38.920000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1165.955000, -234.077000, 38.920000, FALSE, FALSE, TRUE);
                                         break;
                                     case 21:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 730.402000, 2515.000000, 73.133000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 730.402000, 2515.000000, 73.133000, FALSE, FALSE, TRUE);
                                         break;
                                     case 22:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 188.192000, 3076.332000, 44.055000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 188.192000, 3076.332000, 44.055000, FALSE, FALSE, TRUE);
                                         break;
                                     case 23:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 3687.962000, 4569.123000, 25.934000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 3687.962000, 4569.123000, 25.934000, FALSE, FALSE, TRUE);
                                         break;
                                     case 24:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1876.975000, 6410.034000, 47.599000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1876.975000, 6410.034000, 47.599000, FALSE, FALSE, TRUE);
                                         break;
                                     case 25:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2121.146000, 4784.687000, 41.788000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2121.146000, 4784.687000, 41.788000, FALSE, FALSE, TRUE);
                                         break;
                                     case 26:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 900.085000, 3558.156000, 34.619000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 900.085000, 3558.156000, 34.619000, FALSE, FALSE, TRUE);
                                         break;
                                     case 27:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2695.272000, 4324.496000, 46.662000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2695.272000, 4324.496000, 46.662000, FALSE, FALSE, TRUE);
                                         break;
                                     case 28:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1829.428000, 798.414000, 139.055000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1829.428000, 798.414000, 139.055000, FALSE, FALSE, TRUE);
                                         break;
                                     case 29:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1203.695000, -1558.839000, 5.173000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1203.695000, -1558.839000, 5.173000, FALSE, FALSE, TRUE);
                                         break;
                                     case 30:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -73.271000, -2005.510000, 18.909000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -73.271000, -2005.510000, 18.909000, FALSE, FALSE, TRUE);
                                         break;
                                     case 31:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1154.202000, -527.262000, 32.705000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1154.202000, -527.262000, 32.705000, FALSE, FALSE, TRUE);
                                         break;
                                     case 32:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 990.079000, -1800.391000, 32.678000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 990.079000, -1800.391000, 32.678000, FALSE, FALSE, TRUE);
                                         break;
                                     case 33:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 827.558000, -2158.744000, 30.418000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 827.558000, -2158.744000, 30.418000, FALSE, FALSE, TRUE);
                                         break;
                                     case 34:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1512.080000, -103.623000, 55.190000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1512.080000, -103.623000, 55.190000, FALSE, FALSE, TRUE);
                                         break;
                                     case 35:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -970.749000, 104.340000, 56.069000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -970.749000, 104.340000, 56.069000, FALSE, FALSE, TRUE);
                                         break;
                                     case 36:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -428.670000, 1213.902000, 326.738000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -428.670000, 1213.902000, 326.738000, FALSE, FALSE, TRUE);
                                         break;
                                     case 37:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -167.841000, -297.119000, 40.029000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -167.841000, -297.119000, 40.029000, FALSE, FALSE, TRUE);
                                         break;
                                     case 38:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2747.322000, 3465.120000, 56.632000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2747.322000, 3465.120000, 56.632000, FALSE, FALSE, TRUE);
                                         break;
                                     case 39:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1103.546000, 2714.561000, 20.366000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1103.546000, 2714.561000, 20.366000, FALSE, FALSE, TRUE);
                                         break;
                                     case 40:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 549.450000, -189.203000, 55.450000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 549.450000, -189.203000, 55.450000, FALSE, FALSE, TRUE);
                                         break;
                                     case 41:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1287.708000, -1118.826000, 7.299000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1287.708000, -1118.826000, 7.299000, FALSE, FALSE, TRUE);
                                         break;
                                     case 42:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1131.453000, -982.078000, 48.165000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1131.453000, -982.078000, 48.165000, FALSE, FALSE, TRUE);
                                         break;
                                     case 43:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1130.963000, -982.082000, 46.416000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1130.963000, -982.082000, 46.416000, FALSE, FALSE, TRUE);
                                         break;
                                     case 44:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -1028.083000, -2746.936000, 14.384000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -1028.083000, -2746.936000, 14.384000, FALSE, FALSE, TRUE);
                                         break;
                                     case 45:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -538.578000, -1278.542000, 27.334000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -538.578000, -1278.542000, 27.334000, FALSE, FALSE, TRUE);
                                         break;
                                     case 46:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1326.500000, -1651.229000, 53.181000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1326.500000, -1651.229000, 53.181000, FALSE, FALSE, TRUE);
                                         break;
                                     case 47:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 183.325000, -685.266000, 43.614000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 183.325000, -685.266000, 43.614000, FALSE, FALSE, TRUE);
                                         break;
                                     case 48:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 1487.854000, 1129.207000, 115.312000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 1487.854000, 1129.207000, 115.312000, FALSE, FALSE, TRUE);
                                         break;
                                     case 49:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -2305.538000, 3387.981000, 31.928000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -2305.538000, 3387.981000, 31.928000, FALSE, FALSE, TRUE);
                                         break;
                                     case 50:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -522.632000, 4193.459000, 194.745000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -522.632000, 4193.459000, 194.745000, FALSE, FALSE, TRUE);
                                         break;
                                     case 51:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -748.975000, 5599.820000, 43.019000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -748.975000, 5599.820000, 43.019000, FALSE, FALSE, TRUE);
                                         break;
                                     case 52:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -288.062000, 2545.210000, 75.410000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -288.062000, 2545.210000, 75.410000, FALSE, FALSE, TRUE);
                                         break;
                                     case 53:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, 2565.326000, 296.860000, 109.733000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, 2565.326000, 296.860000, 109.733000, FALSE, FALSE, TRUE);
                                         break;
                                     case 54:
-                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(g_local.InVehicle ? g_local.PlayerVehicle : g_local.ped, -408.250000, 585.793000, 125.374000, FALSE, FALSE, TRUE);
+                                        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(rage_helper::get_local_ped()->m_is_in_vehicle ? g_local.PlayerVehicle : g_local.ped, -408.250000, 585.793000, 125.374000, FALSE, FALSE, TRUE);
                                         break;
                                     }
                                     });

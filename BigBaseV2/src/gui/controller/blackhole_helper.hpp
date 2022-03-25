@@ -54,6 +54,7 @@ namespace big
 	private:
 		static void chrono_player_info_blackhole(std::chrono::milliseconds ms);
 	};
+	
 	static class player_info
 	{
 		public:

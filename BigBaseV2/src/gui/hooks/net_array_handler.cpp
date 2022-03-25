@@ -11,12 +11,17 @@ namespace big
 	{
 		if (g_running)
 		{
+			if (datbitbuffer->m_unkBit + bytes_to_read > datbitbuffer->m_curBit)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 7000, "NET_ARRAY_ERROR caught, someones probably trying to crash us." });
+
+				return false;
+			}
+
 			uint32_t buffer = 0;
 
 			const auto bytes_start = datbitbuffer->m_unkBit;
-			for (unsigned int i = datbitbuffer->m_unkBit - bytes_start;
-				i < bytes_to_read;
-				i = datbitbuffer->m_unkBit - bytes_start)
+			for (unsigned int i = datbitbuffer->m_unkBit - bytes_start;i < bytes_to_read;i = datbitbuffer->m_unkBit - bytes_start)
 			{
 				const auto bytes_read_before = datbitbuffer->m_unkBit;
 				datbitbuffer->ReadDword(&buffer, 1u);

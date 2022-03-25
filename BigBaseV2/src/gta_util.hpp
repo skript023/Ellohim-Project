@@ -117,7 +117,7 @@ namespace big::rage_helper
 
 	inline bool get_game_state()
 	{
-		return *g_pointers->m_game_state == Playing;
+		return *g_pointers->m_game_state == eGameState::Playing;
 	}
 
 	inline GtaThread* find_script_thread(rage::joaat_t hash)
@@ -230,34 +230,40 @@ namespace big
 			return _value &= ~(1LL << _bit);
 		}
 
-		static inline bool is_bit_set(int* addr, int _bit)
+		template <typename T>
+		static inline bool is_bit_set(T* addr, int _bit)
 		{
 			if ((*addr >> _bit) & 1LL) return true;
 			return false;
 		}
 
-		static inline void set_bit(int* addr, int _bit)
+		template <typename T>
+		static inline void set_bit(T* addr, int _bit)
 		{
 			*addr |= 1LL << _bit;
 		}
 
-		static inline void clear_bit(int* addr, int _bit)
+		template <typename T>
+		static inline void clear_bit(T* addr, int _bit)
 		{
 			*addr &= ~(1LL << _bit);
 		}
 
-		static inline bool has_flag(int* addr, int flag)
+		template <typename T>
+		static inline bool has_flag(T* addr, int flag)
 		{
 			if ((*addr & flag) == flag) return true;
 			return false;
 		}
 
-		static inline int set_flag(int* addr, int flag)
+		template <typename T>
+		static inline int set_flag(T* addr, int flag)
 		{
 			return *addr = flag;
 		}
 
-		static inline int clear_flag(int* addr, int flag)
+		template <typename T>
+		static inline int clear_flag(T* addr, int flag)
 		{
 			return *addr &= ~(flag);
 		}

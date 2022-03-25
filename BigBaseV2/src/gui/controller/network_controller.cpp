@@ -38,14 +38,14 @@ namespace big
 
     void network::remove_orbital_cannon_cooldown(bool activate)
     {
-        auto cooldown = *script_global(262145).at(22852).as<int*>();
-        if (activate && cooldown != 0)
+        static const auto cooldown = *script_global(262145).at(22852).as<int*>();
+        if (activate)
         {
             *script_global(262145).at(22852).as<int*>() = 0;
         }
         else
         {
-            *script_global(262145).at(22852).as<int*>() = 2880000;
+            *script_global(262145).at(22852).as<int*>() = cooldown;//2880000;
         }
     }
 

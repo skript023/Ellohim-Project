@@ -393,27 +393,27 @@ namespace big
                 ImGui::Text(xorstr("Vehicle Handling"));
                 if (ImGui::SliderScalar(xorstr("Acceleration"), ImGuiDataType_Float, &g_handling.acceleration, &min, &max))
                 {
-                    if (g_local.InVehicle)
+                    if (rage_helper::get_local_ped()->m_is_in_vehicle)
                         rage_helper::get_local_vehicle()->m_handling->m_acceleration = g_handling.acceleration;
                 }
 
                 if (ImGui::SliderScalar(xorstr("Top Speed"), ImGuiDataType_Float, &g_handling.top_speed, &top_min, &top_max))
                 {
                     g_fiber_pool->queue_job([] {
-                        if (g_local.InVehicle)
+                        if (rage_helper::get_local_ped()->m_is_in_vehicle)
                             VEHICLE::MODIFY_VEHICLE_TOP_SPEED(g_local.PlayerVehicle, g_handling.top_speed);
                     });
                 }
                 g_handling.traction_curve_min = rage_helper::get_local_vehicle()->m_handling->m_traction_curve_min;
                 if (ImGui::SliderScalar(xorstr("Traction Curve Min"), ImGuiDataType_Float, &g_handling.traction_curve_min, &min, &max))
                 {
-                    if (g_local.InVehicle)
+                    if (rage_helper::get_local_ped()->m_is_in_vehicle)
                         rage_helper::get_local_vehicle()->m_handling->m_traction_curve_min = g_handling.traction_curve_min;
                 }
                 g_handling.traction_curve_max = rage_helper::get_local_vehicle()->m_handling->m_traction_curve_max;
                 if (ImGui::SliderScalar(xorstr("Traction Curve Max"), ImGuiDataType_Float, &g_handling.traction_curve_max, &min, &max))
                 {
-                    if (g_local.InVehicle)
+                    if (rage_helper::get_local_ped()->m_is_in_vehicle)
                         rage_helper::get_local_vehicle()->m_handling->m_traction_curve_max = g_handling.traction_curve_max;
                 }
 
@@ -421,7 +421,7 @@ namespace big
                 g_handling.f_acceleration = rage_helper::get_local_vehicle()->m_handling->m_flying_acceleration;
                 if (ImGui::SliderScalar(xorstr("Flying Acceleration"), ImGuiDataType_S32, &g_handling.f_acceleration, &min, &max))
                 {
-                    if (g_local.InVehicle)
+                    if (rage_helper::get_local_ped()->m_is_in_vehicle)
                         rage_helper::get_local_vehicle()->m_handling->m_flying_acceleration = g_handling.f_acceleration;
                 }
             }
@@ -441,7 +441,7 @@ namespace big
                     }
                     ImGui::EndCombo();
                 }
-                switch (g_local.InVehicle ? selected_flag : 0)
+                switch (rage_helper::get_local_ped()->m_is_in_vehicle ? selected_flag : 0)
                 {
                     case 1:
                         //std::map<int, std::string>::iterator it = game_variable::List_Vehicle_Flags_1.begin();

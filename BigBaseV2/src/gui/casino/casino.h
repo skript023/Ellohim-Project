@@ -73,18 +73,6 @@ namespace big
 
 	};
 
-	static class mission_status
-	{
-	public:
-		static inline bool casino_board{};
-		static inline bool cayo_board{};
-		static inline bool doomsday_board{};
-		static inline bool apartment_board{};
-		static inline bool mission_controller{};
-		static inline bool mission_controller_new{};
-
-	}g_mission;
-
 	class lucky_wheel
 	{
 	public:

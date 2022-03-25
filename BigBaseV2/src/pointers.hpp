@@ -101,9 +101,12 @@ namespace big
 		functions::clone_sync_ack_t m_clone_sync_ack{};
 		functions::clone_create_ack_t m_clone_create_ack{};
 		functions::clone_remove_ack_t m_clone_remove_ack{};
+		functions::get_chat_data_t m_chat_data{};
 
 		functions::joined_player_t m_player_has_joined{};
 		functions::left_player_t m_player_has_left{};
+		functions::chat_receive_t m_chat_receive{};
+		functions::chat_player_id_t m_chat_player_id{};
 
 		functions::GetNetGamePlayer m_get_net_game_player{};
 		
