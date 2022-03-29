@@ -4,7 +4,8 @@
 #include "imgui.h"
 #include "gui.hpp"
 #include "gta/player.hpp"
-#include "gta\replay.hpp"
+#include "gta/replay.hpp"
+#include "gui/vehicle/vehicle_helper.h"
 
 namespace big
 {

@@ -144,44 +144,52 @@ namespace big::features
 	
 	void run_tick()
 	{
-		g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
-		g_local.transition = NETWORK::NETWORK_IS_IN_TRANSITION();
-		HotkeyAttach();
-		miscellaneous::variable_attach();
-		
-		chrono_loop(200ms);
-		player::player_blackhole();
-		weapon_helper::weapon_blackhole();
-		remote_event::game_event_blackhole();
-		vehicle_helper::vehicle_blackhole();
-
-		game_time::faster_time_scale(g_misc_option->time_scale);
-		
-		ai::explode_enemies(g_npc_option->explode_ped);
-		ai::kill_enemies(g_npc_option->kill_ped);
-		
-		casino_heist::AutoHeistCut(g_heist_option->auto_heist_cut);
-		casino_heist::HeistCrewCutToZero(g_heist_option->casino_heist_crew);
-		casino_heist::RemoveCasinoCrew(g_heist_option->casino_heist_remove_crew);
-		
-		//InfiniteAmmo(g_settings.options["Infinite Ammo"]);
-		
-		blackjack::AutoPlay(g_blackjack_option->blackjack_rig);
-		blackjack::BlackJack(g_blackjack_option->blackjack_rig);
-		casino_slot::RigSlotMachine(g_casino_option->casino_rig);
-		casino_slot::AlwaysJackpot(g_casino_option->casino_rig);
-		casino_slot::AutoPlay(g_casino_option->casino_rig);
-
-
-		*script_global(g_global.lester_cut).as<int*>() = g_heist_option->remove_lester_cut ? 0 : 5;
-
-		spoofer::player_level(g_spoofer_option->level_spoofer, g_spoofer_option->spoofed_level);
-		spoofer::player_money(g_spoofer_option->money_spoofer, g_spoofer_option->spoofed_money);
-		cayo_perico::set_heat_to_zero(g_heist_option->zero_heat);
-
-		if (g_spoofer_option->rid != 0)
+		try
 		{
-			spoofer::player_scid(game_variable::player_rid_list[g_spoofer_option->rid]);
+			g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
+			g_local.transition = NETWORK::NETWORK_IS_IN_TRANSITION();
+			HotkeyAttach();
+			
+			game_time::faster_time_scale(g_misc_option->time_scale);
+
+			ai::explode_enemies(g_npc_option->explode_ped);
+			ai::kill_enemies(g_npc_option->kill_ped);
+
+			casino_heist::AutoHeistCut(g_heist_option->auto_heist_cut);
+			casino_heist::HeistCrewCutToZero(g_heist_option->casino_heist_crew);
+			casino_heist::RemoveCasinoCrew(g_heist_option->casino_heist_remove_crew);
+
+			//InfiniteAmmo(g_settings.options["Infinite Ammo"]);
+
+			blackjack::AutoPlay(g_blackjack_option->blackjack_rig);
+			blackjack::BlackJack(g_blackjack_option->blackjack_rig);
+			casino_slot::RigSlotMachine(g_casino_option->casino_rig);
+			casino_slot::AlwaysJackpot(g_casino_option->casino_rig);
+			casino_slot::AutoPlay(g_casino_option->casino_rig);
+
+
+			*script_global(g_global.lester_cut).as<int*>() = g_heist_option->remove_lester_cut ? 0 : 5;
+
+			spoofer::player_level(g_spoofer_option->level_spoofer, g_spoofer_option->spoofed_level);
+			spoofer::player_money(g_spoofer_option->money_spoofer, g_spoofer_option->spoofed_money);
+			cayo_perico::set_heat_to_zero(g_heist_option->zero_heat);
+
+			miscellaneous::variable_attach();
+
+			chrono_loop(200ms);
+			player::player_blackhole();
+			weapon_helper::weapon_blackhole();
+			remote_event::game_event_blackhole();
+			vehicle_helper::vehicle_blackhole();
+
+			if (g_spoofer_option->rid != 0)
+			{
+				spoofer::player_scid(game_variable::player_rid_list[g_spoofer_option->rid]);
+			}
+		}
+		catch(const std::exception& e)
+		{
+			LOG(INFO) << e.what();
 		}
 	}
 

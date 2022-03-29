@@ -22,7 +22,7 @@ namespace big
     {
         if (auto ped_vehicle = rage_helper::entity_to_pointer<CVehicle*>(vehicle))
         {
-            if (activation && !systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 0.0f))
+            if (activation && systems::is_float_equal(ped_vehicle->m_navigation->m_ph_arche->m_water_collision, 1.0f))
             {
                 ped_vehicle->m_navigation->m_ph_arche->m_water_collision = 0;
             }
@@ -49,16 +49,16 @@ namespace big
                 if ((GetAsyncKeyState('K') & 0x1))
                 {
                     if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
-                        memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
+                        memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
                     else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1))
                         memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 1);
                 }
                 if ((GetAsyncKeyState('L') & 0x1))
                 {
                     if (!memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
-                        memory_util::set_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
+                        memory_util::set_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
                     else if (memory_util::is_bit_set(rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6))
-                        memory_util::clear_bit((int*)&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
+                        memory_util::clear_bit(&rage_helper::get_local_ped()->m_last_vehicle->m_turn_light, 6);
                 }
             }
         }
@@ -506,8 +506,7 @@ namespace big
     {
         QUEUE_JOB_BEGIN_CLAUSE(=)
         {
-            if (!*g_pointers->m_is_session_started) *script_global(2783340).as<bool*>() = true;
-            vehicle_helper::allow_unrelease_vehicle(true);
+            if (!*g_pointers->m_is_session_started) *script_global(4533757).as<bool*>() = true;
             auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
             auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
             auto heading = ENTITY::GET_ENTITY_HEADING(entity);
@@ -523,6 +522,16 @@ namespace big
 
             script::get_current()->yield();
 
+            if (*g_pointers->m_is_session_started)
+            {
+                DECORATOR::DECOR_SET_INT(vehicle, "MPBitset", 0);
+                ENTITY::_SET_ENTITY_SOMETHING(vehicle, TRUE); //True means it can be deleted by the engine when switching lobbies/missions/etc, false means the script is expected to clean it up.
+                auto networkId = NETWORK::VEH_TO_NET(vehicle);
+                if (NETWORK::NETWORK_GET_ENTITY_IS_NETWORKED(vehicle))
+                    NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
+                VEHICLE::SET_VEHICLE_IS_STOLEN(vehicle, FALSE);
+            }
+
             VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(vehicle, 1.f);
             VEHICLE::_SET_VEHICLE_CAN_BE_LOCKED_ON(vehicle, FALSE, FALSE);
             VEHICLE::_SET_VEHICLE_MAX_SPEED(vehicle, 1.39f * VEHICLE::GET_VEHICLE_ESTIMATED_MAX_SPEED(vehicle));
@@ -531,6 +540,9 @@ namespace big
 
             if (g_settings.options["Auto Get-in"])
             {
+                STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
+                GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
+                GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
                 PED::SET_PED_INTO_VEHICLE(PLAYER::PLAYER_PED_ID(), vehicle, -1);
             }
 
@@ -563,13 +575,31 @@ namespace big
             {
                 VEHICLE::SET_PLANE_TURBULENCE_MULTIPLIER(vehicle, 0.0f);
             }
-            if (g_settings.options["Auto Get-in"])
-            {
-                STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
-                GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
-                GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", PLAYER::PLAYER_PED_ID(), 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
-            }
+            
             STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_vehicle);
+        }
+        QUEUE_JOB_END_CLAUSE
+    }
+
+    void vehicle_helper::vehicle(Hash name, Entity entity)
+    {
+        QUEUE_JOB_BEGIN_CLAUSE(=)
+        {
+            if (!*g_pointers->m_is_session_started) *script_global(4533757).as<bool*>() = true;
+            auto pos = ENTITY::GET_ENTITY_COORDS(entity, TRUE);
+            auto forward = ENTITY::GET_ENTITY_FORWARD_VECTOR(entity);
+            auto heading = ENTITY::GET_ENTITY_HEADING(entity);
+
+            pos.x += DISTANCE_SPAWN * forward.x;
+            pos.y += DISTANCE_SPAWN * forward.y;
+
+            Hash hash_vehicle = load_files::load_model(name);//load(name);
+
+            *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
+            auto vehicle = VEHICLE::CREATE_VEHICLE(hash_vehicle, pos.x, pos.y, pos.z + 1.f, heading + 90.0f, TRUE, TRUE, FALSE);
+            *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
+
+            script::get_current()->yield();
 
             if (*g_pointers->m_is_session_started)
             {
@@ -580,6 +610,52 @@ namespace big
                     NETWORK::SET_NETWORK_ID_EXISTS_ON_ALL_MACHINES(networkId, true);
                 VEHICLE::SET_VEHICLE_IS_STOLEN(vehicle, FALSE);
             }
+
+            VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(vehicle, 1.f);
+            VEHICLE::_SET_VEHICLE_CAN_BE_LOCKED_ON(vehicle, FALSE, FALSE);
+            VEHICLE::_SET_VEHICLE_MAX_SPEED(vehicle, 1.39f * VEHICLE::GET_VEHICLE_ESTIMATED_MAX_SPEED(vehicle));
+            VEHICLE::MODIFY_VEHICLE_TOP_SPEED(vehicle, 1.39f);
+            VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT(vehicle, "Janda");
+
+            if (g_settings.options["Auto Get-in"])
+            {
+                STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
+                GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
+                GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
+                PED::SET_PED_INTO_VEHICLE(PLAYER::PLAYER_PED_ID(), vehicle, -1);
+            }
+
+            if (g_toggle.godmode)
+            {
+                ENTITY::SET_ENTITY_INVINCIBLE(vehicle, TRUE);
+            }
+
+            if (g_settings.options["Full Upgrade Bool"])
+            {
+                VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_XENONHEADLIGHTS, TRUE);
+                VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_TURBO, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 0, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 1, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 2, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 3, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHTS_COLOUR(vehicle, NEON_COLOR_RED);
+                VEHICLE::_SET_VEHICLE_XENON_LIGHTS_COLOR(vehicle, 8);
+                VEHICLE::SET_VEHICLE_MOD_KIT(vehicle, 0);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    VEHICLE::SET_VEHICLE_MOD(vehicle, i, VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, i) - 1, TRUE);
+                }
+                VEHICLE::SET_VEHICLE_WHEEL_TYPE(vehicle, 9);
+                VEHICLE::SET_VEHICLE_MOD(vehicle, MOD_FRONTWHEEL, 52, TRUE);
+            }
+
+            if (VEHICLE::IS_THIS_MODEL_A_PLANE(hash_vehicle))
+            {
+                VEHICLE::SET_PLANE_TURBULENCE_MULTIPLIER(vehicle, 0.0f);
+            }
+
+            STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(hash_vehicle);
         }
         QUEUE_JOB_END_CLAUSE
     }
@@ -615,10 +691,10 @@ namespace big
 
             if (g_settings.options["Auto Get-in"])
             {
-                PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle, -1);
                 STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
                 GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
                 GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
+                PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle, -1);
             }
 
             if (g_settings.options["Full Upgrade Bool"])
@@ -642,6 +718,70 @@ namespace big
             }
 
             if (VEHICLE::IS_THIS_MODEL_A_PLANE(rage::joaat(name)))
+            {
+                VEHICLE::SET_PLANE_TURBULENCE_MULTIPLIER(vehicle, 0.0f);
+            }
+        } QUEUE_JOB_END_CLAUSE
+    }
+
+    void vehicle_helper::SpawnVehicle(Hash name, bool pegasus, Player player_target)
+    {
+        QUEUE_JOB_BEGIN_CLAUSE(=)
+        {
+            auto ped = player::get_player_ped(player_target);
+            Vector3 player_coords = ENTITY::GET_ENTITY_COORDS(ped, TRUE);
+            auto heading = rage_helper::get_local_ped()->m_navigation->m_heading;
+            player_coords.x = player_coords.x - (heading.y * DISTANCE_SPAWN);
+            player_coords.y = player_coords.y + (heading.x * DISTANCE_SPAWN);
+
+            *script_global(g_global.request_model).at(7).at(0).as<float*>() = player_coords.x;
+            *script_global(g_global.request_model).at(7).at(1).as<float*>() = player_coords.y;
+            *script_global(g_global.request_model).at(7).at(2).as<float*>() = player_coords.z;
+            *script_global(g_global.request_model).at(27).at(66).as<uint32_t*>() = name;
+            *script_global(g_global.request_model).at(27).at(28).as<int*>() = 1;
+            *script_global(g_global.request_model).at(27).at(95).as<int*>() = 14;
+            *script_global(g_global.request_model).at(27).at(94).as<int*>() = 2;
+            *script_global(g_global.request_model).at(27).at(5).as<int*>() = -1;
+            *script_global(g_global.request_model).at(27).at(6).as<int*>() = -1;
+            *script_global(g_global.request_model).at(5).as<bool*>() = true;
+            *script_global(g_global.request_model).at(2).as<bool*>() = true;
+            *script_global(g_global.request_model).at(3).as<bool*>() = pegasus;
+            *script_global(g_global.request_model).at(27).at(77).as<uint32_t*>() = 4030726305;
+            script::get_current()->yield(1s);
+            Vehicle vehicle = *script_global(g_global.vehicle_id).as<Vehicle*>();
+            VEHICLE::_SET_VEHICLE_CAN_BE_LOCKED_ON(vehicle, FALSE, FALSE);
+            VEHICLE::_SET_VEHICLE_MAX_SPEED(vehicle, 1.39f * VEHICLE::GET_VEHICLE_ESTIMATED_MAX_SPEED(vehicle));
+            VEHICLE::MODIFY_VEHICLE_TOP_SPEED(vehicle, 1.39f);
+
+            if (g_settings.options["Auto Get-in"])
+            {
+                STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
+                GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
+                GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
+                PED::SET_PED_INTO_VEHICLE(g_local.ped, vehicle, -1);
+            }
+
+            if (g_settings.options["Full Upgrade Bool"])
+            {
+                VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_XENONHEADLIGHTS, TRUE);
+                VEHICLE::TOGGLE_VEHICLE_MOD(vehicle, MOD_TURBO, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 0, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 1, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 2, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHT_ENABLED(vehicle, 3, TRUE);
+                VEHICLE::_SET_VEHICLE_NEON_LIGHTS_COLOUR(vehicle, NEON_COLOR_RED);
+                VEHICLE::_SET_VEHICLE_XENON_LIGHTS_COLOR(vehicle, 8);
+                VEHICLE::SET_VEHICLE_MOD_KIT(vehicle, 0);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    VEHICLE::SET_VEHICLE_MOD(vehicle, i, VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, i) - 1, TRUE);
+                }
+                VEHICLE::SET_VEHICLE_WHEEL_TYPE(vehicle, 9);
+                VEHICLE::SET_VEHICLE_MOD(vehicle, MOD_FRONTWHEEL, 52, TRUE);
+            }
+
+            if (VEHICLE::IS_THIS_MODEL_A_PLANE(name))
             {
                 VEHICLE::SET_PLANE_TURBULENCE_MULTIPLIER(vehicle, 0.0f);
             }
@@ -736,17 +876,18 @@ namespace big
 	Vehicle vehicle_helper::create_vehicle(Hash modelHash, float x, float y, float z, float heading)
 	{
 		*script_global(4533757).as<bool*>() = true;
-        vehicle_helper::allow_unrelease_vehicle(true);
-		while (!STREAMING::HAS_MODEL_LOADED(modelHash))
-		{
-			STREAMING::REQUEST_MODEL(modelHash);
-			script::get_current()->yield();
-		}
-		*(unsigned short*)big::g_pointers->m_model_spawn_bypass = 0x9090;
+        while (!STREAMING::HAS_MODEL_LOADED(modelHash))
+        {
+            STREAMING::REQUEST_MODEL(modelHash);
+            script::get_current()->yield();
+        }
+		*(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
 		Vehicle vehicle = VEHICLE::CREATE_VEHICLE(modelHash, x, y, z, heading, TRUE, FALSE, FALSE);
-		*(unsigned short*)big::g_pointers->m_model_spawn_bypass = 0x0574;
+		*(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
 		script::get_current()->yield(); //This allows the car to initalize so when we write things like radio station, it will overwrite.
 
+        if (*big::g_pointers->m_is_session_started)
+            set_mp_parameters_for_vehicle(vehicle);
 		
 		ENTITY::_SET_ENTITY_SOMETHING(vehicle, TRUE);
 
@@ -754,14 +895,12 @@ namespace big
         {
             STREAMING::REQUEST_NAMED_PTFX_ASSET("scr_rcbarry2");
             GRAPHICS::USE_PARTICLE_FX_ASSET("scr_rcbarry2");
-            GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0f, 0.0f, -0.5f, 0.0f, 0.0f, 0.0f, 1.6f, false, false, false);
-
+            GRAPHICS::START_PARTICLE_FX_NON_LOOPED_ON_ENTITY("scr_clown_appears", vehicle, 0.0, 0.0, -0.5, 0.0, 0.0, 0.0, 1.6, false, false, false);
             PED::SET_PED_INTO_VEHICLE(PLAYER::PLAYER_PED_ID(), vehicle, -1);
         }
 
 		STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(modelHash);
-		if (*big::g_pointers->m_is_session_started)
-			set_mp_parameters_for_vehicle(vehicle);
+
 		return vehicle;
 	}
 
@@ -810,7 +949,7 @@ namespace big
         QUEUE_JOB_END_CLAUSE
     }
 
-    const char* vehicle_helper::find_vehicle_name(Hash hash)
+    auto vehicle_helper::find_vehicle_name(Hash hash) -> const char*
     {
         if (hash == NULL)
         {

@@ -17,6 +17,7 @@ namespace big
 		static const char* get_label_text(void* unk, const char* label);
 		static void player_join(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 		static void player_leave(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
+		static bool rid_crash(__int64 a1);
 		
 		static bool received_event(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, uint16_t event_id, int event_index, int event_handled_bitset, int64_t bit_buffer_size, rage::datBitBuffer* buffer);
 

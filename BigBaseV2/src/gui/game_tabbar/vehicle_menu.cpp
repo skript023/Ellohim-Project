@@ -74,8 +74,8 @@ namespace big
                             if (SelectedVehicleHash != get_vehicle.second.hash)
                                 SelectedVehicleHash = get_vehicle.second.hash;
 
-                            if (strcmp(SelectedVehicle, get_vehicle.second.hash_key) != 0)
-                                strcpy(SelectedVehicle, get_vehicle.second.hash_key);
+                            //if (strcmp(SelectedVehicle, get_vehicle.second.hash_key) != 0)
+                                //strcpy(SelectedVehicle, get_vehicle.second.hash_key);
                         }
                     }
                     ImGui::ListBoxFooter();
@@ -85,12 +85,12 @@ namespace big
                 ImGui::BeginGroup();
                 if (ImGui::Button(xorstr("Spawn Native")))
                 {
-                    vehicle_helper::vehicle(SelectedVehicle, g_local.ped);
+                    vehicle_helper::vehicle(SelectedVehicleHash, g_local.ped);
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Spawn External")))
                 {
-                    vehicle_helper::SpawnVehicle(SelectedVehicle, FALSE, g_local.player);
+                    vehicle_helper::SpawnVehicle(SelectedVehicleHash, FALSE, g_local.player);
                 }
                 ImGui::EndGroup();
             break;

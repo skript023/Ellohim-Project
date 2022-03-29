@@ -11,32 +11,16 @@ namespace big
 	{
 		if (g_running)
 		{
-			if (datbitbuffer->m_unkBit + bytes_to_read > datbitbuffer->m_curBit)
+			if (g_settings.options["Crash Protection"])
 			{
-				ImGui::InsertNotification({ ImGuiToastType_Protection, 7000, "NET_ARRAY_ERROR caught, someones probably trying to crash us." });
-
-				return false;
-			}
-
-			uint32_t buffer = 0;
-
-			const auto bytes_start = datbitbuffer->m_unkBit;
-			for (unsigned int i = datbitbuffer->m_unkBit - bytes_start;i < bytes_to_read;i = datbitbuffer->m_unkBit - bytes_start)
-			{
-				const auto bytes_read_before = datbitbuffer->m_unkBit;
-				datbitbuffer->ReadDword(&buffer, 1u);
-
-				if (bytes_read_before == datbitbuffer->m_unkBit)
+				if (datbitbuffer->m_unkBit + bytes_to_read > datbitbuffer->m_curBit)
 				{
 					ImGui::InsertNotification({ ImGuiToastType_Protection, 7000, "NET_ARRAY_ERROR caught, someones probably trying to crash us." });
 
 					return false;
 				}
 			}
-
-			datbitbuffer->Seek(bytes_start);
 		}
-
 		return g_hooking->m_net_array_handler_hook.get_original<decltype(&hooks::net_array_handler)>()(netArrayHandlerBaseMgr, a2, datbitbuffer, bytes_to_read, a5);
 	}
 }

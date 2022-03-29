@@ -192,7 +192,7 @@ namespace big
     {
         if (Activate)
         {
-            if (g_local.transition && script_helper::is_script_active(RAGE_JOAAT("gb_casino_heist_planning")))
+            if (script_helper::is_script_active(RAGE_JOAAT("gb_casino_heist_planning")))
             {
                 if (*script_global(g_global.casino_cut_1).as<int*>() >= 15 && *script_global(g_global.casino_cut_1).as<int*>() < 85)
                 {
@@ -212,7 +212,7 @@ namespace big
                 }
             }
 
-            if (g_local.transition && script_helper::is_script_active(RAGE_JOAAT("gb_gang_ops_planning")))
+            if (script_helper::is_script_active(RAGE_JOAAT("gb_gang_ops_planning")))
             {
                 if (*script_global(g_global.doomsday_cut_1).as<int*>() >= 15 && *script_global(g_global.doomsday_cut_1).as<int*>() < 85)
                 {
@@ -232,7 +232,7 @@ namespace big
                 }
             }
 
-            if (g_local.transition && script_helper::is_script_active(RAGE_JOAAT("fmmc_launcher")))
+            if (script_helper::is_script_active(RAGE_JOAAT("fmmc_launcher")))
             {
                 if (*script_global(g_global.apartmen_cut_1).as<int*>() >= 15 && *script_global(g_global.apartmen_cut_1).as<int*>() < 85)
                 {
@@ -252,7 +252,7 @@ namespace big
                 }
             }
 
-            if (g_local.transition && script_helper::is_script_active(RAGE_JOAAT("heist_island_planning")))
+            if (script_helper::is_script_active(RAGE_JOAAT("heist_island_planning")))
             {
                 if (*script_global(g_global.cayo_cut_1).as<int*>() >= 15 && *script_global(g_global.cayo_cut_1).as<int*>() < 85)
                 {

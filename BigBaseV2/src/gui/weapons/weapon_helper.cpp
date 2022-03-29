@@ -239,7 +239,7 @@ namespace big
         });
     }
 
-    void weapon_helper::set_bullet_batch_spread(Player player, float spread)
+    int *weapon_helper::bullet_batch(Player player)
     {
         if (auto local_ped = rage_helper::get_player_pointer(player))
         {
@@ -247,13 +247,14 @@ namespace big
             {
                 if (auto weapon_info = weapon_mgr->m_weapon_info)
                 {
-                    weapon_info->m_batch_spread = spread;
+                    return &weapon_info->m_bullet_batch;
                 }
             }
         }
+        return nullptr;
     }
 
-    void weapon_helper::set_bullet_batch(Player player, int sharpnell)
+    float *weapon_helper::bullet_batch_spread(Player player)
     {
         if (auto local_ped = rage_helper::get_player_pointer(player))
         {
@@ -261,98 +262,67 @@ namespace big
             {
                 if (auto weapon_info = weapon_mgr->m_weapon_info)
                 {
-                    weapon_info->m_bullet_batch = sharpnell;
+                    return &weapon_info->m_batch_spread;
                 }
             }
         }
-    }
-
-    int weapon_helper::get_bullet_batch(Player player)
-    {
-        if (auto local_ped = rage_helper::get_player_pointer(player))
-        {
-            if (auto weapon_mgr = local_ped->m_weapon_mgr)
-            {
-                if (auto weapon_info = weapon_mgr->m_weapon_info)
-                {
-                    return weapon_info->m_bullet_batch;
-                }
-            }
-        }
-        return 0;
-    }
-
-    float weapon_helper::get_bullet_batch_spread(Player player)
-    {
-        if (auto local_ped = rage_helper::get_player_pointer(player))
-        {
-            if (auto weapon_mgr = local_ped->m_weapon_mgr)
-            {
-                if (auto weapon_info = weapon_mgr->m_weapon_info)
-                {
-                    return weapon_info->m_batch_spread;
-                }
-            }
-        }
-        return 0.f;
+        return nullptr;
     }
 
     void  weapon_helper::no_recoil(bool activation)
     {
-        static Hash old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-        Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-        static auto old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
-        if (activation)
+        if (!player::is_player_in_any_vehicle(g_local.player))
         {
-            if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
+            static auto old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+            if (activation)
             {
-                if (old_current_weapon == current_weapon)
+                if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
                 {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = 0.f;
-                }
-                if (old_current_weapon != current_weapon)
-                {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
-                    old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
-                    old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+                    if (!PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
+                    {
+                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = 0.f;
+                    }
+                    if (PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
+                    {
+                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
+                        old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+                    }
                 }
             }
-        }
-        else
-        {
-            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
-            old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
-            old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+            else
+            {
+                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
+                old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+            }
         }
     }
 
     void  weapon_helper::no_spread(bool activation)
     {
-        static Hash old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-        Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-        static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
-
-        if (activation)
+        if (!player::is_player_in_any_vehicle(g_local.player))
         {
-            if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
+            static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+
+            if (activation)
             {
-                if (old_current_weapon == current_weapon)
+                if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
                 {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = 0.f;
-                }
-                if (old_current_weapon != current_weapon)
-                {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
-                    old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
-                    old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+                    if (!PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
+                    {
+                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = 0.f;
+                    }
+                    if (PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
+                    {
+                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
+                        old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+                    }
                 }
             }
-        }
-        else
-        {
-            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
-            old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
-            old_current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
+            else
+            {
+                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
+                old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+            }
         }
     }
 
@@ -653,8 +623,8 @@ namespace big
     void weapon_helper::weapon_blackhole()
     {
         weapon_helper::teleport_gun(g_weapon_option.teleport_gun_bool);
-        weapon_helper::no_spread(g_weapon_option.spread_on);
-        weapon_helper::no_recoil(g_weapon_option.recoil_on);
+        //weapon_helper::no_spread(g_weapon_option.spread_on);
+        //weapon_helper::no_recoil(g_weapon_option.recoil_on);
         weapon_helper::rapid_fire(g_weapon_option.rapid_shoot);
         weapon_helper::headshot_all_npc(g_weapon_option.auto_headshot);
         weapon_helper::revenge(rage::joaat(game_variable::revenge_list[g_weapon_option.weapon_hash]), g_weapon_option.weapon_hash != 0);
@@ -666,9 +636,11 @@ namespace big
         weapon_helper::removal_gun(g_weapon_option.delete_gun);
         weapon_helper::ghost_guns(g_weapon_option.ghost_gun);
 
+        /*
         weapon_helper::set_explosive_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosives_ammo);
         weapon_helper::set_fire_ammo_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.fire_ammo);
         weapon_helper::set_super_jump_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.super_jump);
         weapon_helper::set_explosive_melee_this_frame(PLAYER::PLAYER_ID(), g_weapon_option.explosive_fist);
+        */
     }
 }

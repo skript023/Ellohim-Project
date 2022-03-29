@@ -151,15 +151,15 @@ namespace big
                 {
                     g_fiber_pool->queue_job([]
                     {
-                        for each (auto Weapon in game_variable::weapon_hash_list)
+                        for each (auto weapon in game_variable::weapon_hash_list)
                         {
                             int max_ammo;
                             if (WEAPON::IS_WEAPON_VALID(rage::joaat(Weapon)))
                             {
-                                int max_clip = WEAPON::GET_MAX_AMMO_IN_CLIP(PLAYER::PLAYER_PED_ID(), rage::joaat(Weapon), FALSE);
-                                WEAPON::GET_MAX_AMMO(PLAYER::PLAYER_PED_ID(), rage::joaat(Weapon), &max_ammo);
-                                WEAPON::SET_AMMO_IN_CLIP(PLAYER::PLAYER_PED_ID(), rage::joaat(Weapon), max_clip);
-                                WEAPON::SET_PED_AMMO(PLAYER::PLAYER_PED_ID(), rage::joaat(Weapon), max_ammo, FALSE);
+                                int max_clip = WEAPON::GET_MAX_AMMO_IN_CLIP(PLAYER::PLAYER_PED_ID(), rage::joaat(weapon), FALSE);
+                                WEAPON::GET_MAX_AMMO(PLAYER::PLAYER_PED_ID(), rage::joaat(weapon), &max_ammo);
+                                WEAPON::SET_AMMO_IN_CLIP(PLAYER::PLAYER_PED_ID(), rage::joaat(weapon), max_clip);
+                                WEAPON::SET_PED_AMMO(PLAYER::PLAYER_PED_ID(), rage::joaat(weapon), max_ammo, FALSE);
                             }
                             script::get_current()->yield(1ms);
                         }
@@ -197,12 +197,8 @@ namespace big
                 ImGui::SliderFloat(xorstr("Weapon Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_gun_multiplier, 0.f, 2.f);
                 ImGui::SliderFloat(xorstr("Melee Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_melee_multiplier, 0.f, 2.f);
 
-                static auto bullet_batch = weapon_helper::get_bullet_batch(g_local.player);
-                if (ImGui::SliderInt(xorstr("Burst Ammo"), &bullet_batch, 0, 100))
-                {
-                    weapon_helper::set_bullet_batch(g_local.player, bullet_batch);
-                }
-                ImGui::SliderFloat(xorstr("Burst Spread"), &rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread, 0.f, 2.f);
+                ImGui::SliderInt(xorstr("Burst Ammo"), weapon_helper::bullet_batch(g_local.player), 0, 100);
+                ImGui::SliderFloat(xorstr("Burst Spread"), weapon_helper::bullet_batch_spread(g_local.player), 0.f, 2.f);
                 ImGui::PopItemWidth();
 
                 ImGui::Text(xorstr("Weapon Custom Explosion"));

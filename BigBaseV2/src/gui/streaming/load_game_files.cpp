@@ -7,9 +7,9 @@ namespace big
     Hash load_files::load_model(const char* name)
     {
         Hash hash = rage::joaat(name);
+        STREAMING::REQUEST_MODEL(hash);
         while (!STREAMING::HAS_MODEL_LOADED(hash))
         {
-            STREAMING::REQUEST_MODEL(hash);
             script::get_current()->yield();
         }
         return hash;
@@ -17,9 +17,9 @@ namespace big
 
     Hash load_files::load_model(Hash hash)
     {
+        STREAMING::REQUEST_MODEL(hash);
         while (!STREAMING::HAS_MODEL_LOADED(hash))
         {
-            STREAMING::REQUEST_MODEL(hash);
             script::get_current()->yield();
         }
         return hash;

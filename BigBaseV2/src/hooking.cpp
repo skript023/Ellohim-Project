@@ -38,8 +38,11 @@ namespace big
 	hooking::hooking() :
 		m_swapchain_hook(*g_pointers->m_swapchain, hooks::swapchain_num_funcs),
 		m_set_cursor_pos_hook("SetCursorPos", memory::module("user32.dll").get_export("SetCursorPos").as<void*>(), &hooks::set_cursor_pos),
+		m_run_script_threads_hook("Script hook", g_pointers->m_run_script_threads, &hooks::run_script_threads),
+		m_convert_thread_to_fiber_hook("ConvertThreadToFiber", memory::module("kernel32.dll").get_export("ConvertThreadToFiber").as<void*>(), &hooks::convert_thread_to_fiber),
+
 		m_send_net_info_to_lobby_hook("send_net_data", g_pointers->m_send_net_info_to_lobby, &hooks::send_net_info_to_lobby),
-		
+
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
 		m_get_label_text("Get Label Text", g_pointers->m_get_label_text, &hooks::get_label_text),
 		m_player_has_joined_hook("Player Joined Hook", g_pointers->m_player_has_joined, &hooks::player_join),
@@ -54,10 +57,7 @@ namespace big
 
 		m_clone_create_hook("Clone Create", g_pointers->m_clone_create, &hooks::clone_create),
 		m_sync_can_apply_hook("Sync Can Apply Obj", g_pointers->m_sync_can_apply, &hooks::sync_can_apply),
-		m_sync_read_buffer_hook("Sync Read Buffer", g_pointers->m_sync_read, &hooks::sync_read_buffer),
-		
-		m_run_script_threads_hook("Script hook", g_pointers->m_run_script_threads, &hooks::run_script_threads),
-		m_convert_thread_to_fiber_hook("ConvertThreadToFiber", memory::module("kernel32.dll").get_export("ConvertThreadToFiber").as<void*>(), &hooks::convert_thread_to_fiber)
+		m_sync_read_buffer_hook("Sync Read Buffer", g_pointers->m_sync_read, &hooks::sync_read_buffer)
 
 	{
 		m_swapchain_hook.hook(hooks::swapchain_present_index, &hooks::swapchain_present);

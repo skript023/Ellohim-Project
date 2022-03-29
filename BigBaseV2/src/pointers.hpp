@@ -81,6 +81,7 @@ namespace big
 		functions::handle_to_ptr_t m_handle_to_ptr{};
 		functions::player_pointer m_player_ptr{};
 		functions::get_player_name_t m_get_player_name{};
+		functions::rid_crash_t m_rid_crash{};
 
 		functions::error_screen* m_error_screen{};
 		functions::gta_thread_tick m_gta_thread_tick{};

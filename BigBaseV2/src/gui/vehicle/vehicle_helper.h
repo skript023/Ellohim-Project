@@ -45,7 +45,9 @@ namespace big
 		static void set_mp_parameters_for_vehicle(Vehicle vehicle);
 		static Vehicle create_vehicle(Hash modelHash, float x, float y, float z, float heading);
 		static void vehicle(const char* name, Entity entity);
+		static void vehicle(Hash name, Entity entity);
 		static void SpawnVehicle(const char* name, bool pegasus, Player player_target);
+		static void SpawnVehicle(Hash name, bool pegasus, Player player_target);
 		static void swam(const char* name, Entity entity);
 		
 	public:

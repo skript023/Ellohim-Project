@@ -47,7 +47,7 @@ namespace big
         static inline const char* const tuner_update[19]{ "Comet6", "Cypher", "Euros", "Growler", "Jester4", "Tailgater2", "Vectre", "Zr350", "Calico", "Dominator7", "Dominator8", "Futo2", "Previon", "Remus", "Rt3000", "Sultan3", "Warrener2", "Freightcar2", "Warrener" };
         
     public:
-        static inline const char* const vehicle_category_list[31]{ "Super","Sport","Sport Classic","Summer Update","Sedans","Service","SUVs","Planes", "Helicopters","Off Road","Muscles","Motorcycles","Military","Trailers","Trains","Utility","Vans","Arena Wars","Casino Updates", "Casino Heist","Emergency","Industrial","Coupes","Compacts","Boats","Bikes","Commericals","Cayo Perico","Tuner Update", "The Contract Update", "Personal Vehicle" };
+        static inline const char* const vehicle_category_list[30]{ "Super","Sport","Sport Classic","Summer Update","Sedans","Service","SUVs","Planes", "Helicopters","Off Road","Muscles","Motorcycles","Military","Trailers","Trains","Utility","Vans","Arena Wars","Casino Updates", "Casino Heist","Emergency","Industrial","Coupes","Compacts","Boats","Bikes","Commericals","Cayo Perico","Tuner Update", "The Contract Update" };
         static inline std::map<std::string, vehicle_list_struct> get_vehicle_data{};
         static inline void fill_vehicle(int type)
         {

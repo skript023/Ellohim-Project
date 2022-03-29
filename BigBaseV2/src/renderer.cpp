@@ -60,25 +60,21 @@ namespace big
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(13.f, false);
-			ImGui::MergeFont(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f);
 		}
 		else if (m_resolution.y == 900)
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 17.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(16.f, false);
-			ImGui::MergeFont(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 17.f);
 		}
 		else if (m_resolution.y >= 1080)
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 20.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(18.f, false);
-			ImGui::MergeFont(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 20.f);
 		}
 		else if (m_resolution.y <= 720)
 		{
 			m_font = ImGui::GetIO().Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f, &font_cfg, ImGui::GetIO().Fonts->GetGlyphRangesCyrillic());
 			ImGui::MergeIconsWithLatestFont(13.f, false);
-			ImGui::MergeFont(const_cast<std::uint8_t*>(font_rubik), sizeof(font_rubik), 14.f);
 		}
 
 		m_monospace_font = ImGui::GetIO().Fonts->AddFontDefault();

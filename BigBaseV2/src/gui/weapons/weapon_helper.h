@@ -12,10 +12,8 @@ namespace big
 
 		static std::string get_weapon_name_from_hash(Hash weaponHash);
 		static void teleport_gun(bool activation);
-		static void set_bullet_batch_spread(Player player, float spread);
-		static void set_bullet_batch(Player player, int sharpnell);
-		static int get_bullet_batch(Player player);
-		static float get_bullet_batch_spread(Player player);
+		static int* bullet_batch(Player player);
+		static float* bullet_batch_spread(Player player);
 		static void no_spread(bool activation);
 		static void no_recoil(bool activation);
 		static void burst_weapon_ammo(bool activation);

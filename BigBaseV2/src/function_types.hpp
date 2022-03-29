@@ -43,6 +43,7 @@ namespace big::functions
     using chat_player_id_t = CNetGamePlayer* (__fastcall*)(__int64 a1, __int64* a2, __int64 a3);
     using joined_player_t = void (*)(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
     using left_player_t = void (*)(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
+    using rid_crash_t = bool(*)(int64_t a1);
 
 	using get_network_object_t = rage::netObject* (__fastcall*) (rage::CNetworkObjectMgr* mgr, int16_t id, bool is_true);
 	using get_model_info = int64_t(*)(unsigned int model_hash, DWORD* a2);

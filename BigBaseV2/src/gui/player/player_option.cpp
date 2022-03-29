@@ -902,7 +902,7 @@ namespace big
     {
         if (Activation)
         {
-            for (int i = 0; i <= g_local.connected_player; i++)
+            for (int i = 0; i <= network::network_get_num_connected_player(); i++)
             {
                 Ped ped = get_player_ped(i);
                 auto GetHealth = ENTITY::GET_ENTITY_HEALTH(ped);
@@ -1208,24 +1208,8 @@ namespace big
         bLastNoclip = activate;
     }
 
-    void player::player_blackhole()
+    void player::fill_player_list()
     {
-        player::set_player_waterproof(g_local.player, g_player_option.waterproof);
-		player::self_noclip(g_player_option.no_clip);
-		player::ghost_organization(g_player_option.ghost_organizations);
-		player::reveal_player(g_player_option.reveal_players);
-		player::blind_cops(g_player_option.blinds_cops);
-		player::ultra_run(g_player_option.ultra_run_bool);
-		player::never_wanted(g_settings.options["Never Wanted"]);
-		player::mission_lives(g_player_option.all_mission_lives);
-		player::set_player_seatbelt(g_settings.options["Seatbelt"]);
-		player::set_player_invincible(PLAYER::PLAYER_ID(), g_settings.options["Player Godmode"]);
-		player::give_all_heal(g_player_option.send_heal);
-		player::auto_heal(g_settings.options["Auto Heal"]);
-		player::set_player_no_collision(g_player_option.pass_through_wall);
-		player::no_idle_kick(g_settings.options["No Idle Kick"]);
-		player::set_player_infinite_oxygen(PLAYER::PLAYER_ID(), g_player_option.is_infinite_oxygen);
-
         if (player_list_open)
         {
             if ((network::network_get_num_connected_player() != g_misc_option->player_names.size()) && *g_pointers->m_is_session_started)
@@ -1254,5 +1238,26 @@ namespace big
                 g_misc_option->player_names[cstr_name] = { cstr_name, g_local.player, is_in_interior };
             }
         }
+    }
+
+    void player::player_blackhole()
+    {
+        player::set_player_waterproof(g_local.player, g_player_option.waterproof);
+        player::self_noclip(g_player_option.no_clip);
+        player::ghost_organization(g_player_option.ghost_organizations);
+        player::reveal_player(g_player_option.reveal_players);
+        player::blind_cops(g_player_option.blinds_cops);
+        player::ultra_run(g_player_option.ultra_run_bool);
+        player::never_wanted(g_settings.options["Never Wanted"]);
+        player::mission_lives(g_player_option.all_mission_lives);
+        player::set_player_seatbelt(g_settings.options["Seatbelt"]);
+        player::set_player_invincible(PLAYER::PLAYER_ID(), g_settings.options["Player Godmode"]);
+        player::give_all_heal(g_player_option.send_heal);
+        player::auto_heal(g_settings.options["Auto Heal"]);
+        player::set_player_no_collision(g_player_option.pass_through_wall);
+        player::no_idle_kick(g_settings.options["No Idle Kick"]);
+        player::set_player_infinite_oxygen(PLAYER::PLAYER_ID(), g_player_option.is_infinite_oxygen);
+
+        player::fill_player_list();
     }
 }

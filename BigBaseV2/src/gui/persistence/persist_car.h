@@ -1,7 +1,6 @@
 #pragma once
 
 #include "natives.hpp"
-#include "gui/vehicle/vehicle_helper.h"
 #include "model_attachment.h"
 
 namespace big

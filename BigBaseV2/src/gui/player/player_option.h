@@ -118,6 +118,7 @@ namespace big
 		static inline bool player_list_open{};
 		static inline bool player_info_open{};
 	private:
+		static void fill_player_list();
 		static inline int request_tick = 0;
 		static inline const int controls[] = { 21, 32, 33, 34, 35, 36 };
 		static inline float speed = 20.f;

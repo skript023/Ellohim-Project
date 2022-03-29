@@ -358,12 +358,14 @@ namespace big
                     }
                 }
 
-                if (ImGui::Button(xorstr("Plasma Cutter Skip"), ImVec2(200, 0)))
+                if (ImGui::Button(xorstr("Plasma Cutter"), ImVec2(200, 0)))
                 {
-                    if (auto plasma = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
-                    {
-                        *script_local(plasma, m_local.glass_cutter_heat).as<float*>() = 100.f;
-                    }
+                    rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
+                        if (auto plasma = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
+                        {
+                            *script_local(plasma, m_local.glass_cutter_heat).as<float*>() = 100.f;
+                        }
+                    });
                 }
 
                 ImGui::Text(xorstr("Instant Heist Setup"));
