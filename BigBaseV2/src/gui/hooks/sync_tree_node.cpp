@@ -7,7 +7,7 @@ namespace big
 {
 	bool hooks::rid_crash(int64_t a1)
 	{
-
+		return false;
 	}
 
 	bool hooks::clone_create(rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp)

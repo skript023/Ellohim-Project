@@ -273,9 +273,10 @@ namespace big
     {
         if (!player::is_player_in_any_vehicle(g_local.player))
         {
-            static auto old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
             if (activation)
             {
+                static auto old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+
                 if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
                 {
                     if (!PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
@@ -289,11 +290,6 @@ namespace big
                     }
                 }
             }
-            else
-            {
-                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
-                old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
-            }
         }
     }
 
@@ -301,10 +297,10 @@ namespace big
     {
         if (!player::is_player_in_any_vehicle(g_local.player))
         {
-            static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
-
             if (activation)
             {
+                static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+
                 if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
                 {
                     if (!PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
@@ -317,11 +313,6 @@ namespace big
                         old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
                     }
                 }
-            }
-            else
-            {
-                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
-                old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
             }
         }
     }
@@ -364,7 +355,7 @@ namespace big
 
     bool weapon_helper::is_model_shotgun(Hash hash)
     {
-        for (int i = 0; i <= arraysize(game_variable::weapon_shotgun); i++)
+        for (int i = 0; i <= ARRAYSIZE(game_variable::weapon_shotgun); i++)
         {
             if (hash == game_variable::weapon_shotgun[i]) return true;
         }
@@ -623,8 +614,8 @@ namespace big
     void weapon_helper::weapon_blackhole()
     {
         weapon_helper::teleport_gun(g_weapon_option.teleport_gun_bool);
-        //weapon_helper::no_spread(g_weapon_option.spread_on);
-        //weapon_helper::no_recoil(g_weapon_option.recoil_on);
+        weapon_helper::no_spread(g_weapon_option.spread_on);
+        weapon_helper::no_recoil(g_weapon_option.recoil_on);
         weapon_helper::rapid_fire(g_weapon_option.rapid_shoot);
         weapon_helper::headshot_all_npc(g_weapon_option.auto_headshot);
         weapon_helper::revenge(rage::joaat(game_variable::revenge_list[g_weapon_option.weapon_hash]), g_weapon_option.weapon_hash != 0);

@@ -154,7 +154,7 @@ namespace big
                         for each (auto weapon in game_variable::weapon_hash_list)
                         {
                             int max_ammo;
-                            if (WEAPON::IS_WEAPON_VALID(rage::joaat(Weapon)))
+                            if (WEAPON::IS_WEAPON_VALID(rage::joaat(weapon)))
                             {
                                 int max_clip = WEAPON::GET_MAX_AMMO_IN_CLIP(PLAYER::PLAYER_PED_ID(), rage::joaat(weapon), FALSE);
                                 WEAPON::GET_MAX_AMMO(PLAYER::PLAYER_PED_ID(), rage::joaat(weapon), &max_ammo);

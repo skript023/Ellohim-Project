@@ -47,7 +47,7 @@ namespace big
 				auto event_obj = CNetworkIncrementStatEvent();
 				//** Mengambil stat report ke dalam class
 				buffer->ReadDword(&event_obj.m_stat, 32); 
-				//** mengambil jumlah report yang dikirim para bangsat
+				//** mengambil jumlah report yang dikirim oleh modder
 				buffer->ReadDword(&event_obj.m_ammount, 32); 
 				//** Melakukan pengecekan stat, apabila stat report maka block
 				if (hook_helper::report_status(&event_obj, source_player, target_player)) //
@@ -139,12 +139,15 @@ namespace big
 			{
 				uint32_t bitset{};
 				buffer->ReadDword(&bitset, MAX_PLAYERS);
-				if (g_settings.options["Kick Vote Block"] && bitset& (1 << target_player->player_id))
+				if (g_settings.options["Kick Vote Block"])
 				{
-					ImGui::InsertNotification({ ImGuiToastType_Protection, 10000, "Blocked Vote Kick From %s", source_player->get_name() });
-					remote_event::bail_player(source_player->player_id);
-					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-					return false;
+					if (bitset & (1 << target_player->player_id))
+					{
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 10000, "Blocked Vote Kick From %s", source_player->get_name() });
+						remote_event::bail_player(source_player->player_id);
+						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
+						return false;
+					}
 				}
 				buffer->Seek(0);
 				break;
