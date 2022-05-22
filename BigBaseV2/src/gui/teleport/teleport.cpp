@@ -210,7 +210,7 @@ namespace big
             network::request_control(e);
             *(unsigned short*)g_pointers->m_request_control_bypass = 0x6A75;
         }
-        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(e, pos.x, pos.y + 1.5f, pos.z, FALSE, FALSE, FALSE);
+        ENTITY::SET_ENTITY_COORDS_NO_OFFSET(e, pos.x, pos.y, pos.z + 2.5f, FALSE, FALSE, FALSE);
     }
 
     void teleport::teleport_to_player_vehicle(Player player)

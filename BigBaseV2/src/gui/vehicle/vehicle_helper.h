@@ -26,6 +26,8 @@ namespace big
 		static const char* get_personal_vehicle_hash_key(int vehicle_index);
 		static int get_max_slots();
 
+		static void give_vehicle(Hash name, Entity entity);
+
 		static void horn_boosts(bool Activation);
 
 		static void vehicle_godmode(bool Activation);

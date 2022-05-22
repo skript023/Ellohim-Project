@@ -53,10 +53,10 @@ namespace big
                             if (g_selected.player != player_list.second.id)
                                 g_selected.player = player_list.second.id;
 
-                            if ((std::chrono::high_resolution_clock::now() - delay).count() >= std::chrono::milliseconds(1000).count())
+                            if ((std::chrono::steady_clock::now() - delay).count() >= std::chrono::milliseconds(1000).count())
                             {
-                                g_misc_option->trigger_player_info_from_ip = (std::chrono::high_resolution_clock::now().time_since_epoch().count() + g_misc_option->http_response_tick.time_since_epoch().count()) >= std::chrono::milliseconds(1000ms).count();
-                                delay = std::chrono::high_resolution_clock::now();
+                                g_misc_option->trigger_player_info_from_ip = (std::chrono::steady_clock::now().time_since_epoch().count() + g_misc_option->http_response_tick.time_since_epoch().count()) >= std::chrono::milliseconds(1000ms).count();
+                                delay = std::chrono::steady_clock::now();
                             }
                         }
                     }

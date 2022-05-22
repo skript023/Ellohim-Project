@@ -115,6 +115,21 @@ namespace big::features
 			player::player_health_regeneration(g_settings.options["Fast Regen"]);
 			game_time::day_to_night_spam(g_misc_option->time_spam);
 			systems::auto_click(g_player_option.auto_click);
+
+			blackjack::AutoPlay(g_blackjack_option->blackjack_rig);
+			blackjack::BlackJack(g_blackjack_option->blackjack_rig);
+			casino_slot::RigSlotMachine(g_casino_option->casino_rig);
+			casino_slot::AlwaysJackpot(g_casino_option->casino_rig);
+			casino_slot::AutoPlay(g_casino_option->casino_rig);
+
+
+			*script_global(g_global.lester_cut).as<int*>() = g_heist_option->remove_lester_cut ? 0 : 5;
+
+			casino_heist::AutoHeistCut(g_heist_option->auto_heist_cut);
+			casino_heist::HeistCrewCutToZero(g_heist_option->casino_heist_crew);
+			casino_heist::RemoveCasinoCrew(g_heist_option->casino_heist_remove_crew);
+
+
 			start = std::chrono::high_resolution_clock::now();
 		}
 	}
@@ -154,21 +169,7 @@ namespace big::features
 
 			ai::explode_enemies(g_npc_option->explode_ped);
 			ai::kill_enemies(g_npc_option->kill_ped);
-
-			casino_heist::AutoHeistCut(g_heist_option->auto_heist_cut);
-			casino_heist::HeistCrewCutToZero(g_heist_option->casino_heist_crew);
-			casino_heist::RemoveCasinoCrew(g_heist_option->casino_heist_remove_crew);
-
 			//InfiniteAmmo(g_settings.options["Infinite Ammo"]);
-
-			blackjack::AutoPlay(g_blackjack_option->blackjack_rig);
-			blackjack::BlackJack(g_blackjack_option->blackjack_rig);
-			casino_slot::RigSlotMachine(g_casino_option->casino_rig);
-			casino_slot::AlwaysJackpot(g_casino_option->casino_rig);
-			casino_slot::AutoPlay(g_casino_option->casino_rig);
-
-
-			*script_global(g_global.lester_cut).as<int*>() = g_heist_option->remove_lester_cut ? 0 : 5;
 
 			spoofer::player_level(g_spoofer_option->level_spoofer, g_spoofer_option->spoofed_level);
 			spoofer::player_money(g_spoofer_option->money_spoofer, g_spoofer_option->spoofed_money);
@@ -176,7 +177,7 @@ namespace big::features
 
 			miscellaneous::variable_attach();
 
-			chrono_loop(200ms);
+			chrono_loop(250ms);
 			player::player_blackhole();
 			weapon_helper::weapon_blackhole();
 			remote_event::game_event_blackhole();

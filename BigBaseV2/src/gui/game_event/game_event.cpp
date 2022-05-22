@@ -128,8 +128,8 @@ namespace big
             0, // 5 => never set
             1, // 6 => always 1
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            *script_global(1921036).at(9).as<int*>(),
-            *script_global(1921036).at(10).as<int*>()
+            *script_global(g_global.bounty_trigger).at(9).as<int*>(),
+            *script_global(g_global.bounty_trigger).at(10).as<int*>()
             };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, ARRAYSIZE(args), 1 << player);
         });
@@ -192,7 +192,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t transaction_fail_args[8] = { TRANSACTION_ERROR, g_local.player, 10000, 0, 0, *script_global(1893548).at(player, 600).at(511).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>(), *script_global(1921036).at(9).as<int64_t*>() };
+            int64_t transaction_fail_args[8] = { TRANSACTION_ERROR, g_local.player, 10000, 0, 0, *script_global(g_global.script_event).at(player, g_global.script_event_size).at(510).as<int64_t*>(), *script_global(g_global.clear_wanted_trigger).as<int64_t*>(), *script_global(g_global.clear_wanted_trigger).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, transaction_fail_args, ARRAYSIZE(transaction_fail_args), 1 << player);
         });
     }
@@ -213,7 +213,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t clear_wanted_args[3] = { CLEAR_WANTED, g_selected.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
+            int64_t clear_wanted_args[3] = { CLEAR_WANTED, g_local.player, *script_global(g_global.script_event).at(player, g_global.script_event_size).at(510).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, clear_wanted_args, ARRAYSIZE(clear_wanted_args), 1 << player);
         });
     }
@@ -327,7 +327,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t bail_event[3] = { BAIL_NETWORK, g_local.player, *script_global(1893548).at(player, 600).at(511).as<int64_t*>() };
+            int64_t bail_event[3] = { BAIL_NETWORK, g_local.player, *script_global(g_global.script_event).at(player, g_global.script_event_size).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << player);
         });
     }
@@ -341,7 +341,7 @@ namespace big
     {
         if (toggle)
         {
-            int64_t args[7] = { OFF_RADAR, g_local.player, *script_global(g_global.radar_time).at(70).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, 1, *script_global(1893548).at(g_selected.player, 600).at(511).as<int64_t*>() };
+            int64_t args[7] = { OFF_RADAR, g_local.player, *script_global(g_global.radar_time).at(70).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, 1, *script_global(g_global.script_event).at(g_selected.player, g_global.script_event_size).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, 7, 1 << g_selected.player);
             *script_global(g_global.radar_toggle).at(g_selected.player, g_global.radar_size).at(g_global.radar_offset).as<bool*>() = toggle;
         }
@@ -351,7 +351,7 @@ namespace big
     {
         if (toggle)
         {
-            int64_t args[7] = { -151720011, g_local.player, 0, *script_global(g_global.blind_cops).at(4625).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, *script_global(1893548).at(g_selected.player, 600).at(511).as<int64_t*>() };
+            int64_t args[7] = { -151720011, g_local.player, 0, *script_global(g_global.blind_cops).at(4625).as<int*>(), NETWORK::GET_NETWORK_TIME(), 1, *script_global(g_global.script_event).at(g_selected.player, g_global.script_event_size).at(511).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, 7, 1 << g_selected.player);
             *script_global(g_global.blind_cops).at(4623).as<bool*>() = toggle;
         }

@@ -27,6 +27,18 @@
 
 namespace big
 {
+    int network::network_get_host_of_script(const char* scriptName)
+    {
+        if (auto get_thread = rage_helper::find_script_thread(rage::joaat(scriptName)))
+        {
+            if (auto net_component = get_thread->m_net_component)
+                if (auto owner_list = net_component->m_owner_list)
+                    if (auto owner = owner_list->m_owner)
+                        return owner->player_id;
+        }
+        return 0;
+    }
+
     int network::network_get_num_connected_player()
     {
         if (*g_pointers->m_is_session_started)
@@ -49,9 +61,17 @@ namespace big
         }
     }
 
-    bool network::network_is_host(Player player)
+    bool network::network_is_host(Player player)///int host = *script_global(g_global.script_event).at(player, g_global.script_event_size).at(10).as<bool*>();
     {
-        return *script_global(1893548).at(player, 600).at(10).as<bool*>();
+        bool host = false;
+        if (*g_pointers->m_is_session_started)
+        {
+            if (auto net_player = rage_helper::get_net_player(player))
+            {
+                host = net_player->is_host();
+            }
+        }
+        return host;
     }
 
     void network::add_meth_supply(Player player, int supply)
@@ -604,7 +624,7 @@ namespace big
         int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(1).as<int*>();
         if (product == 100) message::notification("~bold~~g~Trigger Bunker Production Function: Full Stock!", "~bold~~g~Ellohim Business Manager");
         if (supply > 0)
-            *script_global(g_global.business_index).at(5, 13).at(9).as<int*>() = 0;
+            *constant_global::business_index(player).at(5, 13).at(9).as<int*>() = 0;
         else
             message::notification("~bold~~g~Trigger Bunker Production Function: Supplies are empty! Buy Supplies!", "~bold~~g~Ellohim Business Manager");
     }
@@ -615,7 +635,7 @@ namespace big
         int product = *script_global(g_global.player_stat).at(player, g_global.player_size).at(267).at(187).at(5, 13).at(1).as<int*>();
         if (product == 60) ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Bunker Research Function: Research Progress Done!") });
         if (supply > 0)
-            *script_global(g_global.business_index).at(5, 13).at(13).as<int*>() = 0;
+            *constant_global::business_index(player).at(5, 13).at(13).as<int*>() = 0;
         else
             ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_TIMES_CIRCLE" Trigger Bunker Research Function: Supplies are empty! Buy Supplies!") });
     }

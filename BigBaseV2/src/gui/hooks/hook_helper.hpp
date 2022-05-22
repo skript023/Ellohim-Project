@@ -3,6 +3,8 @@
 #include "gta/enums.hpp"
 #include "gui/helper_function.hpp"
 #include "gta_util.hpp"
+#include "gta/net_game_event.hpp"
+#include "rage_internal_packet.hpp"
 
 namespace big::hook_helper
 {
@@ -199,6 +201,7 @@ namespace big::hook_helper
 				return true;
 			}
 			break;
+		/*
 		case KICK_1:
 		case KICK_2:
 		case KICK_3:
@@ -229,6 +232,8 @@ namespace big::hook_helper
 				strcat(sender_info, std::to_string(event_hash).c_str());
 			}
 			break;
+		*/
+		/*
 		case KICK_23:
 		case KICK_24:
 		case KICK_25:
@@ -280,8 +285,47 @@ namespace big::hook_helper
 
 			}
 			break;
+		*/
 		}
 		return false;
+	}
+
+	// 48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 8A 42 1C 40 32 FF 48 8B DA 48 8B F1
+	inline bool get_message_type(MessageType& msg_type, rage::datBitBuffer& buffer)
+	{
+		uint32_t pos;
+		uint32_t magic;
+		uint32_t length;
+		uint32_t extended{};
+		if ((buffer.m_flagBits & 2) != 0 || (buffer.m_flagBits & 1) == 0 ? (pos = buffer.m_curBit) : (pos = buffer.m_maxBit),
+			buffer.m_curBit + 15 > pos || !buffer.ReadDword(&magic, 14) || magic != 0x3246 || !buffer.ReadDword(&extended, 1))
+		{
+			msg_type = MessageType::MsgInvalid;
+			return false;
+		}
+
+		length = extended ? 16 : 8;
+
+		if ((buffer.m_flagBits & 1) == 0 ? (pos = buffer.m_curBit) : (pos = buffer.m_maxBit), length + buffer.m_curBit <= pos && buffer.ReadDword((uint32_t*)&msg_type, length))
+			return true;
+		else
+			return false;
+	}
+
+	inline CNetGamePlayer* get_player_by_msg_id(uint32_t msg_id)
+	{
+		for (int i = 0; i <= MAX_PLAYERS; i++)
+		{
+			if (auto net_player = rage_helper::get_net_player(i))
+			{
+				if (net_player->m_msg_id == msg_id)
+				{
+					return net_player;
+				}
+			}
+		}
+
+		return nullptr;
 	}
 }
 //cari di bintaro rs dr suyoto di jl. veteran 

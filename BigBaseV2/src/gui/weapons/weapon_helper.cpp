@@ -271,85 +271,57 @@ namespace big
 
     void  weapon_helper::no_recoil(bool activation)
     {
-        if (!player::is_player_in_any_vehicle(g_local.player))
+        if (auto weapon_manager = rage_helper::get_local_ped()->m_weapon_mgr)
         {
-            if (activation)
-            {
-                static auto old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
+            auto const current_weapon = weapon_manager->m_selected_weapon_hash;
 
-                if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
+            if (prev_recoil_weapon_hash != current_weapon)
+            {
+                if (!has_recoil_cached(current_weapon))
                 {
-                    if (!PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
-                    {
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = 0.f;
-                    }
-                    if (PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
-                    {
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil = old_recoil;
-                        old_recoil = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_recoil;
-                    }
+                    original_recoil.push_back({ current_weapon, weapon_manager->m_weapon_info->m_weapon_recoil });
                 }
+
+                weapon_manager->m_weapon_info->m_weapon_recoil = activation ? 0.f : get_original_recoil_value(current_weapon);
             }
         }
     }
 
     void  weapon_helper::no_spread(bool activation)
     {
-        if (!player::is_player_in_any_vehicle(g_local.player))
+        if (auto weapon_manager = rage_helper::get_local_ped()->m_weapon_mgr)
         {
-            if (activation)
-            {
-                static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
+            auto const current_weapon = weapon_manager->m_selected_weapon_hash;
 
-                if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
+            if (prev_recoil_weapon_hash != current_weapon)
+            {
+                if (!has_spread_cached(current_weapon))
                 {
-                    if (!PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
-                    {
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = 0.f;
-                    }
-                    if (PAD::IS_CONTROL_JUST_PRESSED(0, INPUT_SELECT_WEAPON))
-                    {
-                        rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread = old_spread;
-                        old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_spread;
-                    }
+                    original_spread.push_back({ current_weapon, weapon_manager->m_weapon_info->m_weapon_spread });
                 }
+
+                weapon_manager->m_weapon_info->m_weapon_spread = activation ? 0.f : get_original_spread_value(current_weapon);
             }
         }
     }
 
     void weapon_helper::burst_weapon_ammo(bool activation)
     {
-        Hash current_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-        static Hash old_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-        static auto old_batch = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch;
-        static auto old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread;
-        if (activation)
+        if (auto weapon_manager = rage_helper::get_local_ped()->m_weapon_mgr)
         {
-            if (WEAPON::IS_PED_ARMED(g_local.ped, 4))
+            auto const current_weapon = weapon_manager->m_selected_weapon_hash;
+
+            if (prev_recoil_weapon_hash != current_weapon)
             {
-            
-                if (old_weapon == current_weapon)
+                if (!has_batch_cached(current_weapon) && !has_batch_spread_cached(current_weapon))
                 {
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = 300;
-                    rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = 0.5f;
+                    original_batch_spread.push_back({ current_weapon, weapon_manager->m_weapon_info->m_batch_spread });
+                    original_batch.push_back({ current_weapon, weapon_manager->m_weapon_info->m_bullet_batch });
                 }
+
+                weapon_manager->m_weapon_info->m_batch_spread = activation ? 0.5f : get_original_batch_spread_value(current_weapon);
+                weapon_manager->m_weapon_info->m_bullet_batch = activation ? 200 : get_original_batch_value(current_weapon);
             }
-            if (old_weapon != current_weapon)
-            {
-                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = old_batch;
-                rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = old_spread;
-                old_batch = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch;
-                old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread;
-                old_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-            }
-        }
-        else
-        {
-            old_batch = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch;
-            old_spread = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread;
-            old_weapon = rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_weapon_hash;
-            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_bullet_batch = old_batch;
-            rage_helper::get_local_ped()->m_weapon_mgr->m_weapon_info->m_batch_spread = old_spread;
         }
     }
 
@@ -387,6 +359,8 @@ namespace big
                 *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x9090;
                 auto obj = OBJECT::CREATE_OBJECT(hash_object, pos.x, pos.y, pos.z, TRUE, FALSE, TRUE);
                 *(unsigned short*)g_pointers->m_model_spawn_bypass = 0x0574;
+
+                ENTITY::SET_ENTITY_ROTATION(obj, heading.x, heading.y, heading.z, 1, FALSE);
 
                 script::get_current()->yield();
                 if (*g_pointers->m_is_session_started)

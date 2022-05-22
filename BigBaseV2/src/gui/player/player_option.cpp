@@ -1028,6 +1028,24 @@ namespace big
         return false;
     }
 
+    uint32_t player::get_player_host_token(Player player)
+    {
+        if (auto ped = rage_helper::get_player_pointer(player))
+        {
+            return ped->m_playerinfo->m_host_token;
+        }
+        return 0u;
+    }
+
+    uint32_t player::get_player_peer_id(Player player)
+    {
+        if (auto ped = rage_helper::get_player_pointer(player))
+        {
+            return ped->m_playerinfo->m_peer_id;
+        }
+        return 0u;
+    }
+
     std::string player::get_player_weapon(Player player)
     {
         if (auto ped = rage_helper::get_player_pointer(player))

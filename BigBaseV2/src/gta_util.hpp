@@ -7,6 +7,7 @@
 #include "gta/tls_context.hpp"
 #include "pointers.hpp"
 #include "script_global.hpp"
+#include "gui/controller/memory_address.hpp"
 
 namespace big::rage_helper
 {
@@ -71,7 +72,7 @@ namespace big::rage_helper
 
 	inline int get_character()
 	{
-		return *script_global(1574907).as<int*>();
+		return *script_global(g_global.character).as<int*>();
 	}
 
 	template <typename pointer>
@@ -167,7 +168,8 @@ namespace big
 		static inline uintptr_t get_multilayer_pointer(uintptr_t base_address, std::vector<DWORD> offsets)
 		{
 			uintptr_t ptr = *(uintptr_t*)(base_address);
-			if (!ptr) {
+			if (!ptr) 
+			{
 
 				return NULL;
 			}
@@ -220,12 +222,12 @@ namespace big
 			return false;
 		}
 
-		static inline int set_bit(int _value, int _bit)
+		static inline int set_bit(int& _value, int _bit)
 		{
 			return _value |= 1LL << _bit;
 		}
 
-		static inline int clear_bit(int _value, int _bit)
+		static inline int clear_bit(int& _value, int _bit)
 		{
 			return _value &= ~(1LL << _bit);
 		}
@@ -247,6 +249,12 @@ namespace big
 		static inline void clear_bit(T* addr, int _bit)
 		{
 			*addr &= ~(1LL << _bit);
+		}
+
+		template <typename T>
+		static inline void toggle_bit(T* addr, int _bit)
+		{
+			*addr ^= (1i64 << _bit);
 		}
 
 		template <typename T>

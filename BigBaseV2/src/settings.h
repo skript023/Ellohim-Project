@@ -59,6 +59,7 @@ namespace big
 			"Logger Window": false,
 			"Vehicle Light Control": true,
 			"Player Join Log": true,
+			"Sig Scanner Block":true,
 			"script monitor sorted": false
 		})"_json;
 

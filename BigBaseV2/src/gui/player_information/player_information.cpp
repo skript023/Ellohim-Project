@@ -39,11 +39,12 @@ namespace big
             ImGui::Text("Country : %s", g_misc_option->country.c_str());
             ImGui::Text("City/Region : %s/%s", g_misc_option->city.c_str(), g_misc_option->region.c_str());
             ImGui::Text("ZIP Code : %s", g_misc_option->zip.c_str());
-            ImGui::Text("Proxy/VPN : %s", g_misc_option->proxy ? "True" : "False");
+            ImGui::Text("Peer ID : %d", player::get_player_peer_id(g_selected.player));
+            ImGui::Text("Host Token %d", player::get_player_host_token(g_selected.player));
             ImGui::Text(fmt::format("Organization Name : {}", player::get_player_organization_name(g_selected.player)).c_str());
 
-            ImGui::Text("Local IP : %s", player::get_player_local_ip(g_selected.player));
-            ImGui::Text("IP : %s", player::get_player_ip(g_selected.player));
+            ImGui::Text("Static IP : %s", player::get_player_local_ip(g_selected.player));
+            ImGui::Text(fmt::format("Dynamic IP : {} {}", player::get_player_ip(g_selected.player), g_misc_option->proxy ? "| VPN" : "").c_str());
             ImGui::SameLine(200);
             ImGui::Text("Wanted Level : %d", player::get_player_wanted_level(g_selected.player));
 

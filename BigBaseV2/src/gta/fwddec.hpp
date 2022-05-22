@@ -5,6 +5,9 @@ namespace rage
 	template <typename T>
 	class atArray;
 
+	template <typename T>
+	struct atSingleton;
+
 	class datBitBuffer;
 	class sysMemAllocator;
 
@@ -49,6 +52,13 @@ namespace rage
 	class CPed;
 	class BlipList;
 	class CNetworkObjectMgr;
+
+	class CTunables;
+
+	namespace netConnection
+	{
+		class InFrame;
+	}
 }
 
 class GtaThread;

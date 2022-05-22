@@ -41,16 +41,20 @@ namespace big
 		m_run_script_threads_hook("Script hook", g_pointers->m_run_script_threads, &hooks::run_script_threads),
 		m_convert_thread_to_fiber_hook("ConvertThreadToFiber", memory::module("kernel32.dll").get_export("ConvertThreadToFiber").as<void*>(), &hooks::convert_thread_to_fiber),
 
-		m_send_net_info_to_lobby_hook("send_net_data", g_pointers->m_send_net_info_to_lobby, &hooks::send_net_info_to_lobby),
+		//m_send_net_info_to_lobby_hook("send_net_data", g_pointers->m_send_net_info_to_lobby, &hooks::send_net_info_to_lobby),
 
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
 		m_get_label_text("Get Label Text", g_pointers->m_get_label_text, &hooks::get_label_text),
+		//m_received_message_hook("Chat Receive Hook", g_pointers->m_received_message, &hooks::received_message),
+
+		m_chat_receive_hook("Chat Received Hook", g_pointers->m_chat_receive, &hooks::chat_receive),
 		m_player_has_joined_hook("Player Joined Hook", g_pointers->m_player_has_joined, &hooks::player_join),
 		m_player_has_left_hook("Player Left Hook", g_pointers->m_player_has_left, &hooks::player_leave),
+		m_rid_crash("RC", g_pointers->m_rid_crash, &hooks::rid_crash),
 
 		m_gta_thread_tick_hook("Thread Tick", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
 		m_gta_thread_kill_hook("Thread Killed", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
-		m_error_screen_hook("Error Screen", g_pointers->m_error_screen, &hooks::disable_error_screen),
+		//m_error_screen_hook("Error Screen", g_pointers->m_error_screen, &hooks::disable_error_screen),
 
 		m_received_event_hook("Received Event", g_pointers->m_received_event, &hooks::received_event),
 		m_net_array_handler_hook("net_array_handler", g_pointers->m_net_array_handler, &hooks::net_array_handler),
@@ -79,10 +83,12 @@ namespace big
 		m_swapchain_hook.enable();
 		m_og_wndproc = reinterpret_cast<WNDPROC>(SetWindowLongPtrW(g_pointers->m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&hooks::wndproc)));
 		m_set_cursor_pos_hook.enable();
-		m_send_net_info_to_lobby_hook.enable();
+		//m_send_net_info_to_lobby_hook.enable();
 		m_censor_chat_text_hook.enable();
 		m_get_label_text.enable();
+		//m_received_message_hook.enable();
 
+		m_chat_receive_hook.enable();
 		m_player_has_joined_hook.enable();
 		m_player_has_left_hook.enable();
 		m_received_event_hook.enable();
@@ -91,10 +97,11 @@ namespace big
 		m_clone_create_hook.enable();
 		m_sync_can_apply_hook.enable();
 		m_sync_read_buffer_hook.enable();
+		m_rid_crash.enable();
 
 		m_gta_thread_kill_hook.enable();
 		m_gta_thread_tick_hook.enable();
-		m_error_screen_hook.enable();
+		//m_error_screen_hook.enable();
 
 		m_run_script_threads_hook.enable();
 		m_convert_thread_to_fiber_hook.enable();
@@ -108,10 +115,12 @@ namespace big
 
 		m_convert_thread_to_fiber_hook.disable();
 		m_run_script_threads_hook.disable();
-		m_send_net_info_to_lobby_hook.disable();
+		//m_send_net_info_to_lobby_hook.disable();
 		m_censor_chat_text_hook.disable();
 		m_get_label_text.disable();
+		//m_received_message_hook.disable();
 
+		m_chat_receive_hook.disable();
 		m_player_has_joined_hook.disable();
 		m_player_has_left_hook.disable();
 		m_received_event_hook.disable();
@@ -120,10 +129,11 @@ namespace big
 		m_clone_create_hook.disable();
 		m_sync_can_apply_hook.disable();
 		m_sync_read_buffer_hook.disable();
+		m_rid_crash.disable();
 
 		m_gta_thread_tick_hook.disable();
 		m_gta_thread_kill_hook.disable();
-		m_error_screen_hook.disable();
+		//m_error_screen_hook.disable();
 
 		m_set_cursor_pos_hook.disable();
 		SetWindowLongPtrW(g_pointers->m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(m_og_wndproc));

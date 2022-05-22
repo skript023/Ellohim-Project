@@ -92,6 +92,8 @@ namespace big
 		static const char* get_player_name(Player player);
 		static Vector3 get_player_coords(Player player);
 		static bool get_player_vehicle_invincible(Entity entity);
+		static uint32_t get_player_host_token(Player player);
+		static uint32_t get_player_peer_id(Player player);
 		static bool get_player_waterproof(Player player);
 	public:
 		static inline bool all_mission_lives{};

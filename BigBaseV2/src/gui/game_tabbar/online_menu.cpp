@@ -1195,8 +1195,7 @@ namespace big
                             STATS::STAT_SET_INT(rage::joaat("MP" + mpx + "_MP_CHAR_ARMOUR_5_COUNT"), 10, TRUE);
                         });
                 }
-                static int selected_location = 0;
-                const char* const location[]{ "Select Location", "Route86", "Farmhouse", "Smoke Tree Road", "Thomson Scrapyard", "Grapeseed", "Paleto Forest", "Ranton Canyon", "Lago Zancudo", "Chumash" };
+                
                 ImGui::Text(xorstr("Select Bunker Location"));
                 ImGui::PushItemWidth(200);
                 if (ImGui::Combo(xorstr("##Bunker Location"), &selected_location, location, IM_ARRAYSIZE(location)))
@@ -1204,31 +1203,31 @@ namespace big
                     switch (selected_location)
                     {
                     case 1:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 23;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 23;
                         break;
                     case 2:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 24;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 24;
                         break;
                     case 3:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 25;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 25;
                         break;
                     case 4:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 26;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 26;
                         break;
                     case 5:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 27;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 27;
                         break;
                     case 6:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 28;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 28;
                         break;
                     case 7:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 29;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 29;
                         break;
                     case 8:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 30;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 30;
                         break;
                     case 9:
-                        *script_global(g_global.business_index).at(5, 12).as<int*>() = 31;
+                        *constant_global::business_index(g_local.player).at(5, 12).as<int*>() = 31;
                         break;
                     }
                 }
@@ -1279,11 +1278,11 @@ namespace big
                         {
                             if (auto bunker_selling = rage_helper::find_script_thread(RAGE_JOAAT("gb_gunrunning")))
                             {
-                                auto money_bunker = *g_pointers->m_money_in_bunker;
-                                if (money_bunker->money_in_bunker == 0) return;
+                                auto money_bunker = (*g_pointers->m_business_money)->total_money;
+                                if (money_bunker == 0) return;
 
                                 int kargo = *script_local(bunker_selling, m_local.bunker_sell).at(551).at(1).at(19).as<int*>();
-                                int data = BusinessMoney / money_bunker->money_in_bunker;
+                                int data = BusinessMoney / money_bunker;
                                 *script_local(bunker_selling, m_local.bunker_sell).at(816).as<int*>() = kargo;
                                 *script_global(g_global.bunker_selling_mult_far).as<float*>() = systems::int_to_float(data);
                                 *script_global(g_global.bunker_selling_mult_near).as<float*>() = systems::int_to_float(data);
@@ -1291,12 +1290,15 @@ namespace big
                                 int mission_time_remaining = *script_local(bunker_selling, m_local.bunker_sell_time_remaining).as<int*>();
                                 int mission_time_delivering = *script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>(); //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22));
                                 int mission_time = mission_time_delivering - (mission_time_remaining - 1000);
-                                *script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>() = mission_time;
+                                //*script_local(bunker_selling, m_local.bunker_sell).at(579).as<int*>() = mission_time;
+                                auto trigger_function = script_local(bunker_selling, m_local.bunker_sell).at(4).at(63).at(0, 1).at(0, 1).as<int*>();
+                                memory_util::set_bit(trigger_function, 6);
 
-                                while (systems::is_script_active(RAGE_JOAAT("gb_gunrunning"))) script::get_current()->yield();
-
-                                *script_global(g_global.bunker_selling_mult_far).as<float*>() = 1.5f;
-                                *script_global(g_global.bunker_selling_mult_near).as<float*>() = 1.0f;
+                                if (systems::wait_script(RAGE_JOAAT("gb_gunrunning")))
+                                {
+                                    *script_global(g_global.bunker_selling_mult_far).as<float*>() = 1.5f;
+                                    *script_global(g_global.bunker_selling_mult_near).as<float*>() = 1.0f;
+                                }
                             }
                         });
                         break;
@@ -1305,7 +1307,7 @@ namespace big
                         {
                             if (auto mc_selling = rage_helper::find_script_thread(RAGE_JOAAT("gb_biker_contraband_sell")))
                             {
-                                auto money_business = *g_pointers->m_money_in_bunker; int money_in_mc = money_business->money_in_bunker;
+                                auto money_in_mc = (*g_pointers->m_business_money)->total_money;
                                 if (money_in_mc == 0) return;
                                 float mc_multiplier = systems::int_to_float(BusinessMoney / money_in_mc);
 
@@ -1314,10 +1316,11 @@ namespace big
                                 int requirement = *script_local(mc_selling, m_local.mc_sell).at(143).as<int*>();
                                 *script_local(mc_selling, m_local.mc_sell).at(122).as<int*>() = requirement;
 
-                                while (systems::is_script_active(RAGE_JOAAT("gb_biker_contraband_sell"))) script::get_current()->yield();
-
-                                *script_global(g_global.mc_sell_mult_far).as<float*>() = 1.5f;
-                                *script_global(g_global.mc_sell_mult_near).as<float*>() = 1.0f;
+                                if (systems::wait_script(RAGE_JOAAT("gb_biker_contraband_sell")))
+                                {
+                                    *script_global(g_global.mc_sell_mult_far).as<float*>() = 1.5f;
+                                    *script_global(g_global.mc_sell_mult_near).as<float*>() = 1.0f;
+                                }
                             }
                         });
                         break;
@@ -1352,13 +1355,16 @@ namespace big
                         {
                             if (auto nightclub = rage_helper::find_script_thread(RAGE_JOAAT("business_battles_sell")))
                             {
-                                int DeliveryRequirement = *script_local(nightclub, m_local.nc_sell).at(202).as<int*>();
-                                *script_local(nightclub, m_local.nc_sell).at(201).as<int*>() = DeliveryRequirement;
+                                int delivery_requirement = *script_local(nightclub, m_local.nc_sell).at(202).as<int*>();
+                                *script_local(nightclub, m_local.nc_sell).at(201).as<int*>() = delivery_requirement;
                                 script::get_current()->yield();
                                 int mission_time_1 = *script_local(nightclub, m_local.nc_time_remaining).as<int*>();
                                 int mission_time_2 = *script_local(nightclub, m_local.nc_sell).at(22).as<int*>(); //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22));
                                 int mission_time = mission_time_2 - (mission_time_1 - 1000);
-                                *script_local(nightclub, m_local.nc_sell).at(22).as<int*>() = mission_time; //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22)) = mission_time;
+                                //*script_local(nightclub, m_local.nc_sell).at(22).as<int*>() = mission_time; //*(uint32_t*)((DWORD64)nightclub->m_stack + 8 * (2314 + 22)) = mission_time;
+                                auto trigger_function = script_local(nightclub, m_local.nc_sell).at(31).at(0, 42).at(11, 1).as<int*>();
+
+                                memory_util::set_bit(trigger_function, 1);
                             }
                         });
                         break;
@@ -1423,7 +1429,7 @@ namespace big
                     ImGui::InputText(xorstr("##NameSpoof"), g_spoofer_option->spoofed_name, IM_ARRAYSIZE( g_spoofer_option->spoofed_name));
                     if (ImGui::Button(xorstr("Set Spoof##Set Name")))
                     {
-                        player::local_name( g_spoofer_option->spoofed_name);
+                        player::local_name(g_spoofer_option->spoofed_name);
                     }
                     if (ImGui::IsItemHovered())
                         ImGui::SetTooltip(xorstr("Dont Set This For Send Net To Session"));
@@ -1441,11 +1447,11 @@ namespace big
                     ImGui::PushItemWidth(200.f);
                     if (ImGui::Combo(xorstr("##change ip by country"), &selected_country, internet_protocol_list, IM_ARRAYSIZE(internet_protocol_list)))
                     {
+                        static const auto ip_address = rage_helper::get_local_playerinfo()->m_online_ip;
                         switch (selected_country)
                         {
                         case 0:
                         {
-                            auto ip_address = rage_helper::get_local_playerinfo()->m_online_ip;
                             uint8_t out[4];
                             *(uint32_t*)&out = ip_address;
                             g_spoofer_option->ip_1 = out[3];
@@ -1816,6 +1822,9 @@ namespace big
                     g_settings.save();
                 ImGui::SameLine(400);
                 if (ImGui::Checkbox(xorstr("Redirect Network Event"), g_settings.options["Redirect Network Event"].get<bool*>()))
+                    g_settings.save();
+
+                if (ImGui::Checkbox(xorstr("Enable Anti-Sig Scanner"), g_settings.options["Sig Scanner Block"].get<bool*>()))
                     g_settings.save();
             }
             ImGui::EndTabItem();

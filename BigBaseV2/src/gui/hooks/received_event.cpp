@@ -191,6 +191,22 @@ namespace big
 				buffer->Seek(0);
 				break;
 			}
+			case SCRIPT_ENTITY_STATE_CHANGE_EVENT:
+			{
+				uint16_t entity; buffer->ReadWord(&entity, 13);
+				uint32_t type; buffer->ReadDword(&type, 4);
+				uint32_t unk; buffer->ReadDword(&unk, 32);
+				buffer->Seek(0);
+
+				if (type == 6) 
+				{
+
+					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
+
+					return false;
+				}
+				break;
+			}
 		}
 		return g_hooking->m_received_event_hook.get_original<decltype(&received_event)>()(event_manager, source_player, target_player, event_id, event_index, event_handled_bitset, bit_buffer_size, buffer);
 	}

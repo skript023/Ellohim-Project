@@ -73,6 +73,9 @@ namespace big
         static inline int selected_rare_items = 0;
         static inline int manual_delivery = 0;
 
+        static inline int selected_location = 0;
+        static inline const char* const location[]{ "Select Location", "Route86", "Farmhouse", "Smoke Tree Road", "Thomson Scrapyard", "Grapeseed", "Paleto Forest", "Ranton Canyon", "Lago Zancudo", "Chumash" };
+
         static inline char spoof_crew_tag[5];
 
         static inline const char* const prize_list[]{ "Select Prize", "1:  2500 RP","2 : $20000","3 : 10000 Chips","4 : Discount","5 : 5000 RP", "6 : $30000","7 : 15000 Chips","8 : Clothing Item","9 : 7500 RP","10 : 20000 Chips","11 : Mystery Prize", "12 : Clothing Item","13 : 10000 RP","14 : $40000","15 : 25000 Chips","16 : Clothing Item","17 : 15000 RP","18 : Podium Vehicle" };

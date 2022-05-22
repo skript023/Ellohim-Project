@@ -41,23 +41,23 @@ namespace big
 			m_fix_vectors = ptr.as<functions::fix_vectors_t>();
 		});
 
-		main_batch.add("Script threads", "45 33 F6 8B E9 85 C9 B8", [this](memory::handle ptr)
+		main_batch.add(xorstr("Script threads"), xorstr("45 33 F6 8B E9 85 C9 B8"), [this](memory::handle ptr)
 		{
 			m_script_threads = ptr.sub(4).rip().sub(8).as<decltype(m_script_threads)>();
 			m_run_script_threads = ptr.sub(0x1F).as<functions::run_script_threads_t>();
 		});
 
-		main_batch.add("Script programs", "44 8B 0D ? ? ? ? 4C 8B 1D ? ? ? ? 48 8B 1D ? ? ? ? 41 83 F8 FF 74 3F 49 63 C0 42 0F B6 0C 18 81 E1", [this](memory::handle ptr)
+		main_batch.add(xorstr("Script programs"), xorstr("44 8B 0D ? ? ? ? 4C 8B 1D ? ? ? ? 48 8B 1D ? ? ? ? 41 83 F8 FF 74 3F 49 63 C0 42 0F B6 0C 18 81 E1"), [this](memory::handle ptr)
 		{
 			m_script_program_table = ptr.add(17).rip().as<decltype(m_script_program_table)>();
 		});
 
-		main_batch.add("Script globals", "48 8D 15 ? ? ? ? 4C 8B C0 E8 ? ? ? ? 48 85 FF 48 89 1D", [this](memory::handle ptr)
+		main_batch.add(xorstr("Script globals"), xorstr("48 8D 15 ? ? ? ? 4C 8B C0 E8 ? ? ? ? 48 85 FF 48 89 1D"), [this](memory::handle ptr)
 		{
 			m_script_globals = ptr.add(3).rip().as<std::int64_t**>();
 		});
 
-		main_batch.add("CGameScriptHandlerMgr", "48 8B 0D ? ? ? ? 4C 8B CE E8 ? ? ? ? 48 85 C0 74 05 40 32 FF", [this](memory::handle ptr)
+		main_batch.add(xorstr("CGameScriptHandlerMgr"), xorstr("48 8B 0D ? ? ? ? 4C 8B CE E8 ? ? ? ? 48 85 C0 74 05 40 32 FF"), [this](memory::handle ptr)
 		{
 			m_script_handler_mgr = ptr.add(3).rip().as<CGameScriptHandlerMgr**>();
 		});
@@ -195,7 +195,7 @@ namespace big
 
 		main_batch.add(xorstr("Money In Business"), xorstr("48 8D 05 ? ? ? ? 48 C1 E1 ? 48 03 C8 E8 ? ? ? ? 48 8B 5C"), [this](memory::handle ptr)
 		{
-			m_money_in_bunker = ptr.add(3).rip().as<decltype(m_money_in_bunker)>();
+			m_business_money = ptr.add(3).rip().as<decltype(m_business_money)>();
 		});
 
 		main_batch.add(xorstr("Get Model Info"), xorstr("0F B7 05 ? ? ? ? 45 33 C9 4C 8B DA 66 85 C0 0F 84 ? ? ? ? 44 0F B7 C0 33 D2 8B C1 41 F7 F0 48 8B 05 ? ? ? ? 4C 8B 14 D0 EB 09 41 3B 0A 74 54"), [this](memory::handle ptr)
@@ -288,17 +288,17 @@ namespace big
 			m_game_build = ptr.sub(17).add(265 + 3).as<decltype(m_game_build)>();
 		});
 		
-		main_batch.add(xorstr("Error Screen Handler"), "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 60 4C 8B F2 48 8B 94 24 ? ? ? ? 33 DB", [this](memory::handle ptr)
+		main_batch.add(xorstr("Error Screen Handler"), xorstr("48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 41 56 41 57 48 83 EC 60 4C 8B F2 48 8B 94 24 ? ? ? ? 33 DB"), [this](memory::handle ptr)
 		{
 			m_error_screen = ptr.as<decltype(m_error_screen)>();
 		});
 
-		main_batch.add(xorstr("Freemode Tick"), "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 B9 ? ? ? ? ? 8B FA 48 8B D9 74 05", [this](memory::handle ptr)
+		main_batch.add(xorstr("Freemode Tick"), xorstr("48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 80 B9 ? ? ? ? ? 8B FA 48 8B D9 74 05"), [this](memory::handle ptr)
 		{
 			m_gta_thread_tick = ptr.as<decltype(m_gta_thread_tick)>();
 		});
 
-		main_batch.add(xorstr("Freemode Thread Killed"), "48 89 5C 24 ? 57 48 83 EC 20 48 83 B9 ? ? ? ? ? 48 8B D9 74 14", [this](memory::handle ptr)
+		main_batch.add(xorstr("Freemode Thread Killed"), xorstr("48 89 5C 24 ? 57 48 83 EC 20 48 83 B9 ? ? ? ? ? 48 8B D9 74 14"), [this](memory::handle ptr)
 		{
 			m_gta_thread_kill = ptr.as<decltype(m_gta_thread_kill)>();
 		});
@@ -333,139 +333,158 @@ namespace big
 			m_read_bitbuf_dword = ptr.as<decltype(m_read_bitbuf_dword)>();
 		});
 
-		main_batch.add(xorstr("clone_create"), "48 8B C4 66 44 89 48", [this](memory::handle ptr)
+		main_batch.add(xorstr("clone_create"), xorstr("48 8B C4 66 44 89 48"), [this](memory::handle ptr)
 		{
 			m_clone_create = ptr.as<decltype(m_clone_create)>();
 		});
 
-		main_batch.add(xorstr("Find Networked Object By ID"), "44 38 33 75 30 66 44", [this](memory::handle ptr)
+		main_batch.add(xorstr("Find Networked Object By ID"), xorstr("44 38 33 75 30 66 44"), [this](memory::handle ptr)
 		{
 			m_get_network_object = ptr.sub(0x40).as<decltype(m_get_network_object)>();
 		});
 
-		main_batch.add(xorstr("netSyncTree::CanApplyToObject"), "49 8B CE FF 50 70 84 C0 74 31 33 FF", [this](memory::handle ptr)
+		main_batch.add(xorstr("netSyncTree::CanApplyToObject"), xorstr("49 8B CE FF 50 70 84 C0 74 31 33 FF"), [this](memory::handle ptr)
 		{
 			m_sync_can_apply = ptr.sub(0x2C).as<decltype(m_sync_can_apply)>();
 		});
 
-		main_batch.add(xorstr("netSyncTree::ReadFromBuffer"), "45 89 43 18 57 48 83 EC 30 48 83 79 10 00 49", [this](memory::handle ptr)
+		main_batch.add(xorstr("netSyncTree::ReadFromBuffer"), xorstr("45 89 43 18 57 48 83 EC 30 48 83 79 10 00 49"), [this](memory::handle ptr)
 		{
 			m_sync_read = ptr.sub(0xF).as<decltype(m_sync_read)>();
 		});
 
-		main_batch.add(xorstr("clone_sync"), "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1", [this](memory::handle ptr)
+		main_batch.add(xorstr("clone_sync"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1"), [this](memory::handle ptr)
 		{
 			m_clone_sync = ptr.as<decltype(m_clone_sync)>();
 		});
 
-		main_batch.add(xorstr("m_clone_pack"), "48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F9 48 8B CA 49 8B E9", [this](memory::handle ptr)
+		main_batch.add(xorstr("m_clone_pack"), xorstr("48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F9 48 8B CA 49 8B E9"), [this](memory::handle ptr)
 		{
 			m_clone_pack = ptr.as<decltype(m_clone_pack)>();
 		});
 
-		main_batch.add(xorstr("clone_create_ack"), "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8", [this](memory::handle ptr)
+		main_batch.add(xorstr("clone_create_ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
 		{
 			m_clone_create_ack = ptr.as<decltype(m_clone_create_ack)>();
 		});
 
-		main_batch.add(xorstr("clone_sync_ack"), "48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b e2", [this](memory::handle ptr)
+		main_batch.add(xorstr("clone_sync_ack"), xorstr("48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b e2"), [this](memory::handle ptr)
 		{
 			m_clone_sync_ack = ptr.as<decltype(m_clone_sync_ack)>();
 		});
 
-		main_batch.add(xorstr("Clone Remove Ack"), "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8", [this](memory::handle ptr)
+		main_batch.add(xorstr("Clone Remove Ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
 		{
 			m_clone_remove_ack = ptr.as<decltype(m_clone_remove_ack)>();
 		});
 
-		main_batch.add(xorstr("Clone Remove"), "48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 4d 8b e0 48 8d 50", [this](memory::handle ptr)
+		main_batch.add(xorstr("Clone Remove"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 4d 8b e0 48 8d 50"), [this](memory::handle ptr)
 		{
 			m_clone_remove = ptr.as<decltype(m_clone_remove)>();
 		});
 
-		main_batch.add(xorstr("Network Object Manager"), "48 8B 0D ? ? ? ? 45 33 C0 E8 ? ? ? ? 33 FF 4C 8B F0", [this](memory::handle ptr)
+		main_batch.add(xorstr("Network Object Manager"), xorstr("48 8B 0D ? ? ? ? 45 33 C0 E8 ? ? ? ? 33 FF 4C 8B F0"), [this](memory::handle ptr)
 		{
 			m_network_object_manager = ptr.add(3).rip().as<decltype(m_network_object_manager)>();
 		});
 
-		main_batch.add(xorstr("Censor Chat Text"), "E8 ? ? ? ? 83 F8 FF 75 B9", [this](memory::handle ptr)
+		main_batch.add(xorstr("Censor Chat Text"), xorstr("E8 ? ? ? ? 83 F8 FF 75 B9"), [this](memory::handle ptr)
 		{
 			m_censor_chat_text = ptr.add(1).rip().as<PVOID>();
 		});
 
-		main_batch.add("Game Setting", "44 39 0D ? ? ? ? 74 0C", [this](memory::handle ptr)
+		main_batch.add(xorstr("Game Setting"), xorstr("44 39 0D ? ? ? ? 74 0C"), [this](memory::handle ptr)
 		{
 			m_game_setting = ptr.add(3).rip().sub(0x99).as<decltype(m_game_setting)>();
 		});
 		//085814878301
-		main_batch.add(xorstr("Camera Base"), "48 39 0D ? ? ? ? 75 58 8B 42 20", [this](memory::handle ptr)
+		main_batch.add(xorstr("Camera Base"), xorstr("48 39 0D ? ? ? ? 75 58 8B 42 20"), [this](memory::handle ptr)
 		{
 			m_camera_base = ptr.add(3).rip().as<uintptr_t*>();
 		});
 
-		main_batch.add(xorstr("Aim Wep Crash"), "E8 ? ? ? ? EB D7 41 83 F8 02", [this](memory::handle ptr)
+		main_batch.add(xorstr("Aim Wep Crash"), xorstr("E8 ? ? ? ? EB D7 41 83 F8 02"), [this](memory::handle ptr)
 		{
 			m_wep_crash = ptr.add(1).rip().as<decltype(m_wep_crash)>();
 		});
 
-		main_batch.add(xorstr("Sky Colour Blue"), "48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8B", [this](memory::handle ptr)
+		/*
+		main_batch.add(xorstr("Sky Colour Blue"), xorstr("48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8B"), [this](memory::handle ptr)
 		{
 			m_sky_blue = ptr.add(3).rip().add(0xB8).as<decltype(m_sky_blue)>();
 		});
 
-		main_batch.add(xorstr("Sky Colour Red"), "F3 0F 10 05 ? ? ? ? BE ? ? ? ? 0F C6 F6 00 0F 59 CE 0F C6 C0 00 0F 59 C8 0F 58 8B", [this](memory::handle ptr)
+		main_batch.add(xorstr("Sky Colour Red"), xorstr("F3 0F 10 05 ? ? ? ? BE ? ? ? ? 0F C6 F6 00 0F 59 CE 0F C6 C0 00 0F 59 C8 0F 58 8B"), [this](memory::handle ptr)
 		{
 			m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
 		});
+		*/
 
-		main_batch.add(xorstr("Joined Player"), "48 8B CA 48 8B F2 FF 50 18 4C 8D 05", [this](memory::handle ptr)
+		main_batch.add(xorstr("Joined Player"), xorstr("48 8B CA 48 8B F2 FF 50 18 4C 8D 05"), [this](memory::handle ptr)
 		{
 			m_player_has_joined = ptr.sub(0x26).as<decltype(m_player_has_joined)>();
 		});
 
-		main_batch.add(xorstr("Left Player"), "4C 8B F1 48 8B CA 48 8B EA FF 50 18 4C 8D 05", [this](memory::handle ptr)
+		main_batch.add(xorstr("Left Player"), xorstr("4C 8B F1 48 8B CA 48 8B EA FF 50 18 4C 8D 05"), [this](memory::handle ptr)
 		{
 			m_player_has_left = ptr.sub(0x26).as<decltype(m_player_has_left)>();
 		});
 
-		main_batch.add(xorstr("Aim Status"), "48 8D 0D ? ? ? ? 48 63 C3 3B 14 81 0F 84 ? ? ? ? 41 B8 ? ? ? ? 8B CB", [this](memory::handle ptr)
+		main_batch.add(xorstr("Aim Status"), xorstr("48 8D 0D ? ? ? ? 48 63 C3 3B 14 81 0F 84 ? ? ? ? 41 B8 ? ? ? ? 8B CB"), [this](memory::handle ptr)
 		{
 			m_player_aim = ptr.add(3).rip().add(12).as<decltype(m_player_aim)>();
 		});
 
-		main_batch.add(xorstr("CGameInvite"), "48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 E8 ? ? ? ? 8B 83 ? ? ? ?", [this](memory::handle ptr)
+		/*
+		main_batch.add(xorstr("CGameInvite"), xorstr("48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 E8 ? ? ? ? 8B 83 ? ? ? ?"), [this](memory::handle ptr)
 		{
 			m_game_invite = ptr.as<decltype(m_game_invite)>();
 		});
+		*/
 
-		main_batch.add(xorstr("Presence Data"), "48 8B 0D ? ? ? ? 48 85 C9 74 10 48 8B 01 4D 8B C8 4C 8B C2 41 8B D2 48 FF 60 18", [this](memory::handle ptr)
+		main_batch.add(xorstr("Presence Data"), xorstr("48 8B 0D ? ? ? ? 48 85 C9 74 10 48 8B 01 4D 8B C8 4C 8B C2 41 8B D2 48 FF 60 18"), [this](memory::handle ptr)
 		{
 			m_presence_data = ptr.as<decltype(m_presence_data)>();
 		});
 
-		main_batch.add(xorstr("Net Array Handle"), "44 8B E0 89 45 F4 48 8B 03 48 8B CB FF 90", [this](memory::handle ptr)
+		main_batch.add(xorstr("Net Array Handle"), xorstr("44 8B E0 89 45 F4 48 8B 03 48 8B CB FF 90"), [this](memory::handle ptr)
 		{
 			m_net_array_handler = ptr.sub(0x3C).as<PVOID>();
 		});
 
-		main_batch.add(xorstr("Get Chat Data"), "4D 85 C9 0F 84 ? ? ? ? 48 8B C4 48 89 58 08 48 89 70 10 48 89 78 18 4C 89 48 20 55 41 54 41 55 41 56 41 57 48 8D A8", [this](memory::handle ptr)
+		main_batch.add(xorstr("Get Chat Data"), xorstr("4D 85 C9 0F 84 ? ? ? ? 48 8B C4 48 89 58 08 48 89 70 10 48 89 78 18 4C 89 48 20 55 41 54 41 55 41 56 41 57 48 8D A8"), [this](memory::handle ptr)
 		{
 			m_chat_data = ptr.as<decltype(m_chat_data)>();
 		});
 
-		main_batch.add(xorstr("Chat Receive"), "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 30 49 8B F0 4D 8B C1", [this](memory::handle ptr)
+		main_batch.add(xorstr("Chat Receive"), xorstr("48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 30 49 8B F0 4D 8B C1"), [this](memory::handle ptr)
 		{
 			m_chat_receive = ptr.as<decltype(m_chat_receive)>();
 		});
 
-		main_batch.add(xorstr("Chat Player ID"), "48 8B D1 48 8B 0D ? ? ? ? 41 B0 01 E9", [this](memory::handle ptr)
+		main_batch.add(xorstr("Chat Player ID"), xorstr("48 8B D1 48 8B 0D ? ? ? ? 41 B0 01 E9"), [this](memory::handle ptr)
 		{
 			m_chat_player_id = ptr.as<decltype(m_chat_player_id)>();
 		});
 
-		main_batch.add(xorstr("RC"), "48 83 EC 28 4C 8D 89 ? ? ? ? 4C 8D 41 78", [this](memory::handle ptr)
+		main_batch.add(xorstr("RC"), xorstr("48 83 EC 28 4C 8D 89 ? ? ? ? 4C 8D 41 78"), [this](memory::handle ptr)
 		{
 			m_rid_crash = ptr.as<decltype(m_rid_crash)>();
+		});
+
+		main_batch.add(xorstr("Tuneables"), xorstr("48 8B 0D ? ? ? ? BF 02 00 00 00 44 8B C7"), [this](memory::handle ptr)
+		{
+			m_tuneables = ptr.add(3).rip().as<decltype(m_tuneables)>();
+		});
+
+		main_batch.add(xorstr("Unknown Function of Anti-Cheat"), xorstr("89 05 ? ? ? ? 48 8D 05 ? ? ? ? 48 6B DB 38 48 03 D8"), [this](memory::handle ptr)
+		{
+			m_some_anticheat_thing = ptr.add(2).rip().add(0x14).as<std::uint16_t*>();
+		});
+
+		main_batch.add(xorstr("Received Message"), xorstr("48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 54 41 56 41 57 48 83 EC 20 4C 8B 71 50 33 ED"), [this](memory::handle ptr)
+		{
+			m_received_message = ptr.as<decltype(m_received_message)>();
 		});
 
 		main_batch.run(memory::module(nullptr));

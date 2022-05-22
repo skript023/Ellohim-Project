@@ -46,11 +46,11 @@ namespace big
         static float get_document_supply(Player player);
         static float get_bunker_supply(Player player);
 
+        static int network_get_host_of_script(const char* scriptName);
         static int network_get_num_connected_player();
+        static bool network_is_host(Player player);
 
         static void remove_orbital_cannon_cooldown(bool activate);
-
-        static bool network_is_host(Player player);
 
         static void add_meth_supply(Player player, int supply);
         static void add_weed_supply(Player player, int supply);

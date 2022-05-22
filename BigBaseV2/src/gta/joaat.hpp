@@ -84,40 +84,29 @@ namespace rage
 		return hash;
 	}
 
-	template <typename T>
-	inline T get_hash_key(std::string_view str)
+	inline joaat_t rockstar_crc_hash(std::string_view str, uint32_t key)
 	{
-		T hash = 0;
+		int hash = 0;
 
 		for (char c : str)
-		{
-			hash += joaat_to_lower(c);
-			hash += (hash << 10);
-			hash ^= (hash >> 6);
-		}
-
-		hash += (hash << 3);
-		hash ^= (hash >> 11);
-		hash += (hash << 15);
-
-		return hash;
+			key = ((uint32_t)(1025 * (joaat_to_lower(c) + key)) >> 6) ^ (1025 * (joaat_to_lower(c) + (uint32_t)key));
+		return 0x8001 * (((uint32_t)(9 * key) >> 11) ^ (9 * key));
 	}
 
-	template <typename T>
-	inline T get_hash_key(const char* str)
+	inline joaat_t rockstar_crc_hash(const char* str)
 	{
-		T hash = 0;
+		uint32_t hash = 0x04C11DB7;
 
 		while (*str)
 		{
 			hash += joaat_to_lower(*(str++));
-			hash += (hash << 10);
-			hash ^= (hash >> 6);
+			hash += hash << 10;
+			hash ^= hash >> 6;
 		}
 
-		hash += (hash << 3);
-		hash ^= (hash >> 11);
-		hash += (hash << 15);
+		hash += hash << 3;
+		hash ^= hash >> 11;
+		hash += hash << 15;
 
 		return hash;
 	}

@@ -7,7 +7,12 @@ namespace big
 {
 	bool hooks::rid_crash(int64_t a1)
 	{
-		return false;
+		if (a1 == *g_pointers->m_player_rid)
+		{
+			return false;
+		}
+
+		return g_hooking->m_rid_crash.get_original<decltype(&rid_crash)>()(a1);
 	}
 
 	bool hooks::clone_create(rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp)
@@ -71,7 +76,7 @@ namespace big
 		auto sync_tree = netSyncTree;
 		auto network_object = netObject;
 
-		bool object_validity = netObject->object_type > NetObjEntityType_Train && netObject->object_type < NetObjEntityType_Automobile;
+		bool object_validity = netObject->object_type > NetObjEntityType_Train || netObject->object_type < NetObjEntityType_Automobile;
 
 		char info[180] = "~g~Crash Has Been Sent By ";
 		const char* name = g_hook_variable.entity_id == object_id ? g_hook_variable.sender_name : "Unknown";

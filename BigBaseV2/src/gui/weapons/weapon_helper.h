@@ -96,6 +96,82 @@ namespace big
 			vector.z *= inc;
 			return vector;
 		}
+
+		static inline std::vector<std::pair<uint32_t, float>> original_recoil{};
+		static inline uint32_t prev_recoil_weapon_hash{};
+
+		static bool has_recoil_cached(uint32_t hash)
+		{
+			return std::find_if(original_recoil.begin(), original_recoil.end(), [hash](auto const entry) 
+			{
+				return hash == entry.first;
+			}) != original_recoil.end();
+		}
+
+		static float get_original_recoil_value(uint32_t hash)
+		{
+			return std::find_if(original_recoil.begin(), original_recoil.end(), [hash](auto const entry)
+			{
+				return hash == entry.first;
+			})->second;
+		}
+
+		static inline std::vector<std::pair<uint32_t, float>> original_spread{};
+		static inline uint32_t prev_spread_weapon_hash{};
+
+		static bool has_spread_cached(uint32_t hash)
+		{
+			return std::find_if(original_spread.begin(), original_spread.end(), [hash](auto const entry)
+			{
+				return hash == entry.first;
+			}) != original_spread.end();
+		}
+
+		static float get_original_spread_value(uint32_t hash)
+		{
+			return std::find_if(original_spread.begin(), original_spread.end(), [hash](auto const entry)
+			{
+				return hash == entry.first;
+			})->second;
+		}
+
+		static inline std::vector<std::pair<uint32_t, int>> original_batch{};
+		static inline uint32_t prev_batch_weapon_hash{};
+
+		static bool has_batch_cached(uint32_t hash)
+		{
+			return std::find_if(original_batch.begin(), original_batch.end(), [hash](auto const entry)
+				{
+					return hash == entry.first;
+				}) != original_batch.end();
+		}
+
+		static int get_original_batch_value(uint32_t hash)
+		{
+			return std::find_if(original_batch.begin(), original_batch.end(), [hash](auto const entry)
+				{
+					return hash == entry.first;
+				})->second;
+		}
+
+		static inline std::vector<std::pair<uint32_t, float>> original_batch_spread{};
+		static inline uint32_t prev_batch_spread_weapon_hash{};
+
+		static bool has_batch_spread_cached(uint32_t hash)
+		{
+			return std::find_if(original_batch_spread.begin(), original_batch_spread.end(), [hash](auto const entry)
+				{
+					return hash == entry.first;
+				}) != original_batch_spread.end();
+		}
+
+		static float get_original_batch_spread_value(uint32_t hash)
+		{
+			return std::find_if(original_batch_spread.begin(), original_batch_spread.end(), [hash](auto const entry)
+				{
+					return hash == entry.first;
+				})->second;
+		}
 	};
 
 	inline static weapon_helper g_weapon_option{};

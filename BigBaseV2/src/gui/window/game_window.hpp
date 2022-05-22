@@ -22,7 +22,7 @@ namespace big
 	public:
 		static inline bool logger{};
 		static inline Hash login_status{ 0 };
-	private:
+	protected:
 		static inline std::string get_result{};
 		static inline char temp_username[128];
 		static inline char temp_password[128];

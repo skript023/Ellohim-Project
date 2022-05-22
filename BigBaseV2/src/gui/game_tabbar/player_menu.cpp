@@ -62,7 +62,7 @@ namespace big
                 g_fiber_pool->queue_job([]
                 {
                     GRAPHICS::SET_NIGHTVISION(g_player_option.night_vision);
-                    *script_global(g_global.vision).as<bool*>() = g_player_option.night_vision;
+                    *constant_global::vision() = g_player_option.night_vision;
                 });
             }
             ImGui::SameLine(200);
@@ -71,7 +71,7 @@ namespace big
                 g_fiber_pool->queue_job([]
                 {
                     GRAPHICS::SET_SEETHROUGH(g_player_option.thermal_vision);
-                    *script_global(g_global.vision).as<bool*>() = g_player_option.thermal_vision;
+                    *constant_global::vision() = g_player_option.thermal_vision;
                 });
             }
             ImGui::SameLine(400);
@@ -196,10 +196,13 @@ namespace big
                 ImGui::PushItemWidth(200);
                 ImGui::SliderFloat(xorstr("Weapon Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_gun_multiplier, 0.f, 2.f);
                 ImGui::SliderFloat(xorstr("Melee Damage Multiplier"), &rage_helper::get_local_ped()->m_playerinfo->m_damage_melee_multiplier, 0.f, 2.f);
-
-                ImGui::SliderInt(xorstr("Burst Ammo"), weapon_helper::bullet_batch(g_local.player), 0, 100);
-                ImGui::SliderFloat(xorstr("Burst Spread"), weapon_helper::bullet_batch_spread(g_local.player), 0.f, 2.f);
-                ImGui::PopItemWidth();
+                
+                if (auto batch = weapon_helper::bullet_batch(g_local.player))
+                {
+                    ImGui::SliderInt(xorstr("Burst Ammo"), batch, 0, 100);
+                    ImGui::SliderFloat(xorstr("Burst Spread"), weapon_helper::bullet_batch_spread(g_local.player), 0.f, 2.f);
+                    ImGui::PopItemWidth();
+                }
 
                 ImGui::Text(xorstr("Weapon Custom Explosion"));
                 static int impact_type = 0;

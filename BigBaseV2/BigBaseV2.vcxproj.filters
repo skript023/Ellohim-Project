@@ -336,6 +336,15 @@
     <ClInclude Include="src\gui\vehicle\vehicle_list.hpp">
       <Filter>gui\vehicle</Filter>
     </ClInclude>
+    <ClInclude Include="src\gta\singleton.hpp">
+      <Filter>gta</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gta\tuneables.hpp">
+      <Filter>gta</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\hooks\rage_internal_packet.hpp">
+      <Filter>gui\hooks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -479,6 +488,12 @@
       <Filter>gui\game_time</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\hooks\net_array_handler.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\game_chat_receiver.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\internal_packet_systems.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
   </ItemGroup>

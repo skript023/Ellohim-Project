@@ -37,6 +37,7 @@ namespace big::functions
 	using clone_pack_t = void (*) (rage::CNetworkObjectMgr* mgr, rage::netObject* netObject, CNetGamePlayer* src, rage::datBitBuffer* buffer);
 	using clone_sync_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, rage::datBitBuffer* buffer, int32_t unk, int32_t timestamp);
 	using clone_remove_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_id, int32_t unk);
+    using received_message_t = bool (*) (void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
     
     using get_chat_data_t = __int64 (*)(__int64 a1, __int64* a2, __int64 a3, const char* origText, BOOL a5);
     using chat_receive_t = __int64* (*)(__int64 a1, __int64 a2, __int64 a3, const char* a4, char a5);

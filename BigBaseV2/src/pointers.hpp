@@ -43,6 +43,7 @@ namespace big
 		rage::ivector2 *m_screen_resolution{};
 		CutsceneManager **m_cutscene_mgr;
 		PresenceData** m_presence_data;
+		rage::atSingleton<rage::CTunables> *m_tuneables{};
 
 		DWORD64 *m_add_owned_explosion_bypass_1;
 		DWORD64 *m_add_owned_explosion_bypass_2;
@@ -60,8 +61,9 @@ namespace big
 		bool* m_wep_crash;
 		float* m_sky_blue;
 		float* m_sky_red;
+		uint16_t* m_some_anticheat_thing;
 		CPlayerCrew *m_player_crew;
-		BusinessMoney** m_money_in_bunker{};
+		BusinessMoney** m_business_money{};
 		uint64_t* m_money_in_bunker_2;
 		uint64_t* m_player_rid;
 		rage::vector3* m_waypoint_coords;
@@ -108,6 +110,7 @@ namespace big
 		functions::left_player_t m_player_has_left{};
 		functions::chat_receive_t m_chat_receive{};
 		functions::chat_player_id_t m_chat_player_id{};
+		functions::received_message_t m_received_message{};
 
 		functions::GetNetGamePlayer m_get_net_game_player{};
 		
@@ -127,7 +130,6 @@ namespace big
 		PVOID m_censor_chat_text;
 		PVOID m_game_invite;
 		PVOID m_net_array_handler;
-
 		PVOID m_model_spawn_bypass;
 	};
 

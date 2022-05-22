@@ -14,6 +14,7 @@ namespace big
 		static bool is_number_32_bit(uint32_t number);
 		static bool is_number_64_bit(uint64_t number);
 		static bool is_script_active(rage::joaat_t Hash);
+		static bool wait_script(rage::joaat_t script_hash);
 		static void logger(const char* window_name);
 		static void auto_click(bool activate);
 		static bool is_model_valid(rage::netSyncTree* netSyncTree, rage::netObject* netObject);

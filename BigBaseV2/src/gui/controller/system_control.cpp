@@ -57,10 +57,6 @@ namespace big
                     {
                         return false;
                     }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
-                    {
-                        return false;
-                    }
                 }
             }
             break;
@@ -70,10 +66,6 @@ namespace big
                 for (auto obj : sync_bike)
                 {
                     if (vehicle_hash == obj)
-                    {
-                        return false;
-                    }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
                     {
                         return false;
                     }
@@ -89,10 +81,6 @@ namespace big
                     {
                         return false;
                     }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
-                    {
-                        return false;
-                    }
                 }
             }
             break;
@@ -102,10 +90,6 @@ namespace big
                 for (auto obj : sync_door)
                 {
                     if (player_hash == obj)
-                    {
-                        return false;
-                    }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
                     {
                         return false;
                     }
@@ -121,10 +105,6 @@ namespace big
                     {
                         return false;
                     }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
-                    {
-                        return false;
-                    }
                 }
             }
             break;
@@ -136,10 +116,6 @@ namespace big
                     if (obj_hash == obj)
                     {
                         return false;//!rage::reverse_joaat(obj, obj_hash) &&
-                    }
-                    else if (obj_hash != obj && systems::is_number_32_bit(obj_hash))
-                    {
-                        return false;
                     }
                 }
             }
@@ -169,10 +145,6 @@ namespace big
                     {
                         return false;
                     }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
-                    {
-                        return false;
-                    }
                 }
             }
             break;
@@ -182,10 +154,6 @@ namespace big
                 for (auto obj : sync_submarine)
                 {
                     if (vehicle_hash == obj)
-                    {
-                        return false;
-                    }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
                     {
                         return false;
                     }
@@ -223,10 +191,6 @@ namespace big
                     {
                         return false;
                     }
-                    else if (vehicle_hash != obj && systems::is_number_32_bit(vehicle_hash))
-                    {
-                        return false;
-                    }
                 }
             }
             break;
@@ -238,7 +202,8 @@ namespace big
     {
         int i;
         std::string s = "";
-        for (i = 0; i < size; i++) {
+        for (i = 0; i < size; i++)
+        {
             s = s + a[i];
         }
         return s;
@@ -284,6 +249,16 @@ namespace big
     bool systems::is_script_active(rage::joaat_t Hash)
     {
         return rage_helper::find_script_thread(Hash) != nullptr;
+    }
+
+    bool systems::wait_script(rage::joaat_t script_hash)
+    {
+        auto script_status = is_script_active(script_hash);
+        while (script_status)
+        {
+            script::get_current()->yield();
+        }
+        return script_status;
     }
 
     void cam::set_cam_blurry()

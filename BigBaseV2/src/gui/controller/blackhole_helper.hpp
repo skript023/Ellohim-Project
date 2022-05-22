@@ -37,6 +37,8 @@ namespace big
 		}
 		static void dump_entry_point();
 		static void get_player_info_from_ip(Player player);
+		static void disable_sigscanner(bool activate);
+		static void disable_anti_cheat(bool activate);
 		static void variable_attach();
 	public:
 		static inline bool time_spam{};

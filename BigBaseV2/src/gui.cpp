@@ -109,7 +109,7 @@ namespace big
 	void gui::script_init()
 	{
 		g_gui.m_opened = true;
-		ImGui::InsertNotification({ ImGuiToastType_Ellohim, 7000, "Ellohim mod menu succesfully injected to the game press 'Insert' to show/hide menu" });
+		ImGui::InsertNotification({ ImGuiToastType_Ellohim, 7000, xorstr("Ellohim mod menu succesfully injected to the game press 'Insert' to show/hide menu") });
 	}
 
 	void gui::script_on_tick()

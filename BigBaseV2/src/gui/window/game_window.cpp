@@ -257,7 +257,6 @@ namespace big
 		main_window(window_name);
 		game_window::automatic_logout();
 		window_log::logger(xorstr(ICON_FA_BUG " Log Console " ICON_FA_BUG));
-		interact_to_server(3s);
 		//** Render toasts on top of everything, at the end of your code!
 		//** You should push style vars here
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 5.f);

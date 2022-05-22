@@ -92,9 +92,17 @@ public:
 class CNetGamePlayer : public rage::netPlayer
 {
 public:
-	char pad_0008[25]; //0x0008
+	char pad_0008[8]; //0x0008
+	class CNonPhysicalPlayerData* m_non_physical_player; //0x0010
+	uint32_t m_msg_id; //0x0018
+	char pad_001C[4]; //0x001C
+	uint8_t m_active_id; //0x0020
 	int8_t player_id; //0x0021
-	char pad_0022[126]; //0x0022
+	char pad_0022[3]; //0x0022
+	uint16_t m_complaints; //0x0025
+	char pad_0027[17]; //0x0027
+	class CNetGamePlayer* m_unk_net_player_list[10]; //0x0038
+	char pad_0088[24]; //0x0088
 	CPlayerInfo* player_info; //0x00A0
 	char pad_00A8[20]; //0x00A8
 	uint32_t bubble_id; //0x00BC
@@ -214,7 +222,7 @@ class CPedWeaponManager
 public:
 	char pad_0000[16]; //0x0000
 	class CPed* m_owner; //0x0010
-	char pad_0018[4]; //0x0018
+	uint32_t m_selected_weapon_hash; //0x0018
 	uint32_t m_name_hash; //0x001C
 	class CWeaponInfo* m_weapon_info; //0x0020
 	char pad_0028[72]; //0x0028
@@ -244,21 +252,73 @@ public:
 	class CAmmoModifier* m_ammo_modifier; //0x0060
 	char pad_0068[12]; //0x0068
 	float m_weapon_spread; //0x0074
-	char pad_0078[40]; //0x0078
+	float m_accurate_mode_accuracy_modifier; //0x0078
+	float m_run_and_gun_accuracy; //0x007C
+	float m_run_and_gun_min_accuracy; //0x0080
+	float m_recoil_accuracy_max; //0x0084
+	float m_recoil_error_time; //0x0088
+	float m_recoil_recovery_rate; //0x008C
+	float m_recoil_accuracy_to_allow_headshot_ai; //0x0090
+	float m_min_headshot_distance_ai; //0x0094
+	float m_max_headshot_distance_ai; //0x0098
+	float m_headshot_damage_modifier_ai; //0x009C
 	float m_bullet_damage; //0x00A0
-	char pad_00A4[52]; //0x00A4
+	float m_min_headshot_distance_player; //0x00A4
+	float m_max_headshot_distance_player; //0x00A8
+	float m_headshot_damage_modifier_player; //0x00AC
+	float m_damage; //0x00B0
+	float m_damage_time; //0x00B4
+	float m_damage_time_in_vehicle; //0x00B8
+	float m_damage_time_in_vehicle_headshot; //0x00BC
+	float N000008F9; //0x00C0
+	uint32_t N00000898; //0x00C4
+	float m_hit_limbs_damage_modifier; //0x00C8
+	float m_network_hit_limbs_damage_modifier; //0x00CC
+	float m_lightly_armoured_damage_modifier; //0x00D0
+	float m_vehicle_damage_modifier; //0x00D4
 	float m_bullet_mass; //0x00D8
 	float m_ped_force; //0x00DC
 	float m_vehicle_force; //0x00E0
 	float m_heli_force; //0x00E4
-	char pad_00E8[56]; //0x00E8
+	char pad_00E8[16]; //0x00E8
+	float m_force_max_strength_mult; //0x00F8
+	float m_force_falloff_range_start; //0x00FC
+	float m_force_falloff_range_end; //0x0100
+	float m_force_falloff_range_min; //0x0104
+	float m_project_force; //0x0108
+	float m_frag_impulse; //0x010C
+	float m_penetration; //0x0110
+	float m_vertical_launch_adjustment; //0x0114
+	float m_drop_forward_velocity; //0x0118
+	float m_speed; //0x011C
 	int32_t m_bullet_batch; //0x0120
 	float m_batch_spread; //0x0124
-	char pad_0128[12]; //0x0128
+	float m_reload_time_mp; //0x0128
+	float m_reload_time_sp; //0x012C
+	float m_vehicle_reload_time; //0x0130
 	float m_reload_speed; //0x0134
-	char pad_0138[320]; //0x0138
-	float m_lock_on_range; //0x0278
-	char pad_027C[120]; //0x027C
+	int32_t m_bullets_per_anime_loop; //0x0138
+	float m_time_between_shots; //0x013C
+	float m_time_left_between_shots_where_should_fire_is_cached; //0x0140
+	float m_spinup_time; //0x0144
+	float m_spin_time; //0x0148
+	float m_spindown_time; //0x014C
+	float m_alternate_wait_time; //0x0150
+	char pad_0154[296]; //0x0154
+	float m_network_player_damage_modifier; //0x027C
+	float m_network_ped_damage_modifier; //0x0280
+	float m_network_headshot_modifier; //0x0284
+	float m_lock_on_range; //0x0288
+	float m_weapon_range; //0x028C
+	char pad_0290[8]; //0x0290
+	float m_damage_fall_off_range_min; //0x0298
+	float m_damage_fall_off_range_max; //0x029C
+	float m_damage_fall_off_modifier; //0x02A0
+	char pad_02A4[64]; //0x02A4
+	uint32_t m_recoil_shake_hash; //0x02E4
+	uint32_t m_recoil_shake_hash_first_person; //0x02E8
+	float m_min_time_between_recoil_shakes; //0x02EC
+	float m_recoil_shake_amplitude; //0x02F0
 	float m_weapon_recoil; //0x02F4
 	char pad_02F8[760]; //0x02F8
 	class CWeaponInfoName* m_weapon_name_info; //0x05F0
@@ -555,7 +615,11 @@ public:
 	char pad_0072[2]; //0x0072
 	uint32_t m_external_ip; //0x0074
 	uint16_t m_external_port; //0x0078
-	char pad_007A[22]; //0x007A
+	char pad_007A[6]; //0x007A
+	uint32_t m_host_token; //0x0080
+	char pad_0084[4]; //0x0084
+	uint32_t m_peer_id; //0x0088
+	char pad_008C[4]; //0x008C
 	uint64_t m_rockstar_id; //0x0090
 	char pad_0098[12]; //0x0098
 	char m_name[20]; //0x00A4

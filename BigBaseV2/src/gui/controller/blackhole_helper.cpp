@@ -17,6 +17,10 @@
 #include "http_request.hpp"
 #include "network_controller.h"
 #include "crossmap.hpp"
+#include "gta/singleton.hpp"
+#include "gta/tuneables.hpp"
+#include <gui/window/imgui_notify.h>
+#include "xostr.h"
 
 namespace big
 {
@@ -29,7 +33,7 @@ namespace big
         NETWORK::NETWORK_HANDLE_FROM_PLAYER(player, reinterpret_cast<int*>(buffer), 13);
         for (int i = 0; i < size; i++)
         {
-            LOG(INFO) << "network handle: " << i << " : " << buffer[i];
+            LOG(INFO) << xorstr("network handle: ") << i << " : " << buffer[i];
         }
         std::vector<uint64_t> result(buffer, buffer + sizeof(buffer));
         return result;
@@ -50,7 +54,7 @@ namespace big
     void miscellaneous::dump_entry_point()
     {
         std::string settings_file = std::getenv("appdata");
-        settings_file += "\\Ellohim Menu\\EntryPoints.txt";
+        settings_file += xorstr("\\Ellohim Menu\\EntryPoints.txt");
 
         std::ofstream file(settings_file, std::ios::out | std::ios::trunc);
         for (auto& map : g_crossmap)
@@ -77,7 +81,7 @@ namespace big
     {
         if (!network::check_network_status()) return;
         http_response_tick = std::chrono::high_resolution_clock::now();
-        if ((std::chrono::high_resolution_clock::now() - http_response_tick).count() >= std::chrono::milliseconds(10000).count() || trigger_player_info_from_ip)
+        if ((std::chrono::steady_clock::now() - http_response_tick).count() >= std::chrono::milliseconds(10000).count() || trigger_player_info_from_ip)
         {
             THREAD_JOB_BEGIN_CLAUSE(=)
             {
@@ -88,7 +92,7 @@ namespace big
                     {
                         http::Request request{ fmt::format("http://ip-api.com/json/{}?fields=66318335", player::get_player_ip(player)) };
 
-                        const auto response = request.send("GET", "", {}, 1000ms);
+                        const auto response = request.send("GET");
                         auto result = nlohmann::json::parse(response.body.begin(), response.body.end());
                         provider = result["isp"].get<std::string>();
                         country = result["country"].get<std::string>();
@@ -108,6 +112,36 @@ namespace big
         }
     }
 
+    void miscellaneous::disable_sigscanner(bool activate)
+    {
+        if (activate)
+        {
+            try
+            {
+                if (g_pointers->m_tuneables->is_valid())
+                {
+                    if (const auto ptr = g_pointers->m_tuneables->get_instance(); ptr)
+                    {
+                        ptr->m_count = 0;
+                        ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, xorstr(ICON_FA_CHECK_CIRCLE" Sigscanner Successfully Blocked") });
+                    }
+                }
+            }
+            catch(...)
+            {
+                MessageBoxA(nullptr, xorstr("An exception occured while disabling sig scanner!"), xorstr("Ellohim Anti-WWSigscanner"), MB_OK);
+            }
+        }
+    }
+
+    void miscellaneous::disable_anti_cheat(bool activate)
+    {
+        if (activate)
+        {
+            *g_pointers->m_some_anticheat_thing = 0;
+        }
+    }
+
     void miscellaneous::variable_attach()
     {
         if (g_local.player != PLAYER::PLAYER_ID() || g_local.ped != PLAYER::PLAYER_PED_ID())
@@ -115,8 +149,6 @@ namespace big
             g_local.player = PLAYER::PLAYER_ID();
             g_local.ped = PLAYER::PLAYER_PED_ID();
         }
-
-        chrono_player_info_blackhole(2000ms);
 
         g_event_tester.event_ped = player::get_player_ped(g_event_tester.event_player);
         g_local.PlayerVehicle = PED::GET_VEHICLE_PED_IS_USING(g_local.ped);
@@ -127,24 +159,26 @@ namespace big
             
 
         g_local.ScriptHost = NETWORK::NETWORK_GET_HOST_OF_SCRIPT("freemode", -1, 0);
-        g_local.character = *script_global(1574907).as<int*>();
+        g_local.character = *script_global(g_global.character).as<int*>();
         g_local.connected_player = NETWORK::NETWORK_GET_NUM_CONNECTED_PLAYERS();
         
-        g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 848 + 9 + 1; //h4_islandx_disc_StrandedWhale
-        g_global.business_index = g_global.player_stat + 1 + (g_local.player * g_global.player_size) + 267 + 187;
-        m_local.blackjack.current_table = 1788 + 1 + (g_local.player * 8) + 4;
-        m_local.blackjack.bet_trigger = 1788 + 1 + (g_local.player * 8);
-
-        g_info.player_health = ENTITY::GET_ENTITY_HEALTH(g_selected.ped);
-        g_info.player_max_health = ENTITY::GET_ENTITY_MAX_HEALTH(g_selected.ped);
-        g_info.player_armour = PED::GET_PED_ARMOUR(g_selected.ped);
-        g_info.player_max_armour = PLAYER::GET_PLAYER_MAX_ARMOUR(g_selected.player);
-        g_info.PlayerPosition = ENTITY::GET_ENTITY_COORDS(g_selected.ped, FALSE);
-        
-        PATHFIND::GET_STREET_NAME_AT_COORD(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z, &g_info.StreetNameHash, &g_info.CrossingRoadHash);
-        g_info.PlayerStreet = HUD::GET_STREET_NAME_FROM_HASH_KEY(g_info.StreetNameHash);
+        //g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 848 + 9 + 1; //h4_islandx_disc_StrandedWhale
+        //g_global.business_index = g_global.player_stat + 1 + (g_local.player * g_global.player_size) + 267 + 187;
+        m_local.blackjack.current_table = 1767 + 1 + (g_local.player * 8) + 4;
+        m_local.blackjack.bet_trigger = 1767 + 1 + (g_local.player * 8);
 
         if (g_player_option.player_list_open && g_player_option.player_info_open)
+        {
+            g_info.player_health = ENTITY::GET_ENTITY_HEALTH(g_selected.ped);
+            g_info.player_max_health = ENTITY::GET_ENTITY_MAX_HEALTH(g_selected.ped);
+            g_info.player_armour = PED::GET_PED_ARMOUR(g_selected.ped);
+            g_info.player_max_armour = PLAYER::GET_PLAYER_MAX_ARMOUR(g_selected.player);
+            g_info.PlayerPosition = ENTITY::GET_ENTITY_COORDS(g_selected.ped, FALSE);
+            
+            PATHFIND::GET_STREET_NAME_AT_COORD(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z, &g_info.StreetNameHash, &g_info.CrossingRoadHash);
+            g_info.PlayerStreet = HUD::GET_STREET_NAME_FROM_HASH_KEY(g_info.StreetNameHash);
+
             g_info.PlayerZone = HUD::_GET_LABEL_TEXT(ZONE::GET_NAME_OF_ZONE(g_info.PlayerPosition.x, g_info.PlayerPosition.y, g_info.PlayerPosition.z));
+        }
     }
 }

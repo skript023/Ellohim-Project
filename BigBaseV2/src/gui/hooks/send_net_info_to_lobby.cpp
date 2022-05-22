@@ -48,14 +48,14 @@ namespace big
 			rage::netAddress spoofed = *(rage::netAddress*)&local_player->m_relay_ip;
 			auto spoofed_ip = fmt::format("{}.{}.{}.{}", spoofed.m_field1, spoofed.m_field2, spoofed.m_field3, spoofed.m_field4);
 
-			auto retnvalue = g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
+			//auto retnvalue = g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
 			if (scid_diff)
 				local_player->m_rockstar_id = scid_real;
 			if (ip_diff)
 				local_player->m_relay_ip = *(uint32_t*)&ip_address;
 
-			return retnvalue;
+			//return retnvalue;
 		}
-		return g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
+		//return g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
 	}
 }
