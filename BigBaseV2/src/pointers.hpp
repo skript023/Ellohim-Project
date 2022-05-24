@@ -125,6 +125,7 @@ namespace big
 		PVOID m_game_invite;
 		PVOID m_net_array_handler;
 		PVOID m_model_spawn_bypass;
+		PVOID m_network_group_override;
 
 		functions::clone_sync_t m_received_clone_sync{};
 		functions::get_sync_tree_for_type_t m_get_sync_tree_for_type{};

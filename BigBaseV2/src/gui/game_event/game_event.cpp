@@ -327,7 +327,7 @@ namespace big
     {
         g_fiber_pool->queue_job([player]
         {
-            int64_t bail_event[3] = { BAIL_NETWORK, g_local.player, *script_global(g_global.script_event).at(player, g_global.script_event_size).at(511).as<int64_t*>() };
+            int64_t bail_event[3] = { BAIL_NETWORK, g_local.player, *script_global(g_global.script_event).at(player, g_global.script_event_size).at(510).as<int64_t*>() };
             SCRIPT::TRIGGER_SCRIPT_EVENT(1, bail_event, 3, 1 << player);
         });
     }

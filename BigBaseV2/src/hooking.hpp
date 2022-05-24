@@ -20,6 +20,7 @@ namespace big
 		static bool rid_crash(__int64 a1);
 		static bool received_message(void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
 		static void get_network_event_data(__int64 a1, rage::CEventNetwork* net_event);
+		static void network_group_override(std::int64_t a1, std::int64_t a2, std::int64_t a3);
 
 		static int64_t received_clone_sync(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, unsigned __int16 sync_type, unsigned __int16 obj_id, rage::datBitBuffer* buffer, unsigned __int16 a7, unsigned int timestamp);
 		
@@ -73,6 +74,7 @@ namespace big
 		detour_hook m_received_message_hook;
 		detour_hook m_get_network_event_data_hook;
 		detour_hook m_received_clone_sync_hook;
+		detour_hook m_network_group_override;
 		
 		detour_hook m_net_array_handler_hook;
 		detour_hook m_censor_chat_text_hook;

@@ -6,6 +6,21 @@
 
 namespace big
 {
+	void hooks::network_group_override(std::int64_t a1, std::int64_t a2, std::int64_t a3)
+	{
+		if (g_settings.options["Crash Protection"])
+		{
+			if (a2 == 0 && (a3 == 103 || a3 == 0))
+			{
+				LOG(WARNING) << "Received SCRIPT_WORLD_STATE_EVENT crash from unknown attacker...";
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 15999, "Received SCRIPT_WORLD_STATE_EVENT crash from unknown attacker" });
+				return;
+			}
+			// original
+		}
+		return g_hooking->m_network_group_override.get_original<decltype(&network_group_override)>()(a1, a2, a3);
+	}
+
 	void hooks::get_network_event_data(__int64 a1, rage::CEventNetwork* net_event)
 	{
 		__int64 event_type = net_event->get_type();

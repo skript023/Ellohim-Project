@@ -14,11 +14,6 @@
 #include "gui/game_tabbar/player_menu.h"
 #include "gui/window/game_window.hpp"
 
-    // auto vehicle = *(std::uintptr_t*)(local_ped + 0xD28);
-    // auto offset2 = *(std::uintptr_t*)(vehicle + 0x8A8);
-    // auto& offset3 = *(float*)(offset2 + 0x4C);
-    // offset3 = 12.f;
-
 namespace big::features
 {	
 	uint64_t OriginalRID = *g_pointers->m_player_rid;
@@ -66,41 +61,6 @@ namespace big::features
 		float zPlane = (GameplayCamRot.y * distance) + GameplayCamCoord.z;
 
 		return Vector3(xPlane, yPlane, zPlane);
-	}
-	
-	void WhenMenuLoaded()
-	{
-		if (FirstLoad)
-		{
-			HUD::BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
-			HUD::ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("~bold~~y~Ellohim ~g~Menu Connected With The Game~w~");
-			HUD::END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT("CHAR_SOCIAL_CLUB", "CHAR_SOCIAL_CLUB", FALSE, 0, "~bold~~y~Ellohim", "~y~~a~Private Mod Menu");
-			HUD::END_TEXT_COMMAND_THEFEED_POST_TICKER(true, true);
-			FirstLoad = false;
-		}
-	}
-
-	struct nearbyEnts {
-		int size;//still 32 bit integer
-		Entity entities[100];
-	};
-
-	void Unusable(int player)
-	{
-		nearbyEnts arr;
-		arr.size = 100;
-		Ped ped = PLAYER::GET_PLAYER_PED_SCRIPT_INDEX(player);
-		int size = PED::GET_PED_NEARBY_PEDS(ped, (int*)&arr, ped);
-		for (int i = 0; i < size; i++)
-		{
-			//LOG(INFO) << "You Got The Control";
-			auto pos = ENTITY::GET_ENTITY_COORDS(arr.entities[i], TRUE);
-			*(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0xE990;
-			*(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x9090;
-			FIRE::ADD_OWNED_EXPLOSION(g_selected.ped, pos.x, pos.y, pos.z, EXPLOSION_TANKER, 1000.0f, FALSE, TRUE, 0.0f);
-			*(PWORD)g_pointers->m_add_owned_explosion_bypass_1 = 0x850F;
-			*(PWORD)g_pointers->m_add_owned_explosion_bypass_2 = 0x0F74;
-		}
 	}
 	
 	void chrono_loop(std::chrono::high_resolution_clock::duration delay)

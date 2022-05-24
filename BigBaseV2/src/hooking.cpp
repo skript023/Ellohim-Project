@@ -56,8 +56,8 @@ namespace big
 
 		m_received_event_hook("Received Event", g_pointers->m_received_event, &hooks::received_event),
 		m_net_array_handler_hook("net_array_handler", g_pointers->m_net_array_handler, &hooks::net_array_handler),
-		m_received_clone_sync_hook("Sync Tree Hook", g_pointers->m_received_clone_sync, &hooks::received_clone_sync)
-
+		m_received_clone_sync_hook("Sync Tree Hook", g_pointers->m_received_clone_sync, &hooks::received_clone_sync),
+		m_network_group_override("Network Override", g_pointers->m_network_group_override, &hooks::network_group_override)
 	{
 		m_swapchain_hook.hook(hooks::swapchain_present_index, &hooks::swapchain_present);
 		m_swapchain_hook.hook(hooks::swapchain_resizebuffers_index, &hooks::swapchain_resizebuffers);

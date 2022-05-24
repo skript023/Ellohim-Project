@@ -343,6 +343,11 @@ namespace big
 			m_network_object_manager = ptr.add(3).rip().as<decltype(m_network_object_manager)>();
 		});
 
+		main_batch.add("Network Group Override", "44 89 81 ? ? ? ? 89 91 ? ? ? ? C6 05", [this](memory::handle ptr)
+		{
+			m_network_group_override = ptr.as<PVOID>();
+		});
+
 		//Received clone sync
 		main_batch.add("Clone Sync", "48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 54 41 56 41 57 48 83 EC 40 4C 8B F2", [this](memory::handle ptr)
 		{
@@ -362,7 +367,7 @@ namespace big
 		});
 
 		//Get net object for player
-		main_batch.add("GNOFP", "41 80 78 ? FF 74 2D 41 0F B6 40", [this](memory::handle ptr)
+		main_batch.add("Get Network Object Players", "41 80 78 ? FF 74 2D 41 0F B6 40", [this](memory::handle ptr)
 		{
 			m_get_net_object_for_player = ptr.as<decltype(m_get_net_object_for_player)>();
 		});
