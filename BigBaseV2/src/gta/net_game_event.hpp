@@ -138,6 +138,19 @@ namespace rage
 		uint8_t m_flagBits; //0x001C
 	};
 
+	class CEventNetwork
+	{
+	public:
+		virtual ~CEventNetwork() = default;
+		virtual void unk_0x8() = 0;
+		virtual void unk_0x10() = 0;
+		virtual __int64 get_type() = 0;
+		virtual void unk_0x20() = 0;
+		virtual void unk_0x28() = 0;
+		virtual bool get_extra_information(__int64* info_array, int check) = 0;
+		virtual void unk_0x38() = 0;
+	};
+
 	class netGameEvent
 	{
 	public:

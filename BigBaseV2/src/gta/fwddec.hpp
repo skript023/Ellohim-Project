@@ -52,6 +52,7 @@ namespace rage
 	class CPed;
 	class BlipList;
 	class CNetworkObjectMgr;
+	class CEventNetwork;
 
 	class CTunables;
 

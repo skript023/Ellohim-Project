@@ -19,13 +19,13 @@ namespace big
 		static void player_leave(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 		static bool rid_crash(__int64 a1);
 		static bool received_message(void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
+		static void get_network_event_data(__int64 a1, rage::CEventNetwork* net_event);
+
+		static int64_t received_clone_sync(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, unsigned __int16 sync_type, unsigned __int16 obj_id, rage::datBitBuffer* buffer, unsigned __int16 a7, unsigned int timestamp);
 		
 		static bool received_event(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, uint16_t event_id, int event_index, int event_handled_bitset, int64_t bit_buffer_size, rage::datBitBuffer* buffer);
 
 		static __int64* chat_receive(__int64 chat_pointer, __int64 unk2, __int64 peerId, const char* msg, char IsTeam);
-		static bool clone_create(rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
-		static bool sync_can_apply(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
-		static bool sync_read_buffer(rage::netSyncTree* netSyncTree, int32_t sync_type, int32_t _sync_flag, rage::datBitBuffer* buffer, void* netLogStub);
 		
 		static void disable_error_screen(char* entryHeader, char* entryLine1, int instructionalKey, char* entryLine2, BOOL p4, Any p5, Any* p6, Any* p7, BOOL background);
 		static bool net_array_handler(int64_t netArrayHandlerBaseMgr, uint8_t* a2, rage::datBitBuffer* datbitbuffer, uint32_t bytes_to_read, int16_t a5);
@@ -70,20 +70,16 @@ namespace big
 		detour_hook m_get_label_text;
 		detour_hook m_player_has_joined_hook;
 		detour_hook m_player_has_left_hook;
-		//detour_hook m_received_message_hook;
+		detour_hook m_received_message_hook;
+		detour_hook m_get_network_event_data_hook;
+		detour_hook m_received_clone_sync_hook;
 		
 		detour_hook m_net_array_handler_hook;
-		//detour_hook m_send_net_info_to_lobby_hook;
 		detour_hook m_censor_chat_text_hook;
 
 		detour_hook m_chat_receive_hook;
 		detour_hook m_received_event_hook;
-		detour_hook m_clone_create_hook;
-		detour_hook m_sync_can_apply_hook;
-		detour_hook m_sync_read_buffer_hook;
 		detour_hook m_rid_crash;
-
-		//detour_hook m_error_screen_hook;
 
 		detour_hook m_gta_thread_tick_hook;
 		detour_hook m_gta_thread_kill_hook;

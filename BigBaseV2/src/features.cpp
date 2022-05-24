@@ -159,39 +159,33 @@ namespace big::features
 	
 	void run_tick()
 	{
-		try
-		{
-			g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
-			g_local.transition = NETWORK::NETWORK_IS_IN_TRANSITION();
-			HotkeyAttach();
+		g_local.is_male = ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == RAGE_JOAAT("mp_m_freemode_01");
+		g_local.transition = NETWORK::NETWORK_IS_IN_TRANSITION();
+		HotkeyAttach();
 			
-			game_time::faster_time_scale(g_misc_option->time_scale);
+		game_time::faster_time_scale(g_misc_option->time_scale);
 
-			ai::explode_enemies(g_npc_option->explode_ped);
-			ai::kill_enemies(g_npc_option->kill_ped);
-			//InfiniteAmmo(g_settings.options["Infinite Ammo"]);
+		ai::explode_enemies(g_npc_option->explode_ped);
+		ai::kill_enemies(g_npc_option->kill_ped);
+		//InfiniteAmmo(g_settings.options["Infinite Ammo"]);
 
-			spoofer::player_level(g_spoofer_option->level_spoofer, g_spoofer_option->spoofed_level);
-			spoofer::player_money(g_spoofer_option->money_spoofer, g_spoofer_option->spoofed_money);
-			cayo_perico::set_heat_to_zero(g_heist_option->zero_heat);
+		spoofer::player_level(g_spoofer_option->level_spoofer, g_spoofer_option->spoofed_level);
+		spoofer::player_money(g_spoofer_option->money_spoofer, g_spoofer_option->spoofed_money);
+		cayo_perico::set_heat_to_zero(g_heist_option->zero_heat);
 
-			miscellaneous::variable_attach();
+		miscellaneous::variable_attach();
 
-			chrono_loop(250ms);
-			player::player_blackhole();
-			weapon_helper::weapon_blackhole();
-			remote_event::game_event_blackhole();
-			vehicle_helper::vehicle_blackhole();
+		player::player_blackhole();
+		weapon_helper::weapon_blackhole();
+		remote_event::game_event_blackhole();
+		vehicle_helper::vehicle_blackhole();
 
-			if (g_spoofer_option->rid != 0)
-			{
-				spoofer::player_scid(game_variable::player_rid_list[g_spoofer_option->rid]);
-			}
-		}
-		catch(const std::exception& e)
+		if (g_spoofer_option->rid != 0)
 		{
-			LOG(INFO) << e.what();
+			spoofer::player_scid(game_variable::player_rid_list[g_spoofer_option->rid]);
 		}
+
+		chrono_loop(350ms);
 	}
 
 	void script_func()

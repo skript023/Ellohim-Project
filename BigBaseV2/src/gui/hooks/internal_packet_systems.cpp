@@ -6,6 +6,22 @@
 
 namespace big
 {
+	void hooks::get_network_event_data(__int64 a1, rage::CEventNetwork* net_event)
+	{
+		__int64 event_type = net_event->get_type();
+
+		switch (event_type) 
+		{
+			case 161: //CEventNetworkRemovedFromSessionDueToComplaints
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 15999, "You have been desync kicked." });
+				break;
+			}
+		}
+
+		return g_hooking->m_get_network_event_data_hook.get_original<decltype(&get_network_event_data)>()(a1, net_event);
+	}
+
 	bool hooks::received_message(void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame)
 	{
 		if (frame->get_type() == 4)
@@ -19,15 +35,6 @@ namespace big
 			{
 				switch (msg_type)
 				{
-					case MessageType::MsgKickPlayer: // does NOT work
-						ImGui::InsertNotification({ ImGuiToastType_Ellohim, 4000, "You were kicked by %s", player->get_name() });
-						return true;
-					// block shady stuff
-					case MessageType::MsgConfigRequest:
-					case MessageType::MsgQosProbeRequest:
-					case MessageType::MsgCxnRequestRemoteTimeout:
-					case MessageType::MsgRequestKickFromHost:
-						return true;
 					case MessageType::MsgNetComplaint:
 					{
 						uint64_t host_token{};
@@ -70,7 +77,7 @@ namespace big
 			}
 		}
 
-		//return g_hooking->m_received_message_hook.get_original<decltype(&hooks::received_message)>()(netConnectionManager, a2, frame);
+		return g_hooking->m_received_message_hook.get_original<decltype(&hooks::received_message)>()(netConnectionManager, a2, frame);
 	}
 
 	

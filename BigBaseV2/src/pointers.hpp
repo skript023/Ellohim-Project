@@ -39,7 +39,7 @@ namespace big
 		functions::ptr_to_handle_t m_ptr_to_handle{};
 		rage::CReplayInterface* m_replay_interface;
 		rage::BlipList* m_blip_ptr;
-		rage::CNetworkObjectMgr** m_network_object_manager{};
+		CNetworkObjectMgr** m_network_object_manager{};
 		rage::ivector2 *m_screen_resolution{};
 		CutsceneManager **m_cutscene_mgr;
 		PresenceData** m_presence_data;
@@ -73,7 +73,7 @@ namespace big
 		functions::IncrementEvent m_increment_event{};
 		functions::ClearPedTask m_clear_ped_event{};
 		functions::ReadDword m_read_bitbuf_dword{};
-		functions::clone_create_t m_clone_create{};
+		
 		functions::get_model_info m_get_model_info{};
 		functions::CNetworkRequestEvent m_request_control_event{};
 		functions::CRemoveWeaponEvent m_remove_weapon{};
@@ -96,14 +96,7 @@ namespace big
 		functions::received_event m_received_event{};
 
 		functions::get_network_object_t m_get_network_object{};
-		functions::sync_can_apply_t m_sync_can_apply{};
-		functions::sync_read_t m_sync_read{};
-		functions::clone_sync_t m_clone_sync{};
-		functions::clone_remove_t m_clone_remove{};
-		functions::clone_pack_t m_clone_pack{};
-		functions::clone_sync_ack_t m_clone_sync_ack{};
-		functions::clone_create_ack_t m_clone_create_ack{};
-		functions::clone_remove_ack_t m_clone_remove_ack{};
+		
 		functions::get_chat_data_t m_chat_data{};
 
 		functions::joined_player_t m_player_has_joined{};
@@ -113,6 +106,7 @@ namespace big
 		functions::received_message_t m_received_message{};
 
 		functions::GetNetGamePlayer m_get_net_game_player{};
+		functions::m_get_network_event_data_t m_get_network_event_data{};
 		
 		rage::datBitBuffer *m_bitbufferclass;
 		GameSetting* m_game_setting;
@@ -131,7 +125,26 @@ namespace big
 		PVOID m_game_invite;
 		PVOID m_net_array_handler;
 		PVOID m_model_spawn_bypass;
+
+		functions::clone_sync_t m_received_clone_sync{};
+		functions::get_sync_tree_for_type_t m_get_sync_tree_for_type{};
+		functions::get_sync_type_info_t m_get_sync_type_info{};
+		functions::get_net_object_t m_get_net_object{};
+		functions::get_net_object_for_player_t m_get_net_object_for_player{};
 	};
 
 	inline pointers *g_pointers{};
 }
+
+
+/*
+* functions::clone_create_t m_clone_create{};
+*functions::sync_can_apply_t m_sync_can_apply{};
+		functions::sync_read_t m_sync_read{};
+		functions::clone_sync_t m_clone_sync{};
+		functions::clone_remove_t m_clone_remove{};
+		functions::clone_pack_t m_clone_pack{};
+		functions::clone_sync_ack_t m_clone_sync_ack{};
+		functions::clone_create_ack_t m_clone_create_ack{};
+		functions::clone_remove_ack_t m_clone_remove_ack{};
+*/

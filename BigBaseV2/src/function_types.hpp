@@ -28,16 +28,11 @@ namespace big::functions
 	using ReadDword = bool(__fastcall*)(rage::datBitBuffer* ptr, uint32_t* integer, int bits);
 	using read_bitbuf_array = bool(__fastcall*)(rage::datBitBuffer* buffer, PVOID read, int bits, int);
 
-	using clone_create_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, int32_t object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
-	using sync_can_apply_t = bool (*)(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
-	using sync_read_t = bool (*)(rage::netSyncTree* self, int32_t sync_type, int32_t sync_flag, rage::datBitBuffer* buffer, void* netLogStub);
-	using clone_create_ack_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, uint16_t object_id, int32_t ack_code);
-	using clone_sync_ack_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, rage::datBitBuffer* buffer, uint16_t object_id, int32_t ack_code);
-	using clone_remove_ack_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, uint16_t object_id, int32_t ack_code);
-	using clone_pack_t = void (*) (rage::CNetworkObjectMgr* mgr, rage::netObject* netObject, CNetGamePlayer* src, rage::datBitBuffer* buffer);
-	using clone_sync_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, rage::datBitBuffer* buffer, int32_t unk, int32_t timestamp);
-	using clone_remove_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_id, int32_t unk);
-    using received_message_t = bool (*) (void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
+    using clone_sync_t = int64_t(*)(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, unsigned __int16 sync_type, unsigned __int16 obj_id, rage::datBitBuffer* buffer, unsigned __int16 a7, unsigned int timestamp);
+    using get_sync_type_info_t = const char* (*)(uint16_t sync_type, char a2);
+    using get_sync_tree_for_type_t = __int64(*)(CNetworkObjectMgr* mgr, uint16_t sync_type);
+    using get_net_object_t = rage::netObject* (__fastcall*)(CNetworkObjectMgr* mgr, int16_t id, bool unk3);
+    using get_net_object_for_player_t = rage::netObject*(__fastcall*) (CNetworkObjectMgr*, int16_t, CNetGamePlayer*, bool);
     
     using get_chat_data_t = __int64 (*)(__int64 a1, __int64* a2, __int64 a3, const char* origText, BOOL a5);
     using chat_receive_t = __int64* (*)(__int64 a1, __int64 a2, __int64 a3, const char* a4, char a5);
@@ -46,7 +41,7 @@ namespace big::functions
     using left_player_t = void (*)(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
     using rid_crash_t = bool(*)(int64_t a1);
 
-	using get_network_object_t = rage::netObject* (__fastcall*) (rage::CNetworkObjectMgr* mgr, int16_t id, bool is_true);
+	using get_network_object_t = rage::netObject* (__fastcall*) (CNetworkObjectMgr* mgr, int16_t id, bool is_true);
 	using get_model_info = int64_t(*)(unsigned int model_hash, DWORD* a2);
 	using SendNetInfoToLobby = bool(*)(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 	using GetNetGamePlayer = CNetGamePlayer*(__fastcall*)(Player player);
@@ -59,7 +54,31 @@ namespace big::functions
 	using report_myself_event_sender = void(*)(__int64 a1, unsigned int a2, unsigned int a3, unsigned int a4);
 	using GetLabelText = const char* (*)(void* unk, const char* label);
 	using received_event = bool(*)(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size, rage::datBitBuffer* bit_buffer);
+
+    using m_get_network_event_data_t = void(*)(__int64 a1, rage::CEventNetwork* net_event);
+    using received_message_t = bool (*) (void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
+
 }
+
+/*
+
+using clone_create_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, int32_t object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
+    using sync_can_apply_t = bool (*)(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
+    using sync_read_t = bool (*)(rage::netSyncTree* self, int32_t sync_type, int32_t sync_flag, rage::datBitBuffer* buffer, void* netLogStub);
+    using clone_create_ack_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, uint16_t object_id, int32_t ack_code);
+    using clone_sync_ack_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, rage::datBitBuffer* buffer, uint16_t object_id, int32_t ack_code);
+    using clone_remove_ack_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, uint16_t object_id, int32_t ack_code);
+    using clone_pack_t = void (*) (rage::CNetworkObjectMgr* mgr, rage::netObject* netObject, CNetGamePlayer* src, rage::datBitBuffer* buffer);
+    using clone_sync_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, rage::datBitBuffer* buffer, int32_t unk, int32_t timestamp);
+    using clone_remove_t = void (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_id, int32_t unk);
+
+*/
+
+
+
+
+
+
 
 /*
     h4_prop_bush_buddleia_low_01

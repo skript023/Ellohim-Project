@@ -333,59 +333,38 @@ namespace big
 			m_read_bitbuf_dword = ptr.as<decltype(m_read_bitbuf_dword)>();
 		});
 
-		main_batch.add(xorstr("clone_create"), xorstr("48 8B C4 66 44 89 48"), [this](memory::handle ptr)
-		{
-			m_clone_create = ptr.as<decltype(m_clone_create)>();
-		});
-
 		main_batch.add(xorstr("Find Networked Object By ID"), xorstr("44 38 33 75 30 66 44"), [this](memory::handle ptr)
 		{
 			m_get_network_object = ptr.sub(0x40).as<decltype(m_get_network_object)>();
 		});
 
-		main_batch.add(xorstr("netSyncTree::CanApplyToObject"), xorstr("49 8B CE FF 50 70 84 C0 74 31 33 FF"), [this](memory::handle ptr)
-		{
-			m_sync_can_apply = ptr.sub(0x2C).as<decltype(m_sync_can_apply)>();
-		});
-
-		main_batch.add(xorstr("netSyncTree::ReadFromBuffer"), xorstr("45 89 43 18 57 48 83 EC 30 48 83 79 10 00 49"), [this](memory::handle ptr)
-		{
-			m_sync_read = ptr.sub(0xF).as<decltype(m_sync_read)>();
-		});
-
-		main_batch.add(xorstr("clone_sync"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1"), [this](memory::handle ptr)
-		{
-			m_clone_sync = ptr.as<decltype(m_clone_sync)>();
-		});
-
-		main_batch.add(xorstr("m_clone_pack"), xorstr("48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F9 48 8B CA 49 8B E9"), [this](memory::handle ptr)
-		{
-			m_clone_pack = ptr.as<decltype(m_clone_pack)>();
-		});
-
-		main_batch.add(xorstr("clone_create_ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
-		{
-			m_clone_create_ack = ptr.as<decltype(m_clone_create_ack)>();
-		});
-
-		main_batch.add(xorstr("clone_sync_ack"), xorstr("48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b e2"), [this](memory::handle ptr)
-		{
-			m_clone_sync_ack = ptr.as<decltype(m_clone_sync_ack)>();
-		});
-
-		main_batch.add(xorstr("Clone Remove Ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
-		{
-			m_clone_remove_ack = ptr.as<decltype(m_clone_remove_ack)>();
-		});
-
-		main_batch.add(xorstr("Clone Remove"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 4d 8b e0 48 8d 50"), [this](memory::handle ptr)
-		{
-			m_clone_remove = ptr.as<decltype(m_clone_remove)>();
-		});
-
 		main_batch.add(xorstr("Network Object Manager"), xorstr("48 8B 0D ? ? ? ? 45 33 C0 E8 ? ? ? ? 33 FF 4C 8B F0"), [this](memory::handle ptr)
 		{
 			m_network_object_manager = ptr.add(3).rip().as<decltype(m_network_object_manager)>();
+		});
+
+		//Received clone sync
+		main_batch.add("Clone Sync", "48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 54 41 56 41 57 48 83 EC 40 4C 8B F2", [this](memory::handle ptr)
+		{
+			m_received_clone_sync = ptr.as<decltype(m_received_clone_sync)>();
+		});
+
+		//Get sync type info
+		main_batch.add("Sync Type", "44 0F B7 C1 4C 8D 0D ? ? ? ?", [this](memory::handle ptr)
+		{
+			m_get_sync_type_info = ptr.as<decltype(m_get_sync_type_info)>();
+		});
+
+		//Get sync tree for type
+		main_batch.add("Sync Tree Type", "0F B7 CA 83 F9 07", [this](memory::handle ptr)
+		{
+			m_get_sync_tree_for_type = ptr.as<decltype(m_get_sync_tree_for_type)>();
+		});
+
+		//Get net object for player
+		main_batch.add("GNOFP", "41 80 78 ? FF 74 2D 41 0F B6 40", [this](memory::handle ptr)
+		{
+			m_get_net_object_for_player = ptr.as<decltype(m_get_net_object_for_player)>();
 		});
 
 		main_batch.add(xorstr("Censor Chat Text"), xorstr("E8 ? ? ? ? 83 F8 FF 75 B9"), [this](memory::handle ptr)
@@ -408,18 +387,6 @@ namespace big
 			m_wep_crash = ptr.add(1).rip().as<decltype(m_wep_crash)>();
 		});
 
-		/*
-		main_batch.add(xorstr("Sky Colour Blue"), xorstr("48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8B"), [this](memory::handle ptr)
-		{
-			m_sky_blue = ptr.add(3).rip().add(0xB8).as<decltype(m_sky_blue)>();
-		});
-
-		main_batch.add(xorstr("Sky Colour Red"), xorstr("F3 0F 10 05 ? ? ? ? BE ? ? ? ? 0F C6 F6 00 0F 59 CE 0F C6 C0 00 0F 59 C8 0F 58 8B"), [this](memory::handle ptr)
-		{
-			m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
-		});
-		*/
-
 		main_batch.add(xorstr("Joined Player"), xorstr("48 8B CA 48 8B F2 FF 50 18 4C 8D 05"), [this](memory::handle ptr)
 		{
 			m_player_has_joined = ptr.sub(0x26).as<decltype(m_player_has_joined)>();
@@ -434,13 +401,6 @@ namespace big
 		{
 			m_player_aim = ptr.add(3).rip().add(12).as<decltype(m_player_aim)>();
 		});
-
-		/*
-		main_batch.add(xorstr("CGameInvite"), xorstr("48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 E8 ? ? ? ? 8B 83 ? ? ? ?"), [this](memory::handle ptr)
-		{
-			m_game_invite = ptr.as<decltype(m_game_invite)>();
-		});
-		*/
 
 		main_batch.add(xorstr("Presence Data"), xorstr("48 8B 0D ? ? ? ? 48 85 C9 74 10 48 8B 01 4D 8B C8 4C 8B C2 41 8B D2 48 FF 60 18"), [this](memory::handle ptr)
 		{
@@ -487,6 +447,13 @@ namespace big
 			m_received_message = ptr.as<decltype(m_received_message)>();
 		});
 
+		main_batch.add("Get Network Event Data", "E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? CC FF 50 28", [this](memory::handle ptr)
+		{
+			m_get_network_event_data = ptr.as<decltype(m_get_network_event_data)>();
+		});
+
+
+
 		main_batch.run(memory::module(nullptr));
 
 		m_hwnd = FindWindowW(L"grcWindow", nullptr);
@@ -501,3 +468,68 @@ namespace big
 		g_pointers = nullptr;
 	}
 }
+
+
+/*
+
+
+		main_batch.add(xorstr("netSyncTree::CanApplyToObject"), xorstr("49 8B CE FF 50 70 84 C0 74 31 33 FF"), [this](memory::handle ptr)
+		{
+			m_sync_can_apply = ptr.sub(0x2C).as<decltype(m_sync_can_apply)>();
+		});
+
+		main_batch.add(xorstr("netSyncTree::ReadFromBuffer"), xorstr("45 89 43 18 57 48 83 EC 30 48 83 79 10 00 49"), [this](memory::handle ptr)
+		{
+			m_sync_read = ptr.sub(0xF).as<decltype(m_sync_read)>();
+		});
+
+		main_batch.add(xorstr("clone_sync"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1"), [this](memory::handle ptr)
+		{
+			m_clone_sync = ptr.as<decltype(m_clone_sync)>();
+		});
+
+		main_batch.add(xorstr("m_clone_pack"), xorstr("48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F9 48 8B CA 49 8B E9"), [this](memory::handle ptr)
+		{
+			m_clone_pack = ptr.as<decltype(m_clone_pack)>();
+		});
+
+		main_batch.add(xorstr("clone_create_ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
+		{
+			m_clone_create_ack = ptr.as<decltype(m_clone_create_ack)>();
+		});
+
+		main_batch.add(xorstr("clone_sync_ack"), xorstr("48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b e2"), [this](memory::handle ptr)
+		{
+			m_clone_sync_ack = ptr.as<decltype(m_clone_sync_ack)>();
+		});
+
+		main_batch.add(xorstr("Clone Remove Ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
+		{
+			m_clone_remove_ack = ptr.as<decltype(m_clone_remove_ack)>();
+		});
+
+		main_batch.add(xorstr("Clone Remove"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 4d 8b e0 48 8d 50"), [this](memory::handle ptr)
+		{
+			m_clone_remove = ptr.as<decltype(m_clone_remove)>();
+		});
+
+		main_batch.add(xorstr("clone_create"), xorstr("48 8B C4 66 44 89 48"), [this](memory::handle ptr)
+		{
+			m_clone_create = ptr.as<decltype(m_clone_create)>();
+		});
+
+		main_batch.add(xorstr("Sky Colour Blue"), xorstr("48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8B"), [this](memory::handle ptr)
+		{
+			m_sky_blue = ptr.add(3).rip().add(0xB8).as<decltype(m_sky_blue)>();
+		});
+
+		main_batch.add(xorstr("Sky Colour Red"), xorstr("F3 0F 10 05 ? ? ? ? BE ? ? ? ? 0F C6 F6 00 0F 59 CE 0F C6 C0 00 0F 59 C8 0F 58 8B"), [this](memory::handle ptr)
+		{
+			m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
+		});
+
+		main_batch.add(xorstr("CGameInvite"), xorstr("48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 E8 ? ? ? ? 8B 83 ? ? ? ?"), [this](memory::handle ptr)
+		{
+			m_game_invite = ptr.as<decltype(m_game_invite)>();
+		});
+*/
