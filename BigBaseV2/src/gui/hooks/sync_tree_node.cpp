@@ -17,7 +17,7 @@ namespace big
 				return false;
 			}
 		}
-		return g_hooking->m_rid_crash.get_original<decltype(&rid_crash)>()(a1);
+		//return g_hooking->m_rid_crash.get_original<decltype(&rid_crash)>()(a1);
 	}
 
 	signed __int64 hooks::received_clone_sync(CNetworkObjectMgr* mgr,CNetGamePlayer* src,CNetGamePlayer* dst,unsigned __int16 sync_type,unsigned __int16 obj_id,rage::datBitBuffer* buffer,unsigned __int16 a7,unsigned int timestamp)
@@ -54,5 +54,33 @@ namespace big
 
 		return result;
 
+	}
+
+	char sender_name[128];
+	bool hooks::clone_create(rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp)
+	{
+		strcpy(sender_name, src->get_name());
+
+		return g_hooking->m_clone_create_hook.get_original<decltype(&clone_create)>()(mgr, src, dst, _object_type, _object_id, _object_flag, buffer, timestamp);
+	}
+
+	bool hooks::sync_can_apply(rage::netSyncTree* netSyncTree, rage::netObject* netObject)
+	{
+		auto ped_hash = netSyncTree->m_sync_tree_node->m_ped_model;
+		char sender_info[128] = "Crash has been sent by ";
+		strcat(sender_info, sender_name);
+
+		if (g_settings.options["Crash Protection"])
+		{
+			switch (ped_hash)
+			{
+			case RAGE_JOAAT("slod_human"):
+			case RAGE_JOAAT("slod_large_quadped"):
+			case RAGE_JOAAT("slod_small_quadped"):
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 15999, sender_info });
+				return false;
+			}
+		}
+		return g_hooking->m_sync_can_apply_hook.get_original<decltype(&sync_can_apply)>()(netSyncTree, netObject);
 	}
 }

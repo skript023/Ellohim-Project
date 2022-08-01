@@ -5957,7 +5957,10 @@ namespace big
         "WEAPON_FERTILIZERCAN",
         "WEAPON_HEAVYRIFLE",
         "WEAPON_EMPLAUNCHER",
-        "WEAPON_STUNGUN_MP"
+        "WEAPON_STUNGUN_MP",
+        "WEAPON_METALDETECTOR",
+        "WEAPON_PRECISIONRIFLE",
+        "WEAPON_TACTICALRIFLE"
     };
     const char* const game_variable::weapon_component_list[]{
         "COMPONENT_ADVANCEDRIFLE_CLIP_01",

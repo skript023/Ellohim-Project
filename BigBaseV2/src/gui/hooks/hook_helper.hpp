@@ -201,7 +201,254 @@ namespace big::hook_helper
 				return true;
 			}
 			break;
-		/*
+		case SEND_TO_LOCATION:
+		{
+			bool known_location = false;
+
+			if (args[2] == 0 && args[3] == 0)
+			{
+				if (args[4] == 4 && args[5] == 0)
+				{
+					known_location = true;
+
+					if (true)
+					{
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "Send to Beach by %s", sender_name });
+
+						return true;
+					}
+				}
+				else if ((args[4] == 3 || args[4] == 4) && args[5] == 1)
+				{
+					known_location = true;
+
+					if (true)
+					{
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "Send to Cayo Perico", sender_name });
+
+						return true;
+					}
+				}
+			}
+
+			if (!known_location)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "TSE Freeze", sender_name });
+
+				return true;
+			}
+			break;
+		}
+		case Unknown1:
+			if (g_settings.options["Crash Protection"] && args[2] >= 32)
+			{
+				
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case Unknown2:
+			if (g_settings.options["Crash Protection"] && (args[2] >= 62 || args[3] >= 32))
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case Unknown3:
+			if (g_settings.options["Crash Protection"] && args[2] >= 62)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case Unknown4:
+		case Crash:
+		case Unknown5:
+			if (g_settings.options["Crash Protection"] && args[2] >= 20)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case Unknown6:
+			if (g_settings.options["Crash Protection"]) 
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC3:
+			if (
+				g_settings.options["Crash Protection"] &&
+				(
+					(args[2] <= 115831 || args[2] >= 9999449) ||
+					(args[3] <= -1 || args[3] >= 1) ||
+					(args[4] <= -1 || args[4] >= 3) ||
+					(args[5] <= -1 || args[5] >= 101) ||
+					(args[6] <= -1 || args[6] >= 3) ||
+					(args[7] <= -1 || args[7] >= 1)
+					)
+				)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC6:
+			if (
+				g_settings.options["Crash Protection"] &&
+				(
+					(args[2] <= -1 || args[2] >= 1) ||
+					(args[3] <= -2 || args[3] >= 0) ||
+					(args[4] <= 3 || args[4] >= 5) ||
+					(args[5] <= 172 || args[5] >= 174) ||
+					(args[6] <= 20 || args[6] >= 510) ||
+					(args[7] <= 62 || args[7] >= 64) ||
+					(args[11] <= -1 || args[11] >= 1) ||
+					(args[12] <= -1 || args[12] >= 1) ||
+					(args[13] <= -1 || args[13] >= 1)
+					)
+				)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC7:
+			if (g_settings.options["Crash Protection"])
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC8:
+			if (g_settings.options["Crash Protection"])
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC9:
+			if (
+				g_settings.options["Crash Protection"] &&
+				(
+					(args[2] <= -1986324736 || args[2] >= 1747413822) ||
+					(args[2] > -9999999 || args[2] < 77777777) ||
+					(args[3] <= -1986324736 || args[3] >= 1777712108) ||
+					(args[3] > -9999999 || args[3] < 77777777) ||
+					(args[4] <= -1673857408 || args[4] >= 1780088064) ||
+					(args[4] > -9999999 || args[4] < 77777777) ||
+					(args[6] <= (0LL - 2588888790LL) || args[6] >= 2100146067)
+					)
+				) 
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC10:
+			if (g_settings.options["Crash Protection"])
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC11:
+			if (g_settings.options["Crash Protection"]) 
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC12:
+			if (
+				g_settings.options["Crash Protection"] &&
+				(
+					(args[2] <= -1 || args[2] >= 50) ||
+					(args[3] <= -1 || args[3] >= 50)
+					)
+				)
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case SEC13:
+			if (g_settings.options["Crash Protection"])
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		case Spaghettios:
+			if (g_settings.options["Crash Protection"])
+			{
+				ImGui::InsertNotification({ ImGuiToastType_Protection, 5999, "%s Crash - #%s", sender_name, std::to_string(args[0]) });
+
+				return true;
+			}
+			break;
+		}
+		return false;
+	}
+
+	// 48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 8A 42 1C 40 32 FF 48 8B DA 48 8B F1
+	inline bool get_message_type(MessageType& msg_type, rage::datBitBuffer& buffer)
+	{
+		uint32_t pos;
+		uint32_t magic;
+		uint32_t length;
+		uint32_t extended{};
+		if ((buffer.m_flagBits & 2) != 0 || (buffer.m_flagBits & 1) == 0 ? (pos = buffer.m_curBit) : (pos = buffer.m_maxBit),
+			buffer.m_curBit + 15 > pos || !buffer.ReadDword(&magic, 14) || magic != 0x3246 || !buffer.ReadDword(&extended, 1))
+		{
+			msg_type = MessageType::MsgInvalid;
+			return false;
+		}
+
+		length = extended ? 16 : 8;
+
+		if ((buffer.m_flagBits & 1) == 0 ? (pos = buffer.m_curBit) : (pos = buffer.m_maxBit), length + buffer.m_curBit <= pos && buffer.ReadDword((uint32_t*)&msg_type, length))
+			return true;
+		else
+			return false;
+	}
+
+	inline CNetGamePlayer* get_player_by_msg_id(uint32_t msg_id)
+	{
+		for (int i = 0; i <= MAX_PLAYERS; i++)
+		{
+			if (auto net_player = rage_helper::get_net_player(i))
+			{
+				if (net_player->m_msg_id == msg_id)
+				{
+					return net_player;
+				}
+			}
+		}
+
+		return nullptr;
+	}
+}
+//cari di bintaro rs dr suyoto di jl. veteran 
+//nantitelpon ibu soenarjati
+//
+
+/*
 		case KICK_1:
 		case KICK_2:
 		case KICK_3:
@@ -286,48 +533,3 @@ namespace big::hook_helper
 			}
 			break;
 		*/
-		}
-		return false;
-	}
-
-	// 48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 8A 42 1C 40 32 FF 48 8B DA 48 8B F1
-	inline bool get_message_type(MessageType& msg_type, rage::datBitBuffer& buffer)
-	{
-		uint32_t pos;
-		uint32_t magic;
-		uint32_t length;
-		uint32_t extended{};
-		if ((buffer.m_flagBits & 2) != 0 || (buffer.m_flagBits & 1) == 0 ? (pos = buffer.m_curBit) : (pos = buffer.m_maxBit),
-			buffer.m_curBit + 15 > pos || !buffer.ReadDword(&magic, 14) || magic != 0x3246 || !buffer.ReadDword(&extended, 1))
-		{
-			msg_type = MessageType::MsgInvalid;
-			return false;
-		}
-
-		length = extended ? 16 : 8;
-
-		if ((buffer.m_flagBits & 1) == 0 ? (pos = buffer.m_curBit) : (pos = buffer.m_maxBit), length + buffer.m_curBit <= pos && buffer.ReadDword((uint32_t*)&msg_type, length))
-			return true;
-		else
-			return false;
-	}
-
-	inline CNetGamePlayer* get_player_by_msg_id(uint32_t msg_id)
-	{
-		for (int i = 0; i <= MAX_PLAYERS; i++)
-		{
-			if (auto net_player = rage_helper::get_net_player(i))
-			{
-				if (net_player->m_msg_id == msg_id)
-				{
-					return net_player;
-				}
-			}
-		}
-
-		return nullptr;
-	}
-}
-//cari di bintaro rs dr suyoto di jl. veteran 
-//nantitelpon ibu soenarjati
-//

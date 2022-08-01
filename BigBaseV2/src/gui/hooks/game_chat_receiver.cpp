@@ -41,6 +41,6 @@ namespace big
 			return nullptr;
 		}
 
-		return g_hooking->m_chat_receive_hook.get_original<decltype(&chat_receive)>()(chat_pointer, unk2, peerId, msg, IsTeam);
+		//return g_hooking->m_chat_receive_hook.get_original<decltype(&chat_receive)>()(chat_pointer, unk2, peerId, msg, IsTeam);
 	}
 }

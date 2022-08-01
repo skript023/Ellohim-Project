@@ -66,6 +66,7 @@ namespace big
 		BusinessMoney** m_business_money{};
 		uint64_t* m_money_in_bunker_2;
 		uint64_t* m_player_rid;
+		uint8_t* m_region_code;
 		rage::vector3* m_waypoint_coords;
 		functions::GetEventData m_get_event_data{};
 		functions::m_weather_change m_session_weather{};
@@ -126,12 +127,16 @@ namespace big
 		PVOID m_net_array_handler;
 		PVOID m_model_spawn_bypass;
 		PVOID m_network_group_override;
+		PVOID m_write_player_gamer_data_node;
 
 		functions::clone_sync_t m_received_clone_sync{};
 		functions::get_sync_tree_for_type_t m_get_sync_tree_for_type{};
 		functions::get_sync_type_info_t m_get_sync_type_info{};
 		functions::get_net_object_t m_get_net_object{};
 		functions::get_net_object_for_player_t m_get_net_object_for_player{};
+
+		functions::clone_create_t m_clone_create{};
+		functions::sync_can_apply_t m_sync_can_apply{};
 	};
 
 	inline pointers *g_pointers{};

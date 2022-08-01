@@ -55,12 +55,29 @@ namespace big
             ImGui::SameLine();
             if (ImGui::Button(xorstr("Benchmark")))
             {
-                auto benchmarking = benchmark("Vehicle Spawn");
+                benchmark benchmark("Vehicle Spawn");
                 vehicle_helper::vehicle("Krieger", g_local.ped);
-                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "finished with a resulting time of %d nanoseconds", benchmarking.get_runtime() });
+                auto result = benchmark.get_runtime();
+                ImGui::InsertNotification({ ImGuiToastType_Ellohim, 3000, "finished with a resulting time of %d nanoseconds", result });
+                benchmark.reset();
             }
             ImGui::Separator();
-            
+            if (ImGui::CollapsingHeader(xorstr("Option")))
+            {
+                if (ImGui::BeginCombo(xorstr("Region"), region_codes[selected_region]))
+                {
+                    for (int i = 0; i < region_codes.size(); i++)
+                    {
+                        if (ImGui::Selectable(region_codes[i], selected_region == i))
+                        {
+                            selected_region = i;
+                            *g_pointers->m_region_code = i;
+                        }
+                    }
+                    ImGui::EndCombo();
+                }
+
+            }
             if (ImGui::CollapsingHeader(xorstr(ICON_FA_GAMEPAD " Game Setting")))
             {
                 ImGui::Checkbox(xorstr("Expand Radar"), &g_pointers->m_game_setting->m_radar_expansion);

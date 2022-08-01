@@ -255,6 +255,9 @@ namespace big
                     case 12:
                         remote_event::set_bounty(g_selected.player);
                         break;
+                    case 13:
+                        remote_event::script_event_crash(g_selected.player);
+                        break;
                     }
                 }
                 break;
@@ -665,6 +668,10 @@ namespace big
                     ImGui::RadioButton(xorstr("Teleport To Objective"), &teleport_type, 2);
                     ImGui::Checkbox(xorstr("All Player ?"), &all_player);
                 }
+                if (SelectedOtherEvent == 7)
+                {
+                    ImGui::Combo("##VehicleGive", &selected_vehicle, game_variable::vehicle_hash_list, IM_ARRAYSIZE(game_variable::vehicle_hash_list));
+                }
 
                 if (ImGui::Button(xorstr("Send Event")))
                 {
@@ -843,12 +850,7 @@ namespace big
                             }
                             break;
                         case 7:
-                            if (player::is_player_in_any_vehicle(g_selected.player))
-                            {
-                                auto veh = player::get_player_vehicle(g_selected.ped, false);
-                                network::request_control(veh);
-                                ENTITY::SET_ENTITY_INVINCIBLE(veh, TRUE);
-                            }
+                            vehicle_helper::give_vehicle(rage::joaat(game_variable::vehicle_hash_list[selected_vehicle]), g_selected.ped);
                             break;
                         }
                     }QUEUE_JOB_END

@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -177,6 +177,7 @@
     <ClInclude Include="src\fonts\font_list.hpp" />
     <ClInclude Include="src\function_types.hpp" />
     <ClInclude Include="src\gta\PickupRewards.h" />
+    <ClInclude Include="src\gta\player_gamer_data_node.hpp" />
     <ClInclude Include="src\gta\singleton.hpp" />
     <ClInclude Include="src\gta\tuneables.hpp" />
     <ClInclude Include="src\gta\VehicleValues.h" />
@@ -306,6 +307,7 @@
     <ClCompile Include="src\gui\hooks\received_event.cpp" />
     <ClCompile Include="src\gui\hooks\send_net_info_to_lobby.cpp" />
     <ClCompile Include="src\gui\hooks\sync_tree_node.cpp" />
+    <ClCompile Include="src\gui\hooks\write_player_gamer_data_node.cpp" />
     <ClCompile Include="src\gui\player_information\player_information.cpp" />
     <ClCompile Include="src\gui\casino\casino.cpp" />
     <ClCompile Include="src\gui\controller\network_controller.cpp" />

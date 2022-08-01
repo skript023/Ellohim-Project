@@ -43,14 +43,14 @@ __          __    _                   _  __           _        _
 				auto fiber_pool_instance = std::make_unique<fiber_pool>(10);
 				LOG(INFO) << "Fiber pool initialized.";
 
-				auto thread_pool_instance = std::make_unique<thread_pool>();
-				LOG(INFO) << "Thread pool initialized.";
-
 				auto hooking_instance = std::make_unique<hooking>();
 				LOG(INFO) << "Hooking initialized.";
 
 				g_settings.load();
 				LOG(INFO) << "Settings Loaded.";
+
+				auto thread_pool_instance = std::make_unique<thread_pool>();
+				LOG(INFO) << "Thread pool initialized.";
 
 				g_script_mgr.add_script(std::make_unique<script>(&features::script_func));
 				g_script_mgr.add_script(std::make_unique<script>(&gui::script_func));

@@ -6,6 +6,8 @@
 #include "script_hook.hpp"
 #include "vmt_hook.hpp"
 
+#include <gta/player_gamer_data_node.hpp>
+
 namespace big
 {
 	struct hooks
@@ -15,16 +17,20 @@ namespace big
 		static bool send_net_info_to_lobby(rage::netPlayerData* local_player, __int64 a2, __int64 a3, DWORD* a4);
 		static int censor_chat_text(__int64 chat_menu, const char* user_text, const char** output_text);
 		static const char* get_label_text(void* unk, const char* label);
+		static void write_player_gamer_data_node(rage::netObject* player, CPlayerGamerDataNode* node);
+
 		static void player_join(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 		static void player_leave(CNetworkObjectMgr* _this, CNetGamePlayer* net_player);
 		static bool rid_crash(__int64 a1);
 		static bool received_message(void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
 		static void get_network_event_data(__int64 a1, rage::CEventNetwork* net_event);
 		static void network_group_override(std::int64_t a1, std::int64_t a2, std::int64_t a3);
+		static bool sync_can_apply(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
+		static bool clone_create(rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t _object_type, int32_t _object_id, int32_t _object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
 
 		static int64_t received_clone_sync(CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, unsigned __int16 sync_type, unsigned __int16 obj_id, rage::datBitBuffer* buffer, unsigned __int16 a7, unsigned int timestamp);
 		
-		static bool received_event(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, uint16_t event_id, int event_index, int event_handled_bitset, int64_t bit_buffer_size, rage::datBitBuffer* buffer);
+		static void received_event(rage::netEventMgr* event_manager, CNetGamePlayer* source_player, CNetGamePlayer* target_player, uint16_t event_id, int event_index, int event_handled_bitset, int64_t bit_buffer_size, rage::datBitBuffer* buffer);
 
 		static __int64* chat_receive(__int64 chat_pointer, __int64 unk2, __int64 peerId, const char* msg, char IsTeam);
 		
@@ -68,7 +74,6 @@ namespace big
 
 		detour_hook m_run_script_threads_hook;
 		detour_hook m_convert_thread_to_fiber_hook;
-		detour_hook m_get_label_text;
 		detour_hook m_player_has_joined_hook;
 		detour_hook m_player_has_left_hook;
 		detour_hook m_received_message_hook;
@@ -78,10 +83,14 @@ namespace big
 		
 		detour_hook m_net_array_handler_hook;
 		detour_hook m_censor_chat_text_hook;
+		detour_hook m_write_player_gamer_data_node_hook;
 
 		detour_hook m_chat_receive_hook;
 		detour_hook m_received_event_hook;
-		detour_hook m_rid_crash;
+		detour_hook m_send_net_info_to_lobby_hook;
+		//detour_hook m_rid_crash;
+		detour_hook m_clone_create_hook;
+		detour_hook m_sync_can_apply_hook;
 
 		detour_hook m_gta_thread_tick_hook;
 		detour_hook m_gta_thread_kill_hook;

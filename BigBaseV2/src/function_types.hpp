@@ -53,11 +53,13 @@ namespace big::functions
 	using report_cash_spawn = bool(*)(__int64 creport_cash_spawn_event, CNetGamePlayer* source_player);
 	using report_myself_event_sender = void(*)(__int64 a1, unsigned int a2, unsigned int a3, unsigned int a4);
 	using GetLabelText = const char* (*)(void* unk, const char* label);
-	using received_event = bool(*)(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size, rage::datBitBuffer* bit_buffer);
+	using received_event = void(*)(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size, rage::datBitBuffer* bit_buffer);
 
     using m_get_network_event_data_t = void(*)(__int64 a1, rage::CEventNetwork* net_event);
     using received_message_t = bool (*) (void* netConnectionManager, void* a2, rage::netConnection::InFrame* frame);
 
+    using clone_create_t = bool (*) (rage::CNetworkObjectMgr* mgr, CNetGamePlayer* src, CNetGamePlayer* dst, int32_t object_type, int32_t object_id, int32_t object_flag, rage::datBitBuffer* buffer, int32_t timestamp);
+    using sync_can_apply_t = bool (*)(rage::netSyncTree* netSyncTree, rage::netObject* netObject);
 }
 
 /*

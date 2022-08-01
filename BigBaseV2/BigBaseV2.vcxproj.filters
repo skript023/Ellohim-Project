@@ -345,6 +345,9 @@
     <ClInclude Include="src\gui\hooks\rage_internal_packet.hpp">
       <Filter>gui\hooks</Filter>
     </ClInclude>
+    <ClInclude Include="src\gta\player_gamer_data_node.hpp">
+      <Filter>gta</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\common.cpp" />
@@ -494,6 +497,9 @@
       <Filter>gui\hooks</Filter>
     </ClCompile>
     <ClCompile Include="src\gui\hooks\internal_packet_systems.cpp">
+      <Filter>gui\hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\hooks\write_player_gamer_data_node.cpp">
       <Filter>gui\hooks</Filter>
     </ClCompile>
   </ItemGroup>

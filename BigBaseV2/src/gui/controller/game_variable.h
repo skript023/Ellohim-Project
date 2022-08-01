@@ -27,7 +27,7 @@ namespace big
 		static const int kick_hash_list[61];
 		static const char* const pickup_hash_list[112];
 		static const char* const object_hash_list[2615];
-		static const char* const weapon_hash_list[96];
+		static const char* const weapon_hash_list[99];
 		static const char* const weapon_component_list[338];
 		static const char* const vehicle_hash_list[751];//720
 		static const char* const ped_hash_list[671];

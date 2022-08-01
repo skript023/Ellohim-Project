@@ -11,10 +11,23 @@ namespace big
 		static void render_setting_tab(const char* tab_name);
         static inline std::uint8_t* m_font{};
     private:
-        static inline int selected_fonts{};
+        static inline int selected_region{ 0 };
         static inline const char* const aim_list[]{ "Assisted Aim - Full", "Assisted Aim - Partial", "Free Aim - Assisted", "Free Aim" };
         static inline const char* const fonts_list[]{ "Default", "Fira Code", "Nanum Ghotic Bold", "Roboto Condensed" };
-	};
+        const inline static std::vector<const char*> region_codes =
+        {
+            "Unknown 0",
+            "South America",
+            "North America",
+            "Russia",
+            "China",
+            "Europe",
+            "Unknown 6",
+            "Unknown 7",
+            "Unknown 8"
+        };
+
+    };
 }
 
 

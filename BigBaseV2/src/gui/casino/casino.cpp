@@ -420,12 +420,12 @@ namespace big
         {
             if (auto blackjack_thread = rage_helper::find_script_thread(RAGE_JOAAT("BLACKJACK")))
             {
-                auto current_table = script_local(blackjack_thread, m_local.blackjack.current_table).as<int*>();
+                auto current_table = m_local.blackjack.current_table(blackjack_thread, g_local.player).as<int*>();
                 auto all_buttons_ready = script_local(blackjack_thread, m_local.blackjack.button_ready).as<int*>();
 
                 if (is_context_active("BJACK_BET") && *all_buttons_ready == 5)
                 {
-                    *script_local(blackjack_thread, m_local.blackjack.bet_trigger).as<int*>() = 36864;
+                    *m_local.blackjack.current_table(blackjack_thread, g_local.player).as<int*>() = 36864;
                     *script_global(262145).at(26688).as<int*>() = INT_MAX;
                 }
             }
@@ -442,7 +442,7 @@ namespace big
         {
             if (auto blackjack_thread = rage_helper::find_script_thread(RAGE_JOAAT("BLACKJACK")))
             {
-                auto current_table = script_local(blackjack_thread, m_local.blackjack.current_table).as<int*>();
+                auto current_table = m_local.blackjack.current_table(blackjack_thread, g_local.player).as<int*>();
                 auto cur_card = script_local(blackjack_thread, m_local.blackjack.current_card).at(*current_table, 211);
 
                 if (*current_table != -1)

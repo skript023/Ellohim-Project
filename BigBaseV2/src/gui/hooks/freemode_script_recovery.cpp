@@ -27,7 +27,7 @@ namespace big
 		{
 			if (result == eThreadState::killed && state == eThreadState::running && !freemode_terminated)
 			{
-				ImGui::InsertNotification({ ImGuiToastType_Protection, 3000, "Recover freemode script" });
+				//ImGui::InsertNotification({ ImGuiToastType_Protection, 3000, "Recover freemode script" });
 				result = eThreadState::running;
 
 				memcpy(thread, struct_backup, sizeof(GtaThread));

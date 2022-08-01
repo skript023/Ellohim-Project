@@ -533,11 +533,11 @@ public:
 	char pad_0284[28]; //0x0284
 	float m_max_health; //0x02A0
 
-	bool is_invincible() { return(m_damage_bits & (1 << 8)); }
+	bool is_invincible() { return (m_damage_bits & (1 << 8)); }
 	void enable_invincible() { m_damage_bits |= (1 << 8); }
 	void disable_invincible() { m_damage_bits &= ~(1 << 8); }
 
-	bool is_water_proof() { return(m_damage_bits & (1 << 24)); }
+	bool is_water_proof() { return (m_damage_bits & (1 << 24)); }
 	void enable_water_proof() { m_damage_bits |= (1 << 24); }
 	void disable_water_proof() { m_damage_bits &= ~(1 << 24); }
 }; //Size: 0x018C

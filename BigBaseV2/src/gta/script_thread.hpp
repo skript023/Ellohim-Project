@@ -47,12 +47,16 @@ namespace rage
 		}
 	public:
 		scrThreadContext m_context;                 // 0x08
-		void *m_stack;                              // 0xB0
-		char m_padding[0x10];                       // 0xB8
-		const char *m_exit_message;                 // 0xC8
-		char m_name[0x40];                          // 0xD0
-		scriptHandler *m_handler;                   // 0x110
-		scriptHandlerNetComponent *m_net_component; // 0x118
+		void* m_stack;                              // 0xB0
+		char m_padding[0x4];                        // 0xB8
+		uint32_t m_arg_size;                        // 0xBC
+		uint32_t m_arg_loc;                         // 0xC0
+		char m_padding2[0x4];                       // 0xC4
+		const char* m_exit_message;                 // 0xC8
+		char m_pad[0x4];							// 0xD0
+		char m_name[0x40];                          // 0xD4
+		scriptHandler* m_handler;                   // 0x114
+		scriptHandlerNetComponent* m_net_component; // 0x11C
 	};
 
 	class scriptHandlerNetComponent
@@ -79,24 +83,24 @@ namespace rage
 	static_assert(sizeof(CNetComponentOwners) == 0x18);
 	static_assert(sizeof(scriptHandlerNetComponent) == 0x178);
 	static_assert(sizeof(scrThreadContext) == 0xA8);
-	static_assert(sizeof(scrThread) == 0x120);
+	static_assert(sizeof(scrThread) == 0x128);
 }
 
 class GtaThread : public rage::scrThread
 {
 public:
-	rage::joaat_t m_script_hash;                // 0x120
-	char m_padding3[0x14];                      // 0x124
-	std::int32_t m_instance_id;                 // 0x138
-	char m_padding4[0x04];                      // 0x13C
-	std::uint8_t m_flag1;                       // 0x140
-	bool m_safe_for_network_game;               // 0x141
-	char m_padding5[0x02];                      // 0x142
-	bool m_is_minigame_script;                  // 0x144
-	char m_padding6[0x02];                      // 0x145
-	bool m_can_be_paused;                       // 0x147
-	bool m_can_remove_blips_from_other_scripts; // 0x148
-	char m_padding7[0x0F];                      // 0x149
+	rage::joaat_t m_script_hash;                // 0x128
+	char m_padding3[0x14];                      // 0x12C
+	std::int32_t m_instance_id;                 // 0x140
+	char m_padding4[0x04];                      // 0x144
+	std::uint8_t m_flag1;                       // 0x148
+	bool m_safe_for_network_game;               // 0x149
+	char m_padding5[0x02];                      // 0x14A
+	bool m_is_minigame_script;                  // 0x14C
+	char m_padding6[0x02];                      // 0x14D
+	bool m_can_be_paused;                       // 0x14F
+	bool m_can_remove_blips_from_other_scripts; // 0x150
+	char m_padding7[0x0F];                      // 0x151
 };
 
-static_assert(sizeof(GtaThread) == 0x158);
+static_assert(sizeof(GtaThread) == 0x160);

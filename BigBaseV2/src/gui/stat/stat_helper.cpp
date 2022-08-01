@@ -791,6 +791,18 @@ namespace big
             iVar1 = ((iParam0 - 31707) - STATS::_STAT_GET_PACKED_BOOL_MASK((iParam0 - 31707)) * 64);
             iVar0 = STATS::STAT_SET_BOOL_MASKED(iVar26, bParam1, iVar1, iParam3);
         }
+        else if (iParam0 >= 32283 && iParam0 < 32411)
+        {
+            iVar26 = STATS::_GET_NGSTAT_BOOL_HASH((iParam0 - 32283), 0, 1, iParam2, "_FIXERPSTAT_BOOL");
+            iVar1 = ((iParam0 - 32283) - STATS::_STAT_GET_PACKED_BOOL_MASK((iParam0 - 31707)) * 64);
+            iVar0 = STATS::STAT_SET_BOOL_MASKED(iVar26, bParam1, iVar1, iParam3);
+        }
+        else if (iParam0 >= 32411 && iParam0 < 32475)
+        {
+            iVar26 = STATS::_GET_NGSTAT_BOOL_HASH((iParam0 - 32283), 0, 1, iParam2, "_FIXERTATTOOSTAT_BOOL");
+            iVar1 = ((iParam0 - 32283) - STATS::_STAT_GET_PACKED_BOOL_MASK((iParam0 - 31707)) * 64);
+            iVar0 = STATS::STAT_SET_BOOL_MASKED(iVar26, bParam1, iVar1, iParam3);
+        }
         return iVar0;
     }
 

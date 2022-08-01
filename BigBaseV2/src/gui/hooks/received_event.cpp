@@ -8,55 +8,46 @@
 
 namespace big
 {
-	bool hooks::received_event(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size,rage::datBitBuffer* buffer)
+	void hooks::received_event(rage::netEventMgr* event_manager,CNetGamePlayer* source_player,CNetGamePlayer* target_player,uint16_t event_id,int event_index,int event_handled_bitset,int64_t bit_buffer_size,rage::datBitBuffer* buffer)
 	{
-		if (event_id > 90u) return false;
+		if (event_id > 90u) return;
 
 		const char* event_name = *(char**)((DWORD64)event_manager + 8i64 * event_id + 243376);
 		if (event_name == nullptr || source_player == nullptr || source_player->player_id < 0 || source_player->player_id >= 32)
 		{
 			g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-			return false;
+			return;
 		}
 
 		switch (event_id)
 		{
 			case SCRIPTED_GAME_EVENT:
 			{
-				//** Instansiasi Class CScriptedGameEvent
 				auto game_event = CScriptedGameEvent();
-				//** Mengambil total argument dari script event
 				buffer->ReadDword(&game_event.m_args_size, 32);
-				//** Pengecheckan jumlah argument dalam event lalu mengambil array yang berisikan argument
 				if (game_event.m_args_size <= 0x1AF)
 					buffer->ReadArray(&game_event.m_args, 8 * game_event.m_args_size);
-
-				//** Melakukan pengecekan event Hash, apabila event dari para bangsat maka block
+				//ini validasi game event
 				if (hook_helper::validate_game_event(&game_event, source_player, target_player))
 				{
-					//** Block Event Sepeti Kick, CEO Kick, CEO Ban dan semacamnya
+					//ini membuang event yang invalid
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-					return false;
+					return;
 				}
 				buffer->Seek(0);
 				break;
 			}
 			case NETWORK_INCREMENT_STAT_EVENT:
 			{
-				//** Instansiasi Class
 				auto event_obj = CNetworkIncrementStatEvent();
-				//** Mengambil stat report ke dalam class
 				buffer->ReadDword(&event_obj.m_stat, 32); 
-				//** mengambil jumlah report yang dikirim oleh modder
 				buffer->ReadDword(&event_obj.m_ammount, 32); 
-				//** Melakukan pengecekan stat, apabila stat report maka block
+
 				if (hook_helper::report_status(&event_obj, source_player, target_player)) //
 				{
-					//** Block Report dari pada bangsat
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-					return false;
+					return;
 				}
-				//** Menghapus Buffer dan biarkan event berjalan
 				buffer->Seek(0);
 				break;
 			}
@@ -73,7 +64,7 @@ namespace big
 							ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Clear Ped Task From %s", source_player->get_name() });
 							g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
 
-							return false;
+							return;
 						}
 					}
 					buffer->Seek(0);
@@ -89,7 +80,7 @@ namespace big
 				{
 					ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Remove Weapon From %s", source_player->get_name() });
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-					return false;
+					return;
 				}
 				buffer->Seek(0);
 				break;
@@ -129,7 +120,7 @@ namespace big
 						ImGui::InsertNotification({ ImGuiToastType_Protection, 3000, "Blocked Request Control From %s", source_player->get_name() });
 
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-						return false;
+						return;
 					}
 					buffer->Seek(0);
 				}
@@ -146,7 +137,7 @@ namespace big
 						ImGui::InsertNotification({ ImGuiToastType_Protection, 10000, "Blocked Vote Kick From %s", source_player->get_name() });
 						remote_event::bail_player(source_player->player_id);
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-						return false;
+						return;
 					}
 				}
 				buffer->Seek(0);
@@ -172,7 +163,7 @@ namespace big
 					{
 						ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked Explosion Event From %s", source_player->get_name() });
 						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-						return false;
+						return;
 					}
 				}
 				buffer->Seek(0);
@@ -186,7 +177,7 @@ namespace big
 				{
 					ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "Blocked PTFX Event From %s", source_player->get_name() });
 					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-					return false;
+					return;
 				}
 				buffer->Seek(0);
 				break;
@@ -196,15 +187,21 @@ namespace big
 				uint16_t entity; buffer->ReadWord(&entity, 13);
 				uint32_t type; buffer->ReadDword(&type, 4);
 				uint32_t unk; buffer->ReadDword(&unk, 32);
-				buffer->Seek(0);
 
 				if (type == 6) 
 				{
+					uint16_t unk2; buffer->ReadWord(&unk2, 13);
+					uint32_t action; buffer->ReadDword(&action, 8);
 
-					g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
-
-					return false;
+					if (action >= 16 && action <= 18)
+					{
+						g_pointers->m_send_event_ack(event_manager, source_player, target_player, event_index, event_handled_bitset);
+						LOG(INFO) << "RECEIVED_EVENT_HANDLER : " << source_player->get_name() << " sent TASK_VEHICLE_TEMP_ACTION crash.";
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 4000, "%s sent TASK_VEHICLE_TEMP_ACTION crash.", source_player->get_name() });
+						return;
+					}
 				}
+				buffer->Seek(0);
 				break;
 			}
 		}

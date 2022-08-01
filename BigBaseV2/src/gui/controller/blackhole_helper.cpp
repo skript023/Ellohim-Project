@@ -164,8 +164,7 @@ namespace big
         
         //g_global.vision = g_global.player_stat + 1 + g_local.player * g_global.player_size + 848 + 9 + 1; //h4_islandx_disc_StrandedWhale
         //g_global.business_index = g_global.player_stat + 1 + (g_local.player * g_global.player_size) + 267 + 187;
-        m_local.blackjack.current_table = 1767 + 1 + (g_local.player * 8) + 4;
-        m_local.blackjack.bet_trigger = 1767 + 1 + (g_local.player * 8);
+       
 
         if (g_player_option.player_list_open && g_player_option.player_info_open)
         {

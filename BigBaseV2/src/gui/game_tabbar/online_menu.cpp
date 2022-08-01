@@ -297,40 +297,40 @@ namespace big
 
                 if (ImGui::Button(xorstr(ICON_FA_DOOR_OPEN" Open Vault Door"), ImVec2(200, 0)))
                 {
-                    if (auto vault_door = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    if (auto mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
                     {
-                        *script_local(vault_door, m_local.vault_door).as<int*>() = *script_local(vault_door, m_local.vault_door_total).as<int*>();
+                        *script_local(mission_thread, m_local.vault_door).as<int*>() = *script_local(mission_thread, m_local.vault_door_total).as<int*>();
                     }
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Doomsday ACT III Hack"), ImVec2(200, 0)))
                 {
-                    if (auto doomsday = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    if (auto mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
                     {
-                        *script_local(doomsday, m_local.doomsday_act_3_hack).as<int*>() = 0;
+                        *script_local(mission_thread, m_local.doomsday_act_3_hack).as<int*>() = 0;
                     }
                 }
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr(ICON_FA_FINGERPRINT" Instant Hack FP"), ImVec2(200, 0)))
                 {
-                    if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
+                    if (auto new_mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                     {
-                        *script_local(cayo, m_local.finger_clone).as<int*>() += 1;
+                        *script_local(new_mission_thread, m_local.finger_clone).as<int*>() += 1;
                     }
 
-                    if (auto casino = rage_helper::find_script_thread(RAGE_JOAAT("fm_missifon_controller")))
+                    if (auto mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_missifon_controller")))
                     {
-                        *script_local(casino, m_local.finger_print).as<int*>() += 1;
-                        *script_local(casino, m_local.door_hack).as<int*>() += 1;
+                        *script_local(mission_thread, m_local.finger_print).as<int*>() += 1;
+                        *script_local(mission_thread, m_local.door_hack).as<int*>() += 1;
                     }
                 }
 
                 if (ImGui::Button(xorstr("Voltage Hack"), ImVec2(200, 0)))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
-                        if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
+                        if (auto new_mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                         {
-                            *script_local(cayo, m_local.voltage_hack_target).as<int*>() = *script_local(cayo, m_local.voltage_hack_current).as<int*>();
+                            *script_local(new_mission_thread, m_local.voltage_hack_target).as<int*>() = *script_local(new_mission_thread, m_local.voltage_hack_current).as<int*>();
                         }
                     });
                 }
@@ -338,11 +338,11 @@ namespace big
                 if (ImGui::Button(xorstr("Safe Crack"), ImVec2(200, 0)))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
-                        if (auto cayo = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
+                        if (auto new_mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                         {
                             for (int i = 0; i <= 2; i++)
                             {
-                                *script_local(cayo, m_local.safe_hack).at(1).at(i, 2).as<float*>() = systems::int_to_float(*script_local(cayo, m_local.safe_hack).at(1).at(i, 2).at(1).as<int*>());
+                                *script_local(new_mission_thread, m_local.safe_hack).at(1).at(i, 2).as<float*>() = systems::int_to_float(*script_local(new_mission_thread, m_local.safe_hack).at(1).at(i, 2).at(1).as<int*>());
                             }
                         }
                     });
@@ -350,22 +350,47 @@ namespace big
                 ImGui::SameLine();
                 if (ImGui::Button(xorstr("Motherboard Hacking"), ImVec2(200, 0)))
                 {
-                    if (auto fleeca_bank = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    if (auto mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
                     {
-                        *script_local(fleeca_bank, m_local.board_hacking_x).as<float*>() = 0.7f;
-                        *script_local(fleeca_bank, m_local.board_hacking_y).as<float*>() = 0.3f;
-                        *script_local(fleeca_bank, m_local.board_hacking_requirement).as<int*>() = 1;
+                        *script_local(mission_thread, m_local.board_hacking_x).as<float*>() = 0.7f;
+                        *script_local(mission_thread, m_local.board_hacking_y).as<float*>() = 0.3f;
+                        *script_local(mission_thread, m_local.board_hacking_requirement).as<int*>() = 1;
                     }
                 }
 
                 if (ImGui::Button(xorstr("Plasma Cutter"), ImVec2(200, 0)))
                 {
                     rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
-                        if (auto plasma = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
+                        if (auto new_mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
                         {
-                            *script_local(plasma, m_local.glass_cutter_heat).as<float*>() = 100.f;
+                            *script_local(new_mission_thread, m_local.glass_cutter_heat).as<float*>() = 100.f;
                         }
                     });
+                }
+                ImGui::SameLine();
+                if (ImGui::Button(xorstr("Sewer Cutting Skip"), ImVec2(200, 0)))
+                {
+                    rage_helper::execute_as_script(RAGE_JOAAT("fm_mission_controller_2020"), [] {
+                        if (auto new_mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
+                        {
+                            *script_local(new_mission_thread, m_local.skip_sewer_cutter).as<int*>() = 6;
+                        }
+                    });
+                }
+                ImGui::SameLine();
+                if (ImGui::Button(xorstr("Instant Complete Heist"), ImVec2(200, 0)))
+                {
+                    if (auto mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller")))
+                    {
+                        *script_local(mission_thread, m_local.instant_casino_complete).as<int*>() |= 983040;
+                        *script_local(mission_thread, m_local.instant_casino_complete_2).as<int*>() |= 50;
+                    }
+                    if (auto new_mission_thread = rage_helper::find_script_thread(RAGE_JOAAT("fm_mission_controller_2020")))
+                    {
+                        *script_local(new_mission_thread, m_local.instant_mission_complete).as<int*>() |= 983040;
+                        *script_local(new_mission_thread, m_local.instant_mission_complete_2).as<int*>() |= 50;
+                    }
+
                 }
 
                 ImGui::Text(xorstr("Instant Heist Setup"));
@@ -1565,8 +1590,8 @@ namespace big
                     ImGui::InputText(xorstr("##Organization Name"), organization_name, IM_ARRAYSIZE(organization_name));
                     if (ImGui::Button(xorstr("Set Organization Name")))
                     {
-                        auto name = script_global(1893548).at(g_local.player, 600).at(11).at(105).as<std::string*>();
-                        strcpy(const_cast<char*>(name->c_str()), organization_name);
+                        auto name = script_global(1893548).at(g_local.player, 600).at(11).at(105).as<void*>();
+                        strcpy(static_cast<char*>(name), organization_name);
                     }
                     break;
                 }

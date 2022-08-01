@@ -97,9 +97,9 @@ namespace big
 			m_friend_list = ptr.add(3).rip().as<decltype(m_friend_list)>();
 		});
 
-		main_batch.add(xorstr("Total Friend"), xorstr("3B 0D ? ? ? ? 73 13 48 63 C9"), [this](memory::handle ptr)
+		main_batch.add(xorstr("Total Friend"), xorstr("48 8B E8 0F B7 40 08 3B 05 ? ? ? ? 74 28 BB"), [this](memory::handle ptr)
 		{
-			m_total_friend = ptr.add(2).rip().as<int*>();
+			m_total_friend = ptr.add(9).rip().as<int*>(); //3B 0D ? ? ? ? 73 13 48 63 C9 old
 		});
 
 		main_batch.add(xorstr("Pointer To Entity"), xorstr("48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 8B 15 ? ? ? ? 48 8B F9 48 83 C1 10 33 DB"), [this](memory::handle ptr)
@@ -203,14 +203,16 @@ namespace big
 			m_get_model_info = ptr.as<decltype(m_get_model_info)>();
 		});
 
-		main_batch.add(xorstr("Add Owned Explosion Bypass 1"), xorstr("0F 85 ? ? ? ? 48 8B 05 ? ? ? ? 48 8B 48 08 E8"), [this](memory::handle ptr)
+		main_batch.add(xorstr("Add Owned Explosion Bypass"), xorstr("0F 85 ? ? ? ? 48 8B 05 ? ? ? ? 48 8B 48 08 E8"), [this](memory::handle ptr)
 		{
 			m_add_owned_explosion_bypass_1 = ptr.as<DWORD64*>();
+			m_add_owned_explosion_bypass_2 = ptr.add(2).rip().add(9).as<DWORD64*>();
+			//m_add_owned_explosion_bypass_2 new: 74 0F 48 8D 4C 24 ? 45 33 C0 old : 74 0E 48 8D 4D ? 45 33 C0
 		});
 
-		main_batch.add(xorstr("Add Owned Explosion Bypass 2"), xorstr("74 0E 48 8D 4D ? 45 33 C0"), [this](memory::handle ptr)
+		main_batch.add(xorstr("Region Code"), xorstr("48 8D 15 ? ? ? ? 48 8D 4C 24 ? 89 05 ? ? ? ? E8 ? ? ? ?"), [this](memory::handle ptr)
 		{
-			m_add_owned_explosion_bypass_2 = ptr.as<DWORD64*>();
+			m_region_code = ptr.add(3).rip().as<decltype(m_region_code)>();
 		});
 
 		main_batch.add(xorstr("Player Name Pointer"), xorstr("48 8D ? ? ? ? ? E8 ? ? ? ? 48 85 ? 75 ? 48 83 C4 ? C3 CC CC 48 83 EC ? 48 8D"), [this](memory::handle ptr)
@@ -218,15 +220,17 @@ namespace big
 			m_real_name = ptr.add(3).rip().add(0x24).as<decltype(m_real_name)>();
 		});
 
-		main_batch.add(xorstr("Player Real Name"), xorstr("48 8D 0D ? ? ? ? E9 ? ? ? ? 48 89 ? ? ? 57 48 83 EC ? BF ? ? ? ? 48 8D ? ? ? ? ? 48 81 EB"), [this](memory::handle ptr)
+		main_batch.add(xorstr("Player Real Name"), xorstr("48 8D 0D ? ? ? ? 48 8D 2D ? ? ? ? BA ? ? ? ? 48 69 C0"), [this](memory::handle ptr)
 		{
-			m_real_name_1 = ptr.add(3).rip().add(0x51F).as<decltype(m_real_name_1)>();
+			m_real_name_1 = ptr.add(3).rip().add(0x14F).as<decltype(m_real_name_1)>();
 		});
 
+		/*
 		main_batch.add(xorstr("Player Name ESP"), xorstr("48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83"), [this](memory::handle ptr)
 		{
 			m_player_name_esp = ptr.add(3).rip().add(0x84).as<decltype(m_player_name_esp)>();
 		});
+		*/
 		
 		main_batch.add(xorstr("Send Net Info To Lobby"), xorstr("E8 ? ? ? ? 84 C0 74 26 8B 96"), [this](memory::handle ptr)
 		{
@@ -243,7 +247,7 @@ namespace big
 			m_player_name_display = ptr.add(3).rip().add(0x14).as<decltype(m_player_name_display)>();
 		});
 		
-		main_batch.add(xorstr("Player Rockstar ID"), xorstr("48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83"), [this](memory::handle ptr)
+		main_batch.add(xorstr("Player Rockstar ID"), xorstr("48 8D 0D ? ? ? ? 48 69 C0 ? ? ? ? F6 84 08 ? ? ? ? ? 74 08 8B 84 08 ? ? ? ? C3"), [this](memory::handle ptr)
 		{
 			m_player_rid = ptr.add(3).rip().add(8).as<decltype(m_player_rid)>();
 		});
@@ -333,11 +337,6 @@ namespace big
 			m_read_bitbuf_dword = ptr.as<decltype(m_read_bitbuf_dword)>();
 		});
 
-		main_batch.add(xorstr("Find Networked Object By ID"), xorstr("44 38 33 75 30 66 44"), [this](memory::handle ptr)
-		{
-			m_get_network_object = ptr.sub(0x40).as<decltype(m_get_network_object)>();
-		});
-
 		main_batch.add(xorstr("Network Object Manager"), xorstr("48 8B 0D ? ? ? ? 45 33 C0 E8 ? ? ? ? 33 FF 4C 8B F0"), [this](memory::handle ptr)
 		{
 			m_network_object_manager = ptr.add(3).rip().as<decltype(m_network_object_manager)>();
@@ -349,27 +348,13 @@ namespace big
 		});
 
 		//Received clone sync
-		main_batch.add("Clone Sync", "48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 54 41 56 41 57 48 83 EC 40 4C 8B F2", [this](memory::handle ptr)
+		main_batch.add("Clone Sync", "4C 8B FA 41 0F B7 D1 45 0F B7 E9 4C 8B E1", [this](memory::handle ptr)
 		{
-			m_received_clone_sync = ptr.as<decltype(m_received_clone_sync)>();
-		});
-
-		//Get sync type info
-		main_batch.add("Sync Type", "44 0F B7 C1 4C 8D 0D ? ? ? ?", [this](memory::handle ptr)
-		{
-			m_get_sync_type_info = ptr.as<decltype(m_get_sync_type_info)>();
-		});
-
-		//Get sync tree for type
-		main_batch.add("Sync Tree Type", "0F B7 CA 83 F9 07", [this](memory::handle ptr)
-		{
-			m_get_sync_tree_for_type = ptr.as<decltype(m_get_sync_tree_for_type)>();
-		});
-
-		//Get net object for player
-		main_batch.add("Get Network Object Players", "41 80 78 ? FF 74 2D 41 0F B6 40", [this](memory::handle ptr)
-		{
-			m_get_net_object_for_player = ptr.as<decltype(m_get_net_object_for_player)>();
+			m_received_clone_sync = ptr.sub(0x1D).as<decltype(m_received_clone_sync)>();
+			m_get_sync_tree_for_type = ptr.add(0x14).rip().as<decltype(m_get_sync_tree_for_type)>();
+			m_get_net_object_for_player = ptr.add(0x60).rip().as<decltype(m_get_net_object_for_player)>();
+			m_get_network_object = ptr.add(0x76).rip().as<decltype(m_get_network_object)>();
+			m_get_sync_type_info = ptr.add(0x8C).rip().as<decltype(m_get_sync_type_info)>();
 		});
 
 		main_batch.add(xorstr("Censor Chat Text"), xorstr("E8 ? ? ? ? 83 F8 FF 75 B9"), [this](memory::handle ptr)
@@ -412,9 +397,9 @@ namespace big
 			m_presence_data = ptr.as<decltype(m_presence_data)>();
 		});
 
-		main_batch.add(xorstr("Net Array Handle"), xorstr("44 8B E0 89 45 F4 48 8B 03 48 8B CB FF 90"), [this](memory::handle ptr)
+		main_batch.add(xorstr("Net Array Handle"), xorstr("44 8B E8 48 8B 03 48 8B CB FF 90"), [this](memory::handle ptr)
 		{
-			m_net_array_handler = ptr.sub(0x3C).as<PVOID>();
+			m_net_array_handler = ptr.sub(0x3C).as<PVOID>();//44 8B E0 89 45 F4 48 8B 03 48 8B CB FF 90
 		});
 
 		main_batch.add(xorstr("Get Chat Data"), xorstr("4D 85 C9 0F 84 ? ? ? ? 48 8B C4 48 89 58 08 48 89 70 10 48 89 78 18 4C 89 48 20 55 41 54 41 55 41 56 41 57 48 8D A8"), [this](memory::handle ptr)
@@ -422,9 +407,9 @@ namespace big
 			m_chat_data = ptr.as<decltype(m_chat_data)>();
 		});
 
-		main_batch.add(xorstr("Chat Receive"), xorstr("48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 30 49 8B F0 4D 8B C1"), [this](memory::handle ptr)
+		main_batch.add(xorstr("Chat Receive"), xorstr("48 8D 05 ? ? ? ? 48 89 7B 28 48 89 43 30 E8 ? ? ? ? 48 89 43 28 48 8B C3 48 8B 5C 24 ? 48 83 C4 20 5F"), [this](memory::handle ptr)
 		{
-			m_chat_receive = ptr.as<decltype(m_chat_receive)>();
+			m_chat_receive = ptr.add(3).rip().as<decltype(m_chat_receive)>();// old : 48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 30 49 8B F0 4D 8B C1
 		});
 
 		main_batch.add(xorstr("Chat Player ID"), xorstr("48 8B D1 48 8B 0D ? ? ? ? 41 B0 01 E9"), [this](memory::handle ptr)
@@ -432,10 +417,12 @@ namespace big
 			m_chat_player_id = ptr.as<decltype(m_chat_player_id)>();
 		});
 
+		/*
 		main_batch.add(xorstr("RC"), xorstr("48 83 EC 28 4C 8D 89 ? ? ? ? 4C 8D 41 78"), [this](memory::handle ptr)
 		{
 			m_rid_crash = ptr.as<decltype(m_rid_crash)>();
 		});
+		*/
 
 		main_batch.add(xorstr("Tuneables"), xorstr("48 8B 0D ? ? ? ? BF 02 00 00 00 44 8B C7"), [this](memory::handle ptr)
 		{
@@ -452,11 +439,25 @@ namespace big
 			m_received_message = ptr.as<decltype(m_received_message)>();
 		});
 
-		main_batch.add("Get Network Event Data", "E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? CC FF 50 28", [this](memory::handle ptr)
+		main_batch.add("Get Network Event Data", "53 43 52 49 50 54 5F 4E 45 54 57 4F 52 4B", [this](memory::handle ptr)
 		{
-			m_get_network_event_data = ptr.as<decltype(m_get_network_event_data)>();
+			m_get_network_event_data = ptr.sub(0x38).as<decltype(m_get_network_event_data)>();//E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? CC FF 50 28
 		});
 
+		main_batch.add(xorstr("clone_create"), xorstr("48 8B C4 66 44 89 48"), [this](memory::handle ptr)
+		{
+			m_clone_create = ptr.as<decltype(m_clone_create)>();
+		});
+
+		main_batch.add(xorstr("netSyncTree::CanApplyToObject"), xorstr("49 8B CE FF 50 70 84 C0 74 31 33 FF"), [this](memory::handle ptr)
+		{
+			m_sync_can_apply = ptr.sub(0x2C).as<decltype(m_sync_can_apply)>();
+		});
+
+		main_batch.add("WPGDN", "48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC 20 48 81 C1 ? ? ? ? 48 8B DA E8", [this](memory::handle ptr)
+		{
+			m_write_player_gamer_data_node = ptr.as<PVOID>();
+		});
 
 
 		main_batch.run(memory::module(nullptr));
@@ -476,65 +477,87 @@ namespace big
 
 
 /*
+main_batch.add(xorstr("Find Networked Object By ID"), xorstr("44 38 33 75 30 66 44"), [this](memory::handle ptr)
+{
+	m_get_network_object = ptr.sub(0x40).as<decltype(m_get_network_object)>();
+});
+
+//Get sync type info
+main_batch.add("Sync Type", "44 0F B7 C1 4C 8D 0D ? ? ? ?", [this](memory::handle ptr)
+{
+	m_get_sync_type_info = ptr.as<decltype(m_get_sync_type_info)>();
+});
+
+//Get sync tree for type
+main_batch.add("Sync Tree Type", "0F B7 CA 83 F9 07", [this](memory::handle ptr)
+{
+	m_get_sync_tree_for_type = ptr.as<decltype(m_get_sync_tree_for_type)>();
+});
+
+//Get net object for player
+main_batch.add("Get Network Object Players", "41 80 78 ? FF 74 2D 41 0F B6 40", [this](memory::handle ptr)
+{
+	m_get_net_object_for_player = ptr.as<decltype(m_get_net_object_for_player)>();
+});
 
 
-		main_batch.add(xorstr("netSyncTree::CanApplyToObject"), xorstr("49 8B CE FF 50 70 84 C0 74 31 33 FF"), [this](memory::handle ptr)
-		{
-			m_sync_can_apply = ptr.sub(0x2C).as<decltype(m_sync_can_apply)>();
-		});
+main_batch.add(xorstr("netSyncTree::CanApplyToObject"), xorstr("49 8B CE FF 50 70 84 C0 74 31 33 FF"), [this](memory::handle ptr)
+{
+	m_sync_can_apply = ptr.sub(0x2C).as<decltype(m_sync_can_apply)>();
+});
 
-		main_batch.add(xorstr("netSyncTree::ReadFromBuffer"), xorstr("45 89 43 18 57 48 83 EC 30 48 83 79 10 00 49"), [this](memory::handle ptr)
-		{
-			m_sync_read = ptr.sub(0xF).as<decltype(m_sync_read)>();
-		});
+main_batch.add(xorstr("netSyncTree::ReadFromBuffer"), xorstr("45 89 43 18 57 48 83 EC 30 48 83 79 10 00 49"), [this](memory::handle ptr)
+{
+	m_sync_read = ptr.sub(0xF).as<decltype(m_sync_read)>();
+});
 
-		main_batch.add(xorstr("clone_sync"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1"), [this](memory::handle ptr)
-		{
-			m_clone_sync = ptr.as<decltype(m_clone_sync)>();
-		});
+main_batch.add(xorstr("clone_sync"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 41 0f b7 d1"), [this](memory::handle ptr)
+{
+	m_clone_sync = ptr.as<decltype(m_clone_sync)>();
+});
 
-		main_batch.add(xorstr("m_clone_pack"), xorstr("48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F9 48 8B CA 49 8B E9"), [this](memory::handle ptr)
-		{
-			m_clone_pack = ptr.as<decltype(m_clone_pack)>();
-		});
+main_batch.add(xorstr("m_clone_pack"), xorstr("48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F9 48 8B CA 49 8B E9"), [this](memory::handle ptr)
+{
+	m_clone_pack = ptr.as<decltype(m_clone_pack)>();
+});
 
-		main_batch.add(xorstr("clone_create_ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
-		{
-			m_clone_create_ack = ptr.as<decltype(m_clone_create_ack)>();
-		});
+main_batch.add(xorstr("clone_create_ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
+{
+	m_clone_create_ack = ptr.as<decltype(m_clone_create_ack)>();
+});
 
-		main_batch.add(xorstr("clone_sync_ack"), xorstr("48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b e2"), [this](memory::handle ptr)
-		{
-			m_clone_sync_ack = ptr.as<decltype(m_clone_sync_ack)>();
-		});
+main_batch.add(xorstr("clone_sync_ack"), xorstr("48 89 5c 24 ? 48 89 74 24 ? 48 89 7c 24 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b e2"), [this](memory::handle ptr)
+{
+	m_clone_sync_ack = ptr.as<decltype(m_clone_sync_ack)>();
+});
 
-		main_batch.add(xorstr("Clone Remove Ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
-		{
-			m_clone_remove_ack = ptr.as<decltype(m_clone_remove_ack)>();
-		});
+main_batch.add(xorstr("Clone Remove Ack"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 57 41 56 41 57 48 83 ec ? 4c 8b fa 49 8b d8"), [this](memory::handle ptr)
+{
+	m_clone_remove_ack = ptr.as<decltype(m_clone_remove_ack)>();
+});
 
-		main_batch.add(xorstr("Clone Remove"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 4d 8b e0 48 8d 50"), [this](memory::handle ptr)
-		{
-			m_clone_remove = ptr.as<decltype(m_clone_remove)>();
-		});
+main_batch.add(xorstr("Clone Remove"), xorstr("48 8b c4 48 89 58 ? 48 89 68 ? 48 89 70 ? 48 89 78 ? 41 54 41 56 41 57 48 83 ec ? 4c 8b f2 4d 8b e0 48 8d 50"), [this](memory::handle ptr)
+{
+	m_clone_remove = ptr.as<decltype(m_clone_remove)>();
+});
 
-		main_batch.add(xorstr("clone_create"), xorstr("48 8B C4 66 44 89 48"), [this](memory::handle ptr)
-		{
-			m_clone_create = ptr.as<decltype(m_clone_create)>();
-		});
+main_batch.add(xorstr("clone_create"), xorstr("48 8B C4 66 44 89 48"), [this](memory::handle ptr)
+{
+	m_clone_create = ptr.as<decltype(m_clone_create)>();
+});
 
-		main_batch.add(xorstr("Sky Colour Blue"), xorstr("48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8B"), [this](memory::handle ptr)
-		{
-			m_sky_blue = ptr.add(3).rip().add(0xB8).as<decltype(m_sky_blue)>();
-		});
+main_batch.add(xorstr("Sky Colour Blue"), xorstr("48 8D ? ? ? ? ? 48 8D ? ? ? ? ? E8 ? ? ? ? 48 8D ? ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8B"), [this](memory::handle ptr)
+{
+	m_sky_blue = ptr.add(3).rip().add(0xB8).as<decltype(m_sky_blue)>();
+});
 
-		main_batch.add(xorstr("Sky Colour Red"), xorstr("F3 0F 10 05 ? ? ? ? BE ? ? ? ? 0F C6 F6 00 0F 59 CE 0F C6 C0 00 0F 59 C8 0F 58 8B"), [this](memory::handle ptr)
-		{
-			m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
-		});
+main_batch.add(xorstr("Sky Colour Red"), xorstr("F3 0F 10 05 ? ? ? ? BE ? ? ? ? 0F C6 F6 00 0F 59 CE 0F C6 C0 00 0F 59 C8 0F 58 8B"), [this](memory::handle ptr)
+{
+	m_sky_red = ptr.add(4).rip().add(0xE0).as<decltype(m_sky_red)>();
+});
 
-		main_batch.add(xorstr("CGameInvite"), xorstr("48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 E8 ? ? ? ? 8B 83 ? ? ? ?"), [this](memory::handle ptr)
-		{
-			m_game_invite = ptr.as<decltype(m_game_invite)>();
-		});
+main_batch.add(xorstr("CGameInvite"), xorstr("48 89 5C 24 ? 57 48 81 EC ? ? ? ? 48 8B FA 48 8B D9 E8 ? ? ? ? 8B 83 ? ? ? ?"), [this](memory::handle ptr)
+{
+	m_game_invite = ptr.as<decltype(m_game_invite)>();
+});
 */

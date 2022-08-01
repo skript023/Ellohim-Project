@@ -64,14 +64,28 @@ namespace big
 			std::string as_string(float value)
 			{
 				os.str("");  // clear string
-				output.put(iterator, false, os, ' ', value);
+				if (static_cast<int>(value) == INT32_MAX)
+				{
+					output.put(iterator, false, os, ' ', value);
+				}
+				else
+				{
+					output.put(iterator, false, os, ' ', value * 100);
+				}
 				return os.str();
 			}
 
 			std::string as_string(double value)
 			{
 				os.str("");  // clear string
-				output.put(iterator, false, os, ' ', value * 100.0);
+				if (static_cast<int>(value) >= 2000000000)
+				{
+					output.put(iterator, false, os, ' ', value);
+				}
+				else
+				{
+					output.put(iterator, false, os, ' ', value * 100.0);
+				}
 				return os.str();
 			}
 

@@ -22,7 +22,7 @@ namespace big
     {
         if (ImGui::BeginTabItem(tab_name))
         {
-            memset(&g_vehicle_option->vehicle_tab_open, true, 1);
+            g_vehicle_option->vehicle_tab_open = true;
             ImGui::InputText(xorstr("##Kosong"), nama_mobil, IM_ARRAYSIZE(nama_mobil), ImGuiInputTextFlags_CharsUppercase);
             ImGui::PushItemWidth(100.f);
             ImGui::InputScalar(xorstr("##Num"), ImGuiDataType_S32, &total_ped);
@@ -632,7 +632,7 @@ namespace big
         }
         else
         {
-            memset(&g_vehicle_option->vehicle_tab_open, false, 1);
+            g_vehicle_option->vehicle_tab_open = false;
         }
     }
 }

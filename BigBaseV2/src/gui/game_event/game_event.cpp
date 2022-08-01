@@ -19,6 +19,21 @@
 
 namespace big
 {
+    void remote_event::script_event_crash(Player player)
+    {
+        g_fiber_pool->queue_job([player]
+        {
+            int64_t args[4] = { SEC12, PLAYER::PLAYER_ID(), -2, -2 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, args, ARRAYSIZE(args), 1 << player);
+
+            int64_t args_2[8] = { SEC3, PLAYER::PLAYER_ID(), 0, -5, -5, -5, -5, -5 };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, args_2, ARRAYSIZE(args_2), 1 << player);
+
+            int64_t args_3[2] = { SEC10, PLAYER::PLAYER_ID() };
+            SCRIPT::TRIGGER_SCRIPT_EVENT(1, args_3, ARRAYSIZE(args_3), 1 << player);
+        });
+    }
+
     void remote_event::crash_player(Entity target, Vector3 target_coords)
     {
         // Salah Satu Invalid Ped Hash

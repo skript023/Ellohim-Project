@@ -50,17 +50,16 @@ static_assert(sizeof(BusinessMoney) == 0x12C);
 class FriendInfo
 {
 public:
-	char pad_0000[128]; //0x0000
-	char m_name[20]; //0x0080
-	char pad_0094[36]; //0x0094
-	uint64_t m_friend_id; //0x00B8
-	char pad_00C0[4]; //0x00C0
-	int32_t m_friend_status; //0x00C4
-	char pad_00C8[304]; //0x00C8
-	bool m_is_multiplayer; //0x01F8
-	char pad_01F9[7]; //0x01F9
+	char m_name[20]; //0x0000
+	char pad_0014[36]; //0x0014
+	uint64_t m_friend_id; //0x0038
+	char pad_0040[4]; //0x0040
+	int32_t m_friend_status; //0x0044
+	char pad_00C8[304]; //0x0048
+	bool m_is_multiplayer; //0x0178
+	char pad_01F9[7]; //0x0179
 }; //Size: 0x0200
-static_assert(sizeof(FriendInfo) == 0x200);
+static_assert(sizeof(FriendInfo) == 0x180);
 
 class FriendList
 {

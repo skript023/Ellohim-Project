@@ -12,6 +12,6 @@ namespace big
 
 				return CUSTOM_HUD;
 			}
-		return g_hooking->m_get_label_text.get_original<decltype(&hooks::get_label_text)>()(unk, label);
+		//return g_hooking->m_get_label_text.get_original<decltype(&hooks::get_label_text)>()(unk, label);
 	}
 }

@@ -253,12 +253,12 @@ namespace big
 
     std::string player::get_player_banked_money(Player player)
     {
-        auto get_money = systems::money_formatter("US");
+        systems::money_formatter get_money("US");
         auto total = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(56).as<int*>();
         auto cash = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(3).as<int*>();
         int banked = (total - cash);
         auto result = banked < 0 ? 0 : banked;
-        return get_money.as_string(systems::int_to_float(result));
+        return get_money.as_string(static_cast<double>(result));
     }
 
     int player::get_player_level(Player player)
@@ -278,9 +278,9 @@ namespace big
 
     std::string player::get_player_cash(Player player)
     {
-        auto get_money = systems::money_formatter("US");
+        systems::money_formatter get_money("US");
         auto player_money = *script_global(g_global.player_stat).at(player, g_global.player_size).at(g_global.player_offset).at(3).as<int*>();
-        return get_money.as_string(systems::int_to_float(player_money));
+        return get_money.as_string(static_cast<double>(player_money));
     }
 
     int player::get_player_total_money(Player player)
@@ -738,13 +738,13 @@ namespace big
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 1;
             *script_global(g_global.radar_time).at(70).as<int*>() = NETWORK::GET_NETWORK_TIME();
-            *script_global(2544210).at(4628).as<int*>() = 4;
+            *script_global(g_global.radar_type).as<int*>() = 4;
         }
         else if (!Activation && *g_pointers->m_is_session_started)
         {
             *script_global(g_global.radar_toggle).at(PLAYER::PLAYER_ID(), g_global.radar_size).at(g_global.radar_offset).as<int*>() = 0;
             *script_global(g_global.radar_time).at(70).as<int*>() = 0;
-            *script_global(2544210).at(4628).as<int*>() = 0;
+            *script_global(g_global.radar_type).as<int*>() = 0;
         }
     }
 
@@ -1139,7 +1139,7 @@ namespace big
 
     const char* player::get_player_organization_name(Player player)
     {
-        auto pointer = script_global(1893548).at(player, 600).at(11).at(105).as<void*>();
+        auto pointer = g_global.get_organization_name(player).as<void*>();//script_global(1893548).at(player, 600).at(11).at(105).as<void*>();
         char* name = (char*)pointer;
 
         if (name != nullptr)

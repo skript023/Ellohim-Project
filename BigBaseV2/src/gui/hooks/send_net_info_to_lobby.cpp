@@ -14,9 +14,11 @@ namespace big
 		auto name = std::string(local_player->m_name);
 		std::string name_real = g_pointers->m_real_name;
 		auto scid_real = *g_pointers->m_player_rid;
+		char original_name[20];
 		
 		if (scid_real == local_player->m_rockstar_id)//
 		{
+			strcpy(original_name, local_player->m_name);
 			std::string spoof_name;
 			strcpy((char*)spoof_name.c_str(), g_spoofer_option->spoofed_name);
 			uint64_t spoof_scid = game_variable::player_rid_list[g_spoofer_option->rid_spoof];
@@ -48,14 +50,16 @@ namespace big
 			rage::netAddress spoofed = *(rage::netAddress*)&local_player->m_relay_ip;
 			auto spoofed_ip = fmt::format("{}.{}.{}.{}", spoofed.m_field1, spoofed.m_field2, spoofed.m_field3, spoofed.m_field4);
 
-			//auto retnvalue = g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
-			if (scid_diff)
-				local_player->m_rockstar_id = scid_real;
-			if (ip_diff)
-				local_player->m_relay_ip = *(uint32_t*)&ip_address;
+			auto retnvalue = g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
+			//if (scid_diff)
+			local_player->m_rockstar_id = scid_real;
+			//if (ip_diff)
+			local_player->m_relay_ip = *(uint32_t*)&ip_address;
 
-			//return retnvalue;
+			memcpy(local_player->m_name, original_name, sizeof(local_player->m_name));
+
+			return retnvalue;
 		}
-		//return g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
+		return g_hooking->m_send_net_info_to_lobby_hook.get_original<decltype(&send_net_info_to_lobby)>()(local_player, a2, a3, a4);
 	}
 }

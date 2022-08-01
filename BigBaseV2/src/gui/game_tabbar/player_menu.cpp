@@ -612,8 +612,21 @@ namespace big
                             {
                                 stats::set_packed_bool(i, true, -1);
                             }
+                            break;
                         case 20:
                             for (int i = 32411; i < 32475; i++)
+                            {
+                                stats::set_packed_bool(i, true, -1);
+                            }
+                            break;
+                        case 21:
+                            for (int i = 32475; i < 32603; i++)
+                            {
+                                stats::set_packed_bool(i, true, -1);
+                            }
+                            break;
+                        case 22:
+                            for (int i = 32603; i < 33051; i++)
                             {
                                 stats::set_packed_bool(i, true, -1);
                             }

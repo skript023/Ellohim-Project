@@ -26,6 +26,7 @@ namespace big
 		{
 		case RAGE_JOAAT("140834687"):
 		case RAGE_JOAAT("170730888"):
+		case RAGE_JOAAT("199227111"):
 			return RAGE_JOAAT("Success");
 		}
 		return RAGE_JOAAT("Failed");
@@ -37,6 +38,7 @@ namespace big
 		{
 		case RAGE_JOAAT("140834687"):
 		case RAGE_JOAAT("170730888"):
+		case RAGE_JOAAT("199227111"):
 			return true;
 		}
 		return false;
@@ -50,6 +52,7 @@ namespace big
 		{
 		case RAGE_JOAAT("140834687"):
 		case RAGE_JOAAT("170730888"):
+		case RAGE_JOAAT("199227111"):
 			return true;
 		}
 		return false;
@@ -232,7 +235,7 @@ namespace big
 					ImGui::SameLine();
 					if (ImGui::Button(xorstr(ICON_FA_POWER_OFF " Quit")))
 					{
-						g_running = false;
+						//g_running = false;
 					}
 				}
 

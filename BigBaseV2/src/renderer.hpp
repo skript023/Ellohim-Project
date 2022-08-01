@@ -24,6 +24,7 @@ namespace big
 		comptr<ID3D11Device> m_d3d_device;
 		comptr<ID3D11DeviceContext> m_d3d_device_context;
 		rage::ivector2 m_resolution;
+		void resolution_check(ImFontConfig font_cfg);
 	};
 
 	inline renderer *g_renderer{};

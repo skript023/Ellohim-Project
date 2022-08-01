@@ -42,14 +42,17 @@ namespace big
 		m_convert_thread_to_fiber_hook("ConvertThreadToFiber", memory::module("kernel32.dll").get_export("ConvertThreadToFiber").as<void*>(), &hooks::convert_thread_to_fiber),
 
 		m_censor_chat_text_hook("Chat Sensor", g_pointers->m_censor_chat_text, &hooks::censor_chat_text),
-		m_get_label_text("Get Label Text", g_pointers->m_get_label_text, &hooks::get_label_text),
-		m_received_message_hook("Chat Receive Hook", g_pointers->m_received_message, &hooks::received_message),
+		m_write_player_gamer_data_node_hook("Player Gamer Data Node", g_pointers->m_write_player_gamer_data_node, &hooks::write_player_gamer_data_node),
+		m_received_message_hook("Chat Message Hook", g_pointers->m_received_message, &hooks::received_message),
 		m_get_network_event_data_hook("Desync Kick", g_pointers->m_get_network_event_data, &hooks::get_network_event_data),
 
 		m_chat_receive_hook("Chat Received Hook", g_pointers->m_chat_receive, &hooks::chat_receive),
 		m_player_has_joined_hook("Player Joined Hook", g_pointers->m_player_has_joined, &hooks::player_join),
 		m_player_has_left_hook("Player Left Hook", g_pointers->m_player_has_left, &hooks::player_leave),
-		m_rid_crash("RC", g_pointers->m_rid_crash, &hooks::rid_crash),
+		//m_rid_crash("RC", g_pointers->m_rid_crash, &hooks::rid_crash),
+		m_send_net_info_to_lobby_hook("Send Net Info", g_pointers->m_send_net_info_to_lobby, hooks::send_net_info_to_lobby),
+		m_sync_can_apply_hook("Sync Can Apply", g_pointers->m_sync_can_apply, &hooks::sync_can_apply),
+		m_clone_create_hook("Clone Create", g_pointers->m_clone_create, &hooks::clone_create),
 
 		m_gta_thread_tick_hook("Thread Tick", g_pointers->m_gta_thread_tick, &hooks::gta_thread_tick),
 		m_gta_thread_kill_hook("Thread Killed", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
@@ -79,16 +82,18 @@ namespace big
 		m_og_wndproc = reinterpret_cast<WNDPROC>(SetWindowLongPtrW(g_pointers->m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&hooks::wndproc)));
 		m_set_cursor_pos_hook.enable();
 		m_censor_chat_text_hook.enable();
-		m_get_label_text.enable();
 		m_received_message_hook.enable();
 
 		m_chat_receive_hook.enable();
 		m_player_has_joined_hook.enable();
 		m_player_has_left_hook.enable();
 		m_received_event_hook.enable();
-		m_net_array_handler_hook.enable();
+		//m_net_array_handler_hook.enable();
 
-		m_rid_crash.enable();
+		//m_rid_crash.enable();
+		m_send_net_info_to_lobby_hook.enable();
+		m_sync_can_apply_hook.enable();
+		m_clone_create_hook.enable();
 
 		m_gta_thread_kill_hook.enable();
 		m_gta_thread_tick_hook.enable();
@@ -107,16 +112,18 @@ namespace big
 		m_convert_thread_to_fiber_hook.disable();
 		m_run_script_threads_hook.disable();
 		m_censor_chat_text_hook.disable();
-		m_get_label_text.disable();
 		m_received_message_hook.disable();
 
 		m_chat_receive_hook.disable();
 		m_player_has_joined_hook.disable();
 		m_player_has_left_hook.disable();
 		m_received_event_hook.disable();
-		m_net_array_handler_hook.disable();
+		//m_net_array_handler_hook.disable();
 
-		m_rid_crash.disable();
+		//m_rid_crash.disable();
+		m_send_net_info_to_lobby_hook.disable();
+		m_sync_can_apply_hook.disable();
+		m_clone_create_hook.disable();
 
 		m_gta_thread_tick_hook.disable();
 		m_gta_thread_kill_hook.disable();
