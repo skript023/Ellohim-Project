@@ -83,4 +83,12 @@ namespace big
 
 		LOG(G3LOG_DEBUG) << "Thread " << std::this_thread::get_id() << " exiting...";
 	}
+
+	void thread_pool::hold()
+	{
+		std::unique_lock m_thread(m_main_lock);
+		m_condition.wait(m_thread, [] {return g_running ? false : true; });
+		m_thread.unlock();
+		m_condition.notify_one();
+	}
 }

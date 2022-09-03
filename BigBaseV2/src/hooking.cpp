@@ -88,7 +88,7 @@ namespace big
 		m_player_has_joined_hook.enable();
 		m_player_has_left_hook.enable();
 		m_received_event_hook.enable();
-		//m_net_array_handler_hook.enable();
+		m_net_array_handler_hook.enable();
 
 		//m_rid_crash.enable();
 		m_send_net_info_to_lobby_hook.enable();
@@ -118,7 +118,7 @@ namespace big
 		m_player_has_joined_hook.disable();
 		m_player_has_left_hook.disable();
 		m_received_event_hook.disable();
-		//m_net_array_handler_hook.disable();
+		m_net_array_handler_hook.disable();
 
 		//m_rid_crash.disable();
 		m_send_net_info_to_lobby_hook.disable();

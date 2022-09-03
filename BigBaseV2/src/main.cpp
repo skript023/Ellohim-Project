@@ -59,10 +59,7 @@ __          __    _                   _  __           _        _
 				g_hooking->enable();
 				LOG(INFO) << "Hooking enabled.";
 
-				while (g_running)
-				{
-					std::this_thread::sleep_for(500ms);
-				}
+				g_thread_pool->hold();
 
 				g_hooking->disable();
 				LOG(HACKER) << "Hooking disabled.";

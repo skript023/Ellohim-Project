@@ -29,7 +29,7 @@ namespace big
 		static const char* const object_hash_list[2615];
 		static const char* const weapon_hash_list[99];
 		static const char* const weapon_component_list[338];
-		static const char* const vehicle_hash_list[751];//720
+		static const char* const vehicle_hash_list[759];//720
 		static const char* const ped_hash_list[671];
 		static const char* const explosion_list[36];
 		static const char* const player_data_list[66];

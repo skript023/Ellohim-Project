@@ -20,34 +20,88 @@ namespace big
 		//return g_hooking->m_rid_crash.get_original<decltype(&rid_crash)>()(a1);
 	}
 
+	enum class eVehicleType : std::uint32_t
+	{
+		Car,
+		Plane,
+		Unk2,
+		Quadbike,
+		Unk4,
+		Unk5,
+		AmphibiousCar,
+		AmphibiousQuadbike,
+		Heli,
+		Unk9,
+		Unk10,
+		Bike,
+		Bicycle,
+		Boat,
+		Train
+	};
+
+	const CBaseModelInfo* get_model_data(rage::joaat_t hash)
+	{
+		auto modelTble = g_pointers->m_model_table;
+		for (auto i = modelTble->m_lookup_table[hash % modelTble->m_lookup_key]; i; i = i->m_next)
+		{
+			if (i->m_hash == hash)
+			{
+				if (const auto model = modelTble->m_data[i->m_idx]; model)
+				{
+					return reinterpret_cast<CBaseModelInfo*>(model);
+				}
+			}
+		}
+		return nullptr;
+	}
+
 	signed __int64 hooks::received_clone_sync(CNetworkObjectMgr* mgr,CNetGamePlayer* src,CNetGamePlayer* dst,unsigned __int16 sync_type,unsigned __int16 obj_id,rage::datBitBuffer* buffer,unsigned __int16 a7,unsigned int timestamp)
 	{
 
 		if (g_settings.options["Crash Protection"])
 		{
-			auto sync_tree = g_pointers->m_get_sync_tree_for_type(mgr, sync_type);
-			auto tree_name = g_pointers->m_get_sync_type_info(sync_type, 0);
-			auto net_obj = mgr->find_object_by_id(obj_id, true);
-			bool invalidsync = false;
-
-			if (!net_obj) net_obj = g_pointers->m_get_net_object_for_player(mgr, obj_id, src, true);
-
-			if (!net_obj) return 2;
-
-			if (!sync_tree || sync_type < 0 || sync_type > 14) invalidsync = true;
-
-			if (net_obj->object_type != sync_type) invalidsync = true;
-
-			//TO BE ADDED
-			//Node specific entity type checks
-
-
-			if (invalidsync)
+			if (auto sync_tree = g_pointers->m_get_sync_tree_for_type(mgr, sync_type); sync_tree && *g_pointers->m_is_session_started)
 			{
+				if (auto net_obj = g_pointers->m_get_net_object(mgr, obj_id, true); net_obj)
+				{
+					auto tree_name = g_pointers->m_get_sync_type_info(sync_type, 0);
+					bool invalidsync = false;
 
-				LOG(WARNING) << "Invalid sync: " << "Type: " << sync_type << " Tree name: " << tree_name << " From: " << src->get_name();
-				ImGui::InsertNotification({ ImGuiToastType_Protection, 15999, "Invalid sync Type: %d Tree Name : %s From %s", sync_type, tree_name, src->get_name() });
-				return 2;
+					if (sync_type < NetObjEntityType_Automobile || sync_type > NetObjEntityType_Max)
+					{
+						LOG(WARNING) << "Invalid sync: " << "Type: " << sync_type << " Tree name: " << tree_name << " From: " << src->get_name();
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 15999, "Invalid sync Type: %d Tree Name : %s From %s", sync_type, tree_name, src->get_name() });
+					}
+					else if (net_obj->object_type != sync_type)
+					{
+						LOG(WARNING) << "Invalid sync: " << "Type: " << sync_type << " Tree name: " << tree_name << " From: " << src->get_name();
+						ImGui::InsertNotification({ ImGuiToastType_Protection, 15999, "Invalid sync Type: %d Tree Name : %s From %s", sync_type, tree_name, src->get_name() });
+						
+						return 2;
+					}
+					else if (auto game_obj = net_obj->GetGameObject(); game_obj)
+					{
+						if (auto model_info = game_obj->m_model_info)
+						{
+							if (!STREAMING::IS_MODEL_VALID(model_info->m_model_hash))
+							{
+								return 2;
+							}
+							else if (reinterpret_cast<CBaseModelInfo*>(model_info)->m_vehicle_type != get_model_data(model_info->m_model_hash)->m_vehicle_type)
+							{
+								return 2;
+							}
+							else if (model_info->m_model_type != get_model_data(model_info->m_model_hash)->m_model_type)
+							{
+								return 2;
+							}
+						}
+					}
+				}
+				else if (sync_type != NetObjEntityType_Ped) //We don't want to not sync a player, so we ensure it's not a ped
+				{
+					return 2;
+				}
 			}
 		}
 		auto result = g_hooking->m_received_clone_sync_hook.get_original<decltype(&received_clone_sync)>()(mgr, src, dst, sync_type, obj_id, buffer, a7, timestamp);

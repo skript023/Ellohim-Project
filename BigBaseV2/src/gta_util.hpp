@@ -121,6 +121,44 @@ namespace big::rage_helper
 		return *g_pointers->m_game_state == eGameState::Playing;
 	}
 
+	template<typename T = CBaseModelInfo*>
+	inline T get_model(const rage::joaat_t hash)
+	{
+		const auto model_table = g_pointers->m_model_table;
+		for (auto i = model_table->m_lookup_table[hash % model_table->m_lookup_key]; i; i = i->m_next)
+		{
+			if (i->m_hash == hash)
+			{
+				if (const auto model = model_table->m_data[i->m_idx]; model)
+				{
+					return reinterpret_cast<T>(model);
+				}
+			}
+		}
+		return nullptr;
+	}
+
+	inline bool does_model_exist(const rage::joaat_t hash)
+	{
+		if (const auto model = get_model(hash); model)
+			return true;
+		return false;
+	}
+
+	inline CBaseModelInfo* get_vehicle_model(const rage::joaat_t hash)
+	{
+		if (const auto model = get_model(hash); model && model->m_model_type == 5)
+			return model;
+		return nullptr;
+	}
+
+	inline bool is_model_of_type(const rage::joaat_t hash, const uint8_t type)
+	{
+		if (const auto model = get_model(hash); model && model->m_model_type == type)
+			return true;
+		return false;
+	}
+
 	inline GtaThread* find_script_thread(rage::joaat_t hash)
 	{
 		for (auto thread : *g_pointers->m_script_threads)

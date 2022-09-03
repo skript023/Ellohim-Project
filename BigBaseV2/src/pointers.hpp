@@ -44,6 +44,7 @@ namespace big
 		CutsceneManager **m_cutscene_mgr;
 		PresenceData** m_presence_data;
 		rage::atSingleton<rage::CTunables> *m_tuneables{};
+		HashTable<CBaseModelInfo*>* m_model_table{};
 
 		DWORD64 *m_add_owned_explosion_bypass_1;
 		DWORD64 *m_add_owned_explosion_bypass_2;
@@ -107,7 +108,7 @@ namespace big
 		functions::received_message_t m_received_message{};
 
 		functions::GetNetGamePlayer m_get_net_game_player{};
-		functions::m_get_network_event_data_t m_get_network_event_data{};
+		PVOID m_get_network_event_data;
 		
 		rage::datBitBuffer *m_bitbufferclass;
 		GameSetting* m_game_setting;

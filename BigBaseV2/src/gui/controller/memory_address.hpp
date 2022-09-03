@@ -152,7 +152,7 @@ namespace big
 		//-1445480509
 		//t.me//lowongancpnsbumn.com @festivalnyarikerja
 		//Heist Global
-		static constexpr inline uint32_t lester_cut = 262145 + 28289;
+		static constexpr inline uint32_t lester_cut = 262145 + 28779;
 		static constexpr inline uint32_t real_player_cut = 2715699 + 6568;
 
 		static constexpr inline uint32_t casino_cut_1 = 1966534 + 1497 + 736 + 92 + 1;

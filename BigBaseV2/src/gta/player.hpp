@@ -338,10 +338,20 @@ class CBaseModelInfo
 public:
 	char pad_0000[24]; //0x0000
 	uint32_t m_model_hash; //0x0018
-	char pad_001C[636]; //0x001C
+	char pad_001C[20]; //0x001C
+	rage::vector3 m_min_dimensions; //0x0030
+	char pad_003C[4]; //0x003C
+	rage::vector3 m_max_dimensions; //0x0040
+	char pad_004C[81]; //0x004C
+	uint8_t m_model_type; //0x009D
+	char pad_009E[506]; //0x009E
 	char m_vehicle_name[12]; //0x0298
 	char m_factory_name[12]; //0x02A4
-	char pad_02B0[716]; //0x02B0
+	char pad_02B0[144]; //0x02B0
+	uint32_t m_vehicle_type; //0x0340
+	uint32_t m_unk_vehicle_type; //0x0344
+	uint32_t m_diffuse_tint; //0x0348
+	char pad_034C[560]; //0x034C
 	uint32_t m_flag_1; //0x057C
 	uint32_t m_flag_2; //0x0580
 	uint32_t m_flag_3; //0x0584

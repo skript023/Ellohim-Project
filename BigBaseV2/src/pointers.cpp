@@ -441,7 +441,7 @@ namespace big
 
 		main_batch.add("Get Network Event Data", "53 43 52 49 50 54 5F 4E 45 54 57 4F 52 4B", [this](memory::handle ptr)
 		{
-			m_get_network_event_data = ptr.sub(0x38).as<decltype(m_get_network_event_data)>();//E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? CC FF 50 28
+			m_get_network_event_data = *ptr.sub(0x38).as<void**>();//E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? E9 ? ? ? ? CC FF 50 28
 		});
 
 		main_batch.add(xorstr("clone_create"), xorstr("48 8B C4 66 44 89 48"), [this](memory::handle ptr)
@@ -459,6 +459,10 @@ namespace big
 			m_write_player_gamer_data_node = ptr.as<PVOID>();
 		});
 
+		main_batch.add("Model Hash Table", "4C 03 05 ? ? ? ? EB 03", [this](memory::handle ptr)
+		{
+			m_model_table = ptr.add(3).rip().as<decltype(m_model_table)>();
+		});
 
 		main_batch.run(memory::module(nullptr));
 

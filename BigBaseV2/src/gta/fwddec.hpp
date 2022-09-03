@@ -62,6 +62,9 @@ namespace rage
 	}
 }
 
+template <typename T>
+class HashTable;
+
 class GtaThread;
 
 class CGameScriptId;
