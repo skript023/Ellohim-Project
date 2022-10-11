@@ -18,7 +18,7 @@ namespace big
         {
             "Unknown 0",
             "South America",
-            "North America",
+            "NA",
             "Russia",
             "China",
             "Europe",

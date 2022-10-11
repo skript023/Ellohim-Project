@@ -1,6 +1,7 @@
 #include "game_variable.h"
 #include "gta/Weapons.h"
 #include "gta/enums.hpp"
+#include "xostr.h"
 
 namespace big
 {
@@ -2728,7 +2729,7 @@ namespace big
         "NULL",
         "Classic Cornrows",
         "Palm Cornrows",
-        "Lightning Cornrows",
+        xorstr("Lightning Cornrows"),
         "Whipped Cornrows",
         "Zig Zag Cornrows",
         "Snail Cornrows",
@@ -2763,7 +2764,7 @@ namespace big
         "Mullet Dark Brown",
         "Classic Cornrows",
         "Palm Cornrows",
-        "Lightning Cornrows",
+        xorstr("Lightning Cornrows"),
         "Whipped Cornrows",
         "Zig Zag Cornrows",
         "Snail Cornrows",
@@ -6314,7 +6315,7 @@ namespace big
         "COMPONENT_MILITARYRIFLE_SIGHT_01" };
     const char* const game_variable::vehicle_hash_list[]{ "Adder", "Airbus", "Airtug", "Akula", "Akuma", "Alpha", "Alphaz1", "Ambulance", "Annihilator",
                                         "Annihilator2", "Apc", "Ardent", "Armytanker", "Armytrailer", "Armytrailer2", "Asbo", "Asea", "Asea2",
-                                        "Asterope", "Astron", "Autarch", "Avarus", "Avenger", "Avenger2", "Avisa", "Bagger", "Baletrailer", "Baller",
+                                        "Asterope", xorstr("Astron"), "Autarch", "Avarus", "Avenger", "Avenger2", "Avisa", "Bagger", "Baletrailer", "Baller",
                                         "Baller2", "Baller3", "Baller4", "Baller5", "Baller6", "Baller7", "Banshee", "Banshee2", "Barracks", "Barracks2",
                                         "Barracks3", "Barrage", "Bati", "Bati2", "Benson", "Besra", "Bestiagts", "Bf400", "Bfinjection", "Biff",
                                         "Bifta", "Bison", "Bison2", "Bison3", "Bjxl", "Blade", "Blazer", "Blazer2", "Blazer3", "Blazer4",
@@ -14693,8 +14694,8 @@ namespace big
     "142 Paleto Blvd","1 Strawberry Ave","1932 Grapeseed Ave","1920 Senora Way","2000 Great Ocean Highway","197 Route 68","870 Route 68 Approach","1200 Route 68","8754 Route 68",
     "1905 Davis Ave","1623 South Shambles St","4531 Dry Dock St","1337 Exceptionalists Way","Unit 76 Greenwich Parkway","Garage Innocence Blvd","634 Blvd Del Perro","0897 Mirror Park Blvd","Eclipse Towers, Apt 3",
     "Del Perro Heights, Apt 4","Richards Majestic, Apt 2","Tinsel Towers, Apt 42","4 Integrity Way, Apt 28","4 Hangman Ave","12 Sustancia Rd","4584 Procopio Dr","4401 Procopio Dr",
-    "0232 Paleto Blvd","140 Zancudo Ave","1893 Grapeseed Ave","3655 Wild Oats Drive","2044 North Conker Avenue","2868 Hillcrest Avenue","2862 Hillcrest Avenue","3677 Whispymound Drive","2117 Milton Road",
-    "2866 Hillcrest Avenue","2874 Hillcrest Avenue","2113 Mad Wayne Thunder Drive","2045 North Conker Avenue","Eclipse Towers, Penthouse Suite 1","Eclipse Towers, Penthouse Suite 2","Eclipse Towers, Penthouse Suite 3","Private Yacht",
+    "0232 Paleto Blvd","140 Zancudo Ave","1893 Grapeseed Ave","3655 Wild Oats Drive",xorstr("2044 North Conker Avenue"),"2868 Hillcrest Avenue","2862 Hillcrest Avenue","3677 Whispymound Drive","2117 Milton Road",
+    "2866 Hillcrest Avenue","2874 Hillcrest Avenue","2113 Mad Wayne Thunder Drive",xorstr("2045 North Conker Avenue"),"Eclipse Towers, Penthouse Suite 1","Eclipse Towers, Penthouse Suite 2","Eclipse Towers, Penthouse Suite 3","Private Yacht",
     "Lombank West","Maze Bank West","Arcadius Business Center","Maze Bank Tower","Rancho Clubhouse","Del Perro Beach Clubhouse","Pillbox Hill Clubhouse","Great Chaparral Clubhouse","Paleto Bay Clubhouse",
     "Sandy Shores Clubhouse","La Mesa Clubhouse","Downtown Vinewood Clubhouse","Hawick Clubhouse","Grapeseed Clubhouse","Paleto Bay Clubhouse","Vespucci Beach Clubhouse","Office Garage 1",
     "Office Garage 2","Office Garage 3","Office Garage 1","Office Garage 2","Office Garage 3","Office Garage 1","Office Garage 2","Office Garage 3","Office Garage 1","Office Garage 2","Infinite Loading" };

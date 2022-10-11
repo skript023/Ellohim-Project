@@ -2,7 +2,7 @@
 #include "common.hpp"
 #include "script.hpp"
 #include "natives.hpp"
-#include "gta_util.hpp"
+#include "gui/controller/xostr.h"
 
 namespace big
 {
@@ -15,7 +15,7 @@ namespace big
     class vehicles_hash
     {
     private:
-        static inline const char* const the_contract_update[15]{ "Buffalo4", "Granger2", "Iwagen", "Patriot3", "Astron", "Baller7", "Champion", "Cinquemila", "Comet7", "Deity", "Ignus", "Jubilee", "Reever", "Shinobi", "Zeno" };
+        static inline const char* const the_contract_update[15]{ "Buffalo4", "Granger2", "Iwagen", "Patriot3", xorstr("Astron"), "Baller7", "Champion", "Cinquemila", "Comet7", "Deity", "Ignus", "Jubilee", "Reever", "Shinobi", "Zeno"};
         static inline const char* const boat[20]{ "DINGHY","DINGHY2","DINGHY3","DINGHY4","JETMAX","MARQUIS","SEASHARK","SEASHARK2","SEASHARK3","SPEEDER","SPEEDER2","SQUALO","SUBMERSIBLE","SUBMERSIBLE2","SUNTRAP","TORO","TORO2","TROPIC","TROPIC2","TUG" };
         static inline const char* const commericals[17]{ "BENSON","BIFF","HAULER", "HAULER2","MULE","MULE2","MULE3","MULE4","PACKER","PHANTOM","PHANTOM2", "PHANTOM3","POUNDER","POUNDER2","STOCKADE","STOCKADE3","TERBYTE" };
         static inline const char* const compact[9]{ "BLISTA","BRIOSO","DILETTANTE","DILETTANTE2","ISSI2","ISSI3","PANTO","PRAIRIE","RHAPSODY" };

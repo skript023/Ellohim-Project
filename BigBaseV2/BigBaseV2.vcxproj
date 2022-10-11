@@ -26,21 +26,21 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -281,7 +281,7 @@
     <ClCompile Include="src\common.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\detour_hook.cpp" />
+    <ClCompile Include="src\detour_hook.cc" />
     <ClCompile Include="src\features.cpp" />
     <ClCompile Include="src\fiber_pool.cpp" />
     <ClCompile Include="src\fonts\rubik.cpp" />
@@ -332,7 +332,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\memory\module.cpp" />
     <ClCompile Include="src\memory\pattern.cpp" />
-    <ClCompile Include="src\memory\pattern_batch.cpp" />
+    <ClCompile Include="src\memory\pattern_batch.cc" />
     <ClCompile Include="src\memory\range.cpp" />
     <ClCompile Include="src\pointers.cpp" />
     <ClCompile Include="src\renderer.cpp" />

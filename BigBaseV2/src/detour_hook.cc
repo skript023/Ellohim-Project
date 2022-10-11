@@ -13,7 +13,7 @@ namespace big
 	{
 		fix_hook_address();
 
-		if (auto status = MH_CreateHook(m_target, m_detour, &m_original); status == MH_OK)
+		if (auto status = MH_CreateHook(m_target, m_detour, &m_original); status == MH_BERHASIL)
 		{
 			LOG(INFO_TO_FILE) << "Created hook '" << m_name << "'.";
 		}
@@ -35,7 +35,7 @@ namespace big
 
 	void detour_hook::enable()
 	{
-		if (auto status = MH_EnableHook(m_target); status == MH_OK)
+		if (auto status = MH_EnableHook(m_target); status == MH_BERHASIL)
 		{
 			LOG(INFO_TO_FILE) << "Enabled hook '" << m_name << "'.";
 		}
@@ -47,7 +47,7 @@ namespace big
 
 	void detour_hook::disable()
 	{
-		if (auto status = MH_DisableHook(m_target); status == MH_OK)
+		if (auto status = MH_DisableHook(m_target); status == MH_BERHASIL)
 		{
 			LOG(INFO_TO_FILE) << "Disabled hook '" << m_name << "'.";
 		}
