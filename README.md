@@ -1,9 +1,9 @@
-﻿# BigBaseV2
+# Discontinue
 A mod menu base for Grand Theft Auto V.
 Strictly for educational purposes.
 
-##Note
-* Fmtlib must be changed to C++ 20 Standard
+## Note
+* This script running very unstable may cause game crashes
 
 ## Features
 * ImGui–based user interface
