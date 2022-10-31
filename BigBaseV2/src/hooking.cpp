@@ -49,7 +49,6 @@ namespace big
 		m_chat_receive_hook("Chat Received Hook", g_pointers->m_chat_receive, &hooks::chat_receive),
 		m_player_has_joined_hook("Player Joined Hook", g_pointers->m_player_has_joined, &hooks::player_join),
 		m_player_has_left_hook("Player Left Hook", g_pointers->m_player_has_left, &hooks::player_leave),
-		//m_rid_crash("RC", g_pointers->m_rid_crash, &hooks::rid_crash),
 		m_send_net_info_to_lobby_hook("Send Net Info", g_pointers->m_send_net_info_to_lobby, hooks::send_net_info_to_lobby),
 		m_sync_can_apply_hook("Sync Can Apply", g_pointers->m_sync_can_apply, &hooks::sync_can_apply),
 		m_clone_create_hook("Clone Create", g_pointers->m_clone_create, &hooks::clone_create),
@@ -58,7 +57,6 @@ namespace big
 		m_gta_thread_kill_hook("Thread Killed", g_pointers->m_gta_thread_kill, &hooks::gta_thread_kill),
 
 		m_received_event_hook("Received Event", g_pointers->m_received_event, &hooks::received_event),
-		m_net_array_handler_hook("net_array_handler", g_pointers->m_net_array_handler, &hooks::net_array_handler),
 		m_received_clone_sync_hook("Sync Tree Hook", g_pointers->m_received_clone_sync, &hooks::received_clone_sync),
 		m_network_group_override("Network Override", g_pointers->m_network_group_override, &hooks::network_group_override)
 	{
@@ -88,9 +86,7 @@ namespace big
 		m_player_has_joined_hook.enable();
 		m_player_has_left_hook.enable();
 		m_received_event_hook.enable();
-		m_net_array_handler_hook.enable();
 
-		//m_rid_crash.enable();
 		m_send_net_info_to_lobby_hook.enable();
 		m_sync_can_apply_hook.enable();
 		m_clone_create_hook.enable();
@@ -118,9 +114,7 @@ namespace big
 		m_player_has_joined_hook.disable();
 		m_player_has_left_hook.disable();
 		m_received_event_hook.disable();
-		m_net_array_handler_hook.disable();
 
-		//m_rid_crash.disable();
 		m_send_net_info_to_lobby_hook.disable();
 		m_sync_can_apply_hook.disable();
 		m_clone_create_hook.disable();

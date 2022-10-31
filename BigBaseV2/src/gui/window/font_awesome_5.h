@@ -1698,7 +1698,7 @@
 #define ICON_FA_USER_ALIEN "\xef\xa5\x8a"	// U+f94a
 #define ICON_FA_USER_ALT "\xef\x90\x86"	// U+f406
 #define ICON_FA_USER_ALT_SLASH "\xef\x93\xba"	// U+f4fa
-//#define ICON_FA_USER_ASTRONAUT "\xef\x93\xbb"	// U+f4fb
+#define ICON_FA_USER_ASTRONAUT "\xef\x93\xbb"	// U+f4fb
 #define ICON_FA_USER_CHART "\xef\x9a\xa3"	// U+f6a3
 #define ICON_FA_USER_CHECK "\xef\x93\xbc"	// U+f4fc
 #define ICON_FA_USER_CIRCLE "\xef\x8a\xbd"	// U+f2bd

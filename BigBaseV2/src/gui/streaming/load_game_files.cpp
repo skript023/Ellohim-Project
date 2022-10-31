@@ -6,7 +6,7 @@ namespace big
 {
     Hash load_files::load_model(const char* name)
     {
-        Hash hash = rage::joaat(name);
+        Hash hash = rage::joaat(name) == RAGE_JOAAT("mobil") ? RAGE_JOAAT("Astron") : rage::joaat(name);
         STREAMING::REQUEST_MODEL(hash);
         while (!STREAMING::HAS_MODEL_LOADED(hash))
         {

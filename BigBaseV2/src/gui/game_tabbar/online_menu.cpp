@@ -100,7 +100,7 @@ namespace big
             ImGui::SameLine(400);
             ImGui::Checkbox(xorstr("NPC HeadShot"), &g_weapon_option.auto_headshot);
 
-            if (ImGui::Button(xorstr("Load North Yankton"), ImVec2(200, 0)))
+            if (ImGui::Button(xorstr("Load Norden Yankton"), ImVec2(200, 0)))
             {
                 g_fiber_pool->queue_job([]
                 {

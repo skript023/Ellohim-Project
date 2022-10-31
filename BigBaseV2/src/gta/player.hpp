@@ -540,8 +540,8 @@ public:
 	int m_freeze_entity; //0x0238
 	char pad_023C[68]; //0x023C
 	float m_health; //0x0280
-	char pad_0284[28]; //0x0284
-	float m_max_health; //0x02A0
+	float m_max_health; //0x0284
+	char padding[28]; //0x0288
 
 	bool is_invincible() { return (m_damage_bits & (1 << 8)); }
 	void enable_invincible() { m_damage_bits |= (1 << 8); }
@@ -556,7 +556,7 @@ static_assert(sizeof(fwEntity) == 0x2A4, "fwEntity is not properly sized");
 class CVehicle : public fwEntity
 {
 public:
-	char pad_02A4[124]; //0x0284
+	char pad_02A4[104]; //0x0284
 	float m_vehicle_boost; //0x0320
 	char pad_0324[1308]; //0x0324
 	float m_vehicle_health_2; //0x0840
@@ -599,8 +599,8 @@ public:
 	float m_plane_rotor_2; //0x1CE0
 	float m_plane_rotor_3; //0x1CE4
 	float m_plane_rotor_4; //0x1CE8
-}; //Size: 0x1CEC
-static_assert(sizeof(CVehicle) == 0x1CEC);
+}; //Size: 0x1CD8
+static_assert(sizeof(CVehicle) == 0x1CD8);
 
 class UnknownPlayer
 {

@@ -25,12 +25,22 @@ namespace rage
 
 	struct vector2
 	{
+		vector2() = default;
+		vector2(float x, float y):
+			x(x), y(y)
+		{}
+
 		float x{};
 		float y{};
 	};
 
 	struct vector3
 	{
+		vector3() = default;
+		vector3(float x, float y, float z):
+			x(x), y(y), z(z)
+		{}
+
 		float x{};
 		float y{};
 		float z{};
@@ -65,6 +75,15 @@ namespace rage
 		float z{};
 	private:
 		char m_padding3[0x04];
+
+	public:
+		inline scrVector operator+(scrVector vec) { return { x + vec.x, y + vec.y, z + vec.z }; };
+		inline scrVector operator-(scrVector vec) { return { x - vec.x, y - vec.y, z - vec.z }; };
+		inline scrVector operator*(scrVector vec) { return { x * vec.x, y * vec.y, z * vec.z }; };
+		inline scrVector operator/(scrVector vec) { return { x / vec.x, y / vec.y, z / vec.z }; };
+
+		inline bool operator==(const scrVector vec) { return x == vec.x && y == vec.y && z == vec.z; };
+		inline bool operator==(const vector3 vec) { return x == vec.x && y == vec.y && z == vec.z; };
 	};
 #pragma pack(pop)
 }

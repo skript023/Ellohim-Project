@@ -142,28 +142,28 @@ public:
 	void* m_attackers; //0x02A8
 	char pad_02B0[112]; //0x02B0
 	rage::vector3 m_velocity; //0x0320
-	char pad_032C[2564]; //0x032C
-	CVehicle* m_last_vehicle; //0x0D30
-	char pad_0D38[282]; //0x0D38
-	bool m_is_in_vehicle; //0x0E52
-	char pad_0E53[613]; //0x0E53
-	uint8_t m_ragdoll; //0x10B8
-	char pad_10B9[3]; //0x10B9
-	int8_t m_decal_index; //0x10BC
-	int8_t m_decal_info; //0x10BD
-	char pad_10BE[2]; //0x10BE
-	UnknownPlayer* m_unk_player; //0x10C0
-	CPlayerInfo* m_playerinfo; //0x10C8
-	CPedInventory* m_weapon_inventory; //0x10D0
-	CPedWeaponManager* m_weapon_mgr; //0x10D8
-	char pad_10E0[892]; //0x10E0
-	uint8_t seatbelt; //0x145C
-	char pad_145D[16]; //0x145D
-	int m_ped_task; //ox146D
-	char pad_1471[191]; //0x1471
+	char pad_032C[2532]; //0x032C
+	CVehicle* m_last_vehicle; //0x0D10
+	char pad_0D38[282]; //0x0D18
+	bool m_is_in_vehicle; //0x0E32
+	char pad_0E33[613]; //0x0E33
+	uint8_t m_ragdoll; //0x1098
+	char pad_1099[3]; //0x1099
+	int8_t m_decal_index; //0x109C
+	int8_t m_decal_info; //0x109D
+	char pad_109E[2]; //0x109E
+	UnknownPlayer* m_unk_player; //0x10A0
+	CPlayerInfo* m_playerinfo; //0x10A8
+	CPedInventory* m_weapon_inventory; //0x10B0
+	CPedWeaponManager* m_weapon_mgr; //0x10B8
+	char pad_10C0[892]; //0x10C0
+	uint8_t seatbelt; //0x143C
+	char pad_143D[46]; //0x143D
+	uint8_t m_ped_task; //ox146B
+	char pad_146C[160]; //0x146C
 	float m_armor; //0x1530
 };	//Size: 0x14E4
-static_assert(sizeof(CPed) == 0x1534, "CPed is not properly sized");
+static_assert(sizeof(CPed) == 0x1510, "CPed is not properly sized");
 #pragma pack(pop)
 
 class CPedFactory

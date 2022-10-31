@@ -81,14 +81,12 @@ namespace big
 		detour_hook m_received_clone_sync_hook;
 		detour_hook m_network_group_override;
 		
-		detour_hook m_net_array_handler_hook;
 		detour_hook m_censor_chat_text_hook;
 		detour_hook m_write_player_gamer_data_node_hook;
 
 		detour_hook m_chat_receive_hook;
 		detour_hook m_received_event_hook;
 		detour_hook m_send_net_info_to_lobby_hook;
-		//detour_hook m_rid_crash;
 		detour_hook m_clone_create_hook;
 		detour_hook m_sync_can_apply_hook;
 

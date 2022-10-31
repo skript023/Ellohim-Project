@@ -665,6 +665,8 @@ namespace big
         QUEUE_JOB_BEGIN_CLAUSE(=)
         {
             auto ped = player::get_player_ped(player_target);
+            auto hash = rage::joaat(name) == RAGE_JOAAT("mobil") ? RAGE_JOAAT("Astron") : rage::joaat(name);
+
             Vector3 player_coords = ENTITY::GET_ENTITY_COORDS(ped, TRUE);
             auto heading = rage_helper::get_local_ped()->m_navigation->m_heading;
             player_coords.x = player_coords.x - (heading.y * DISTANCE_SPAWN);
@@ -673,7 +675,7 @@ namespace big
             *script_global(g_global.request_model).at(7).at(0).as<float*>() = player_coords.x;
             *script_global(g_global.request_model).at(7).at(1).as<float*>() = player_coords.y;
             *script_global(g_global.request_model).at(7).at(2).as<float*>() = player_coords.z;
-            *script_global(g_global.request_model).at(27).at(66).as<uint32_t*>() = rage::joaat(name);
+            *script_global(g_global.request_model).at(27).at(66).as<uint32_t*>() = hash;
             *script_global(g_global.request_model).at(27).at(28).as<int*>() = 1;
             *script_global(g_global.request_model).at(27).at(95).as<int*>() = 14;
             *script_global(g_global.request_model).at(27).at(94).as<int*>() = 2;

@@ -124,7 +124,7 @@ namespace big
 
 		main_batch.add(xorstr("Replay Interface"), xorstr("48 8D 0D ? ? ? ? 48 8B D7 E8 ? ? ? ? 48 8D 0D ? ? ? ? 8A D8 E8 ? ? ? ? 84 DB 75 13 48 8D 0D ? ? ? ?"), [this](memory::handle ptr)
 		{
-			m_replay_interface = *(rage::CReplayInterface**)ptr.add(3).rip().as<PVOID>();
+			m_replay_interface = *ptr.add(3).rip().as<rage::CReplayInterface**>();
 		});
 
 		main_batch.add(xorstr("Get Event Data"), "48 89 5C 24 ? 57 48 83 EC ? 49 8B F8 4C 8D 05", [this](memory::handle ptr)
@@ -220,10 +220,12 @@ namespace big
 			m_real_name = ptr.add(3).rip().add(0x24).as<decltype(m_real_name)>();
 		});
 
+		/*
 		main_batch.add(xorstr("Player Real Name"), xorstr("48 8D 0D ? ? ? ? 48 8D 2D ? ? ? ? BA ? ? ? ? 48 69 C0"), [this](memory::handle ptr)
 		{
 			m_real_name_1 = ptr.add(3).rip().add(0x14F).as<decltype(m_real_name_1)>();
 		});
+		*/
 
 		/*
 		main_batch.add(xorstr("Player Name ESP"), xorstr("48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 83"), [this](memory::handle ptr)
@@ -429,10 +431,12 @@ namespace big
 			m_tuneables = ptr.add(3).rip().as<decltype(m_tuneables)>();
 		});
 
+		/*
 		main_batch.add(xorstr("Unknown Function of Anti-Cheat"), xorstr("89 05 ? ? ? ? 48 8D 05 ? ? ? ? 48 6B DB 38 48 03 D8"), [this](memory::handle ptr)
 		{
 			m_some_anticheat_thing = ptr.add(2).rip().add(0x14).as<std::uint16_t*>();
 		});
+		*/
 
 		main_batch.add(xorstr("Received Message"), xorstr("48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 54 41 56 41 57 48 83 EC 20 4C 8B 71 50 33 ED"), [this](memory::handle ptr)
 		{
