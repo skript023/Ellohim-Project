@@ -4,6 +4,8 @@ Strictly for educational purposes.
 
 ## Note
 * This script running very unstable may cause game crashes
+* Most of script in this project has been detected by anti-cheat
+* I've create a new undetected one privately using different method
 
 ## Features
 * ImGui–based user interface
