@@ -1,6 +1,15 @@
-# Discontinue
-A mod menu base for Grand Theft Auto V.
-Strictly for educational purposes.
+<h1 align="center">Ellohim Project</h1>
+<p align="center">
+  <a href="https://github.com/skript023/Ellohim-Project/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/skript023/Ellohim-Project.svg?style=flat-square"/>
+   </a>
+  <a href="https://github.com/skript023/Ellohim-Project/actions">
+      <img src="https://img.shields.io/github/workflow/status/skript023/Ellohim-Project/CI/main?style=flat-square"/>
+   </a>
+  <br>
+  A simple recovery mod menu for Grand Theft Auto Online.
+  Strictly for educational purposes.
+</p>
 
 ## Note
 * This script running very unstable may cause game crashes
