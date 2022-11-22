@@ -26,7 +26,7 @@
 * scrProgram–based native hook
 
 ## Building
-To build BigBaseV2 you need:
+To build Ellohim Project you need:
 * Visual Studio 2019
 * [Premake 5.0](https://premake.github.io/download.html) in your PATH
 
