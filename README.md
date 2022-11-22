@@ -7,7 +7,7 @@
       <img src="https://img.shields.io/github/workflow/status/skript023/Ellohim-Project/CI/main?style=flat-square"/>
    </a>
   <br>
-  A simple recovery mod menu for Grand Theft Auto Online.
+  A featured mod menu for Grand Theft Auto Online.
   Strictly for educational purposes.
 </p>
 
